@@ -1,0 +1,1290 @@
+type category {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type career_work {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type community {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type environment {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type family_friends {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type fun_relaxation {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type growth_learning {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type health_fitness {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type money_finances {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type partner_love {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type spirituality {
+  username: String
+  score: Float
+  notes: String
+  action_plan: String
+  id: ID!
+  created_at: DateTime
+}
+
+type overall_score {
+  username: String
+  overall_score: Float
+  id: ID!
+  created_at: DateTime
+
+  # spirituality_score: Float
+  # partner_love_score: Float
+  # overall_score: Float
+  # money_finances_score: Float
+  # id: ID!
+  # health_fitness_score: Float
+  # growth_learning_score: Float
+  # fun_relaxation_score: Float
+  # family_friends_score: Float
+  # environment_score: Float
+  # created_at: DateTime
+  # community_score: Float
+  # career_work_score: Float
+}
+
+
+
+"""
+The following queries are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Query {
+  " Queries for type 'career_work' "
+
+
+# index.graphql
+
+########### Query By User ############
+
+careerWorkListByUser(username: String!): [career_work]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "career_work" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+communityListByUser(username: String!): [community]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "community" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+environmentListByUser(username: String!): [environment]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "environment" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+familyFriendsListByUser(username: String!): [family_friends]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "family_friends" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+funRelaxationListByUser(username: String!): [fun_relaxation]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "fun_relaxation" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+growthLearningListByUser(username: String!): [growth_learning]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "growth_learning" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+healthFitnessListByUser(username: String!): [health_fitness]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "health_fitness" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+moneyFinancesListByUser(username: String!): [money_finances]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "money_finances" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+partnerLoveListByUser(username: String!): [partner_love]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "partner_love" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+spiritualityListByUser(username: String!): [spirituality]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "spirituality" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+overallScoreListByUser(username: String!): [overall_score]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "overall_score" 
+      WHERE "username" = $1 
+    """
+    configuration: "postgresql_config"
+  )
+
+
+########### Query by Latest User Input ##########
+careerWorkListByUserLatest(username: String!): [career_work]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "career_work" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+communityListByUserLatest(username: String!): [community]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "community" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+environmentListByUserLatest(username: String!): [environment]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "environment" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+familyFriendsListByUserLatest(username: String!): [family_friends]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "family_friends" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+funRelaxationListByUserLatest(username: String!): [fun_relaxation]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "fun_relaxation" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+growthLearningListByUserLatest(username: String!): [growth_learning]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "growth_learning" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+healthFitnessListByUserLatest(username: String!): [health_fitness]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "health_fitness" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+moneyFinancesListByUserLatest(username: String!): [money_finances]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "money_finances" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+partnerLoveListByUserLatest(username: String!): [partner_love]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "partner_love" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+spiritualityListByUserLatest(username: String!): [spirituality]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+      SELECT * 
+      FROM "spirituality" 
+      WHERE "username" = $1 
+      ORDER BY "created_at" DESC 
+      LIMIT 1
+    """
+    configuration: "postgresql_config"
+  )
+
+
+
+
+
+
+
+
+  career_work(id: ID!): career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      configuration: "postgresql_config"
+    )
+  career_workList: [career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      configuration: "postgresql_config"
+    )
+  career_workPaginatedList(first: Int, after: Int): [career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "career_work" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'community' "
+  community(id: ID!): community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      configuration: "postgresql_config"
+    )
+  communityList: [community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      configuration: "postgresql_config"
+    )
+
+
+  # communityListByUser(username: String!): [community]
+  #   @dbquery(
+  #     type: "postgresql"
+  #     schema: "public"
+  #     query: """
+  #     select * from "community" where "username" = $1
+  #     """
+  #     configuration: "postgresql_config"
+  #   )
+
+    communityListById(id: ID!): [community]
+      @dbquery(
+        type: "postgresql"
+        schema: "public"
+        query: """
+        select * from "community" where "id" = $1
+        """
+        configuration: "postgresql_config"
+    )
+
+
+
+  categoryListByUser(username: String!, tableName: String!): [category]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * 
+        FROM "tableName" 
+        WHERE "username" = $1  
+      """
+      configuration: "postgresql_config"
+    )
+
+
+  categoryListByUserLatest(username: String!, tableName: String!): [category]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * 
+        FROM "tableName" 
+        WHERE "username" = $1 
+        ORDER BY "created_at" DESC 
+        LIMIT 1
+      """
+      configuration: "postgresql_config"
+    )
+
+
+
+
+  communityListByUserDateRange(username: String!, startDate: String!, endDate: String!): [community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT * 
+        FROM "community" 
+        WHERE "username" = $1 
+          AND "created_at" >= $2 
+          AND "created_at" <= $3
+      """
+      configuration: "postgresql_config"
+    )
+
+
+
+  communityPaginatedList(first: Int, after: Int): [community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "community" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'environment' "
+  environment(id: ID!): environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      configuration: "postgresql_config"
+    )
+  environmentList: [environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      configuration: "postgresql_config"
+    )
+  environmentPaginatedList(first: Int, after: Int): [environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "environment" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'family_friends' "
+  family_friends(id: ID!): family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      configuration: "postgresql_config"
+    )
+  family_friendsList: [family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      configuration: "postgresql_config"
+    )
+  family_friendsPaginatedList(first: Int, after: Int): [family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "family_friends" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'fun_relaxation' "
+  fun_relaxation(id: ID!): fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      configuration: "postgresql_config"
+    )
+  fun_relaxationList: [fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      configuration: "postgresql_config"
+    )
+  fun_relaxationPaginatedList(first: Int, after: Int): [fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "fun_relaxation" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'growth_learning' "
+  growth_learning(id: ID!): growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      configuration: "postgresql_config"
+    )
+  growth_learningList: [growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      configuration: "postgresql_config"
+    )
+  growth_learningPaginatedList(first: Int, after: Int): [growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "growth_learning" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'health_fitness' "
+  health_fitness(id: ID!): health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      configuration: "postgresql_config"
+    )
+  health_fitnessList: [health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      configuration: "postgresql_config"
+    )
+  health_fitnessPaginatedList(first: Int, after: Int): [health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "health_fitness" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'money_finances' "
+  money_finances(id: ID!): money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      configuration: "postgresql_config"
+    )
+  money_financesList: [money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      configuration: "postgresql_config"
+    )
+  money_financesPaginatedList(first: Int, after: Int): [money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "money_finances" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'overall_score' "
+  overall_score(id: ID!): overall_score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      configuration: "postgresql_config"
+    )
+  overall_scoreList: [overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      configuration: "postgresql_config"
+    )
+  overall_scorePaginatedList(first: Int, after: Int): [overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "career_work_score", "community_score", "created_at", "environment_score", "family_friends_score", "fun_relaxation_score", "growth_learning_score", "health_fitness_score", "id", "money_finances_score", "overall_score", "partner_love_score", "spirituality_score", "username" FROM "overall_score" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'partner_love' "
+  partner_love(id: ID!): partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      configuration: "postgresql_config"
+    )
+  partner_loveList: [partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      configuration: "postgresql_config"
+    )
+  partner_lovePaginatedList(first: Int, after: Int): [partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "environment_score", "id", "username" FROM "partner_love" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'spirituality' "
+  spirituality(id: ID!): spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      configuration: "postgresql_config"
+    )
+  spiritualityList: [spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      configuration: "postgresql_config"
+    )
+  spiritualityPaginatedList(first: Int, after: Int): [spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "score", "username" FROM "spirituality" ORDER BY "id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+}
+
+"""
+The following mutations are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Mutation {
+  " Mutations for type 'career_work' "
+  deleteCareer_work(id: ID!): career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertCareer_work(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateCareer_work(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "career_work" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'community' "
+  deleteCommunity(id: ID!): community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertCommunity(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateCommunity(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'environment' "
+  deleteEnvironment(id: ID!): environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertEnvironment(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateEnvironment(
+    id: ID!
+    created_at: DateTime    
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "environment" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'family_friends' "
+  deleteFamily_friends(id: ID!): family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertFamily_friends(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateFamily_friends(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "family_friends" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'fun_relaxation' "
+  deleteFun_relaxation(id: ID!): fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertFun_relaxation(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateFun_relaxation(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+   action_plan: String  username: String
+  ): fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "fun_relaxation" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'growth_learning' "
+  deleteGrowth_learning(id: ID!): growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertGrowth_learning(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateGrowth_learning(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "growth_learning" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'health_fitness' "
+  deleteHealth_fitness(id: ID!): health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertHealth_fitness(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateHealth_fitness(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "health_fitness" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'money_finances' "
+  deleteMoney_finances(id: ID!): money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertMoney_finances(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateMoney_finances(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  username: String
+  ): money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "money_finances" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'overall_score' "
+  deleteOverall_score(id: ID!): overall_score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertOverall_score(
+    username: String
+    overall_score: Float
+    created_at: DateTime
+    # spirituality_id: ID!
+    # community_id: ID!
+    # environment_id: ID!
+    # career_work_id: ID!
+    # fun_relaxation_id: ID!
+    # money_finances_id: ID!
+    # partner_love_id: ID!
+    # health_fitness_id: ID!
+    # family_friends_id: ID!
+    # growth_learning_id: ID!
+  ): overall_score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateOverall_score(
+    id: ID!
+    username: String
+    overall_score: Float
+    created_at: DateTime
+    # career_work_id: ID!
+    # community_id: ID!
+    # environment_id: ID!
+    # family_friends_id: ID!
+    # fun_relaxation_id: ID!
+    # growth_learning_id: ID!
+    # health_fitness_id: ID!
+    # money_finances_id: ID
+    # partner_love_id: ID!
+    # spirituality_id: ID!
+  ): overall_score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "overall_score" SET
+        "career_work_id" = COALESCE($2, "career_work_id"),
+        "community_id" = COALESCE($3, "community_id"),
+        "created_at" = COALESCE($4, "created_at"),
+        "environment_id" = COALESCE($5, "environment_id"),
+        "family_friends_id" = COALESCE($6, "family_friends_id"),
+        "fun_relaxation_id" = COALESCE($7, "fun_relaxation_id"),
+        "growth_learning_id" = COALESCE($8, "growth_learning_id"),
+        "health_fitness_id" = COALESCE($9, "health_fitness_id"),
+        "money_finances_id" = COALESCE($11, "money_finances_id"),
+        "overall_id" = COALESCE($12, "overall_id"),
+        "partner_love_id" = COALESCE($13, "partner_love_id"),
+        "spirituality_id" = COALESCE($14, "spirituality_id"),
+        "username" = COALESCE($15, "username")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'partner_love' "
+  deletePartner_love(id: ID!): partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertPartner_love(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+      updatePartner_love(
+      id: ID!
+      created_at: DateTime
+      score: Float
+      notes: String
+      action_plan: String
+      username: String
+    ): partner_love
+      @dbquery(
+        type: "postgresql"
+        schema: "public"
+        query: """
+        UPDATE "partner_love" SET
+          "created_at" = COALESCE($2, "created_at"),
+          "score" = COALESCE($4, "score"),
+          "username" = COALESCE($5, "username"),
+          "notes" = COALESCE($6, "notes"),
+          "action_plan" = COALESCE($7, "action_plan")
+        WHERE
+          "id" = $1
+        RETURNING *
+        """
+        configuration: "postgresql_config"
+      )
+
+  " Mutations for type 'spirituality' "
+  deleteSpirituality(id: ID!): spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertSpirituality(
+    username: String
+    score: Float
+    notes: String
+    action_plan: String  
+    created_at: DateTime
+  ): spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateSpirituality(
+    id: ID!
+    created_at: DateTime
+    score: Float
+    notes: String
+    action_plan: String  
+    username: String
+  ): spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "spirituality" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "score" = COALESCE($4, "score"),
+        "username" = COALESCE($5, "username")
+        "notes" = COALESCE($6, "notes")
+        "action_plan" = COALESCE($7, "action_plan")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+}
