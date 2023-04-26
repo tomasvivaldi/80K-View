@@ -1,15 +1,19 @@
-import { Button } from '@/button/Button';
-import { FormElement } from '@/form/FormElement';
-import { FormElementBox } from '@/form/FormElementBox';
-import { Label } from '@/form/Label';
-import { useSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
-import { queries } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
+import { queries } from 'graphql/queries';
+import { useSession } from 'next-auth/react';
+import React from 'react';
 
+import { FormElement } from '@/form/FormElement';
+import { Label } from '@/form/Label';
 
 interface PrepopulatedFormProps {
   category: string;
+}
+
+type CategoryName = keyof typeof categoryQueries;
+
+function isValidCategoryName(name: string): name is CategoryName {
+  return categoryQueries.hasOwnProperty(name);
 }
 
 const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ category }) => {
@@ -34,73 +38,87 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ category }) => {
       group.toUpperCase().replace('-', '').replace('_', '')
     );
   }
-  
-  if (!category || !categoryQueries[category]) {
+
+  if (!category || !isValidCategoryName(category)) {
     return <p>Invalid category.</p>;
   }
-  
-  const { loading, data } = useQuery<Record<string, any>>(categoryQueries[category], {
-    variables: { username: session?.user?.name },
-  });
-  
+
+  const { loading, data } = useQuery<Record<string, any>>(
+    categoryQueries[category],
+    {
+      variables: { username: session?.user?.name },
+    }
+  );
+
   const categoryData = data && data[`${toCamelCase(category)}ListByUserLatest`];
 
   if (loading) {
     return (
-    <div className="rounded-md border-gray-200 bg-gray-300 px-4 py-5 w-full">
-    <div className="text-2xl font-semibold text-gray-800/80 text-center w-full">
-      <p className='text center m-auto h-full w-fit'>Loading Data...</p>
-    </div>
-    </div>
+      <div className="w-full rounded-md border-gray-200 bg-gray-300 px-4 py-5">
+        <div className="w-full text-center text-2xl font-semibold text-gray-800/80">
+          <p className="text center m-auto h-full w-fit">Loading Data...</p>
+        </div>
+      </div>
     );
   }
 
-  return(
-  <div className="rounded-md border-gray-200 bg-white px-4 py-5 w-full">
-    <div className="text-2xl font-semibold text-gray-800 text-center w-full">Last Month</div>
-    <form className="flex flex-col gap-0 lg:gap-8">
-      <div className='flex flex-col lg:flex-row justify-around gap-0 lg:gap-8'>
-        <div className='flex flex-col items-center gap-2 lg:gap-8'>
-            <Label htmlFor="comment" colSpanSize="lg:col-start-1 lg:col-span-2 lg:row-start-1">
+  return (
+    <div className="w-full rounded-md border-gray-200 bg-white px-4 py-5">
+      <div className="w-full text-center text-2xl font-semibold text-gray-800">
+        Last Month
+      </div>
+      <form className="flex flex-col gap-0 lg:gap-8">
+        <div className="flex flex-col justify-around gap-0 lg:flex-row lg:gap-8">
+          <div className="flex flex-col items-center gap-2 lg:gap-8">
+            <Label
+              htmlFor="comment"
+              colSpanSize="lg:col-start-1 lg:col-span-2 lg:row-start-1"
+            >
               Score:
             </Label>
             <input
-                  type="text"
-                  id="score"
-                  value={categoryData[0] && categoryData[0]?.score}
-                  disabled
-                  className="text-center w-24 h-24 text-5xl bg-blue-700 text-white rounded-full hide-arrows lg:row-start-2"
-                />
+              type="text"
+              id="score"
+              value={categoryData[0] && categoryData[0]?.score}
+              disabled
+              className="hide-arrows h-24 w-24 rounded-full bg-blue-700 text-center text-5xl text-white lg:row-start-2"
+            />
           </div>
-        <div className='flex flex-col w-full gap-2 lg:gap-4'>
-          <Label htmlFor="comment" colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1">
-            Notes:
-          </Label>
-          <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
-            <textarea 
-                id="textarea" 
+          <div className="flex w-full flex-col gap-2 lg:gap-4">
+            <Label
+              htmlFor="comment"
+              colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1"
+            >
+              Notes:
+            </Label>
+            <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
+              <textarea
+                id="textarea"
                 value={categoryData[0] && categoryData[0]?.notes}
-
                 disabled
-                rows={5} />
-          </FormElement>
+                rows={5}
+              />
+            </FormElement>
+          </div>
+          <div className="flex w-full flex-col gap-2 lg:gap-4">
+            <Label
+              htmlFor="comment"
+              colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-1"
+            >
+              Action Plan:
+            </Label>
+            <FormElement colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-2">
+              <textarea
+                id="textarea"
+                value={categoryData[0] && categoryData[0]?.action_plan}
+                disabled
+                rows={5}
+              />
+            </FormElement>
+          </div>
         </div>
-        <div className='flex flex-col w-full gap-2 lg:gap-4'>
-          <Label htmlFor="comment" colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-1">
-            Action Plan:
-          </Label>
-          <FormElement colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-2">
-            <textarea 
-            id="textarea"
-            value={categoryData[0] && categoryData[0]?.action_plan}
-
-            disabled 
-            rows={5} />
-          </FormElement>
-        </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
   );
 };
 

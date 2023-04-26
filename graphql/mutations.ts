@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const ADD_CAREER_WORK_INFO = gql`
   mutation AddCareerWorkInfo(
@@ -27,8 +27,8 @@ export const ADD_COMMUNITY_INFO = gql`
   mutation MyMutation(
     $username: String!
     $score: Float!
-    $notes:  String!
-    $action_plan:  String!
+    $notes: String!
+    $action_plan: String!
     $created_at: DateTime!
   ) {
     insertCommunity(
@@ -44,7 +44,7 @@ export const ADD_COMMUNITY_INFO = gql`
       action_plan
     }
   }
-`
+`;
 
 export const ADD_ENVIRONMENT_INFO = gql`
   mutation AddEnvironmentInfo(
@@ -230,8 +230,6 @@ export const ADD_SPIRITUALITY_INFO = gql`
   }
 `;
 
-
-
 export const ADD_OVERALL_SCORE = gql`
   mutation AddOverallScoreInfo(
     $username: String!
@@ -241,17 +239,7 @@ export const ADD_OVERALL_SCORE = gql`
     insertOverall_score(
       username: $username
       overall_score: $overall_score
-      created_at: $created_at
-      # spirituality_id: $spirituality_id
-      # community_id: $community_id
-      # environment_id: $environment_id
-      # career_work_id: $career_work_id
-      # fun_relaxation_id: $fun_relaxation_id
-      # money_finances_id: $money_finances_id
-      # partner_love_id: $partner_love_id
-      # health_fitness_id: $health_fitness_id
-      # family_friends_id: $family_friends_id
-      # growth_learning_id: $growth_learning_id
+      created_at: $created_at # spirituality_id: $spirituality_id # community_id: $community_id # environment_id: $environment_id # career_work_id: $career_work_id # fun_relaxation_id: $fun_relaxation_id # money_finances_id: $money_finances_id # partner_love_id: $partner_love_id # health_fitness_id: $health_fitness_id # family_friends_id: $family_friends_id # growth_learning_id: $growth_learning_id
     ) {
       username
       overall_score
@@ -259,8 +247,6 @@ export const ADD_OVERALL_SCORE = gql`
     }
   }
 `;
-
-
 
 export const mutations = {
   ADD_CAREER_WORK_INFO,

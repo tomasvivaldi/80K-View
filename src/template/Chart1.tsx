@@ -14,7 +14,7 @@ interface Chart1Props {
 }
 
 const Chart1: React.FC<Chart1Props> = ({ data }) => {
-  const convertData = (data) => {
+  const convertData = (data: { date: string | number | Date; value: any }) => {
     const dateObject = new Date(data.date);
     const day = String(dateObject.getDate()).padStart(2, '0');
     const monthIndex = dateObject.getMonth(); // Months are zero-based
@@ -33,7 +33,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
       'December',
     ];
     const monthName = monthNames[monthIndex];
-    const year = dateObject.getFullYear();
+    // const year = dateObject.getFullYear();
     // const formattedDate = `${day} ${monthName} ${year}`;
     const formattedDate = `${day} ${monthName}`;
 
@@ -66,11 +66,17 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
         <YAxis domain={[0, 10]} tickLine={false} axisLine={false} />
         <CartesianGrid stroke="#E5E7EB" strokeDasharray="15" vertical={false} />
         <Tooltip />
-        <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+        <Area
+          type="monotone"
+          dataKey="uv"
+          stroke="#8884d8"
+          fillOpacity={1}
+          fill="url(#colorUv)"
+        />
         <Area
           type="monotone"
           dataKey="value"
-          name={"Overall Score %"}
+          name={'Overall Score %'}
           strokeWidth={2}
           stroke="#667EEA"
           fill="url(#colorUv)"

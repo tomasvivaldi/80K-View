@@ -1,16 +1,19 @@
-import { Meta } from '@/layout/Meta';
-import { Section } from '@/layout/Section';
-import HistoricalTable from '@/template/HistoricalTable';
-import { Shell } from '@/template/Shell';
-import { Stats } from '@/template/Stats';
-import { AppConfig } from '@/utils/AppConfig';
-import { Chart1 } from '@/template/Chart1';
-import { useSession } from 'next-auth/react';
-import Welcome from '@/template/Welcome';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
-import EndForm from '@/template/EndForm';
-import DataSent from '@/template/DataSent';
+import { useSession } from 'next-auth/react';
+
+import { Meta } from '@/layout/Meta';
+import { Section } from '@/layout/Section';
+import { Chart1 } from '@/template/Chart1';
+import HistoricalTable from '@/template/HistoricalTable';
+import { Shell } from '@/template/Shell';
+import Welcome from '@/template/Welcome';
+import { AppConfig } from '@/utils/AppConfig';
+
+interface DataObject {
+  date: string;
+  value: number;
+}
 
 const Index = () => {
   const { data: session } = useSession();
@@ -25,10 +28,7 @@ const Index = () => {
     variables: { username: session?.user?.name },
   });
 
-  // Log the overall query
-  console.log('overall_query', overall_query);
-
-  const formattedData = [];
+  const formattedData: DataObject[] = [];
 
   // Check if data is available and not loading
   if (!loading && data && data.overallScoreListByUser) {
@@ -41,39 +41,39 @@ const Index = () => {
       formattedData.push({ date, value: score });
     });
   } else {
-    console.log('Data is not available or loading');
+    return
   }
 
-  return(
-  <>
-    <Meta title={AppConfig.title} description={AppConfig.description} />
-    <Shell title="80K View">
-    <Section>
-        <Welcome />
-    </Section>
-    {session ? (
+  return (
     <>
-      <Section>
-        <div className='flex flex-col'>
-          <div className='order-2 sm:order-1'><HistoricalTable data = {formattedData} /></div>
-          <div className=' w-full order-1 sm:order-2'><Chart1 data = {formattedData} /></div>
-          {/* <Charts /> */}
-        </div>
-      </Section>
-      {/* <Section>
+      <Meta title={AppConfig.title} description={AppConfig.description} />
+      <Shell title="80K View">
+        <Section>
+          <Welcome />
+        </Section>
+        {session ? (
+          <>
+            <Section>
+              <div className="flex flex-col">
+                <div className="order-2 sm:order-1">
+                  <HistoricalTable data={formattedData} />
+                </div>
+                <div className=" order-1 w-full sm:order-2">
+                  <Chart1 data={formattedData} />
+                </div>
+                {/* <Charts /> */}
+              </div>
+            </Section>
+            {/* <Section>
         <Stats />
       </Section> */}
+          </>
+        ) : (
+          <></>
+        )}
+      </Shell>
     </>
-    ) : (
-    <>
-      <Section>
-        
-      </Section>
-    </>
-    )}
-    </Shell>
-  </>
-);
+  );
 };
 
 export default Index;

@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 // export const GET_CATEGORY_INFO_BY_USER = gql`
 //     query MyQuery($username: String!) {
@@ -20,12 +20,9 @@ import { gql } from "@apollo/client";
 //   }
 // `;
 
-
-
-
 export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
-    query MyQuery($username: String!) {
-      categoryListByUserLatest(username: $username) {
+  query MyQuery($username: String!) {
+    categoryListByUserLatest(username: $username) {
       id
       created_at
       username
@@ -35,7 +32,6 @@ export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
     }
   }
 `;
-
 
 // queries.ts
 
@@ -169,8 +165,6 @@ export const GET_SPIRITUALITY_INFO_BY_USER_LATEST = gql`
   }
 `;
 
-
-
 // export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
 //     query MyQuery($username: String!) {
 //       categoryListByUserLatest(username: $username) {
@@ -182,8 +176,6 @@ export const GET_SPIRITUALITY_INFO_BY_USER_LATEST = gql`
 //     }
 //   }
 // `;
-
-
 
 export const GET_CAREER_WORK_INFO_BY_USER = gql`
   query MyQuery($username: String!) {
@@ -325,7 +317,6 @@ export const GET_OVERALL_SCORE_INFO_BY_USER = gql`
     }
   }
 `;
-
 
 export const queries = {
   GET_OVERALL_SCORE_INFO_BY_USER,

@@ -1,11 +1,11 @@
 type community = {
-  username: string
-  score: number
-  notes: string
-  action_plan: string
-  id: number
-  created_at: string
-}
+  username: string;
+  score: number;
+  notes: string;
+  action_plan: string;
+  id: number;
+  created_at: string;
+};
 
 type Category = {
   username: string;
@@ -18,17 +18,17 @@ type Category = {
 };
 
 type CategoryQueries = {
-  [key: string]: Category;
+  [key in CategoryKey]: Category;
 };
 
-type DocumentNode ={
-  username: string
-  score: number
-  notes: string
-  action_plan: string
-  id: number
-  created_at: string
-}
+type DocumentNode = {
+  username: string;
+  score: number;
+  notes: string;
+  action_plan: string;
+  id: number;
+  created_at: string;
+};
 
 const categoryQueries: CategoryQueries = {
   career_work: {
@@ -132,3 +132,15 @@ const categoryQueries: CategoryQueries = {
     },
   },
 };
+
+type CategoryKey =
+  | 'career_work'
+  | 'community'
+  | 'environment'
+  | 'family_friends'
+  | 'fun_relaxation'
+  | 'growth_learning'
+  | 'health_fitness'
+  | 'money_finances'
+  | 'partner_love'
+  | 'spirituality';
