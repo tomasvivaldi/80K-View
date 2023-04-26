@@ -18,11 +18,9 @@ interface DataObject {
 const Index = () => {
   const { data: session } = useSession();
   // Map the category to the corresponding query
-  const overall_query = queries.GET_OVERALL_SCORE_INFO_BY_USER;
+  const overall_query = queries.GET_OVERALL_SCORE_INFO_BY_USER || null;
 
-  if (!overall_query) {
-    return <p>Invalid Query.</p>;
-  }
+
 
   const { loading, data } = useQuery<Record<string, any>>(overall_query, {
     variables: { username: session?.user?.name },
