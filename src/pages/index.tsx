@@ -40,9 +40,7 @@ const Index = () => {
       // Push the score and date parameters in the desired format to formattedData
       formattedData.push({ date, value: score });
     });
-  } else {
-    return
-  }
+  } 
 
   return (
     <>
