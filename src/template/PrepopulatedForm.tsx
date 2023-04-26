@@ -10,12 +10,6 @@ interface PrepopulatedFormProps {
   category: string;
 }
 
-type CategoryName = keyof typeof categoryQueries;
-
-function isValidCategoryName(name: string): name is CategoryName {
-  return categoryQueries.hasOwnProperty(name);
-}
-
 const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ category }) => {
   const { data: session } = useSession();
 
@@ -33,6 +27,12 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ category }) => {
     spirituality: queries.GET_SPIRITUALITY_INFO_BY_USER_LATEST,
   };
 
+type CategoryName = keyof typeof categoryQueries;
+
+function isValidCategoryName(name: string): name is CategoryName {
+  return categoryQueries.hasOwnProperty(name);
+}
+  
   function toCamelCase(str: string): string {
     return str.replace(/([-_][a-z])/g, (group) =>
       group.toUpperCase().replace('-', '').replace('_', '')
