@@ -37,7 +37,7 @@ const View80k = () => {
   ];
 
   categories.forEach((category) => {
-    months.forEach((month, monthIndex) => {
+    months.forEach((_month, monthIndex: number) => {
       data.push({
         date: new Date(2023, monthIndex, 1).toISOString(),
         category,
