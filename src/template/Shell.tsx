@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import type { ReactNode } from 'react';
-
 import { Button } from '@/button/Button';
 import { SidebarHeader } from '@/shell/SidebarHeader';
 import { SidebarLink } from '@/shell/SidebarLink';
@@ -55,6 +54,25 @@ function Shell(props: IShellProps) {
                   }
                 >
                   Answer Questions
+                </SidebarLink>
+              </Link>
+              <Link href="/View80k">
+                <SidebarLink
+                  icon={
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M0 0h24v24H0z" stroke="none" />
+                      <rect x="4" y="4" width="16" height="16" rx="2" />
+                      <path d="M4 10h16M10 4v16" />
+                    </svg>
+                  }
+                >
+                  80K View
                 </SidebarLink>
               </Link>
               <Link href="/forms">
