@@ -117,10 +117,13 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                 .map(([year, yearData], index) => (
                   <tr key={index}>
                     <td className="p-2 text-center">{year}</td>
-                    {months.map((monthIndex) => {
+                    {months.map((_month, monthIndex) => {
+                      console.log('AveragedData for large screen:', averagedData);
+                      console.log('Large screen yearData:', year, yearData);
                       const value = yearData[monthIndex];
                       const borderClass =
                         value !== undefined ? borderColorClass(value) : '';
+                      console.log('large screen value', value)
                       return (
                         <td key={monthIndex} className="p-2">
                           <div
@@ -149,6 +152,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                 const value = yearData[monthIndex];
                 const borderClass =
                   value !== undefined ? borderColorClass(value) : '';
+                console.log('small screen value', value)
                 return (
                   <div
                     key={monthIndex}
