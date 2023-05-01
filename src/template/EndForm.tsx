@@ -104,7 +104,8 @@ const EndForm: React.FC<EndFormProps> = ({
                 <input
                   type="text"
                   id="score"
-                  value={categoryData[0].score ? categoryData[0].score : '-'}
+                  value={categoryData.length > 0 && categoryData[0].score ? categoryData[0].score : '-'}
+
                   disabled
                   className="hide-arrows h-12 w-12 items-center rounded-full bg-blue-700 text-center text-2xl text-white"
                 />
