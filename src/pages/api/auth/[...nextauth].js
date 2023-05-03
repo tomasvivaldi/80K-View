@@ -17,6 +17,13 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  pages: {
+    signIn: '/login', // Your custom login page
+    signOut: false, // Use the default signOut page provided by NextAuth
+    error: false, // Use the default error page provided by NextAuth
+    verifyRequest: false, // Use the default verifyRequest page provided by NextAuth
+    newUser: null, // Disable the newUser page (this will redirect new users to the callback URL)
+  },
   // callbacks: {
   //   async signIn({ account, profile }) {
   //     if (account.provider === "google") {

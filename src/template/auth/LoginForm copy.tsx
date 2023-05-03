@@ -1,14 +1,16 @@
+import Link from 'next/link';
 
-import { signIn } from 'next-auth/react';
-
+import { Button } from '@/button/Button';
 import { SocialButton } from '@/button/SocialButton';
-
+import { Divider } from '@/divider/Divider';
+import { FormElement } from '@/form/FormElement';
+import { Label } from '@/form/Label';
 import { FullCenterSection } from '@/layout/FullCenterSection';
 
 const LoginForm = () => (
   <FullCenterSection title="Sign in to your account">
     <div className="mt-5 space-y-4">
-      <button className="w-full" type="button" onClick={() => signIn('google')}>
+      <button className="w-full" type="button">
         <SocialButton
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -43,7 +45,7 @@ const LoginForm = () => (
           Sign in with Google
         </SocialButton>
       </button>
-      {/* <button className="w-full" type="button">
+      <button className="w-full" type="button">
         <SocialButton
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14222 14222">
@@ -57,9 +59,9 @@ const LoginForm = () => (
         >
           Sign in with Facebook
         </SocialButton>
-      </button> */}
+      </button>
     </div>
-    {/* <Divider>Or continue with</Divider>
+    <Divider>Or continue with</Divider>
 
     <form className="grid gap-y-2">
       <Label htmlFor="email">Email</Label>
@@ -77,9 +79,9 @@ const LoginForm = () => (
           <Button full>Sign in</Button>
         </button>
       </div>
-    </form> */}
+    </form>
 
-    {/* <div className="mt-5 text-center text-xs">
+    <div className="mt-5 text-center text-xs">
       <div>
         <Link
           href="/forgot-password"
@@ -98,7 +100,7 @@ const LoginForm = () => (
         </Link>
         .
       </div>
-    </div> */}
+    </div>
   </FullCenterSection>
 );
 
