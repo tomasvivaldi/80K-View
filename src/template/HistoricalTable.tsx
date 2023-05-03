@@ -89,7 +89,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
   );
 
   return (
-    <div className="my-4 flex flex-col rounded-lg bg-white px-8 pt-4 pb-2">
+    <div className="my-4 flex flex-col rounded-lg bg-white px-8 pt-4 pb-2 shadow-lg">
       <div className=" rounded-lg bg-blue-800 py-2 px-4">
         <h1 className="text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
           Life Fufillment Tracker
