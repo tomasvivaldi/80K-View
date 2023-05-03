@@ -79,7 +79,7 @@ function Shell(props: IShellProps) {
 
 
 
-              <button onClick={toggleDropdown} className="w-full relative after:text-xs after:font-semibold after:absolute after:top-2 after:left-32 after:content-['Coming_soon...'] after:ml-0.5 after:text-green-500">
+              <button onClick={toggleDropdown} className="w-full relative after:text-xs after:font-semibold after:absolute after:top-2 after:left-32 after:content-['Coming_soon'] after:ml-0.5 after:bg-green-500 after:rounded-lg after:p-1 after:text-gray-200 after:border after:shadow-lg">
                 <DisabledSidebarLink
                   icon={
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
