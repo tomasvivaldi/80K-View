@@ -26,6 +26,7 @@ import EndForm from './EndForm';
 import { Form2Fill } from './Form2Fill';
 import { PrepopulatedForm } from './PrepopulatedForm';
 import ProgressBar from './ProgressBar';
+import { PleaseLogIn } from './PleaseLogIn';
 
 export type CategoryData = {
   score?: number | null;
@@ -273,7 +274,7 @@ function AnswerSection() {
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <BeginForm />;
+      return  <BeginForm />;
     }
     if (page > 0 && page < 11) {
       return (
@@ -342,40 +343,13 @@ function AnswerSection() {
       );
     } else {return}
   };
-  return (
-    <div className="flex flex-col gap-4">
-      <ProgressBar page={page} />
-      <div>{PageTitleDisplay()}</div>
-      <div>{PageDisplay()}</div>
-      <div>{ButtonDisplay()}</div>
-      {/* <div className='w-full flex flex-row justify-between px-8'>
-        <button
-          disabled={page === 0}
-          onClick={() => {
-            setPage((currPage) => currPage - 1);
-          }}
-        >
-          <Button disabled={page === 0}>Prev</Button>
-        </button>
-      <button
-        onClick={async () => {
-          if (page === PageNames.length - 2) {
-            await submitAllCategories(); 
-            setTimeout(() => {
-              setPage((currPage) => currPage + 1);
-            }, 1000); 
-          } else {
-            handleNextClick();
-          }
-        }}
-      >
-        <Button>
-          {page === PageNames.length - 2 ? 'Submit' : 'Next'}
-        </Button>
-      </button> 
-      </div> */}
-    </div>
-  );
+  return session ? ( <div className="flex flex-col gap-4">
+  <ProgressBar page={page} />
+  <div>{PageTitleDisplay()}</div>
+  <div>{PageDisplay()}</div>
+  <div>{ButtonDisplay()}</div>
+</div>) : (<PleaseLogIn />);
+    
 }
 
 export default AnswerSection;

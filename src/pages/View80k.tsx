@@ -1,5 +1,6 @@
 import { Meta } from '@/layout/Meta';
 import { Section } from '@/layout/Section';
+import { PleaseLogIn } from '@/template/PleaseLogIn';
 import { Shell } from '@/template/Shell';
 import { AppConfig } from '@/utils/AppConfig';
 import { useQuery } from '@apollo/client';
@@ -286,11 +287,7 @@ function isValidCategoryName(name: string): name is CategoryName {
         ) : (
           <>
             <Section>
-              <div className="w-full rounded-md border-gray-200 bg-white px-4 py-5">
-                <div className="w-full text-center text-2xl font-semibold text-gray-800">
-                  Please Log In to Continue
-                </div>
-              </div>
+              <PleaseLogIn />
             </Section>
           </>
         )}

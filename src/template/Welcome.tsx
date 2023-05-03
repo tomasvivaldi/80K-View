@@ -16,7 +16,7 @@ function Welcome() {
     </div>
   ) : (
     <div className="">
-      <p>Please Log In</p>
+      
     </div>
   );
 }

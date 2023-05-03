@@ -9,6 +9,31 @@ import HistoricalTable from '@/template/HistoricalTable';
 import { Shell } from '@/template/Shell';
 import Welcome from '@/template/Welcome';
 import { AppConfig } from '@/utils/AppConfig';
+import { PleaseLogIn } from '@/template/PleaseLogIn';
+
+export type CategoryData = {
+  score?: number | null;
+  notes?: string;
+  action_plan?: string;
+};
+
+export type InitialFormData = {
+  [K in keyof MyFormData]: CategoryData;
+};
+
+export type MyFormData = {
+  career_work: CategoryData;
+  community: CategoryData;
+  environment: CategoryData;
+  family_friends: CategoryData;
+  fun_relaxation: CategoryData;
+  growth_learning: CategoryData;
+  health_fitness: CategoryData;
+  money_finances: CategoryData;
+  partner_love: CategoryData;
+  spirituality: CategoryData;
+  [key: string]: CategoryData | undefined;
+};
 
 interface DataObject {
   date: string;
@@ -19,8 +44,19 @@ const Index = () => {
   const { data: session } = useSession();
   // Map the category to the corresponding query
   const overall_query = queries.GET_OVERALL_SCORE_INFO_BY_USER || null;
-
-
+  
+  // const categoryQueries = {
+  //   career_work: queries.GET_CAREER_WORK_INFO_BY_USER_LATEST,
+  //   community: queries.GET_COMMUNITY_INFO_BY_USER_LATEST,
+  //   environment: queries.GET_ENVIRONMENT_INFO_BY_USER_LATEST,
+  //   family_friends: queries.GET_FAMILY_FRIENDS_INFO_BY_USER_LATEST,
+  //   fun_relaxation: queries.GET_FUN_RELAXATION_INFO_BY_USER_LATEST,
+  //   growth_learning: queries.GET_GROWTH_LEARNING_INFO_BY_USER_LATEST,
+  //   health_fitness: queries.GET_HEALTH_FITNESS_INFO_BY_USER_LATEST,
+  //   money_finances: queries.GET_MONEY_FINANCES_INFO_BY_USER_LATEST,
+  //   partner_love: queries.GET_PARTNER_LOVE_INFO_BY_USER_LATEST,
+  //   spirituality: queries.GET_SPIRITUALITY_INFO_BY_USER_LATEST,
+  // };
 
   const { loading, data } = useQuery<Record<string, any>>(overall_query, {
     variables: { username: session?.user?.name },
@@ -65,7 +101,9 @@ const Index = () => {
       </Section> */}
           </>
         ) : (
-          <></>
+          <>
+            <PleaseLogIn />
+          </>
         )}
       </Shell>
     </>
