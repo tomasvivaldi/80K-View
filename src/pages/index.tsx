@@ -10,6 +10,7 @@ import { Shell } from '@/template/Shell';
 import Welcome from '@/template/Welcome';
 import { AppConfig } from '@/utils/AppConfig';
 import { PleaseLogIn } from '@/template/PleaseLogIn';
+import Banner from '@/template/Banner';
 
 export type CategoryData = {
   score?: number | null;
@@ -80,11 +81,15 @@ const Index = () => {
     <>
       <Meta title={AppConfig.title} description={AppConfig.description} />
       <Shell title="80K View">
-        <Section>
-          <Welcome />
-        </Section>
+        
         {session ? (
           <>
+          <Section>
+            <Welcome />
+          </Section>
+          <Section>
+            <Banner />
+          </Section>
             <Section>
               <div className="flex flex-col">
                 <div className="order-2 sm:order-1">
