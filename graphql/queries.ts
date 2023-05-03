@@ -318,7 +318,21 @@ export const GET_OVERALL_SCORE_INFO_BY_USER = gql`
   }
 `;
 
+export const GET_USER_BY_EMAIL = gql`
+  query MyQuery($email: String!) {
+    userByEmail(email: $email) {
+      id
+      username
+      email
+      created_at
+      password
+      provider
+    }
+  }
+`;
+
 export const queries = {
+  GET_USER_BY_EMAIL,
   GET_OVERALL_SCORE_INFO_BY_USER,
   GET_CAREER_WORK_INFO_BY_USER,
   GET_COMMUNITY_INFO_BY_USER,

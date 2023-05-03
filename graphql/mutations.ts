@@ -248,6 +248,31 @@ export const ADD_OVERALL_SCORE = gql`
   }
 `;
 
+
+export const ADD_USERS = gql`
+  mutation AddUsersInfo(
+    $username: String!
+    $email: String!
+    $created_at: DateTime!
+    $password: String!
+    $provider: String!
+  ) {
+    insertUsers(
+      username: $username
+      email: $email
+      created_at: $created_at
+      password: $password
+      provider: $provider
+    ) {
+      username
+      email
+      created_at
+      password
+      provider
+    }
+  }
+`;
+
 export const mutations = {
   ADD_CAREER_WORK_INFO,
   ADD_COMMUNITY_INFO,
@@ -260,4 +285,5 @@ export const mutations = {
   ADD_PARTNER_LOVE_INFO,
   ADD_SPIRITUALITY_INFO,
   ADD_OVERALL_SCORE,
+  ADD_USERS,
 };

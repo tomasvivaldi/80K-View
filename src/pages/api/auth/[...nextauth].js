@@ -24,6 +24,7 @@ export const authOptions = {
     verifyRequest: false, // Use the default verifyRequest page provided by NextAuth
     newUser: null, // Disable the newUser page (this will redirect new users to the callback URL)
   },
+
   // callbacks: {
   //   async signIn({ account, profile }) {
   //     if (account.provider === "google") {
@@ -32,6 +33,7 @@ export const authOptions = {
   //     return true // Do different verification for other providers that don't have `email_verified`
   //   },
   // }
+  
 };
 
 export default NextAuth(authOptions);

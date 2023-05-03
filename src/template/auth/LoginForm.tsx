@@ -1,14 +1,15 @@
-
-import { signIn } from 'next-auth/react';
-
 import { SocialButton } from '@/button/SocialButton';
 
 import { FullCenterSection } from '@/layout/FullCenterSection';
 
-const LoginForm = () => (
+interface LoginFormProps {
+  handleLogin: () => Promise<void>;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (
   <FullCenterSection title="Sign in to your account">
     <div className="mt-5 space-y-4">
-      <button className="w-full" type="button" onClick={() => signIn('google')}>
+      <button className="w-full" type="button" onClick={handleLogin}>
         <SocialButton
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
