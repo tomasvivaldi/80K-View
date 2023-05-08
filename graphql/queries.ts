@@ -20,6 +20,7 @@ import { gql } from '@apollo/client';
 //   }
 // `;
 
+
 export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
   query MyQuery($username: String!) {
     categoryListByUserLatest(username: $username) {
@@ -331,8 +332,50 @@ export const GET_USER_BY_EMAIL = gql`
   }
 `;
 
+export const GET_USER_DATA_BY_ID = gql`
+  query MyQuery($id: String!) {
+    userDataById(id: $id) {
+      username
+      email
+      cw_score
+      cw_notes
+      cw_action_plan
+      c_score
+      c_notes
+      c_action_plan
+      e_score
+      e_notes
+      e_action_plan
+      ff_score
+      ff_notes
+      ff_action_plan
+      fr_score
+      fr_notes
+      fr_action_plan
+      gl_score
+      gl_notes
+      gl_action_plan
+      hf_score
+      hf_notes
+      hf_action_plan
+      mf_score
+      mf_notes
+      mf_action_plan
+      pl_score
+      pl_notes
+      pl_action_plan
+      s_score
+      s_notes
+      s_action_plan
+      overall_score
+      overall_created_at
+    }
+  }
+`;
+
 export const queries = {
   GET_USER_BY_EMAIL,
+  GET_USER_DATA_BY_ID,
   GET_OVERALL_SCORE_INFO_BY_USER,
   GET_CAREER_WORK_INFO_BY_USER,
   GET_COMMUNITY_INFO_BY_USER,

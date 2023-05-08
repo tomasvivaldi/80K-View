@@ -7,6 +7,7 @@ export const ADD_CAREER_WORK_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertCareer_work(
       username: $username
@@ -14,11 +15,13 @@ export const ADD_CAREER_WORK_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref 
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -30,6 +33,7 @@ export const ADD_COMMUNITY_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertCommunity(
       username: $username
@@ -37,11 +41,13 @@ export const ADD_COMMUNITY_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -53,6 +59,7 @@ export const ADD_ENVIRONMENT_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertEnvironment(
       username: $username
@@ -60,11 +67,13 @@ export const ADD_ENVIRONMENT_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -76,6 +85,7 @@ export const ADD_FAMILY_FRIENDS_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertFamily_friends(
       username: $username
@@ -83,11 +93,13 @@ export const ADD_FAMILY_FRIENDS_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -99,6 +111,7 @@ export const ADD_FUN_RELAXATION_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertFun_relaxation(
       username: $username
@@ -106,11 +119,13 @@ export const ADD_FUN_RELAXATION_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -122,6 +137,7 @@ export const ADD_GROWTH_LEARNING_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertGrowth_learning(
       username: $username
@@ -129,11 +145,13 @@ export const ADD_GROWTH_LEARNING_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -145,6 +163,7 @@ export const ADD_HEALTH_FITNESS_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertHealth_fitness(
       username: $username
@@ -152,11 +171,13 @@ export const ADD_HEALTH_FITNESS_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -168,6 +189,7 @@ export const ADD_MONEY_FINANCES_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertMoney_finances(
       username: $username
@@ -175,11 +197,13 @@ export const ADD_MONEY_FINANCES_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -191,6 +215,7 @@ export const ADD_PARTNER_LOVE_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertPartner_love(
       username: $username
@@ -198,11 +223,13 @@ export const ADD_PARTNER_LOVE_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -214,6 +241,7 @@ export const ADD_SPIRITUALITY_INFO = gql`
     $notes: String!
     $action_plan: String!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertSpirituality(
       username: $username
@@ -221,11 +249,13 @@ export const ADD_SPIRITUALITY_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       score
       notes
       action_plan
+      user_ref
     }
   }
 `;
@@ -235,15 +265,18 @@ export const ADD_OVERALL_SCORE = gql`
     $username: String!
     $overall_score: Float!
     $created_at: DateTime!
+    $user_ref: Int!
   ) {
     insertOverall_score(
       username: $username
       overall_score: $overall_score
-      created_at: $created_at # spirituality_id: $spirituality_id # community_id: $community_id # environment_id: $environment_id # career_work_id: $career_work_id # fun_relaxation_id: $fun_relaxation_id # money_finances_id: $money_finances_id # partner_love_id: $partner_love_id # health_fitness_id: $health_fitness_id # family_friends_id: $family_friends_id # growth_learning_id: $growth_learning_id
+      created_at: $created_at
+      user_ref: $user_ref
     ) {
       username
       overall_score
       created_at
+      user_ref
     }
   }
 `;
