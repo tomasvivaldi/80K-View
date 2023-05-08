@@ -79,7 +79,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
               })}
               type="text"
               id="score"
-              className="hide-arrows h-24 w-24 rounded-full bg-blue-700 text-center text-5xl text-white lg:row-start-2"
+              className="hide-arrows h-24 w-24 rounded-full border-blue-700 border-4 bg-blue-400/20 text-black text-center text-5xl  lg:row-start-2"
               value={
                 isCategoryData(formData)
                   ? formData.score !== null
