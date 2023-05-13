@@ -81,7 +81,7 @@ function isValidCategoryName(name: string): name is CategoryName {
               id="score"
               value={categoryData[0] && categoryData[0]?.score}
               disabled
-              className="hide-arrows h-24 w-24 rounded-full border-blue-700 border-4 bg-blue-400/20 text-black text-center text-5xl text-white lg:row-start-2"
+              className="hide-arrows h-24 w-24 rounded-full border-blue-700 border-4 bg-blue-400/20 text-black text-center text-5xl lg:row-start-2"
             />
           </div>
           <div className="flex w-full flex-col gap-2 lg:gap-4">
