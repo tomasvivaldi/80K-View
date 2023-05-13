@@ -144,3 +144,35 @@ type CategoryKey =
   | 'money_finances'
   | 'partner_love'
   | 'spirituality';
+
+
+  type UserDataById = {
+    id: number;
+    username: string;
+    email: string;
+    password: string;
+    provider: string;
+    created_at: string;
+    career_work: Category[];
+    community: Category[];
+    environment: Category[];
+    family_friends: Category[];
+    fun_relaxation: Category[];
+    growth_learning: Category[];
+    health_fitness: Category[];
+    money_finances: Category[];
+    partner_love: Category[];
+    spirituality: Category[];
+    overall_score: {
+      id: number;
+      created_at: string;
+      overall_score: number;
+      user_ref: string;
+      username: string;
+    }[];
+  };
+  
+  type UserDataByIdData = {
+    userDataById: UserDataById;
+  };
+  

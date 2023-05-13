@@ -333,42 +333,111 @@ export const GET_USER_BY_EMAIL = gql`
 `;
 
 export const GET_USER_DATA_BY_ID = gql`
-  query MyQuery($id: String!) {
+  query MyQuery($id: ID!) {
     userDataById(id: $id) {
+    created_at
+    email
+    id
+    password
+    provider
+    username
+    career_work {
+      action_plan
+      created_at
+      notes
+      score
+      id
       username
-      email
-      cw_score
-      cw_notes
-      cw_action_plan
-      c_score
-      c_notes
-      c_action_plan
-      e_score
-      e_notes
-      e_action_plan
-      ff_score
-      ff_notes
-      ff_action_plan
-      fr_score
-      fr_notes
-      fr_action_plan
-      gl_score
-      gl_notes
-      gl_action_plan
-      hf_score
-      hf_notes
-      hf_action_plan
-      mf_score
-      mf_notes
-      mf_action_plan
-      pl_score
-      pl_notes
-      pl_action_plan
-      s_score
-      s_notes
-      s_action_plan
+      user_ref
+    }
+    community {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    environment {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    family_friends {
+      id
+      action_plan
+      created_at
+      score
+      notes
+      user_ref
+      username
+    }
+    fun_relaxation {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    growth_learning {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    health_fitness {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    money_finances {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    overall_score {
+      id
+      created_at
       overall_score
-      overall_created_at
+      user_ref
+      username
+    }
+    partner_love {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
+    spirituality {
+      id
+      action_plan
+      created_at
+      notes
+      score
+      user_ref
+      username
+    }
     }
   }
 `;

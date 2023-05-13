@@ -43,7 +43,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
     };
   };
 
-  const convertedData = data && data.length > 0 ? data.map(convertData) : [];
+  const convertedData = data && data.length > 0 ? data.map(convertData).reverse() : [];
 
   return (
     <ChartCard title="Overall Score %">

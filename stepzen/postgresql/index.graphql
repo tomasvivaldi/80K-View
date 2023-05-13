@@ -139,6 +139,69 @@ type users {
   created_at: DateTime
 }
 
+type UserData {
+  username: String
+  email: String
+  provider: String
+  password: String 
+  id: ID!
+  created_at: DateTime
+  career_work: [career_work]
+    @materializer(
+      query: "careerWorkListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  community: [community]
+    @materializer(
+      query: "communityListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  environment: [environment]
+    @materializer(
+      query: "environmentListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  family_friends: [family_friends]
+    @materializer(
+      query: "familyFriendsListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  fun_relaxation: [fun_relaxation]
+    @materializer(
+      query: "funRelaxationListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  growth_learning: [growth_learning]
+    @materializer(
+      query: "growthLearningListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  health_fitness: [health_fitness]
+    @materializer(
+      query: "healthFitnessListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  money_finances: [money_finances]
+    @materializer(
+      query: "moneyFinancesListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  partner_love: [partner_love]
+    @materializer(
+      query: "partnerLoveListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  spirituality: [spirituality]
+    @materializer(
+      query: "spiritualityListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  overall_score: [overall_score]
+    @materializer(
+      query: "overallScoreListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+}
 
 
 """
@@ -165,35 +228,14 @@ type Query {
 
   ########### Query By User ############
 
-  userDataById(id: String!): [users]
+  userDataById(id: ID!): UserData
   @dbquery(
     type: "postgresql"
     schema: "public"
     query: """
-    SELECT "u.username", "u.email" "cw.score" as "cw_score", "cw.notes" as "cw_notes", "cw.action_plan" as "cw_action_plan",
-     "c.score" as "c_score", "c.notes" as "c_notes", "c.action_plan" as "c_action_plan",
-     "e.score" as "e_score", "e.notes" as "e_notes", "e.action_plan" as "e_action_plan",
-     "ff.score" as "ff_score", "ff.notes" as "ff_notes", "ff.action_plan" as "ff_action_plan",
-     "fr.score" as "fr_score", "fr.notes" as "fr_notes", "fr.action_plan" as "fr_action_plan",
-     "gl.score" as "gl_score", "gl.notes" as "gl_notes", "gl.action_plan" as "gl_action_plan",
-     "hf.score" as "hf_score", "hf.notes" as "hf_notes", "hf.action_plan" as "hf_action_plan",
-     "mf.score" as "mf_score", "mf.notes" as "mf_notes", "mf.action_plan" as "mf_action_plan",
-     "pl.score" as "pl_score", "pl.notes" as "pl_notes", "pl.action_plan" as "pl_action_plan",
-     "s.score" as "s_score", "s.notes" as "s_notes", "s.action_plan" as "s_action_plan",
-     "overall.score" as "overall_score", "overall.created_at" as "overall_created_at"
-    FROM "users" "u"
-    JOIN "career_work" "cw" ON "cw.user_ref" = "u.id"
-    JOIN "community" "c" ON "c.user_ref" = "u.id"
-    JOIN "environment" "e" ON "e.user_ref" = "u.id"
-    JOIN "family_friends" "ff" ON "ff.user_ref" = "u.id"
-    JOIN "fun_relaxation" "fr" ON "fr.user_ref" = "u.id"
-    JOIN "growth_learning" "gl" ON "gl.user_ref" = "u.id"
-    JOIN "health_fitness" "hf" ON "hf.user_ref" = "u.id"
-    JOIN "money_finances" "mf" ON "mf.user_ref" = "u.id"
-    JOIN "partner_love" "pl" ON "pl.user_ref" = "u.id"
-    JOIN "spirituality" "s" ON "s.user_ref" = "u.id"
-    JOIN "overall_score" "overall" ON "overall.user_ref" = "u.id"
-    WHERE "u.id" = $1
+    SELECT *
+    FROM "users"
+    WHERE "id" = $1
     """
     configuration: "postgresql_config"
   )
@@ -206,6 +248,20 @@ type Query {
       SELECT *
       FROM "career_work"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+    careerWorkListByUserId(user_ref: ID!): [career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "career_work"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -218,6 +274,20 @@ type Query {
       SELECT *
       FROM "community"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  communityListByUserId(user_ref: ID!): [community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "community"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -230,9 +300,23 @@ type Query {
       SELECT *
       FROM "environment"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
+  environmentListByUserId(user_ref: ID!): [environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "environment"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
 
   familyFriendsListByUser(username: String!): [family_friends]
     @dbquery(
@@ -242,9 +326,23 @@ type Query {
       SELECT *
       FROM "family_friends"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
+  familyFriendsListByUserId (user_ref: ID!): [family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "family_friends"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
 
   funRelaxationListByUser(username: String!): [fun_relaxation]
     @dbquery(
@@ -254,9 +352,23 @@ type Query {
       SELECT *
       FROM "fun_relaxation"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
+
+  funRelaxationListByUserId(user_ref: ID!): [fun_relaxation]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+    SELECT *
+    FROM "fun_relaxation"
+    WHERE "user_ref" = $1
+    ORDER BY "created_at" DESC
+    """
+    configuration: "postgresql_config"
+  )
 
   growthLearningListByUser(username: String!): [growth_learning]
     @dbquery(
@@ -266,9 +378,24 @@ type Query {
       SELECT *
       FROM "growth_learning"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
+
+  growthLearningListByUserId(user_ref: ID!): [growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "growth_learning"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
 
   healthFitnessListByUser(username: String!): [health_fitness]
     @dbquery(
@@ -278,9 +405,24 @@ type Query {
       SELECT *
       FROM "health_fitness"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
+
+  healthFitnessListByUserId(user_ref: ID!): [health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "health_fitness"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
 
   moneyFinancesListByUser(username: String!): [money_finances]
     @dbquery(
@@ -290,6 +432,20 @@ type Query {
       SELECT *
       FROM "money_finances"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  moneyFinancesListByUserId(user_ref: ID!): [money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "money_finances"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -302,6 +458,20 @@ type Query {
       SELECT *
       FROM "partner_love"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  partnerLoveListByUserId(user_ref: ID!): [partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "partner_love"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -314,6 +484,20 @@ type Query {
       SELECT *
       FROM "spirituality"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  spiritualityListByUserId(user_ref: ID!): [spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "spirituality"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -326,6 +510,20 @@ type Query {
       SELECT *
       FROM "overall_score"
       WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  overallScoreListByUserId(user_ref: ID!): [overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_score"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
       """
       configuration: "postgresql_config"
     )
