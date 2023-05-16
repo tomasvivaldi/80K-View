@@ -8,6 +8,7 @@ type community = {
 };
 
 type Category = {
+  __typename: string;
   username: string;
   score: number;
   notes: string;
