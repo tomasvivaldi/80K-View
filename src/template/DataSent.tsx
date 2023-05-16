@@ -13,7 +13,9 @@ const BeginForm: React.FC<BeginFormProps> = () => {
       </div>
       {/* Success Icon */}
       <div className=" mx-auto w-fit space-y-4">
-        <p>Your data was Sent!</p>
+        <p>Thanks for sharing your lifestyle info! We encourage you to check back next month.
+           You'll find tables and graphs where you can track your progress, see how you've improved 
+           and where to focus next. Looking forward to your return!</p>
       </div>
       <Link href="/" className="mx-auto my-16">
         <Button>Back to Dashboard</Button>
