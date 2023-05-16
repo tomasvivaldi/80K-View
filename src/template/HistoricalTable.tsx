@@ -102,7 +102,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
             <thead>
               <tr>
                 <th className="px-4 py-2 text-center text-sm">
-                  Overall Score %
+                  Overall Score
                 </th>
                 {months.map((month, index) => (
                   <th key={index} className="px-4 py-2">
@@ -129,7 +129,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                           <div
                             className={`mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
                           >
-                            {value !== undefined ? `${value.toFixed(1)}%` : ''}
+                            {value !== undefined ? `${value.toFixed(1)}` : ''}
                           </div>
                         </td>
                       );
@@ -164,7 +164,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                         className={`mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
                       >
                         <div className="mx-auto flex w-full gap-16">
-                          {value !== undefined ? `${value.toFixed(1)}%` : ''}
+                          {value !== undefined ? `${value.toFixed(1)}` : ''}
                         </div>
                       </div>
                     </div>

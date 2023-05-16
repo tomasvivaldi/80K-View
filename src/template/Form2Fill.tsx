@@ -58,10 +58,13 @@ const Form2Fill: React.FC<Form2FillProps> = ({
     e.preventDefault();
   };
 
+  const now = new Date();
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const currentMonth = monthNames[now.getMonth()]; 
   return (
     <div className="w-full rounded-md border-gray-200 bg-white px-4 py-5">
       <div className="w-full text-center text-2xl font-semibold text-gray-800">
-        This Month
+        {currentMonth}
       </div>
       <form className="flex flex-col gap-0 lg:gap-8" onSubmit={handleSubmit}>
         <div className="flex flex-col justify-around gap-0 lg:flex-row lg:gap-8">

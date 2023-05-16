@@ -13,7 +13,7 @@ import {
   ADD_SPIRITUALITY_INFO,
 } from 'graphql/mutations';
 import { useSession } from 'next-auth/react';
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -27,6 +27,8 @@ import { Form2Fill } from './Form2Fill';
 import { PrepopulatedForm } from './PrepopulatedForm';
 import ProgressBar from './ProgressBar';
 import { PleaseLogIn } from './PleaseLogIn';
+import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
+
 
 export type CategoryData = {
   score?: number | null;
@@ -58,7 +60,79 @@ type CurrentCategoryFormData = {
   action_plan?: String;
 };
 
-function AnswerSection() {
+type AnswerSectionProps = {
+  data?: UserDataById;
+}
+
+
+function AnswerSection( { data }: AnswerSectionProps) {
+  const [canFillForm, setCanFillForm] = useState(false);
+  const now = new Date();
+  // Get the current date.
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  const currentDate = now.getDate();  
+  // Check if the current date is within the last 7 days of the month.
+    // If it's the last 7 days of the month or there are no entries for the previous month, set canFillForm to true.
+
+  useEffect(() => {
+    if (data) {
+      const isLast7DaysOfMonth = currentDate > new Date(currentYear, currentMonth + 1, 0).getDate() - 7;
+      // Check if there are entries for this month or the previous month.
+      const hasEntriesThisMonth = data?.overall_score.some(entry => {
+        // Get the start of the current month
+        const startOfThisMonth = startOfMonth(new Date());
+        // Parse the created_at date from the entry object
+        const lastFormFillDate = parseISO(entry.created_at);
+        // Check if the form was filled out last month or this month
+        console.log('startOfThisMonth',startOfThisMonth)
+        console.log('lastFormFillDate',lastFormFillDate)
+        
+        return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfThisMonth) || isAfter(lastFormFillDate, startOfThisMonth));
+      });
+    
+      console.log('hasEntriesThisMonth',hasEntriesThisMonth)
+      console.log('Datadatadatacdaatadata',data)
+      console.log('isLast7DaysOfMonth',isLast7DaysOfMonth)
+    
+      // Check if there are entries for the previous month
+      // const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
+      //   const lastFormFillDate = parseISO(entry.created_at);
+      //   console.log('lastFormFillDate', lastFormFillDate)
+      //   const dateExample: Date = new Date("2023-04-05T11:43:36.82Z");
+      //   return lastFormFillDate && isBefore(lastFormFillDate, dateExample) && isAfter(lastFormFillDate, dateExample);
+      // });
+    
+      const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
+        const startOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        // Get the start of the current month
+        
+        // Parse the created_at date from the entry object
+        const lastFormFillDate = parseISO(entry.created_at);
+    
+        console.log('lastFormFillDate', lastFormFillDate)
+        return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfPreviousMonth) || isAfter(lastFormFillDate, startOfPreviousMonth));
+      });
+      
+      console.log('currentDate', currentDate)
+      console.log('currentMonth', currentMonth)
+      console.log('now', now)
+      console.log('hasEntriesPreviousMonth',hasEntriesPreviousMonth)
+      
+
+      if (isLast7DaysOfMonth || !hasEntriesPreviousMonth) {
+        if (!hasEntriesThisMonth || !hasEntriesPreviousMonth) {
+          setCanFillForm(true);
+        } else {
+          setCanFillForm(false);
+        }
+      }
+    }
+  }, [data]);
+
+    
+
+
   const [page, setPage] = useState(0);
   const PageNames = [
     'First Page',
@@ -76,14 +150,12 @@ function AnswerSection() {
     'Seccess Page',
   ];
 
-  const CategoryNames = PageNames.slice(1, -2);
-
+  const CategoryNames = PageNames.slice(1, -2);  
+  const { data: session } = useSession();
   const {
     register,
     formState: { errors },
   } = useForm<MyFormData>();
-
-  const { data: session } = useSession();
 
   const [addCareerWorkInfo] = useMutation(ADD_CAREER_WORK_INFO);
   const [addCommunityInfo] = useMutation(ADD_COMMUNITY_INFO);
@@ -125,7 +197,7 @@ function AnswerSection() {
   const initialFormData: InitialFormData = CategoryNames.reduce(
     (acc, category) => {
       acc[category] = {
-        score: 0,
+        score: null,
         notes: '',
         action_plan: '',
       };
@@ -162,7 +234,46 @@ function AnswerSection() {
     return average;
   };
 
-  const onSubmit = async (categoryData: CategoryData, category: string) => {
+
+
+
+  // const onSubmit = async ({ category, categoryQueries, session, allCategoryFormData }: FormData) => {
+  //   if (!category || !categoryQueries[category]) {
+  //     console.error('Invalid category');
+  //     return;
+  //   }
+  
+  //   const currentCategoryFormData = allCategoryFormData[category];
+  
+  //   // Check if the currentCategoryFormData has the necessary properties and if the score is not null
+  //   const isCategoryDataValid = currentCategoryFormData && currentCategoryFormData.score !== null && currentCategoryFormData.notes !== null && currentCategoryFormData.action_plan !== null;
+  
+  //   // Send the data to the database
+  //   if (isCategoryDataValid) {
+  //     const payload = {
+  //       username: session?.user?.name,
+  //       score: currentCategoryFormData.score,
+  //       notes: currentCategoryFormData.notes,
+  //       action_plan: currentCategoryFormData.action_plan,
+  //       user_ref: session?.user?.id, // Replace with the actual user ID property from your session object
+  //     };
+  
+  //     try {
+  //       await submitCategoryData(payload); // Replace this with your actual function for submitting the category data to the database
+  //     } catch (error) {
+  //       console.error('Error submitting category data:', error);
+  //     }
+  //   }
+  // };
+
+
+
+
+
+
+
+  
+  const onSubmit = async (categoryData: CategoryData, category: string,) => {
     type categoryData = {
       score: number;
       notes: string;
@@ -175,39 +286,49 @@ function AnswerSection() {
         notes: categoryData.notes,
         action_plan: categoryData.action_plan,
         created_at: new Date().toISOString(),
+        user_ref: data?.id
       };
+      console.log('commonVariables',commonVariables)
       switch (category) {
         case 'career_work':
           await addCareerWorkInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'community':
           await addCommunityInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'environment':
           await addEnvironmentInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'family_friends':
           await addFamilyFriendsInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'fun_relaxation':
           await addFunRelaxationInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'growth_learning':
-          await addGrowthLearningInfo({
-            variables: commonVariables,
-          });
+          await addGrowthLearningInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'health_fitness':
           await addHealthFitnessInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'money_finances':
           await addMoneyFinancesInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'partner_love':
           await addPartnerLoveInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         case 'spirituality':
           await addSpiritualityInfo({ variables: commonVariables });
+          console.log('commonVariables',commonVariables)
           break;
         default:
           console.error('Unknown category:', category);
@@ -223,6 +344,7 @@ function AnswerSection() {
               username: session?.user?.name,
               overall_score: parseFloat(averageScore.toString()),
               created_at: new Date().toISOString(),
+              user_ref: data?.id
             },
           });
         } catch (error) {
@@ -246,7 +368,7 @@ function AnswerSection() {
     }
 
     if (successfulSubmissions.current === CategoryNames.length) {
-      toast.success(`Data Sent!`, { id: notification });
+      toast.success(`Success!`, { id: notification });
     } else {
       toast.dismiss(notification);
     }
@@ -281,7 +403,10 @@ function AnswerSection() {
         <div className="flex flex-col gap-4">
           <div className="flex w-full flex-col gap-4 sm:flex-row">
             <Suspense fallback={<p>Loading feed...</p>}>
-              <PrepopulatedForm category={CategoryNames[page - 1] ?? ''} />
+            {data && (
+              // @ts-ignore
+              <PrepopulatedForm data={data[CategoryNames[page - 1]]?.[0]} />
+            )}
             </Suspense>
             <Form2Fill
               category={CategoryNames[page - 1] as CategoryKey}
@@ -292,7 +417,9 @@ function AnswerSection() {
               setFormDataForCategory={setFormDataForCategory}
             />
           </div>
-          <CategoryChart category={CategoryNames[page - 1] as CategoryKey} />
+          {data && (
+            <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
+            )}
         </div>
       );
     }
@@ -313,7 +440,7 @@ function AnswerSection() {
     if (page < 12) {
       return (
         <>
-          <div className="flex w-full flex-row justify-between px-8">
+          <div className="flex w-full flex-row justify-around  items-center gap-4 ">
             <button
               disabled={page === 0}
               onClick={() => {
@@ -322,6 +449,7 @@ function AnswerSection() {
             >
               <Button disabled={page === 0}>Prev</Button>
             </button>
+            <ProgressBar page={page} />
             <button
               onClick={async () => {
                 if (page === PageNames.length - 2) {
@@ -343,12 +471,23 @@ function AnswerSection() {
       );
     } else {return}
   };
-  return session ? ( <div className="flex flex-col gap-4">
-  <ProgressBar page={page} />
-  <div>{PageTitleDisplay()}</div>
-  <div>{PageDisplay()}</div>
-  <div>{ButtonDisplay()}</div>
-</div>) : (<PleaseLogIn />);
+  return session ? (
+    !canFillForm ? (
+      <div className="flex flex-col gap-4">
+        <div>{ButtonDisplay()}</div>
+        <div>{PageTitleDisplay()}</div>
+        <div>{PageDisplay()}</div>
+      </div>
+    ) : (
+    <div className="flex justify-center items-center my-auto h-[75vh] flex-col">
+      <h2 className="text-2xl font-bold mb-4">Sorry, you can't fill out the form at this time.</h2>
+      <p className="text-lg">You have already filled out the form for this month. Please wait until the last week of the month to submit again.</p>
+    </div>
+    )
+  ) : (
+    <PleaseLogIn />
+  );
+  
     
 }
 

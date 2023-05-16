@@ -46,7 +46,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
   const convertedData = data && data.length > 0 ? data.map(convertData).reverse() : [];
 
   return (
-    <ChartCard title="Overall Score %">
+    <ChartCard title="Overall Score:">
       <AreaChart
         data={convertedData}
         margin={{
@@ -76,7 +76,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
         <Area
           type="monotone"
           dataKey="value"
-          name={'Overall Score %'}
+          name={'Overall Score'}
           strokeWidth={2}
           stroke="#667EEA"
           fill="url(#colorUv)"
