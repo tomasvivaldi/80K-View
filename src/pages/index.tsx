@@ -11,6 +11,8 @@ import Banner from '@/template/Banner';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
+import FeedbackBox from '@/template/FeedbackBox';
+import FeedbackBox2 from '@/template/FeedbackBox2';
 
 export type CategoryData = {
   score?: number | null;
@@ -114,17 +116,17 @@ const Index = () => {
             <Welcome />
           </Section>
           <Section>
-            <div className=' flex flex-row'>
             <Banner />
-            <div className=' text-white bg-black  p-8 w-[450px] border-4 border-red-500 mx-4' >
-              <p> BLALBMASLUFGHASNGAILJNg</p>
-            </div>
+            <HistoricalTable data={formattedData} />
+            <div className=' flex flex-row gap-8'>
+            <FeedbackBox />
+            <FeedbackBox2 />
             </div>
           </Section>
             <Section>
               <div className="flex flex-col">
                 <div className="order-2 sm:order-1">
-                  <HistoricalTable data={formattedData} />
+                 
                 </div>
                 <div className=" order-1 w-full sm:order-2">
                   <Chart1 data={formattedData} />
