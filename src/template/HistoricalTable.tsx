@@ -14,8 +14,8 @@ interface HistoricalTableProps {
 }
 
 const borderColorClass = (value: number): string => {
-  if (value < 34) return 'border-red-500';
-  if (value < 67) return 'border-yellow-500';
+  if (value < 3.3) return 'border-red-500';
+  if (value < 6.6) return 'border-yellow-500';
   return 'border-green-500';
 };
 
@@ -89,10 +89,10 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
   );
 
   return (
-    <div className="my-4 flex flex-col rounded-lg bg-white px-8 pt-4 pb-2 shadow-lg">
-      <div className=" rounded-lg bg-blue-800 py-2 px-4">
-        <h1 className="text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
-          Life Fufillment Tracker
+    <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg">
+      <div className=" rounded-lg ">
+        <h1 className="text-lg font-semibold text-black sm:text-2xl md:text-3xl">
+          Your Yearly Fufillment
         </h1>
       </div>
       {/* Table for large screens */}
