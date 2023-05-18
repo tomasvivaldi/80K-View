@@ -13,6 +13,7 @@ import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
 import FeedbackBox from '@/template/FeedbackBox';
 import FeedbackBox2 from '@/template/FeedbackBox2';
+import LoadingBox from '@/template/LoadingBox';
 
 export type CategoryData = {
   score?: number | null;
@@ -70,16 +71,8 @@ const Index = () => {
 
   const [formattedData, setFormattedData] = useState<DataObject[]>([]);
   useEffect(() => {
-    console.log('userDataLoading:', userDataLoading);
-    console.log('userDataByIdData:', userDataByIdData);
-    console.log('userDataByIdData.userDataById:', userDataByIdData?.userDataById);
-
-    if (!userDataLoading && userDataByIdData && userDataByIdData.userDataById) {
-      console.log('userDataByIdData is defined');
-      console.log('userDataByIdData.userDataById is defined');
-      
+    if (!userDataLoading && userDataByIdData && userDataByIdData.userDataById) {      
       let tempData: DataObject[] = []; // use a temporary array
-
       userDataByIdData.userDataById.overall_score.forEach((userData: any) => {
         console.log('userDataAAAAAAAAA', userData)
         const score = userData.overall_score;
@@ -98,7 +91,14 @@ const Index = () => {
 
 
 
+  const [rawData, setrawData] = useState<UserDataById>();
 
+  useEffect(() => {
+    if (!userDataLoading && userDataByIdData && userDataByIdData.userDataById) {
+      // Directly assign the fetched data to rawData state
+      setrawData(userDataByIdData.userDataById);
+    }
+  }, [userDataLoading, userDataByIdData, userRef]);
 
 
 
@@ -118,10 +118,18 @@ const Index = () => {
           <Section>
             <Banner />
             <HistoricalTable data={formattedData} />
-            <div className=' flex flex-row gap-8'>
-            <FeedbackBox />
-            <FeedbackBox2 />
-            </div>
+            {loading || userDataLoading ? (
+              <div className=' flex flex-row gap-8'>
+                <LoadingBox spinnerClassName='mx-24' />
+                <LoadingBox spinnerClassName='mx-64' />
+              </div>
+              ) : (
+                rawData && 
+                <div className=' flex flex-row gap-8'>
+                  <FeedbackBox data={rawData} />
+                  <FeedbackBox2 />
+                </div>
+            )}
           </Section>
             <Section>
               <div className="flex flex-col">
