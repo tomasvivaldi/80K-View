@@ -14,6 +14,8 @@ import { queries } from 'graphql/queries';
 import FeedbackBox from '@/template/FeedbackBox';
 import FeedbackBox2 from '@/template/FeedbackBox2';
 import LoadingBox from '@/template/LoadingBox';
+import { Stats } from '@/template/Stats';
+
 
 export type CategoryData = {
   score?: number | null;
@@ -117,34 +119,37 @@ const Index = () => {
           </Section>
           <Section>
             <Banner />
-            <HistoricalTable data={formattedData} />
-            {loading || userDataLoading ? (
+            
+            
+          </Section>
+            <Section>
+              <div className="flex flex-col">
+                <div className="order-3 md:order-1">
+                <HistoricalTable data={formattedData} />
+                </div>
+                <div className=" order-1 w-full md:order-2">
+                {loading || userDataLoading ? (
               <div className=' flex flex-row gap-8'>
                 <LoadingBox spinnerClassName='mx-24' />
                 <LoadingBox spinnerClassName='mx-64' />
               </div>
               ) : (
                 rawData && 
-                <div className=' flex flex-row gap-8'>
+                <div className=' flex flex-col sm:flex-row gap-4'>
                   <FeedbackBox data={rawData} />
                   <FeedbackBox2 />
                 </div>
             )}
-          </Section>
-            <Section>
-              <div className="flex flex-col">
-                <div className="order-2 sm:order-1">
-                 
                 </div>
-                <div className=" order-1 w-full sm:order-2">
+                <div className=" order-2 w-full md:order-3 mt-4">
                   <Chart1 data={formattedData} />
                 </div>
                 {/* <Charts /> */}
               </div>
             </Section>
-            {/* <Section>
-        <Stats />
-      </Section> */}
+            <Section>
+              <Stats />
+            </Section>
           </>
         ) : (
           <>
