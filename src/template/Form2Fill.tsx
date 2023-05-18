@@ -46,7 +46,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
       (!isNaN(value) &&
         parseFloat(value) >= 0 &&
         parseFloat(value) <= 10 &&
-        /^(\d(\.\d?)?|10(\.0)?)$/.test(value));
+        /^10$|^[0-9]$/.test(value));
 
     // If the new value is valid, update the score
     if (isValid) {
@@ -78,7 +78,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
             <input
               {...register('score', {
                 required: true,
-                pattern: /^(10(\.0)?|(\d(\.\d?)?))$/,
+                pattern: /^10$|^[0-9]$/,
               })}
               type="text"
               id="score"
