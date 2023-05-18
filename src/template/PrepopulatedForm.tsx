@@ -7,20 +7,10 @@ interface PrepopulatedFormProps {
 }
 
 const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data }) => {
-  const dateObject = new Date(data.created_at);
+  const dateObject = data ? new Date(data.created_at) : null;
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const lastEntryMonth = monthNames[dateObject.getMonth()];  
+  const lastEntryMonth = dateObject ? monthNames[dateObject.getMonth()] : "No Entries";  
 
-
-  // if (loading) {
-  //   return (
-  //     <div className="w-full rounded-md border-gray-200 bg-gray-300 px-4 py-5">
-  //       <div className="w-full text-center text-2xl font-semibold text-gray-800/80">
-  //         <p className="text center m-auto h-full w-fit">Loading Data...</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="w-full rounded-md border-gray-200 bg-white px-4 py-5">
