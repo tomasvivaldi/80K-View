@@ -16,9 +16,9 @@ const Stats = () => (
           <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2M16 3.13a4 4 0 010 7.75M21 21v-2a4 4 0 00-3-3.85" />
         </svg>
       }
-      text="Total Users"
+      text="Overall Score"
     >
-      349
+      34% Increase
     </StatsCard>
     <StatsCard
       icon={
@@ -35,9 +35,9 @@ const Stats = () => (
           <path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" />
         </svg>
       }
-      text="Revenue"
+      text="Best category this month"
     >
-      $129,438
+      *Category Name*
     </StatsCard>
     <StatsCard
       icon={
@@ -55,9 +55,9 @@ const Stats = () => (
           <path d="M6 5l14 1-1 7H6" />
         </svg>
       }
-      text="New Sales"
+      text="Biggest score drop"
     >
-      7,048
+      23% - *Category Name*
     </StatsCard>
     <StatsCard
       icon={
@@ -72,9 +72,9 @@ const Stats = () => (
           <path d="M4 21V8a3 3 0 013-3h10a3 3 0 013 3v6a3 3 0 01-3 3H8l-4 4M8 9h8M8 13h6" />
         </svg>
       }
-      text="Messages"
+      text="Worst category"
     >
-      683,923
+     *Category Name* 
     </StatsCard>
   </div>
 );
