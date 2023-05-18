@@ -92,7 +92,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
     <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg">
       <div className=" rounded-lg ">
         <h1 className="text-lg font-semibold text-black sm:text-2xl md:text-3xl">
-          Your Yearly Fufillment
+          Your Yearly Fulfilment
         </h1>
       </div>
       {/* Table for large screens */}
