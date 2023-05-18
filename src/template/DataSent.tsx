@@ -9,7 +9,7 @@ const BeginForm: React.FC<BeginFormProps> = () => {
   return (
     <div className="flex flex-col gap-4 rounded-md border-gray-200 bg-white px-4 py-5 sm:w-[80%] w-full mx-auto">
       <div className="my-4 w-full text-center text-2xl font-semibold text-gray-800">
-        Congratulations!!!
+        Congratulations!
       </div>
       {/* Success Icon */}
       <div className=" w-fit space-y-4 mx-8 sm:mx-24">
