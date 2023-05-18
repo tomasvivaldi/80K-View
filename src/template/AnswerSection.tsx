@@ -472,7 +472,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
     } else {return}
   };
   return session ? (
-    !canFillForm ? (
+    canFillForm ? (
       <div className="flex flex-col gap-4">
         <div>{ButtonDisplay()}</div>
         <div>{PageTitleDisplay()}</div>
