@@ -15,6 +15,7 @@ import FeedbackBox from '@/template/FeedbackBox';
 import FeedbackBox2 from '@/template/FeedbackBox2';
 import LoadingBox from '@/template/LoadingBox';
 import { Stats } from '@/template/Stats';
+import Copyright from '@/template/Copyright';
 
 
 export type CategoryData = {
@@ -149,6 +150,9 @@ const Index = () => {
             </Section>
             <Section>
               <Stats />
+            </Section>
+            <Section>
+              <Copyright company={'80K View'} />
             </Section>
           </>
         ) : (
