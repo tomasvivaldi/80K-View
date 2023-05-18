@@ -131,8 +131,8 @@ const Index = () => {
                 <div className=" order-1 w-full md:order-2">
                 {loading || userDataLoading ? (
               <div className=' flex flex-row gap-8'>
-                <LoadingBox spinnerClassName='mx-24' />
-                <LoadingBox spinnerClassName='mx-64' />
+                <LoadingBox spinnerClassName='mx-24' containerClassName='mx-auto' />
+                <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' />
               </div>
               ) : (
                 rawData && 
