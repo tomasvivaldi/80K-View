@@ -9,7 +9,7 @@ function Banner() {
      bg-gradient-to-r from-cyan-400 via-teal-300 to-green-400 text-slate-800 
       sm:text-base  p-2 md:p-8 md:pr-16 flex flex-col md:flex-row md:h-20 items-center justify-between">
       <div className='flex h-fit my-4'>
-        <p className='text-xl'>
+        <p className='text-xl text-center'>
           It's time to update your life fulfilment tracker!
         </p>
         
