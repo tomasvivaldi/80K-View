@@ -108,7 +108,7 @@ function Shell(props: IShellProps) {
                           Career / Work
                         </DisabledSidebarLink>
                       </Link>
-                      <Tooltip text="“This refers to your work, how satisfied and challenged do you feel in your job?”" />
+                      <Tooltip text="“This refers to your work. How satisfied and challenged do you feel in your job?”" />
                     </div>
                     <div className='flex flex-row items-center justify-between'>
                       <Link href="/category-page">
@@ -237,7 +237,7 @@ function Shell(props: IShellProps) {
                           Spirituality
                         </DisabledSidebarLink>
                       </Link>
-                      <Tooltip text="“This refers to your higher self, spirit, connection to self, god - whichever you believe." />
+                      <Tooltip text="“This refers to your higher self, spirit, connection to self, god; whichever you believe." />
                     </div>
                         </div>
                       )}
