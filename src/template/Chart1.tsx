@@ -19,18 +19,18 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
     const day = String(dateObject.getDate()).padStart(2, '0');
     const monthIndex = dateObject.getMonth(); // Months are zero-based
     const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
       'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     const monthName = monthNames[monthIndex];
     // const year = dateObject.getFullYear();
@@ -45,15 +45,28 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
 
   const convertedData = data && data.length > 0 ? data.map(convertData).reverse() : [];
 
+  const CustomTick = (props: any) => {
+    const { x, y, payload } = props;
+    return (
+      <g transform={`translate(${x},${y})`}>
+        <text x={25} y={5} dy={16} textAnchor="end" fill="#666" transform="rotate(-0)">
+          {payload.value}
+        </text>
+      </g>
+    );
+  };
+  
+  
+
   return (
     <ChartCard title="Overall Score:">
       <AreaChart
         data={convertedData}
         margin={{
-          top: 0,
-          right: 28,
+          top: 20,
+          right: 35,
           left: 0,
-          bottom: 0,
+          bottom: 5,
         }}
       >
         <defs>
@@ -62,9 +75,9 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
             <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis dataKey="date" tickLine={false} axisLine={false} />
-        <YAxis domain={[0, 10]} tickLine={false} axisLine={false} />
-        <CartesianGrid stroke="#E5E7EB" strokeDasharray="15" vertical={false} />
+        <XAxis dataKey="date" tickLine={false} axisLine={false} tick={<CustomTick />}/>
+        <YAxis domain={[0, 10]} tickLine={false} axisLine={false} ticks={[3, 6, 10]}/>
+        <CartesianGrid stroke="#E5E7EB" strokeDasharray="15" vertical={false}/>
         <Tooltip />
         <Area
           type="monotone"
