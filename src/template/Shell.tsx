@@ -105,7 +105,7 @@ function Shell(props: IShellProps) {
                           }
                           data-tooltip-target="tooltip-default"
                         >
-                          Career & Work
+                          Career / Work
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to your work, how satisfied and challenged do you feel in your job?”" />
@@ -148,7 +148,7 @@ function Shell(props: IShellProps) {
                             </svg>
                           }
                         >
-                          Family & Friends
+                          Family / Friends
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to your relationships with friends and family.”" />
@@ -162,7 +162,7 @@ function Shell(props: IShellProps) {
                             </svg>
                           }
                         >
-                          Fun & Relaxation
+                          Fun / Relaxation
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to the things you like to do for fun, as well as how relaxed you feel. Are you taking time enjoy to do the things you enjoy?”" />
@@ -176,7 +176,7 @@ function Shell(props: IShellProps) {
                             </svg>
                           }
                         >
-                          Growth & Learning
+                          Growth / Learning
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to your personal growth and learning. For example, reading books that help you grow or taking up a new class.”" />
@@ -191,7 +191,7 @@ function Shell(props: IShellProps) {
                             </svg>
                           }
                         >
-                          Health & Fitness
+                          Health / Fitness
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to both your mental and physical health. How are you feeling? How is your diet and energy?”" />
@@ -205,7 +205,7 @@ function Shell(props: IShellProps) {
                             </svg>
                           }
                         >
-                          Money & Finances
+                          Money / Finances
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to your money and financial situation. Do you feel good about it or is there room for improvement?”" />
@@ -220,7 +220,7 @@ function Shell(props: IShellProps) {
                             </svg>
                           }
                         >
-                          Partner & Love
+                          Partner / Love
                         </DisabledSidebarLink>
                       </Link>
                       <Tooltip text="“This refers to your romantic relationships. Are you happy and content or lacking in something?”" />
