@@ -9,6 +9,7 @@ import {
   ADD_HEALTH_FITNESS_INFO,
   ADD_MONEY_FINANCES_INFO,
   ADD_OVERALL_SCORE,
+  ADD_OVERALL_ADVICE,
   ADD_PARTNER_LOVE_INFO,
   ADD_SPIRITUALITY_INFO,
 } from 'graphql/mutations';
@@ -168,6 +169,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
   const [addPartnerLoveInfo] = useMutation(ADD_PARTNER_LOVE_INFO);
   const [addSpiritualityInfo] = useMutation(ADD_SPIRITUALITY_INFO);
   const [addOverallScore] = useMutation(ADD_OVERALL_SCORE);
+  const [addOverallAdvice] = useMutation(ADD_OVERALL_ADVICE);
+
 
   const handleNextClick = () => {
     const currentCategoryFormData: CurrentCategoryFormData =
@@ -233,43 +236,94 @@ function AnswerSection( { data }: AnswerSectionProps) {
     const average = sum / Object.keys(formData).length;
     return average;
   };
-
-
-
-
-  // const onSubmit = async ({ category, categoryQueries, session, allCategoryFormData }: FormData) => {
-  //   if (!category || !categoryQueries[category]) {
-  //     console.error('Invalid category');
-  //     return;
-  //   }
   
-  //   const currentCategoryFormData = allCategoryFormData[category];
-  
-  //   // Check if the currentCategoryFormData has the necessary properties and if the score is not null
-  //   const isCategoryDataValid = currentCategoryFormData && currentCategoryFormData.score !== null && currentCategoryFormData.notes !== null && currentCategoryFormData.action_plan !== null;
-  
-  //   // Send the data to the database
-  //   if (isCategoryDataValid) {
-  //     const payload = {
-  //       username: session?.user?.name,
-  //       score: currentCategoryFormData.score,
-  //       notes: currentCategoryFormData.notes,
-  //       action_plan: currentCategoryFormData.action_plan,
-  //       user_ref: session?.user?.id, // Replace with the actual user ID property from your session object
-  //     };
-  
-  //     try {
-  //       await submitCategoryData(payload); // Replace this with your actual function for submitting the category data to the database
-  //     } catch (error) {
-  //       console.error('Error submitting category data:', error);
-  //     }
-  //   }
-  // };
+//Pass to gpt
+  console.log('formData',formData)
+  const parseData = async (formData: InitialFormData) => {
 
+    let priority1 = '', priority2 = '', priority3 = '', priority4 = '';
 
+    console.log("Calling parseData with data:", formData);
+    const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+    console.log("gptKey", gptKey)
 
+    var prompt =
+    'Analize the following data, consisting of 10 categories:the categories consist of:1. **`Career / Work** - “This refers to your work, how satisfied and challenged do you feel in your job?”`      2. **Community** - “description to be added here   3. **`Environment** -  “This refers to the physical location you are in and the people you are around where you live your life.”`      4. **`Family / Friends** - “This refers to your relationships with friends and family.”`      5. **`Fun / Relaxation** - “This refers to the things you like to do for fun, in your free time as well as  to resting and downtime. Are you taking necessary breaks or always running low on energy?”`      6. **`Growth / Learning** - “This refers to your personal growth and learning. For example, reading books that help you grow or taking up a new class.”`      7. **`Health / Fitness** - “This refers to both your mental and physical health. How are you feeling? How is your diet and energy?”`      8. **`Money / Finances** - “This refers to your money and financial situation. Do you feel good about it or is there room for improvement?”`      9. **`Love** - “This refers to your romantic relationships. Are you happy and content or lacking in something?”`      10. **`Spirituality** - “This refers to your higher self, spirit, connection to self, god - whichever you believe.”`       this data:\n\n ' +
+    JSON.stringify(formData, null, 2) +
+    "\n[voice and tone: speak as a life coach would] Give feedback for the categories with lowest scores, following the structure(one category per priority) for what to focus on long and/or short term:" +
+      "priority 1:" +
+      "priority 2:" +
+      "priority 3:" +
+      "priority 4:";
 
+    console.log("prompt",prompt)
+    
+    try {
+      const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${gptKey}`,
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          temperature: 0,
+          max_tokens: 256,
+          top_p: 1.0,
+          frequency_penalty: 0.0,
+          presence_penalty: 0.0,
+        }),
+      });
 
+    const responseData = await response.json();
+    console.log("response responseData", responseData);
+
+    const text_response = responseData.choices[0].text;
+    const priorities = text_response.split("\n\n");
+
+        console.log('priorities', priorities)
+        priorities.forEach((priority: string, i: number) => {
+          const periodIndex = priority.indexOf('.');
+          const categoryScore = priority.slice(12, periodIndex + 1); // from the start of the string to the first period
+          const advice = priority.slice(periodIndex + 2); // +1 to exclude the period, +1 to exclude the space after the period
+          const completePriority = categoryScore + "\n" + advice;
+          if (i === 1) {
+            priority1 = completePriority;
+          } else if (i === 2) {
+            priority2 = completePriority;
+          } else if (i === 3) {
+            priority3 = completePriority;
+          } else if (i === 4) {
+            priority4 = completePriority;
+          }
+        });
+      
+      console.log('priority1',priority1)
+      console.log('priority2',priority2)
+      console.log('priority3',priority3)
+      console.log('priority4',priority4)
+
+      const adviceVariables = {
+        advice1: priority1,
+        advice2: priority2,
+        advice3: priority3,
+        advice4: priority4,
+        created_at: new Date().toISOString(),
+        user_ref: data?.id
+      };
+
+      try {
+        await addOverallAdvice({ variables: adviceVariables });
+        console.log('adviceVariables',adviceVariables)
+      } catch (error) {
+        console.error('Error during overall score submission:', error);
+      }
+
+    } catch (error) {
+      console.log("ERROR *********");
+      console.error(error);
+    }
+  };
 
 
   
@@ -334,7 +388,6 @@ function AnswerSection( { data }: AnswerSectionProps) {
           console.error('Unknown category:', category);
           throw new Error('Unknown category');
       }
-
       successfulSubmissions.current += 1;
       if (successfulSubmissions.current === CategoryNames.length) {
         const averageScore = calculateAverageScore(formData);
@@ -349,6 +402,12 @@ function AnswerSection( { data }: AnswerSectionProps) {
           });
         } catch (error) {
           console.error('Error during overall score submission:', error);
+        }
+        try{
+          await parseData(formData);
+        }
+        catch(error) {
+
         }
       }
     } catch (error) {
@@ -472,7 +531,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
     } else {return}
   };
   return session ? (
-    canFillForm ? (
+    !canFillForm ? (
       <div className="flex flex-col gap-4">
         <div>{ButtonDisplay()}</div>
         <div>{PageTitleDisplay()}</div>

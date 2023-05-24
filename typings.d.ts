@@ -171,6 +171,15 @@ type CategoryKey =
       user_ref: string;
       username: string;
     }[];
+    overall_advice: {
+      id: number;
+      created_at: string;
+      advice1: string;
+      advice2: string;
+      advice3: string;
+      advice4: string;
+      user_ref: string;
+    }[];
   };
   
   type UserDataByIdData = {

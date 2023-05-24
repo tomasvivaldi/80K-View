@@ -281,6 +281,33 @@ export const ADD_OVERALL_SCORE = gql`
   }
 `;
 
+export const ADD_OVERALL_ADVICE = gql`
+  mutation AddOverallAdviceInfo(
+    $advice1: String!
+    $advice2: String!
+    $advice3: String!
+    $advice4: String!
+    $created_at: DateTime!
+    $user_ref: Int!
+  ) {
+    insertOverall_advice(
+      advice1: $advice1
+      advice2: $advice2
+      advice3: $advice3
+      advice4: $advice4
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      advice1
+      advice2
+      advice3
+      advice4
+      created_at
+      user_ref
+    }
+  }
+`;
+
 
 export const ADD_USERS = gql`
   mutation AddUsersInfo(
@@ -318,5 +345,6 @@ export const mutations = {
   ADD_PARTNER_LOVE_INFO,
   ADD_SPIRITUALITY_INFO,
   ADD_OVERALL_SCORE,
+  ADD_OVERALL_ADVICE,
   ADD_USERS,
 };

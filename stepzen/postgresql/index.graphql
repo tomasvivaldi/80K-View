@@ -114,20 +114,16 @@ type overall_score {
   id: ID!
   created_at: DateTime
   user_ref: Int
+}
 
-  # spirituality_score: Float
-  # partner_love_score: Float
-  # overall_score: Float
-  # money_finances_score: Float
-  # id: ID!
-  # health_fitness_score: Float
-  # growth_learning_score: Float
-  # fun_relaxation_score: Float
-  # family_friends_score: Float
-  # environment_score: Float
-  # created_at: DateTime
-  # community_score: Float
-  # career_work_score: Float
+type overall_advice {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
 }
 
 type users {
@@ -199,6 +195,11 @@ type UserData {
   overall_score: [overall_score]
     @materializer(
       query: "overallScoreListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  overall_advice: [overall_advice]
+    @materializer(
+      query: "overallAdviceListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
 }
@@ -522,6 +523,32 @@ type Query {
       query: """
       SELECT *
       FROM "overall_score"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  overallAdviceListByUser(username: String!): [overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_advice"
+      WHERE "username" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  overallAdviceListByUserId(user_ref: ID!): [overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_advice"
       WHERE "user_ref" = $1
       ORDER BY "created_at" DESC
       """
@@ -949,6 +976,34 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
+
+" Queries for type 'overall_advice' "
+  overall_advice(user_ref: ID!): overall_advice
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      configuration: "postgresql_config"
+    )
+  overall_adviceList: [overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      configuration: "postgresql_config"
+    )
+  overall_advicePaginatedList(first: Int, after: Int): [overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "created_at", "id", "user_ref" FROM "overall_advice" ORDER BY "created_at" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+
+
   " Queries for type 'partner_love' "
   partner_love(id: ID!): partner_love
     @dbquery(
@@ -1418,16 +1473,7 @@ type Mutation {
     overall_score: Float
     created_at: DateTime
     user_ref: Int
-  ): # spirituality_id: ID!
-  # community_id: ID!
-  # environment_id: ID!
-  # career_work_id: ID!
-  # fun_relaxation_id: ID!
-  # money_finances_id: ID!
-  # partner_love_id: ID!
-  # health_fitness_id: ID!
-  # family_friends_id: ID!
-  # growth_learning_id: ID!
+  ):
   overall_score
     @dbquery(
       type: "postgresql"
@@ -1442,16 +1488,7 @@ type Mutation {
     overall_score: Float
     created_at: DateTime
     user_ref: Int
-  ): # career_work_id: ID!
-  # community_id: ID!
-  # environment_id: ID!
-  # family_friends_id: ID!
-  # fun_relaxation_id: ID!
-  # growth_learning_id: ID!
-  # health_fitness_id: ID!
-  # money_finances_id: ID
-  # partner_love_id: ID!
-  # spirituality_id: ID!
+  ): 
   overall_score
     @dbquery(
       type: "postgresql"
@@ -1478,6 +1515,64 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+    
+
+
+  " Mutations for type 'overall_advice' "
+  deleteOverall_advice(id: ID!): overall_advice
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertOverall_advice(
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  overall_advice
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateOverall_advice(
+    id: ID!
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  overall_advice
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "overall_advice" SET
+        "advice1" = COALESCE($2, "advice1"),
+        "advice2" = COALESCE($3, "advice2"),
+        "advice3" = COALESCE($4, "advice3"),
+        "advice4" = COALESCE($5, "advice4"),
+        "created_at" = COALESCE($6, "created_at"),
+        "user_ref" = COALESCE($7, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
+
   " Mutations for type 'partner_love' "
   deletePartner_love(id: ID!): partner_love
     @dbquery(

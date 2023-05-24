@@ -41,7 +41,7 @@ const Index = () => {
   return (
     <>
       <Meta title={AppConfig.title} description={AppConfig.description} />
-      <Shell title="Forms">
+      <Shell title="Updating Your 80K View">
         <Section>
           {userDataLoading ? (
             <div className='h-[80vh] text-center text-4xl flex items-center justify-center animate-pulse'>

@@ -138,7 +138,7 @@ const Index = () => {
                 rawData && 
                 <div className=' flex flex-col sm:flex-row gap-4'>
                   <FeedbackBox data={rawData} />
-                  <FeedbackBox2 />
+                  <FeedbackBox2 userData={rawData} />
                 </div>
             )}
                 </div>

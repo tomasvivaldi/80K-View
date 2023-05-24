@@ -50,12 +50,12 @@ const EndForm: React.FC<EndFormProps> = ({
   }
 
   return (
-    <div className="w-full rounded-md border-gray-200 bg-white px-4 py-5">
+    <div className="w-full rounded-md border-gray-200 bg-white p-4">
       <div className="w-full text-center text-2xl font-semibold text-gray-800">
         10K View
       </div>
       <div className=" flex-col items-center justify-center">
-        <div className="my-4 flex flex-row items-center justify-around">
+        <div className="flex flex-row items-center justify-around">
           <span className="flex w-48 justify-center text-xl font-semibold">
             category
           </span>
@@ -96,21 +96,21 @@ const EndForm: React.FC<EndFormProps> = ({
             <div className="flex flex-row justify-around">
               <div
                 key={category}
-                className="my-2 flex w-48 items-center justify-center"
+                className="my-1 flex w-48 items-center justify-center"
               >
                 {toCapitalized(category)}
               </div>
-              <div className="my-2 flex w-48 justify-center">
+              <div className="my-1 flex w-48 justify-center">
                 <input
                   type="text"
                   id="score"
                   value={categoryData.length > 0 && categoryData[0].score ? categoryData[0].score : '-'}
 
                   disabled
-                  className="hide-arrows h-12 w-12 items-center rounded-full bg-blue-700 text-center text-2xl text-white"
+                  className="hide-arrows h-10 w-11 items-center rounded-full bg-blue-700 text-center text-lg text-white"
                 />
               </div>
-              <div className="my-2 flex w-48 justify-center ">
+              <div className="my-1 flex w-48 justify-center ">
                 <input
                   type="text"
                   id="score"
@@ -122,7 +122,7 @@ const EndForm: React.FC<EndFormProps> = ({
                       : ''
                   }
                   disabled
-                  className="hide-arrows h-12 w-12 items-center rounded-full bg-blue-700 text-center text-2xl text-white"
+                  className="hide-arrows h-10 w-11 items-center rounded-full bg-blue-700 text-center text-lg text-white"
                 />
               </div>
             </div>

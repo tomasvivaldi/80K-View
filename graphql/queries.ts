@@ -438,6 +438,15 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
+    overall_advice {
+      id
+      user_ref
+      created_at
+      advice1
+      advice2
+      advice3
+      advice4
+    }
     }
   }
 `;
