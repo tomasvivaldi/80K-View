@@ -485,10 +485,13 @@ function AnswerSection( { data }: AnswerSectionProps) {
     if (page == 11) {
       return (
         <Suspense fallback={<p>Loading feed...</p>}>
+          {data && (
           <EndForm
             categoryNames={CategoryNames as CategoryKey[]}
             allCategoryFormData={allCategoryFormData()}
+            data={data}
           />
+          )}
         </Suspense>
       );
     }
