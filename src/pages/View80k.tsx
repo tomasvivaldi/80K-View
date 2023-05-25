@@ -35,8 +35,6 @@ const View80k = () => {
     'September', 'October', 'November', 'December'
   ];
 
-
-
   const category = [
     'career_work',
     'community',
@@ -123,13 +121,11 @@ function isValidCategoryName(name: string): name is CategoryName {
         const month = date.getMonth() + 1; // Adjust to one-based month
         return `${year}-${month}`;
       });
-      
-      
     
       console.log('sortedData', sortedData);
       console.log('groupedData', groupedData);
-    
       console.log('category:', category);
+
       months.forEach((_month, monthIndex: number) => {
         // Get the year-month key for the current month (adjust to one-based month)
         const currentYearMonth = `2023-${monthIndex + 1}`;
@@ -149,11 +145,7 @@ function isValidCategoryName(name: string): name is CategoryName {
           score: score,
           notes: notes,
           actionPlan: actionPlan,
-        });
-
-
-
-        
+        });        
       });
       console.log('tableData:', tableData);
     }
@@ -171,8 +163,17 @@ function isValidCategoryName(name: string): name is CategoryName {
     return
   });
   
+  const formatCategory = (category: string) => {
+    if (!category) {
+      return "";
+    }
+    
+    return category
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' / ');
+  }
   
-
   
   return (
     <>
@@ -203,7 +204,7 @@ function isValidCategoryName(name: string): name is CategoryName {
                   <tbody>
                     {category.map((category, _categoryIndex) => (
                       <tr key={category} className="">
-                        <td className="h-64 p-2 text-center text-gray-200 border-r border-b border-gray-500 sticky left-0 bg-blue-800">{category}</td>
+                        <td className="h-64 p-2 text-center text-gray-200 border-r border-b border-gray-500 sticky left-0 bg-blue-800">{formatCategory(category)}</td>
                         {/* <td className="p-2 text-center border-b border-gray-500">
                           <Chart1 data={ytdData} />
                         </td> */}

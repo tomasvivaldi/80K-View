@@ -24,7 +24,7 @@ const EndForm: React.FC<EndFormProps> = ({
 
   function toCapitalized(str: string): string {
     return str.replace(/(?:^|[-_])([a-z])/g, (group) =>
-      group.toUpperCase().replace('-', ' ').replace('_', ' ')
+      group.toUpperCase().replace('-', ' ').replace('_', ' / ')
     );
   }
 
@@ -48,8 +48,6 @@ const EndForm: React.FC<EndFormProps> = ({
         {categoryNames.map((category) => {
           const categoryData =
             data && data[`${category}` as CategoryKey];
-          console.log('categotyDataAAAAAAAA',categoryData)
-
           const currentCategoryFormData = allCategoryFormData[category];
 
           return (
