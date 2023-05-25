@@ -150,7 +150,7 @@ return(
           <path d="M6 5l14 1-1 7H6" />
         </svg>
       }
-      text="Highest Increase Category"
+      text="Highest % Increase Category"
     >
       <div className='flex flex-row gap-1 items-center'>
         <p>
@@ -174,7 +174,7 @@ return(
           <path d="M4 21V8a3 3 0 013-3h10a3 3 0 013 3v6a3 3 0 01-3 3H8l-4 4M8 9h8M8 13h6" />
         </svg>
       }
-      text="Highest Increase Category"
+      text="Highest % Decrease Category"
     >
       <div className='flex flex-row gap-1 items-center'>
         <p>
