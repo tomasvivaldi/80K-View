@@ -149,7 +149,7 @@ const Index = () => {
               </div>
             </Section>
             <Section>
-              <Stats />
+              <Stats data={rawData}/>
             </Section>
             <Section>
               <Copyright company={'80K View'} />
