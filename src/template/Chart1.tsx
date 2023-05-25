@@ -16,7 +16,7 @@ interface Chart1Props {
 const Chart1: React.FC<Chart1Props> = ({ data }) => {
   const convertData = (data: { date: string | number | Date; value: any }) => {
     const dateObject = new Date(data.date);
-    const day = String(dateObject.getDate()).padStart(2, '0');
+    // const day = String(dateObject.getDate()).padStart(2, '0');
     const monthIndex = dateObject.getMonth(); // Months are zero-based
     const monthNames = [
       'Jan',
@@ -33,9 +33,9 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
       'Dec',
     ];
     const monthName = monthNames[monthIndex];
-    // const year = dateObject.getFullYear();
+    const year = dateObject.getFullYear();
     // const formattedDate = `${day} ${monthName} ${year}`;
-    const formattedDate = `${day} ${monthName}`;
+    const formattedDate = `${monthName} ${year}`;
 
     return {
       date: formattedDate,
