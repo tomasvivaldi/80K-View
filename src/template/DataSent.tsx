@@ -17,9 +17,9 @@ const BeginForm: React.FC<BeginFormProps> = () => {
            You'll find tables and graphs where you can track your progress, see how you've improved 
            and where to focus next. Looking forward to your return!</p>
       </div>
-      <Link href="/" className="mx-auto my-16">
+      <a href="/" className="mx-auto my-16">
         <Button>Back to Dashboard</Button>
-      </Link>
+      </a>
     </div>
   );
 };
