@@ -171,6 +171,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
   const [addOverallScore] = useMutation(ADD_OVERALL_SCORE);
   const [addOverallAdvice] = useMutation(ADD_OVERALL_ADVICE);
 
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
 
   const handleNextClick = () => {
     const currentCategoryFormData: CurrentCategoryFormData =
@@ -191,8 +193,10 @@ function AnswerSection( { data }: AnswerSectionProps) {
         toast.error(
           'Please fill in the required fields before moving to the next page'
         );
+        setHasSubmitted(true); 
       } else {
         setPage((currPage) => currPage + 1);
+        setHasSubmitted(false);
       }
     }
   };
@@ -435,7 +439,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
 
   function toCapitalized(str: string): string {
     return str.replace(/(?:^|[-_])([a-z])/g, (group) =>
-      group.toUpperCase().replace('-', ' ').replace('_', ' ')
+      group.toUpperCase().replace('-', ' ').replace('_', ' / ')
     );
   }
 
@@ -474,6 +478,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
               session={session}
               formData={formData[CategoryNames[page - 1] as string] ?? {}}
               setFormDataForCategory={setFormDataForCategory}
+              hasSubmitted={hasSubmitted}
+              setHasSubmitted={setHasSubmitted}
             />
           </div>
           {data && (

@@ -14,6 +14,8 @@ interface Form2FillProps {
   session: Session | null;
   formData: CategoryData | {};
   setFormDataForCategory: (category: string, data: CategoryData) => void;
+  hasSubmitted: boolean;
+  setHasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type CategoryName = keyof typeof categoryQueries;
@@ -31,6 +33,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
   register,
   formData,
   setFormDataForCategory,
+  hasSubmitted,
 }) => {
   // Set the initial value of 'score' to an empty string when the component is mounted
   useEffect(() => {
@@ -82,7 +85,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
               })}
               type="text"
               id="score"
-              className="hide-arrows h-24 w-24 rounded-full border-blue-700 border-4 bg-blue-400/20 text-black text-center text-5xl  lg:row-start-2"
+              className={`hide-arrows h-24 w-24 rounded-full bg-blue-400/20 text-black text-center text-5xl ${hasSubmitted && !(formData as CategoryData).score ? 'border-red-500' : 'border-blue-700'} border-4 lg:row-start-2`}
               value={
                 isCategoryData(formData)
                   ? formData.score !== null
@@ -94,62 +97,64 @@ const Form2Fill: React.FC<Form2FillProps> = ({
               onFocus={(e) => e.target.select()}
             />
           </div>
-          <div className="flex w-full flex-col gap-2 lg:gap-4">
-            <Label
-              htmlFor="comment"
-              colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1"
-            >
-              Notes:
-            </Label>
-            <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
-              <textarea
-                {...register('notes', { required: true })}
-                id="textarea"
-                rows={5}
-                value={
-                  isCategoryData(formData)
-                    ? formData.notes !== null
-                      ? formData.notes
-                      : ''
-                    : ''
-                }
-                onChange={(e) =>
-                  setFormDataForCategory(category, {
-                    ...formData,
-                    notes: e.target.value,
-                  })
-                }
-              />
-            </FormElement>
-          </div>
-          <div className="flex w-full flex-col gap-2 lg:gap-4">
-            <Label
-              htmlFor="comment"
-              colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-1"
-            >
-              Action Plan:
-            </Label>
-            <FormElement colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-2">
-              <textarea
-                {...register('action_plan', { required: true })}
-                id="textarea"
-                rows={5}
-                value={
-                  isCategoryData(formData)
-                    ? formData.action_plan !== null
-                      ? formData.action_plan
-                      : ''
-                    : ''
-                }
-                onChange={(e) =>
-                  setFormDataForCategory(category, {
-                    ...formData,
-                    action_plan: e.target.value,
-                  })
-                }
-              />
-            </FormElement>
-          </div>
+          <div className={`flex w-full flex-col gap-2 lg:gap-4 ${hasSubmitted && !(formData as CategoryData).notes ? 'border-red-500' : ''}`}>
+  <Label htmlFor="comment" colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1">
+    Notes:
+  </Label>
+  <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
+    <div className={hasSubmitted && !(formData as CategoryData).notes ? 'w-full h-fit rounded-lg border-2 border-red-500' : ''}>
+      <textarea
+        {...register('notes', { required: true })}
+        className="block resize-none"
+        id="textarea"
+        rows={5}
+        value={
+          isCategoryData(formData)
+            ? formData.notes !== null
+              ? formData.notes
+              : ''
+            : ''
+        }
+        onChange={(e) =>
+          setFormDataForCategory(category, {
+            ...formData,
+            notes: e.target.value,
+          })
+        }
+      />
+    </div>
+  </FormElement>
+</div>
+<div className={`flex w-full flex-col gap-2 lg:gap-4 ${hasSubmitted && !(formData as CategoryData).action_plan ? 'border-red-500' : ''}`}>
+  <Label htmlFor="comment" colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-1">
+    Action Plan:
+  </Label>
+  
+  <FormElement colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-2 ">
+    <div className={hasSubmitted && !(formData as CategoryData).action_plan ? 'w-full h-fit rounded-lg border-2 border-red-500' : ''}>
+    <textarea
+      {...register('action_plan', { required: true })}
+      className="block resize-none"
+      id="textarea"
+      rows={5}
+      value={
+        isCategoryData(formData)
+          ? formData.action_plan !== null
+            ? formData.action_plan
+            : ''
+          : ''
+      }
+      onChange={(e) =>
+        setFormDataForCategory(category, {
+          ...formData,
+          action_plan: e.target.value,
+        })
+      }
+    />
+    </div>
+  </FormElement>
+</div>
+
         </div>
       </form>
     </div>
