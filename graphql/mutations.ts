@@ -308,6 +308,284 @@ export const ADD_OVERALL_ADVICE = gql`
   }
 `;
 
+export const ADD_ADVICE = gql`
+  mutation AddAdviceInfo(
+    $career_work_feedback: String!
+    $career_work_advice1: String!
+    $career_work_advice2: String!
+    $career_work_advice3: String!
+    $career_work_advice4: String!
+    $career_work_advice5: String!
+    $community_feedback: String!
+    $community_advice1: String!
+    $community_advice2: String!
+    $community_advice3: String!
+    $community_advice4: String!
+    $community_advice5: String!
+    $environment_feedback: String!
+    $environment_advice1: String!
+    $environment_advice2: String!
+    $environment_advice3: String!
+    $environment_advice4: String!
+    $environment_advice5: String!
+    $family_friends_feedback: String!
+    $family_friends_advice1: String!
+    $family_friends_advice2: String!
+    $family_friends_advice3: String!
+    $family_friends_advice4: String!
+    $family_friends_advice5: String!
+    $fun_relaxation_feedback: String!
+    $fun_relaxation_advice1: String!
+    $fun_relaxation_advice2: String!
+    $fun_relaxation_advice3: String!
+    $fun_relaxation_advice4: String!
+    $fun_relaxation_advice5: String!
+    $growth_learning_feedback: String!
+    $growth_learning_advice1: String!
+    $growth_learning_advice2: String!
+    $growth_learning_advice3: String!
+    $growth_learning_advice4: String!
+    $growth_learning_advice5: String!
+    $health_fitness_feedback: String!
+    $health_fitness_advice1: String!
+    $health_fitness_advice2: String!
+    $health_fitness_advice3: String!
+    $health_fitness_advice4: String!
+    $health_fitness_advice5: String!
+    $money_finances_feedback: String!
+    $money_finances_advice1: String!
+    $money_finances_advice2: String!
+    $money_finances_advice3: String!
+    $money_finances_advice4: String!
+    $money_finances_advice5: String!
+    $partner_love_feedback: String!
+    $partner_love_advice1: String!
+    $partner_love_advice2: String!
+    $partner_love_advice3: String!
+    $partner_love_advice4: String!
+    $partner_love_advice5: String!
+    $spirituality_feedback: String!
+    $spirituality_advice1: String!
+    $spirituality_advice2: String!
+    $spirituality_advice3: String!
+    $spirituality_advice4: String!
+    $spirituality_advice5: String!
+    $created_at: DateTime!
+    $user_ref: Int!
+  ) {
+    insertCareer_work_advice(
+      # $ is for the variables
+      feedback: $career_work_feedback
+      advice1: $career_work_advice1
+      advice2: $career_work_advice2
+      advice3: $career_work_advice3
+      advice4: $career_work_advice4
+      advice5: $career_work_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertCommunity_advice(
+      # $ is for the variables
+      feedback: $community_feedback
+      advice1: $community_advice1
+      advice2: $community_advice2
+      advice3: $community_advice3
+      advice4: $community_advice4
+      advice5: $community_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertEnvironment_advice(
+      # $ is for the variables
+      feedback: $environment_feedback
+      advice1: $environment_advice1
+      advice2: $environment_advice2
+      advice3: $environment_advice3
+      advice4: $environment_advice4
+      advice5: $environment_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertFamily_friends_advice(
+      # $ is for the variables
+      feedback: $family_friends_feedback
+      advice1: $family_friends_advice1
+      advice2: $family_friends_advice2
+      advice3: $family_friends_advice3
+      advice4: $family_friends_advice4
+      advice5: $family_friends_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertFun_relaxation_advice(
+      # $ is for the variables
+      feedback: $fun_relaxation_feedback
+      advice1: $fun_relaxation_advice1
+      advice2: $fun_relaxation_advice2
+      advice3: $fun_relaxation_advice3
+      advice4: $fun_relaxation_advice4
+      advice5: $fun_relaxation_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertGrowth_learning_advice(
+      # $ is for the variables
+      feedback: $growth_learning_feedback
+      advice1: $growth_learning_advice1
+      advice2: $growth_learning_advice2
+      advice3: $growth_learning_advice3
+      advice4: $growth_learning_advice4
+      advice5: $growth_learning_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertHealth_fitness_advice(
+      # $ is for the variables
+      feedback: $health_fitness_feedback
+      advice1: $health_fitness_advice1
+      advice2: $health_fitness_advice2
+      advice3: $health_fitness_advice3
+      advice4: $health_fitness_advice4
+      advice5: $health_fitness_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertMoney_finances_advice(
+      # $ is for the variables
+      feedback: $money_finances_feedback
+      advice1: $money_finances_advice1
+      advice2: $money_finances_advice2
+      advice3: $money_finances_advice3
+      advice4: $money_finances_advice4
+      advice5: $money_finances_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertPartner_love_advice(
+      # $ is for the variables
+      feedback: $partner_love_feedback
+      advice1: $partner_love_advice1
+      advice2: $partner_love_advice2
+      advice3: $partner_love_advice3
+      advice4: $partner_love_advice4
+      advice5: $partner_love_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+    insertSpirituality_advice(
+      # $ is for the variables
+      feedback: $spirituality_feedback
+      advice1: $spirituality_advice1
+      advice2: $spirituality_advice2
+      advice3: $spirituality_advice3
+      advice4: $spirituality_advice4
+      advice5: $spirituality_advice5
+      created_at: $created_at
+      user_ref: $user_ref
+    ) {
+      # Same as db table
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      created_at
+      user_ref
+    }
+  }
+`;
+
 
 export const ADD_USERS = gql`
   mutation AddUsersInfo(
@@ -347,4 +625,5 @@ export const mutations = {
   ADD_OVERALL_SCORE,
   ADD_OVERALL_ADVICE,
   ADD_USERS,
+  ADD_ADVICE,
 };
