@@ -18,11 +18,35 @@ type career_work {
   user_ref: Int
 }
 
+type career_work_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
 type community {
   username: String
   score: Float
   notes: String
   action_plan: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
+type community_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
   id: ID!
   created_at: DateTime
   user_ref: Int
@@ -38,11 +62,35 @@ type environment {
   user_ref: Int
 }
 
+type environment_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
 type family_friends {
   username: String
   score: Float
   notes: String
   action_plan: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
+type family_friends_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
   id: ID!
   created_at: DateTime
   user_ref: Int
@@ -58,11 +106,35 @@ type fun_relaxation {
   user_ref: Int
 }
 
+type fun_relaxation_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
 type growth_learning {
   username: String
   score: Float
   notes: String
   action_plan: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
+type growth_learning_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
   id: ID!
   created_at: DateTime
   user_ref: Int
@@ -78,11 +150,35 @@ type health_fitness {
   user_ref: Int
 }
 
+type health_fitness_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
 type money_finances {
   username: String
   score: Float
   notes: String
   action_plan: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
+type money_finances_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
   id: ID!
   created_at: DateTime
   user_ref: Int
@@ -98,11 +194,35 @@ type partner_love {
   user_ref: Int
 }
 
+type partner_love_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
 type spirituality {
   username: String
   score: Float
   notes: String
   action_plan: String
+  id: ID!
+  created_at: DateTime
+  user_ref: Int
+}
+
+type spirituality_feedback {
+  feedback: String
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
   id: ID!
   created_at: DateTime
   user_ref: Int
@@ -147,9 +267,19 @@ type UserData {
       query: "careerWorkListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
+  career_work_feedback: [career_work_feedback]
+    @materializer(
+      query: "careerWorkFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
   community: [community]
     @materializer(
       query: "communityListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  community_feedback: [community_feedback]
+    @materializer(
+      query: "communityFeedbackListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
   environment: [environment]
@@ -157,9 +287,19 @@ type UserData {
       query: "environmentListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
+  environment_feedback: [environment_feedback]
+    @materializer(
+      query: "environmentFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
   family_friends: [family_friends]
     @materializer(
       query: "familyFriendsListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  family_friends_feedback: [family_friends_feedback]
+    @materializer(
+      query: "familyFriendsFeedbackListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
   fun_relaxation: [fun_relaxation]
@@ -167,9 +307,19 @@ type UserData {
       query: "funRelaxationListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
+  fun_relaxation_feedback: [fun_relaxation_feedback]
+    @materializer(
+      query: "funRelaxationFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
   growth_learning: [growth_learning]
     @materializer(
       query: "growthLearningListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  growth_learning_feedback: [growth_learning_feedback]
+    @materializer(
+      query: "growthLearningFeedbackListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
   health_fitness: [health_fitness]
@@ -177,9 +327,19 @@ type UserData {
       query: "healthFitnessListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
+  health_fitness_feedback: [health_fitness_feedback]
+    @materializer(
+      query: "healthFitnessFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
   money_finances: [money_finances]
     @materializer(
       query: "moneyFinancesListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  money_finances_feedback: [money_finances_feedback]
+    @materializer(
+      query: "moneyFinancesFeedbackListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
   partner_love: [partner_love]
@@ -187,9 +347,19 @@ type UserData {
       query: "partnerLoveListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
+  partner_love_feedback: [partner_love_feedback]
+    @materializer(
+      query: "partnerLoveFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
   spirituality: [spirituality]
     @materializer(
       query: "spiritualityListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  spirituality_feedback: [spirituality_feedback]
+    @materializer(
+      query: "spiritualityFeedbackListByUserId"
       arguments: [{name: "user_ref", field: "id"}]
     )
   overall_score: [overall_score]
@@ -267,6 +437,19 @@ type Query {
       configuration: "postgresql_config"
     )
 
+    careerWorkFeedbackListByUserId(user_ref: ID!): [career_work_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "career_work_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
   communityListByUser(username: String!): [community]
     @dbquery(
       type: "postgresql"
@@ -293,6 +476,19 @@ type Query {
       configuration: "postgresql_config"
     )
 
+  communityFeedbackListByUserId(user_ref: ID!): [community_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "community_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
   environmentListByUser(username: String!): [environment]
     @dbquery(
       type: "postgresql"
@@ -305,6 +501,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   environmentListByUserId(user_ref: ID!): [environment]
     @dbquery(
       type: "postgresql"
@@ -318,6 +515,18 @@ type Query {
       configuration: "postgresql_config"
     )
 
+  environmentFeedbackListByUserId(user_ref: ID!): [environment_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "environment_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
 
   familyFriendsListByUser(username: String!): [family_friends]
     @dbquery(
@@ -331,6 +540,7 @@ type Query {
       """
       configuration: "postgresql_config"
     )
+
   familyFriendsListByUserId (user_ref: ID!): [family_friends]
     @dbquery(
       type: "postgresql"
@@ -338,6 +548,19 @@ type Query {
       query: """
       SELECT *
       FROM "family_friends"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  familyFriendsFeedbackListByUserId (user_ref: ID!): [family_friends_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "family_friends_feedback"
       WHERE "user_ref" = $1
       ORDER BY "created_at" DESC
       """
@@ -371,6 +594,19 @@ type Query {
     configuration: "postgresql_config"
   )
 
+  funRelaxationFeedbackListByUserId(user_ref: ID!): [fun_relaxation_feedback]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+    SELECT *
+    FROM "fun_relaxation_feedback"
+    WHERE "user_ref" = $1
+    ORDER BY "created_at" DESC
+    """
+    configuration: "postgresql_config"
+  )
+
   growthLearningListByUser(username: String!): [growth_learning]
     @dbquery(
       type: "postgresql"
@@ -391,6 +627,19 @@ type Query {
       query: """
       SELECT *
       FROM "growth_learning"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  growthLearningFeedbackListByUserId(user_ref: ID!): [growth_learning_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "growth_learning_feedback"
       WHERE "user_ref" = $1
       ORDER BY "created_at" DESC
       """
@@ -424,6 +673,18 @@ type Query {
       configuration: "postgresql_config"
     )
 
+  healthFitnessFeedbackListByUserId(user_ref: ID!): [health_fitness_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "health_fitness_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
 
   moneyFinancesListByUser(username: String!): [money_finances]
     @dbquery(
@@ -445,6 +706,19 @@ type Query {
       query: """
       SELECT *
       FROM "money_finances"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  moneyFinancesFeedbackListByUserId(user_ref: ID!): [money_finances_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "money_finances_feedback"
       WHERE "user_ref" = $1
       ORDER BY "created_at" DESC
       """
@@ -477,6 +751,19 @@ type Query {
       configuration: "postgresql_config"
     )
 
+  partnerLoveFeedbackListByUserId(user_ref: ID!): [partner_love_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "partner_love_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
   spiritualityListByUser(username: String!): [spirituality]
     @dbquery(
       type: "postgresql"
@@ -497,6 +784,19 @@ type Query {
       query: """
       SELECT *
       FROM "spirituality"
+      WHERE "user_ref" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "postgresql_config"
+    )
+
+  spiritualityFeedbackListByUserId(user_ref: ID!): [spirituality_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "spirituality_feedback"
       WHERE "user_ref" = $1
       ORDER BY "created_at" DESC
       """
@@ -1109,6 +1409,66 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+" Mutations for type 'career_work_feedback' "
+  deleteCareer_work_feedback(id: ID!): career_work_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertCareer_work_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  career_work_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateCareer_work_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  career_work_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "career_work_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
   " Mutations for type 'community' "
   deleteCommunity(id: ID!): community
     @dbquery(
@@ -1159,6 +1519,67 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+
+" Mutations for type 'community_feedback' "
+  deleteCommunity_feedback(id: ID!): community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertCommunity_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateCommunity_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
   " Mutations for type 'environment' "
   deleteEnvironment(id: ID!): environment
     @dbquery(
@@ -1209,6 +1630,68 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+
+" Mutations for type 'environment_feedback' "
+  deleteEvironment_feedback(id: ID!): environment_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertEnvironment_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  environment_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateEnvironment_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  environment_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "environment_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
   " Mutations for type 'family_friends' "
   deleteFamily_friends(id: ID!): family_friends
     @dbquery(
@@ -1259,6 +1742,68 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+
+" Mutations for type 'family_friends_feedback' "
+  deleteFamily_friends_feedback(id: ID!): family_friends_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertFamily_friends_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  family_friends_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateFamily_friends_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  family_friends_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "family_friends_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
   " Mutations for type 'fun_relaxation' "
   deleteFun_relaxation(id: ID!): fun_relaxation
     @dbquery(
@@ -1309,6 +1854,68 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+
+" Mutations for type 'fun_relaxation_feedback' "
+  deleteFun_relaxation_feedback(id: ID!): fun_relaxation_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertFun_relaxation_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  fun_relaxation_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateFun_relaxation_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  fun_relaxation_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "fun_relaxation_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
   " Mutations for type 'growth_learning' "
   deleteGrowth_learning(id: ID!): growth_learning
     @dbquery(
@@ -1359,6 +1966,68 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+
+" Mutations for type 'growth_learning_feedback' "
+  deleteGrowth_learning_feedback(id: ID!): growth_learning_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertGrowth_learning_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  growth_learning_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateGrowth_learning_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  growth_learning_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "growth_learning_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
   " Mutations for type 'health_fitness' "
   deleteHealth_fitness(id: ID!): health_fitness
     @dbquery(
@@ -1409,6 +2078,67 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+
+" Mutations for type 'health_fitness_feedback' "
+  deleteHealth_fitness_feedback(id: ID!): health_fitness_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertHealth_fitness_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  health_fitness_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateHealth_fitness_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  health_fitness_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "health_fitness_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
   " Mutations for type 'money_finances' "
   deleteMoney_finances(id: ID!): money_finances
     @dbquery(
@@ -1459,6 +2189,66 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
+
+" Mutations for type 'money_finances_feedback' "
+  deleteMoney_finances_feedback(id: ID!): money_finances_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertMoney_finances_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  money_finances_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateMoney_finances_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  money_finances_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "money_finances_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
   " Mutations for type 'overall_score' "
   deleteOverall_score(id: ID!): overall_score
     @dbquery(
@@ -1516,8 +2306,6 @@ type Mutation {
       configuration: "postgresql_config"
     )
     
-
-
   " Mutations for type 'overall_advice' "
   deleteOverall_advice(id: ID!): overall_advice
     @dbquery(
@@ -1571,8 +2359,6 @@ type Mutation {
       configuration: "postgresql_config"
     )
 
-
-
   " Mutations for type 'partner_love' "
   deletePartner_love(id: ID!): partner_love
     @dbquery(
@@ -1624,6 +2410,67 @@ type Mutation {
       configuration: "postgresql_config"
     )
 
+
+" Mutations for type 'partner_love_feedback' "
+  deletePartner_love_feedback(id: ID!): partner_love_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertPartner_love_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  partner_love_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updatePartner_love_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  partner_love_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "partner_love_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
   " Mutations for type 'spirituality' "
   deleteSpirituality(id: ID!): spirituality
     @dbquery(
@@ -1668,6 +2515,65 @@ type Mutation {
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
         "user_ref" = COALESCE($7, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+" Mutations for type 'spirituality_feedback' "
+  deleteSpirituality_feedback(id: ID!): spirituality_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality_feedback"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertSpirituality_feedback(
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ):
+  spirituality_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality_feedback"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateSpirituality_feedback(
+    id: ID!
+    feedback: String
+    advice1: String
+    advice2: String
+    advice3: String
+    advice4: String
+    advice5: String
+    created_at: DateTime
+    user_ref: Int
+  ): 
+  spirituality_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "spirituality_feedback" SET
+        "feedback" = COALESCE($2, "feedback")
+        "advice1" = COALESCE($3, "advice1"),
+        "advice2" = COALESCE($4, "advice2"),
+        "advice3" = COALESCE($5, "advice3"),
+        "advice4" = COALESCE($6, "advice4"),
+        "advice5" = COALESCE($7, "advice5"),
+        "created_at" = COALESCE($8, "created_at"),
+        "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
       RETURNING *

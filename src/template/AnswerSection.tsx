@@ -9,12 +9,13 @@ import {
   ADD_HEALTH_FITNESS_INFO,
   ADD_MONEY_FINANCES_INFO,
   ADD_OVERALL_SCORE,
-  ADD_OVERALL_ADVICE,
+  // ADD_OVERALL_ADVICE,
   ADD_PARTNER_LOVE_INFO,
   ADD_SPIRITUALITY_INFO,
+  ADD_ADVICE,
 } from 'graphql/mutations';
 import { useSession } from 'next-auth/react';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -28,7 +29,7 @@ import { Form2Fill } from './Form2Fill';
 import { PrepopulatedForm } from './PrepopulatedForm';
 import ProgressBar from './ProgressBar';
 import { PleaseLogIn } from './PleaseLogIn';
-import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
+// import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
 
 
 export type CategoryData = {
@@ -67,72 +68,69 @@ type AnswerSectionProps = {
 
 
 function AnswerSection( { data }: AnswerSectionProps) {
-  const [canFillForm, setCanFillForm] = useState(false);
-  const now = new Date();
-  // Get the current date.
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
-  const currentDate = now.getDate();  
-  // Check if the current date is within the last 7 days of the month.
-    // If it's the last 7 days of the month or there are no entries for the previous month, set canFillForm to true.
+  // const [canFillForm, setCanFillForm] = useState(false);
+  // const now = new Date();
+  // // Get the current date.
+  // const currentMonth = now.getMonth();
+  // const currentYear = now.getFullYear();
+  // const currentDate = now.getDate();  
+  // // Check if the current date is within the last 7 days of the month.
+  //   // If it's the last 7 days of the month or there are no entries for the previous month, set canFillForm to true.
 
-  useEffect(() => {
-    if (data) {
-      const isLast7DaysOfMonth = currentDate > new Date(currentYear, currentMonth + 1, 0).getDate() - 7;
-      // Check if there are entries for this month or the previous month.
-      const hasEntriesThisMonth = data?.overall_score.some(entry => {
-        // Get the start of the current month
-        const startOfThisMonth = startOfMonth(new Date());
-        // Parse the created_at date from the entry object
-        const lastFormFillDate = parseISO(entry.created_at);
-        // Check if the form was filled out last month or this month
-        console.log('startOfThisMonth',startOfThisMonth)
-        console.log('lastFormFillDate',lastFormFillDate)
+  // useEffect(() => {
+  //   if (data) {
+  //     const isLast7DaysOfMonth = currentDate > new Date(currentYear, currentMonth + 1, 0).getDate() - 7;
+  //     // Check if there are entries for this month or the previous month.
+  //     const hasEntriesThisMonth = data?.overall_score.some(entry => {
+  //       // Get the start of the current month
+  //       const startOfThisMonth = startOfMonth(new Date());
+  //       // Parse the created_at date from the entry object
+  //       const lastFormFillDate = parseISO(entry.created_at);
+  //       // Check if the form was filled out last month or this month
+  //       console.log('startOfThisMonth',startOfThisMonth)
+  //       console.log('lastFormFillDate',lastFormFillDate)
         
-        return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfThisMonth) || isAfter(lastFormFillDate, startOfThisMonth));
-      });
+  //       return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfThisMonth) || isAfter(lastFormFillDate, startOfThisMonth));
+  //     });
     
-      console.log('hasEntriesThisMonth',hasEntriesThisMonth)
-      console.log('Datadatadatacdaatadata',data)
-      console.log('isLast7DaysOfMonth',isLast7DaysOfMonth)
+  //     console.log('hasEntriesThisMonth',hasEntriesThisMonth)
+  //     console.log('Datadatadatacdaatadata',data)
+  //     console.log('isLast7DaysOfMonth',isLast7DaysOfMonth)
     
-      // Check if there are entries for the previous month
-      // const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
-      //   const lastFormFillDate = parseISO(entry.created_at);
-      //   console.log('lastFormFillDate', lastFormFillDate)
-      //   const dateExample: Date = new Date("2023-04-05T11:43:36.82Z");
-      //   return lastFormFillDate && isBefore(lastFormFillDate, dateExample) && isAfter(lastFormFillDate, dateExample);
-      // });
+  //     // Check if there are entries for the previous month
+  //     // const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
+  //     //   const lastFormFillDate = parseISO(entry.created_at);
+  //     //   console.log('lastFormFillDate', lastFormFillDate)
+  //     //   const dateExample: Date = new Date("2023-04-05T11:43:36.82Z");
+  //     //   return lastFormFillDate && isBefore(lastFormFillDate, dateExample) && isAfter(lastFormFillDate, dateExample);
+  //     // });
     
-      const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
-        const startOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-        // Get the start of the current month
+  //     const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
+  //       const startOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  //       // Get the start of the current month
         
-        // Parse the created_at date from the entry object
-        const lastFormFillDate = parseISO(entry.created_at);
+  //       // Parse the created_at date from the entry object
+  //       const lastFormFillDate = parseISO(entry.created_at);
     
-        console.log('lastFormFillDate', lastFormFillDate)
-        return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfPreviousMonth) || isAfter(lastFormFillDate, startOfPreviousMonth));
-      });
+  //       console.log('lastFormFillDate', lastFormFillDate)
+  //       return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfPreviousMonth) || isAfter(lastFormFillDate, startOfPreviousMonth));
+  //     });
       
-      console.log('currentDate', currentDate)
-      console.log('currentMonth', currentMonth)
-      console.log('now', now)
-      console.log('hasEntriesPreviousMonth',hasEntriesPreviousMonth)
+  //     console.log('currentDate', currentDate)
+  //     console.log('currentMonth', currentMonth)
+  //     console.log('now', now)
+  //     console.log('hasEntriesPreviousMonth',hasEntriesPreviousMonth)
       
 
-      if (isLast7DaysOfMonth || !hasEntriesPreviousMonth) {
-        if (!hasEntriesThisMonth || !hasEntriesPreviousMonth) {
-          setCanFillForm(true);
-        } else {
-          setCanFillForm(false);
-        }
-      }
-    }
-  }, [data]);
-
-    
-
+  //     if (isLast7DaysOfMonth || !hasEntriesPreviousMonth) {
+  //       if (!hasEntriesThisMonth || !hasEntriesPreviousMonth) {
+  //         setCanFillForm(true);
+  //       } else {
+  //         setCanFillForm(false);
+  //       }
+  //     }
+  //   }
+  // }, [data]);
 
   const [page, setPage] = useState(0);
   const PageNames = [
@@ -169,7 +167,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
   const [addPartnerLoveInfo] = useMutation(ADD_PARTNER_LOVE_INFO);
   const [addSpiritualityInfo] = useMutation(ADD_SPIRITUALITY_INFO);
   const [addOverallScore] = useMutation(ADD_OVERALL_SCORE);
-  const [addOverallAdvice] = useMutation(ADD_OVERALL_ADVICE);
+  // const [addOverallAdvice] = useMutation(ADD_OVERALL_ADVICE);
+  const [addAdvice] = useMutation(ADD_ADVICE);
 
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -243,92 +242,192 @@ function AnswerSection( { data }: AnswerSectionProps) {
   
 //Pass to gpt
   console.log('formData',formData)
+  // const parseData = async (formData: InitialFormData) => {
+
+  //   let feedback = '', advice1 = '', advice2 = '', advice3 = '', advice4 = '', advice5 = '';
+
+  //   console.log("Calling parseData with data:", formData);
+  //   const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+
+  //   var prompt =
+  //   'Analize the following data, consisting of 10 categories:the categories consist of:1. **`Career / Work** - “This refers to your work, how satisfied and challenged do you feel in your job?”`      2. **Community** - “description to be added here   3. **`Environment** -  “This refers to the physical location you are in and the people you are around where you live your life.”`      4. **`Family / Friends** - “This refers to your relationships with friends and family.”`      5. **`Fun / Relaxation** - “This refers to the things you like to do for fun, in your free time as well as  to resting and downtime. Are you taking necessary breaks or always running low on energy?”`      6. **`Growth / Learning** - “This refers to your personal growth and learning. For example, reading books that help you grow or taking up a new class.”`      7. **`Health / Fitness** - “This refers to both your mental and physical health. How are you feeling? How is your diet and energy?”`      8. **`Money / Finances** - “This refers to your money and financial situation. Do you feel good about it or is there room for improvement?”`      9. **`Love** - “This refers to your romantic relationships. Are you happy and content or lacking in something?”`      10. **`Spirituality** - “This refers to your higher self, spirit, connection to self, god - whichever you believe.”`       this data:\n\n ' +
+  //   JSON.stringify(formData, null, 2) +
+  //   "\n[voice and tone: speak as a life coach would] Give feedback for the categories with lowest scores, following the structure(one category per advice) for what to focus on long and/or short term:" +
+  //     "feedback:" +
+  //     "advice 1:" +
+  //     "advice 2:" +
+  //     "advice 3:" +
+  //     "advice 4:" +
+  //     "advice 5:";
+
+  //   console.log("prompt",prompt)
+    
+  //   try {
+  //     const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${gptKey}`,
+  //       },
+  //       body: JSON.stringify({
+  //         prompt: prompt,
+  //         temperature: 0,
+  //         max_tokens: 256,
+  //         top_p: 1.0,
+  //         frequency_penalty: 0.0,
+  //         presence_penalty: 0.0,
+  //       }),
+  //     });
+
+  //   const responseData = await response.json();
+  //   console.log("response responseData", responseData);
+
+  //   const text_response = responseData.choices[0].text;
+  //   const priorities = text_response.split("\n\n");
+
+  //       console.log('priorities', priorities)
+  //       priorities.forEach((advice: string, i: number) => {
+  //         const periodIndex = advice.indexOf('.');
+  //         const categoryScore = advice.slice(12, periodIndex + 1); // from the start of the string to the first period
+  //         const step = advice.slice(periodIndex + 2); // +1 to exclude the period, +1 to exclude the space after the period
+  //         const completeadvice = categoryScore + "\n" + step;
+  //         if (i === 1) {
+  //           feedback = completeadvice;
+  //         } else if (i === 2) {
+  //           advice1 = completeadvice;
+  //         } else if (i === 3) {
+  //           advice2 = completeadvice;
+  //         } else if (i === 4) {
+  //           advice3 = completeadvice;
+  //         } else if (i === 5) {
+  //           advice4 = completeadvice;
+  //         } else if (i === 6) {
+  //           advice5 = completeadvice;
+  //         }
+  //       });
+      
+  //     console.log('feedback',feedback)
+  //     console.log('advice1',advice1)
+  //     console.log('advice2',advice2)
+  //     console.log('advice3',advice3)
+  //     console.log('advice4',advice4)
+  //     console.log('advice5',advice5)
+
+  //     const adviceVariables = {
+  //       feedback: feedback,
+  //       advice1: advice1,
+  //       advice2: advice2,
+  //       advice3: advice3,
+  //       advice4: advice4,
+  //       advice5: advice5,
+  //       created_at: new Date().toISOString(),
+  //       user_ref: data?.id
+  //     };
+
+  //     try {
+  //       await addAdvice({ variables: adviceVariables });
+  //       console.log('adviceVariables',adviceVariables)
+  //     } catch (error) {
+  //       console.error('Error during overall score submission:', error);
+  //     }
+
+  //   } catch (error) {
+  //     console.log("ERROR *********");
+  //     console.error(error);
+  //   }
+  // };
+
   const parseData = async (formData: InitialFormData) => {
-
-    let priority1 = '', priority2 = '', priority3 = '', priority4 = '';
-
     console.log("Calling parseData with data:", formData);
     const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
-
-    var prompt =
-    'Analize the following data, consisting of 10 categories:the categories consist of:1. **`Career / Work** - “This refers to your work, how satisfied and challenged do you feel in your job?”`      2. **Community** - “description to be added here   3. **`Environment** -  “This refers to the physical location you are in and the people you are around where you live your life.”`      4. **`Family / Friends** - “This refers to your relationships with friends and family.”`      5. **`Fun / Relaxation** - “This refers to the things you like to do for fun, in your free time as well as  to resting and downtime. Are you taking necessary breaks or always running low on energy?”`      6. **`Growth / Learning** - “This refers to your personal growth and learning. For example, reading books that help you grow or taking up a new class.”`      7. **`Health / Fitness** - “This refers to both your mental and physical health. How are you feeling? How is your diet and energy?”`      8. **`Money / Finances** - “This refers to your money and financial situation. Do you feel good about it or is there room for improvement?”`      9. **`Love** - “This refers to your romantic relationships. Are you happy and content or lacking in something?”`      10. **`Spirituality** - “This refers to your higher self, spirit, connection to self, god - whichever you believe.”`       this data:\n\n ' +
-    JSON.stringify(formData, null, 2) +
-    "\n[voice and tone: speak as a life coach would] Give feedback for the categories with lowest scores, following the structure(one category per priority) for what to focus on long and/or short term:" +
-      "priority 1:" +
-      "priority 2:" +
-      "priority 3:" +
-      "priority 4:";
-
-    console.log("prompt",prompt)
-    
-    try {
-      const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${gptKey}`,
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-          temperature: 0,
-          max_tokens: 256,
-          top_p: 1.0,
-          frequency_penalty: 0.0,
-          presence_penalty: 0.0,
-        }),
-      });
-
-    const responseData = await response.json();
-    console.log("response responseData", responseData);
-
-    const text_response = responseData.choices[0].text;
-    const priorities = text_response.split("\n\n");
-
-        console.log('priorities', priorities)
-        priorities.forEach((priority: string, i: number) => {
-          const periodIndex = priority.indexOf('.');
-          const categoryScore = priority.slice(12, periodIndex + 1); // from the start of the string to the first period
-          const advice = priority.slice(periodIndex + 2); // +1 to exclude the period, +1 to exclude the space after the period
-          const completePriority = categoryScore + "\n" + advice;
-          if (i === 1) {
-            priority1 = completePriority;
-          } else if (i === 2) {
-            priority2 = completePriority;
-          } else if (i === 3) {
-            priority3 = completePriority;
-          } else if (i === 4) {
-            priority4 = completePriority;
-          }
-        });
-      
-      console.log('priority1',priority1)
-      console.log('priority2',priority2)
-      console.log('priority3',priority3)
-      console.log('priority4',priority4)
-
-      const adviceVariables = {
-        advice1: priority1,
-        advice2: priority2,
-        advice3: priority3,
-        advice4: priority4,
-        created_at: new Date().toISOString(),
-        user_ref: data?.id
-      };
-
+  
+    let prompts = Object.keys(formData).map(category => {
+      return `Analize the following data for ${category}:\n\n` +
+      JSON.stringify(formData[category], null, 2) +
+      "\n[voice and tone: speak as a life coach would] Give feedback for this category with a score between 0 and 10. Provide advice on what to focus on and break it down in 5 steps to follow. Give the output sctrictly on the following structure:"+
+      "\n\nFeedback\n\nStep 1\n\nStep 2\n\nStep 3\n\nStep 4\n\nStep 4\n\nStep 5  (each step 25 words or less)";
+    });
+  
+    let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
+      created_at: new Date().toISOString(),
+      user_ref: data?.id
+    };
+  
+    const fetchWithRetry = async (prompt: string, retryCount: number = 0): Promise<any> => {
+      const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  
       try {
-        await addOverallAdvice({ variables: adviceVariables });
-        console.log('adviceVariables',adviceVariables)
+        const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${gptKey}`,
+          },
+          body: JSON.stringify({
+            prompt: prompt,
+            temperature: 0,
+            max_tokens: 256,
+            top_p: 1.0,
+            frequency_penalty: 0.0,
+            presence_penalty: 0.0,
+          }),
+        });
+  
+        if (response.status === 429) {
+          if (retryCount > 5) {
+            throw new Error("Maximum retry attempts exceeded");
+          }
+          
+          const waitTime = Math.pow(2, retryCount) * 1000; // exponential backoff
+          await delay(waitTime);
+          
+          return fetchWithRetry(prompt, retryCount + 1);
+        }
+  
+        return response.json();
       } catch (error) {
-        console.error('Error during overall score submission:', error);
+        console.error("fetchWithRetry error:", error);
+        throw error;
       }
-
+    };
+  
+    for (let i = 0; i < prompts.length; i++) {
+      let prompt = prompts[i];
+      console.log("prompt", prompt);
+  
+      try {
+        if (typeof prompt === 'undefined') {
+          throw new Error("Prompt is undefined");
+        }
+        
+        const responseData = await fetchWithRetry(prompt);        
+  
+        console.log("response responseData", responseData);
+        const text_response = responseData.choices[0].text;
+        const responses = text_response.split("\n\n");
+        
+        adviceVariables[`${CategoryNames[i]}_feedback`] = responses[1];
+        for (let j = 1; j <= 5; j++) {
+          adviceVariables[`${CategoryNames[i]}_advice${j}`] = responses[j + 1];
+          console.log('adviceVariables',adviceVariables)
+        }
+        
+        
+  
+      } catch (error) {
+        console.log("ERROR *********");
+        console.error(error);
+      }
+    };
+  
+    try {
+      await addAdvice({ variables: adviceVariables });
+      console.log('adviceVariables',adviceVariables)
     } catch (error) {
-      console.log("ERROR *********");
-      console.error(error);
+      console.error('Error during overall score submission:', error);
     }
   };
-
-
+  
   
   const onSubmit = async (categoryData: CategoryData, category: string,) => {
     type categoryData = {
@@ -539,18 +638,18 @@ function AnswerSection( { data }: AnswerSectionProps) {
     } else {return}
   };
   return session ? (
-    !canFillForm ? (
+    // !canFillForm ? (
       <div className="flex flex-col gap-4">
         <div>{ButtonDisplay()}</div>
         <div>{PageTitleDisplay()}</div>
         <div>{PageDisplay()}</div>
       </div>
-    ) : (
-    <div className="flex justify-center items-center my-auto h-[75vh] flex-col">
-      <h2 className="text-2xl font-bold mb-4">Sorry, you can't fill out the form at this time.</h2>
-      <p className="text-lg">You have already filled out the form for this month. Please wait until the last week of the month to submit again.</p>
-    </div>
-    )
+    // ) : (
+    // <div className="flex justify-center items-center my-auto h-[75vh] flex-col">
+    //   <h2 className="text-2xl font-bold mb-4">Sorry, you can't fill out the form at this time.</h2>
+    //   <p className="text-lg">You have already filled out the form for this month. Please wait until the last week of the month to submit again.</p>
+    // </div>
+    // )
   ) : (
     <PleaseLogIn />
   );

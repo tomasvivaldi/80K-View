@@ -6,6 +6,7 @@ import { SidebarHeader } from '@/shell/SidebarHeader';
 import { SidebarLink } from '@/shell/SidebarLink';
 import { DisabledSidebarLink } from '@/shell/DisabledSidebarLink';
 import Tooltip from './Tooltip';
+import Image from 'next/image';
 
 type IShellProps = {
   title: string;
@@ -65,17 +66,24 @@ function Shell(props: IShellProps) {
               <Link href="/View80k">
                 <SidebarLink
                   icon={
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M0 0h24v24H0z" stroke="none" />
-                      <rect x="4" y="4" width="16" height="16" rx="2" />
-                      <path d="M4 10h16M10 4v16" />
-                    </svg>
+                    // <svg
+                    //   xmlns="http://www.w3.org/2000/svg"
+                    //   viewBox="0 0 24 24"
+                    //   fill="none"
+                    //   strokeLinecap="round"
+                    //   strokeLinejoin="round"
+                    // >
+                    //   <path d="M0 0h24v24H0z" stroke="none" />
+                    //   <rect x="4" y="4" width="16" height="16" rx="2" />
+                    //   <path d="M4 10h16M10 4v16" />
+                    // </svg>
+                    <Image 
+                    className='mr-1'
+                    height={24}
+                    width={24}
+                    src="/logo.JPG"
+                    alt='logo'
+                    />
                   }
                 >
                   80K View

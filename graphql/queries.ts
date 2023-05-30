@@ -34,7 +34,7 @@ export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
   }
 `;
 
-// queries.ts
+// queries.ts 
 
 export const GET_CAREER_WORK_INFO_BY_USER_LATEST = gql`
   query MyQuery($username: String!) {
@@ -350,6 +350,17 @@ export const GET_USER_DATA_BY_ID = gql`
       username
       user_ref
     }
+    career_work_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
+    }
     community {
       id
       action_plan
@@ -358,6 +369,17 @@ export const GET_USER_DATA_BY_ID = gql`
       score
       user_ref
       username
+    }
+    community_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
     }
     environment {
       id
@@ -368,6 +390,17 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
+    environment_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
+    }
     family_friends {
       id
       action_plan
@@ -376,6 +409,17 @@ export const GET_USER_DATA_BY_ID = gql`
       notes
       user_ref
       username
+    }
+    family_friends_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
     }
     fun_relaxation {
       id
@@ -386,6 +430,17 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
+    fun_relaxation_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
+    }
     growth_learning {
       id
       action_plan
@@ -394,6 +449,17 @@ export const GET_USER_DATA_BY_ID = gql`
       score
       user_ref
       username
+    }
+    growth_learning_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
     }
     health_fitness {
       id
@@ -404,6 +470,17 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
+    health_fitness_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
+    }
     money_finances {
       id
       action_plan
@@ -412,6 +489,17 @@ export const GET_USER_DATA_BY_ID = gql`
       score
       user_ref
       username
+    }
+    money_finances_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
     }
     overall_score {
       id
@@ -429,6 +517,17 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
+    partner_love_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
+    }
     spirituality {
       id
       action_plan
@@ -437,6 +536,17 @@ export const GET_USER_DATA_BY_ID = gql`
       score
       user_ref
       username
+    }
+    spirituality_feedback {
+      feedback
+      advice1
+      advice2
+      advice3
+      advice4
+      advice5
+      id
+      created_at
+      user_ref
     }
     overall_advice {
       id
