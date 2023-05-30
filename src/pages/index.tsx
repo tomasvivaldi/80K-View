@@ -11,11 +11,10 @@ import Banner from '@/template/Banner';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
-import FeedbackBox from '@/template/FeedbackBox';
-import FeedbackBox2 from '@/template/FeedbackBox2';
 import LoadingBox from '@/template/LoadingBox';
 import { Stats } from '@/template/Stats';
 import Copyright from '@/template/Copyright';
+import Feedback from '@/template/Feedback';
 
 
 export type CategoryData = {
@@ -95,7 +94,7 @@ const Index = () => {
 
 
   const [rawData, setrawData] = useState<UserDataById>();
-
+  console.log('rawData',rawData)
   useEffect(() => {
     if (!userDataLoading && userDataByIdData && userDataByIdData.userDataById) {
       // Directly assign the fetched data to rawData state
@@ -136,10 +135,7 @@ const Index = () => {
               </div>
               ) : (
                 rawData && 
-                <div className=' flex flex-col sm:flex-row gap-4'>
-                  <FeedbackBox data={rawData} />
-                  <FeedbackBox2 userData={rawData} />
-                </div>
+                  <Feedback data={rawData} />
             )}
                 </div>
                 <div className=" order-2 w-full md:order-3 mt-4">

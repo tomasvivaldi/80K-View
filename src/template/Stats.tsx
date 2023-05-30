@@ -154,7 +154,7 @@ return(
     >
       <div className='flex flex-row gap-1 items-center'>
         <p>
-        {formatCategory(stats.highestIncreaseCategory)}, {stats.highestIncrease}% 
+          {formatCategory(stats.highestIncreaseCategory)}, {stats.highestIncrease.toFixed(2)}%
         </p>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" style={{ width:"20", height:"20"}}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5" stroke="green"/>
@@ -178,7 +178,7 @@ return(
     >
       <div className='flex flex-row gap-1 items-center'>
         <p>
-        {formatCategory(stats.highestDropCategory)}, {stats.highestDrop}% 
+        {formatCategory(stats.highestDropCategory)}, {stats.highestDrop.toFixed(2)}% 
         </p>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" style={{ width:"20", height:"20"}}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" stroke="red"/>

@@ -341,24 +341,21 @@ function AnswerSection( { data }: AnswerSectionProps) {
     console.log("Calling parseData with data:", formData);
     const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
   
-    // iterate over each category and generate the prompt
     let prompts = Object.keys(formData).map(category => {
       return `Analize the following data for ${category}:\n\n` +
       JSON.stringify(formData[category], null, 2) +
-      "\n[voice and tone: speak as a life coach would] Give feedback for this category and provide 5 pieces of advice:";
+      "\n[voice and tone: speak as a life coach would] Give feedback for this category with a score between 0 and 10. Provide advice on what to focus on and break it down in 5 steps to follow. Give the output sctrictly on the following structure:"+
+      "\n\nFeedback\n\nStep 1\n\nStep 2\n\nStep 3\n\nStep 4\n\nStep 4\n\nStep 5  (each step 25 words or less)";
     });
   
-    // initialize adviceVariables object
-    let adviceVariables = {
+    let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
       created_at: new Date().toISOString(),
       user_ref: data?.id
     };
   
-    // iterate over prompts and send requests to GPT, parsing the results into the adviceVariables object
-    for (let i = 0; i < prompts.length; i++) {
-      let prompt = prompts[i];
-      console.log("prompt", prompt);
-      
+    const fetchWithRetry = async (prompt: string, retryCount: number = 0): Promise<any> => {
+      const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  
       try {
         const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
           method: "POST",
@@ -376,17 +373,46 @@ function AnswerSection( { data }: AnswerSectionProps) {
           }),
         });
   
-        const responseData = await response.json();
-        console.log("response responseData", responseData);
+        if (response.status === 429) {
+          if (retryCount > 5) {
+            throw new Error("Maximum retry attempts exceeded");
+          }
+          
+          const waitTime = Math.pow(2, retryCount) * 1000; // exponential backoff
+          await delay(waitTime);
+          
+          return fetchWithRetry(prompt, retryCount + 1);
+        }
   
+        return response.json();
+      } catch (error) {
+        console.error("fetchWithRetry error:", error);
+        throw error;
+      }
+    };
+  
+    for (let i = 0; i < prompts.length; i++) {
+      let prompt = prompts[i];
+      console.log("prompt", prompt);
+  
+      try {
+        if (typeof prompt === 'undefined') {
+          throw new Error("Prompt is undefined");
+        }
+        
+        const responseData = await fetchWithRetry(prompt);        
+  
+        console.log("response responseData", responseData);
         const text_response = responseData.choices[0].text;
         const responses = text_response.split("\n\n");
-  
-        // add feedback and advice into the adviceVariables object
-        adviceVariables[`${CategoryNames[i]}_feedback`] = responses[0];
+        
+        adviceVariables[`${CategoryNames[i]}_feedback`] = responses[1];
         for (let j = 1; j <= 5; j++) {
-          adviceVariables[`${CategoryNames[i]}_advice${j}`] = responses[j];
+          adviceVariables[`${CategoryNames[i]}_advice${j}`] = responses[j + 1];
+          console.log('adviceVariables',adviceVariables)
         }
+        
+        
   
       } catch (error) {
         console.log("ERROR *********");
@@ -394,7 +420,6 @@ function AnswerSection( { data }: AnswerSectionProps) {
       }
     };
   
-    // after all GPT requests are done and adviceVariables is populated, send the GraphQL mutation
     try {
       await addAdvice({ variables: adviceVariables });
       console.log('adviceVariables',adviceVariables)
@@ -403,7 +428,6 @@ function AnswerSection( { data }: AnswerSectionProps) {
     }
   };
   
-
   
   const onSubmit = async (categoryData: CategoryData, category: string,) => {
     type categoryData = {

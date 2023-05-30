@@ -373,7 +373,7 @@ export const ADD_ADVICE = gql`
     $created_at: DateTime!
     $user_ref: Int!
   ) {
-    insertCareer_work_advice(
+    insertCareer_work_feedback(
       # $ is for the variables
       feedback: $career_work_feedback
       advice1: $career_work_advice1
@@ -394,7 +394,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertCommunity_advice(
+    insertCommunity_feedback(
       # $ is for the variables
       feedback: $community_feedback
       advice1: $community_advice1
@@ -415,7 +415,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertEnvironment_advice(
+    insertEnvironment_feedback(
       # $ is for the variables
       feedback: $environment_feedback
       advice1: $environment_advice1
@@ -436,7 +436,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertFamily_friends_advice(
+    insertFamily_friends_feedback(
       # $ is for the variables
       feedback: $family_friends_feedback
       advice1: $family_friends_advice1
@@ -457,7 +457,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertFun_relaxation_advice(
+    insertFun_relaxation_feedback(
       # $ is for the variables
       feedback: $fun_relaxation_feedback
       advice1: $fun_relaxation_advice1
@@ -478,7 +478,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertGrowth_learning_advice(
+    insertGrowth_learning_feedback(
       # $ is for the variables
       feedback: $growth_learning_feedback
       advice1: $growth_learning_advice1
@@ -499,7 +499,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertHealth_fitness_advice(
+    insertHealth_fitness_feedback(
       # $ is for the variables
       feedback: $health_fitness_feedback
       advice1: $health_fitness_advice1
@@ -520,7 +520,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertMoney_finances_advice(
+    insertMoney_finances_feedback(
       # $ is for the variables
       feedback: $money_finances_feedback
       advice1: $money_finances_advice1
@@ -541,7 +541,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertPartner_love_advice(
+    insertPartner_love_feedback(
       # $ is for the variables
       feedback: $partner_love_feedback
       advice1: $partner_love_advice1
@@ -562,7 +562,7 @@ export const ADD_ADVICE = gql`
       created_at
       user_ref
     }
-    insertSpirituality_advice(
+    insertSpirituality_feedback(
       # $ is for the variables
       feedback: $spirituality_feedback
       advice1: $spirituality_advice1

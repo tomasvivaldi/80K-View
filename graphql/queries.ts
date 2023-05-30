@@ -350,7 +350,7 @@ export const GET_USER_DATA_BY_ID = gql`
       username
       user_ref
     }
-    career_work_advice {
+    career_work_feedback {
       feedback
       advice1
       advice2
@@ -370,7 +370,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    community_advice {
+    community_feedback {
       feedback
       advice1
       advice2
@@ -390,7 +390,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    environment_advice {
+    environment_feedback {
       feedback
       advice1
       advice2
@@ -410,7 +410,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    family_friends_advice {
+    family_friends_feedback {
       feedback
       advice1
       advice2
@@ -430,7 +430,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    fun_relaxation_advice {
+    fun_relaxation_feedback {
       feedback
       advice1
       advice2
@@ -450,7 +450,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    growth_learning_advice {
+    growth_learning_feedback {
       feedback
       advice1
       advice2
@@ -470,7 +470,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    health_fitness_advice {
+    health_fitness_feedback {
       feedback
       advice1
       advice2
@@ -490,7 +490,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    money_finances_advice {
+    money_finances_feedback {
       feedback
       advice1
       advice2
@@ -517,7 +517,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    partner_love_advice {
+    partner_love_feedback {
       feedback
       advice1
       advice2
@@ -537,7 +537,7 @@ export const GET_USER_DATA_BY_ID = gql`
       user_ref
       username
     }
-    spirituality_advice {
+    spirituality_feedback {
       feedback
       advice1
       advice2
