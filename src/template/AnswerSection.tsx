@@ -29,6 +29,7 @@ import { Form2Fill } from './Form2Fill';
 import { PrepopulatedForm } from './PrepopulatedForm';
 import ProgressBar from './ProgressBar';
 import { PleaseLogIn } from './PleaseLogIn';
+import Tooltip from './Tooltip';
 // import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
 
 
@@ -148,6 +149,20 @@ function AnswerSection( { data }: AnswerSectionProps) {
     'Last Page',
     'Seccess Page',
   ];
+
+  const tooltipText = [
+    "“This refers to your work. How satisfied and challenged do you feel in your job?”",
+    "“This refers to who you surround yourself with outside of your family and friends.”",
+    "“This refers to the physical location you are in and the people you are around where you live your life.”",
+    "“This refers to your relationships with friends and family.”",
+    "“This refers to the things you like to do for fun, as well as how relaxed you feel. Are you taking time enjoy to do the things you enjoy?”",
+    "“This refers to your personal growth and learning. For example, reading books that help you grow or taking up a new class.”",
+    "“This refers to your health. How often do you work out, and are you eating healthily?”",
+    "“This refers to how you manage your time and focus. Are you using your time effectively?”",
+    "“This refers to your romantic relationships, dating, etc.”",
+    "“This refers to your personal finances, income, savings, investments, etc.”"
+  ];
+  
 
   const CategoryNames = PageNames.slice(1, -2);  
   const { data: session } = useSession();
@@ -545,10 +560,11 @@ function AnswerSection( { data }: AnswerSectionProps) {
     if (page > 0 && page < 11) {
       return (
         <div className="mx-auto flex max-w-[80%] flex-col rounded-lg bg-white px-8 py-4 md:max-w-[50%]">
-          <div className=" rounded-lg bg-blue-800 py-1 px-4">
+          <div className=" rounded-lg bg-blue-800 py-1 px-4 flex flex-row justify-center items-center gap-2">
             <h1 className="text-center text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
               {toCapitalized(PageNames[page] ?? '')}
             </h1>
+            <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} position='right' width='w-64' />
           </div>
         </div>
       );
@@ -564,7 +580,9 @@ function AnswerSection( { data }: AnswerSectionProps) {
         <div className="flex flex-col gap-4">
           <div className="flex w-full flex-col gap-4 sm:flex-row">
             <Suspense fallback={<p>Loading feed...</p>}>
-            {data && (
+            {data && 
+            // @ts-ignore
+            data[CategoryNames[page - 1]]?.[0] &&(
               // @ts-ignore
               <PrepopulatedForm data={data[CategoryNames[page - 1]]?.[0]} />
             )}
@@ -580,9 +598,11 @@ function AnswerSection( { data }: AnswerSectionProps) {
               setHasSubmitted={setHasSubmitted}
             />
           </div>
-          {data && (
-            <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
-            )}
+          {data &&
+          // @ts-ignore
+          data[CategoryNames[page - 1]]?.length >= 2 && (
+    <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
+)}
         </div>
       );
     }

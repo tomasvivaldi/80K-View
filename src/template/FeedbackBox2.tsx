@@ -7,6 +7,7 @@ import React from 'react';
 interface FeedbackBoxProps {
   userData?: UserDataById;
   categoryNames: string[];
+  sortedCategoryNames: string[];
   category: string;
   session: Session | null;
   currentIndex: number;
@@ -20,20 +21,22 @@ interface FeedbackBoxProps {
 const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   userData,
   categoryNames,
+  sortedCategoryNames,
   session,
   currentIndex,
   border,
 }) => {  
 // function FeedbackBox({ userData }: FeedbackBoxProps) {
 
-  const feedback = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.feedback.slice(10)
-  const step1 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice1.slice(8)
-  const step2 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice2.slice(8)
-  const step3 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice3.slice(8)
-  const step4 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice4.slice(8)
-  const step5 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice5.slice(8)
+  const feedback = (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.feedback.slice(10)
+  const step1 = (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice1.slice(8)
+  const step2 = (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice2.slice(8)
+  const step3 = (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice3.slice(8)
+  const step4 = (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice4.slice(8)
+  const step5 = (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice5.slice(8)
 console.log('userData - from feedback',userData)
 console.log('categoryNames[currentIndex] - from feedback',categoryNames[currentIndex])
+console.log('sortedCategoryNames[currentIndex] - from feedback',sortedCategoryNames[currentIndex])
 console.log('feedback - from feedback',feedback)
   return session ? (
     <div className={`rounded-lg shadow-lg text-black md:w-[1550px]

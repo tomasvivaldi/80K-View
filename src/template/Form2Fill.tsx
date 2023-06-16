@@ -85,7 +85,8 @@ const Form2Fill: React.FC<Form2FillProps> = ({
               })}
               type="text"
               id="score"
-              className={`hide-arrows h-24 w-24 rounded-full bg-blue-400/20 text-black text-center text-5xl ${hasSubmitted && !(formData as CategoryData).score ? 'border-red-500' : 'border-blue-700'} border-4 lg:row-start-2`}
+              className={`hide-arrows h-24 w-24 rounded-full bg-blue-400/20 text-black text-center text-5xl  placeholder:text-3xl ${hasSubmitted && !(formData as CategoryData).score ? 'border-red-500' : 'border-blue-700'} border-4 lg:row-start-2`}
+              placeholder="0-10" 
               value={
                 isCategoryData(formData)
                   ? formData.score !== null
@@ -99,7 +100,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
           </div>
           <div className={`flex w-full flex-col gap-2 lg:gap-4 ${hasSubmitted && !(formData as CategoryData).notes ? 'border-red-500' : ''}`}>
   <Label htmlFor="comment" colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1">
-    Notes:
+  What happened this month?
   </Label>
   <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
     <div className={hasSubmitted && !(formData as CategoryData).notes ? 'w-full h-fit rounded-lg border-2 border-red-500' : ''}>
@@ -108,6 +109,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
         className="block resize-none"
         id="textarea"
         rows={5}
+        placeholder="Describe what happened this month for this category and how you feel about it. You'll be able to review these notes later on the 80K View page and more detailed descriptions will result in more detailed feedback" 
         value={
           isCategoryData(formData)
             ? formData.notes !== null
@@ -137,6 +139,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
       className="block resize-none"
       id="textarea"
       rows={5}
+      placeholder="Outline your action plan. You can write how you feel about this category or what you plan to do for improving next month" 
       value={
         isCategoryData(formData)
           ? formData.action_plan !== null

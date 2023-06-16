@@ -35,7 +35,7 @@ const EndForm: React.FC<EndFormProps> = ({
       <div className=" flex-col items-center justify-center">
         <div className="flex flex-row items-center justify-around">
           <span className="flex w-48 justify-center text-xl font-semibold">
-            category
+            Category
           </span>
           <div className="flex w-48 justify-center text-xl font-semibold">
             Last Month's score:

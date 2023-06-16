@@ -8,15 +8,15 @@ const BeginForm: React.FC<BeginFormProps> = () => {
       <div className="my-4 w-full text-center text-lg font-semibold text-gray-800 sm:text-2xl">
         Update Tracker
       </div>
-      <div className="space-y-4 px-4 text-xs sm:px-12 sm:text-base md:px-44">
-        <p className=' indent-4'>
+      <div className="space-y-4 px-4 text-xs sm:px-12 sm:text-base md:px-44 text-center lg:max-w-[80%] mx-auto">
+        <p className=''>
           Each category has 3 fields each,{' '}
           <span className="font-semibold text-gray-900">
             score, notes, and action plan.
           </span>{' '}
           Please make sure to fill out all fields before submitting the form.           
         </p>
-        <p className=' indent-4'>
+        <p className=''>
         Once you submit, your answers will be saved, and you can revisit this page 
           at any time to update your answers. This also helps you make a better 
           assessment for the months going forward.
