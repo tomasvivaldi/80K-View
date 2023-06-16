@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function Tooltip(props: { text: string | null; }) {
+interface TooltipProps {
+  text: string | null;
+  position?: "right" | "left";
+  width?: string;
+}
+
+function Tooltip(props: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
-
 
   const handleClick = (e: MouseEvent | any) => {
     if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
@@ -18,6 +23,9 @@ function Tooltip(props: { text: string | null; }) {
     };
   }, []);
 
+  const translateXClass = props.position === "right" ? "translate-x-[115%]" : "";
+  const widthClass = props.width || "w-44";
+
   return (
     <div className="group flex relative w-fit" ref={tooltipRef}>
       <span
@@ -27,7 +35,7 @@ function Tooltip(props: { text: string | null; }) {
         i
       </span>
       <span
-        className={`text-center transition-opacity bg-slate-800 p-2 text-sm text-gray-100 rounded-md absolute right-0 bottom-0 translate-x- m-6 z-50 w-44 ${
+        className={`text-center transition-opacity bg-slate-800 p-2 text-sm text-gray-100 rounded-md absolute right-0 bottom-0 ${translateXClass} m-6 z-50 ${widthClass} ${
           isVisible ? "visible" : "invisible"
         }`}
       >

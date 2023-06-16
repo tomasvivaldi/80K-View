@@ -39,7 +39,7 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data }) => {
               htmlFor="comment"
               colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1"
             >
-              Notes:
+              What happened this month?
             </Label>
             <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
               <textarea
