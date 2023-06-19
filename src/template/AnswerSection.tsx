@@ -344,8 +344,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
     let prompts = Object.keys(formData).map(category => {
       return `Analize the following data for ${category}:\n\n` +
       JSON.stringify(formData[category], null, 2) +
-      "\n[voice and tone: speak as a life coach would] Give feedback for this category with a score between 0 and 10. Provide advice on what to focus on and break it down in 5 steps to follow. Give the output sctrictly on the following structure:"+
-      "\n\nFeedback\n\nStep 1\n\nStep 2\n\nStep 3\n\nStep 4\n\nStep 4\n\nStep 5  (each step 25 words or less)";
+      "\n[voice and tone: speak as a life coach would] Based on the data above, give feedback for this category with a score between 0 and 10. Provide short actionable action points such as 'look for gyms near you', 'start a meditation diary', etc. Give the output sctrictly on the following structure:"+
+      "\n\nFeedback\n\nAction 1\n\nAction 2\n\nAction 3\n\nAction 4\n\nAction 4\n\nAction 5  (Feedback 25 words or less action points 10 less than words)";
     });
   
     let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {

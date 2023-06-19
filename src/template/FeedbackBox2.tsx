@@ -26,12 +26,12 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
 }) => {  
 // function FeedbackBox({ userData }: FeedbackBoxProps) {
 
-  const feedback = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.feedback.slice(10)
-  const step1 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice1.slice(8)
-  const step2 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice2.slice(8)
-  const step3 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice3.slice(8)
-  const step4 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice4.slice(8)
-  const step5 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice5.slice(8)
+  const feedback = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.feedback
+  const step1 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice1
+  const step2 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice2
+  const step3 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice3
+  const step4 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice4
+  const step5 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice5
 console.log('userData - from feedback',userData)
 console.log('categoryNames[currentIndex] - from feedback',categoryNames[currentIndex])
 console.log('feedback - from feedback',feedback)
