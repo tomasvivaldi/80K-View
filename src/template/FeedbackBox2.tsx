@@ -7,6 +7,7 @@ import React from 'react';
 interface FeedbackBoxProps {
   userData?: UserDataById;
   categoryNames: string[];
+  sortedCategoryNames: string[];
   category: string;
   session: Session | null;
   currentIndex: number;
@@ -20,6 +21,7 @@ interface FeedbackBoxProps {
 const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   userData,
   categoryNames,
+  sortedCategoryNames,
   session,
   currentIndex,
   border,
@@ -34,6 +36,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   const step5 = (userData as UserDataById)?.[`${categoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice5
 console.log('userData - from feedback',userData)
 console.log('categoryNames[currentIndex] - from feedback',categoryNames[currentIndex])
+console.log('sortedCategoryNames[currentIndex] - from feedback',sortedCategoryNames[currentIndex])
 console.log('feedback - from feedback',feedback)
   return session ? (
     <div className={`rounded-lg shadow-lg text-black md:w-[1550px]

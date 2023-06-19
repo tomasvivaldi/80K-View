@@ -11,7 +11,7 @@ const BeginForm: React.FC<BeginFormProps> = () => {
         Congratulations!
       </div>
       {/* Success Icon */}
-      <div className=" w-fit space-y-4 mx-8 sm:mx-24">
+      <div className=" w-fit space-y-4 mx-8 sm:mx-24 text-center">
         <p>Thanks for sharing your lifestyle info! We encourage you to check back next month.
            You'll find tables and graphs where you can track your progress, see how you've improved 
            and where to focus next. Looking forward to your return!</p>

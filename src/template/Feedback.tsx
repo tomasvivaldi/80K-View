@@ -30,7 +30,7 @@ function Feedback({ data }: FeedbackProps) {
     return categoryName
       .split('_') // split the string into an array by '_'
       .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // capitalize the first letter of each word
-      .join(' '); // join the words back into a string with spaces
+      .join(' / '); // join the words back into a string with spaces
   }
   
   
@@ -97,6 +97,7 @@ function Feedback({ data }: FeedbackProps) {
       <FeedbackBox2 
       userData={data}
       categoryNames={CategoryNames}
+      sortedCategoryNames={sortedCategoryNames}
       category={sortedCategoryNames[currentIndex] ? formatCategoryName(sortedCategoryNames[currentIndex]) : ''}
       session={session}
       currentIndex={currentIndex}

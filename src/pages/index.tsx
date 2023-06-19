@@ -139,13 +139,21 @@ const Index = () => {
             )}
                 </div>
                 <div className=" order-2 w-full md:order-3 mt-4">
+                {data &&
+          // @ts-ignore
+          data.length >= 2 && (
                   <Chart1 data={formattedData} />
+          )}
                 </div>
                 {/* <Charts /> */}
               </div>
             </Section>
             <Section>
+            {data &&
+          // @ts-ignore
+          data.length >= 2 && (
               <Stats data={rawData}/>
+              )}
             </Section>
             <Section>
               <Copyright company={'80K View'} />
