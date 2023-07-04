@@ -3,13 +3,13 @@ import { SocialButton } from '@/button/SocialButton';
 import { FullCenterSection } from '@/layout/FullCenterSection';
 
 interface LoginFormProps {
-  handleLogin: () => Promise<void>;
+  handleLogin: (provider: string) => Promise<void>;  // Updated line
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (
+const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (  // Updated line
   <FullCenterSection title="Sign in to your account">
     <div className="mt-5 space-y-4">
-      <button className="w-full" type="button" onClick={handleLogin}>
+      <button className="w-full" type="button" onClick={() => handleLogin('google')}>  
         <SocialButton
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -44,7 +44,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (
           Sign in with Google
         </SocialButton>
       </button>
-      {/* <button className="w-full" type="button">
+      <button className="w-full" type="button" onClick={() => handleLogin('facebook')}>  
         <SocialButton
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14222 14222">
@@ -58,48 +58,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (
         >
           Sign in with Facebook
         </SocialButton>
-      </button> */}
+      </button>
+      <button className="w-full" type="button" onClick={() => handleLogin('auth0')}>  
+        <SocialButton
+          icon={
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14222 14222">
+              <circle cx="7111" cy="7112" r="7111" fill="#1977f3" />
+              <path
+                d="M9879 9168l315-2056H8222V5778c0-562 275-1111 1159-1111h897V2917s-814-139-1592-139c-1624 0-2686 984-2686 2767v1567H4194v2056h1806v4969c362 57 733 86 1111 86s749-30 1111-86V9168z"
+                fill="#fff"
+              />
+            </svg>
+          }
+        >
+          Sign in with Auth0
+        </SocialButton>
+      </button>
     </div>
-    {/* <Divider>Or continue with</Divider>
-
-    <form className="grid gap-y-2">
-      <Label htmlFor="email">Email</Label>
-      <FormElement>
-        <input id="email" type="text" />
-      </FormElement>
-
-      <Label htmlFor="password">Password</Label>
-      <FormElement>
-        <input id="password" type="password" />
-      </FormElement>
-
-      <div className="mt-3">
-        <button type="submit" className="w-full">
-          <Button full>Sign in</Button>
-        </button>
-      </div>
-    </form> */}
-
-    {/* <div className="mt-5 text-center text-xs">
-      <div>
-        <Link
-          href="/forgot-password"
-          className="text-primary-500 hover:text-primary-600"
-        >
-          Forgot your password?
-        </Link>
-      </div>
-      <div>
-        Don&apos;t have an account?{' '}
-        <Link
-          href="/signup"
-          className="text-primary-500 hover:text-primary-600"
-        >
-          Sign up now
-        </Link>
-        .
-      </div>
-    </div> */}
   </FullCenterSection>
 );
 

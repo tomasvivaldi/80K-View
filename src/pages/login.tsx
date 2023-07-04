@@ -8,10 +8,18 @@ import { GET_USER_BY_EMAIL } from 'graphql/queries';
 import { Meta } from '@/layout/Meta';
 import { AppConfig } from '@/utils/AppConfig';
 import { LoginForm } from '@/template/auth/LoginForm';
+import { User } from "next-auth";
+
+interface UserWithProvider extends User {
+  provider?: string;
+}
+
+
 
 const Login = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const user = session?.user as UserWithProvider;
   const [addUsers] = useMutation(ADD_USERS);
   const {
     data: userData,
@@ -32,9 +40,10 @@ const Login = () => {
 
           if (!existingUser) {
             const created_at = new Date().toISOString();
-            const username = session?.user?.name;
-            const email = session?.user?.email;
-            const provider = 'google';
+            const username = user?.name;
+            const email = user?.email;
+            console.log("email:",email)
+            const provider = user?.provider || "Auth0";
             const password = '';
 
             await addUsers({
@@ -56,15 +65,14 @@ const Login = () => {
     addUsersDataToDatabase();
   }, [session, router, addUsers, userData, userDataLoading, refetchUser]);
 
-  const handleLogin = async () => {
-    await signIn('google', {});
+  const handleLogin = async (provider: string) => {  // Updated line
+    await signIn(provider, {});  // Updated line
   };
-
 
   return (
     <div className="text-gray-900 antialiased">
       <Meta title={AppConfig.title} description={AppConfig.description} />
-      <LoginForm handleLogin={handleLogin} />
+      <LoginForm handleLogin={handleLogin} />  // Make sure to update LoginForm component too
     </div>
   );
 };
