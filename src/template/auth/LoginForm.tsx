@@ -62,13 +62,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (  // Updated l
       <button className="w-full" type="button" onClick={() => handleLogin('auth0')}>  
         <SocialButton
           icon={
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14222 14222">
-              <circle cx="7111" cy="7112" r="7111" fill="#1977f3" />
-              <path
-                d="M9879 9168l315-2056H8222V5778c0-562 275-1111 1159-1111h897V2917s-814-139-1592-139c-1624 0-2686 984-2686 2767v1567H4194v2056h1806v4969c362 57 733 86 1111 86s749-30 1111-86V9168z"
-                fill="#fff"
-              />
-            </svg>
+            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Auth0</title><path d="M21.98 7.448L19.62 0H4.347L2.02 7.448c-1.352 4.312.03 9.206 3.815 12.015L12.007 24l6.157-4.552c3.755-2.81 5.182-7.688 3.815-12.015l-6.16 4.58 2.343 7.45-6.157-4.597-6.158 4.58 2.358-7.433-6.188-4.55 7.63-.045L12.008 0l2.356 7.404 7.615.044z"/></svg>
           }
         >
           Sign in with Auth0
