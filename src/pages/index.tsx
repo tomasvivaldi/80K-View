@@ -135,7 +135,7 @@ const Index = () => {
               </div>
               ) : (
                 rawData && userRef && data && data.length>0 &&
-                  <Feedback data={rawData} userRef={userRef} />
+                  <Feedback data={rawData} />
             )}
                 </div>
                 <div className=" order-2 w-full md:order-3 mt-4">
