@@ -10,14 +10,14 @@ import { User } from "next-auth";
 interface UserWithProvider extends User {
   provider?: string;
 }
-type UserData = {
-  id: number;
-  username: string;
-  email: string;
-  password: string;
-  provider: string;
-  created_at: string;
-}
+// type UserData = {
+//   id: number;
+//   username: string;
+//   email: string;
+//   password: string;
+//   provider: string;
+//   created_at: string;
+// }
 
 
 const Login = () => {
@@ -25,19 +25,18 @@ const Login = () => {
   const user = session?.user as UserWithProvider;
   console.log("session",session);
   console.log("session?.user?.email",user?.email);
-  let userData: UserData;
-  let userDataLoading: any;
-  let refetchUser: any;
-  
-  // Query runs even when there's no email, but will be skipped based on the skip condition.
-  const { data, loading, refetch } = useQuery(GET_USER_BY_EMAIL, {
+
+const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL, {
     variables: { email: user?.email },
     skip: !user?.email,
   });
-  
-  userData = data;
-  userDataLoading = loading;
-  refetchUser = refetch;
+
+// use userDataLoading to handle loading state
+if (userDataLoading) return <div>Loading...</div>;
+
+// use userData to show some user information, assuming `GET_USER_BY_EMAIL` query returns user's data directly
+if (userData) return <div>Hello, {userData.username}</div>;
+
 
   const handleLogin = async (provider: string) => {  
     await signIn(provider, {});  
