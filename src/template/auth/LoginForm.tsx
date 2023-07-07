@@ -1,13 +1,44 @@
 import { SocialButton } from '@/button/SocialButton';
+import { Button } from '@/button/Button';
+import { FormElement } from '@/form/FormElement';
+import { Label } from '@/form/Label';
 
 import { FullCenterSection } from '@/layout/FullCenterSection';
 
 interface LoginFormProps {
-  handleLogin: (provider: string) => Promise<void>;  // Updated line
+  handleLogin: (provider: string) => Promise<void>;
+  handleEmailLogin: (email: string, password: string) => Promise<void>;  // New line
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (  // Updated line
+const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin }) => (  // Updated line
   <FullCenterSection title="Sign in to your account">
+    <form className="grid gap-y-2 mb-4" onSubmit={(event) => {
+      event.preventDefault();
+      const target = event.target as typeof event.target & {
+        email: { value: string };
+        password: { value: string };
+      };
+      handleEmailLogin(target.email.value, target.password.value);
+    }}>
+      <Label htmlFor="email">Email</Label>
+      <FormElement>
+        <input id="email" type="text" required />
+      </FormElement>
+
+      <Label htmlFor="password">Password</Label>
+      <FormElement>
+        <input id="password" type="password" required />
+      </FormElement>
+
+      <div className="mt-3">
+        <button type="submit" className="w-full">
+          <Button full>Sign in</Button>
+        </button>
+      </div>
+    </form>
+    <div className='flex flex-row justify-center items-center gap-2'>
+      <div className='w-full h-[1px] bg-black mt-1'/><p>or</p><div className='w-full h-[1px] bg-black mt-1'/>
+    </div>
     <div className="mt-5 space-y-4">
       <button className="w-full" type="button" onClick={() => handleLogin('google')}>  
         <SocialButton
@@ -68,6 +99,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin }) => (  // Updated l
           Sign in with Auth0
         </SocialButton>
       </button>
+      <div className="mt-5 text-center text-xs">
+  Don't have an account?{' '}
+    <a href="/signup" className="text-primary-500 hover:text-primary-600">
+      Sign up now
+    </a>
+  .
+</div>
     </div>
   </FullCenterSection>
 );

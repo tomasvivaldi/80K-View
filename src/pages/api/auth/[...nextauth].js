@@ -1,9 +1,40 @@
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { queries } from 'graphql/queries';
+
+import bcrypt from 'bcrypt';
+
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from "next-auth/providers/facebook";
 import Auth0Provider from "next-auth/providers/auth0";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+
+// Here you are creating the Apollo Client instance inside the NextAuth configuration
+const client = new ApolloClient({
+  uri: 'https://tangjiacun.stepzen.net/api/misty-koala/__graphql',
+  headers: {
+    Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
+  },
+  cache: new InMemoryCache(),
+});
 
 export const authOptions = {
+  // Enable debug messages in the console
+  debug: true, 
+
+    // Session options
+    session: {
+      // Max age of the session. Controls how often the session updates in the database / in memory if a database is not being used.
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+  
+      // The time until the session cookie expires (in seconds). If not explicitly set, it defaults to the maxAge of the session.
+      // The cookie expiration is reset every time the user signs in or accesses the site (if the session is still active).
+      // If you want to use "rolling sessions", you can set this to a value lower than maxAge.
+      updateAge: 24 * 60 * 60, // 24 hours
+    },
+
+    
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -39,7 +70,63 @@ export const authOptions = {
           response_type: 'code',
         },
       },
+    }),
+
+
+
+
+
+    CredentialsProvider({
+      // The name to display on the sign in form (e.g. "Sign in with...")
+      name: "Sign In",
+      // `credentials` is used to generate a form on the sign in page.
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      // You can pass any HTML attribute to the <input> tag through the object.
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: {label: "Email", type: "email", placeholder: "example@email.com"},
+        password: { label: "Password", type: "password", placeholder: "password"}
+      },
+      authorize: async (credentials) => {
+        console.log("Credentials:\n", credentials);
+        const { data } = await client.query({
+          query: queries.GET_USER_BY_EMAIL,
+          variables: { email: credentials?.email },
+        })
+        .catch(error => {
+          console.log("Error during query execution:", error);
+          throw error;
+        });
+    
+        if (data && data.userByEmail) {
+          console.log("User found in the database:", data.userByEmail);
+        
+          // Verify password
+          const isValid = await bcrypt.compare(credentials.password, data.userByEmail.password);
+          console.log("Password comparison result:", isValid);
+        
+          if (isValid) {
+            console.log("Password is valid. User:", { id: data.userByEmail.id });
+            return { id: data.userByEmail.id, email: data.userByEmail.email };
+          } else {
+            // If the password is invalid, return null to reject the credentials
+            console.log("Invalid password.");
+            return Promise.resolve(null);
+          }
+        } else {
+          // If the user was not found, return null to reject the credentials
+          console.log("User not found in the database.");
+          return Promise.resolve(null);
+        }
+        
+      }
     })
+
+
+
+
+
     // ...add more providers here
   ],
   pages: {
@@ -51,52 +138,7 @@ export const authOptions = {
   },
 
 
-  // callbacks: {
-  //   async jwt(token, user, account, profile, isNewUser) {
-  //     console.log("JWT callback triggered");
-    
-  //     // Check if user object is undefined
-  //     if (user) {
-  //       console.log("SignIn Event");
-  //       console.log("User: ", user);
-  //       console.log("Account: ", account);
-  //       console.log("Profile: ", profile);
-  //       console.log("isNewUser: ", isNewUser);
-    
-  //       // Modify the token
-  //       token.email = user.email;
-  //       token.name = user.name;
-  //       token.picture = user.image;
-    
-  //       // Modify the token with other properties
-  //       token.provider = account.provider;
-  //       token.accessToken = account.access_token;
-  //       token.providerSubId = profile.sub;
-  //       token.isNewUser = isNewUser;
-  //     } else {
-  //       console.log("Not a SignIn Event");
-  //     }
-    
-  //     return token;
-  //   },
-    
-    
-  
-  //   async session(session, token) {
-  //     console.log('Session callback', { session, token });
-    
-  //     if (token) {
-  //       session.user.email = token.email;
-  //       session.user.name = token.name;
-  //       session.user.picture = token.picture;
-  //       session.user.provider = token.provider;
-  //     } else {
-  //       console.log("Token is undefined");
-  //     }
-    
-  //     return session;
-  //   }
-  // }    
+
   
 };
 
