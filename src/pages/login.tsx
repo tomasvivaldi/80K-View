@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
 import { useQuery } from '@apollo/client';
 import { GET_USER_BY_EMAIL } from 'graphql/queries';
