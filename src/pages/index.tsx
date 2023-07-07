@@ -134,8 +134,8 @@ const Index = () => {
                 <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' />
               </div>
               ) : (
-                rawData && 
-                  <Feedback data={rawData} />
+                rawData && userRef && data && data.length>0 &&
+                  <Feedback data={rawData} userRef={userRef} />
             )}
                 </div>
                 <div className=" order-2 w-full md:order-3 mt-4">
