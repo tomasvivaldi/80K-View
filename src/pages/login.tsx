@@ -25,7 +25,6 @@ const Login = () => {
   const user = session?.user as UserWithProvider;
   console.log("session",session);
   console.log("session?.user?.email",user?.email);
-  
   let userData: UserData;
   let userDataLoading: any;
   let refetchUser: any;
