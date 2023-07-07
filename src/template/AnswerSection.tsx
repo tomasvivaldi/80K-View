@@ -452,7 +452,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
     };
     try {
       const commonVariables = {
-        username: session?.user?.name,
+        username: session?.user?.name || data?.username,
         score: parseFloat(categoryData?.score?.toString() ?? ''),
         notes: categoryData.notes,
         action_plan: categoryData.action_plan,
@@ -511,7 +511,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
         try {
           await addOverallScore({
             variables: {
-              username: session?.user?.name,
+              username: session?.user?.name || data?.username,
               overall_score: parseFloat(averageScore.toString()),
               created_at: new Date().toISOString(),
               user_ref: data?.id

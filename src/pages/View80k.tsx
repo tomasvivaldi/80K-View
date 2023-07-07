@@ -104,7 +104,7 @@ function isValidCategoryName(name: string): name is CategoryName {
     }
     console.log('OUTSIDE IF');
     const { data } = useQuery<Record<string, any>>(categoryQueries[category], {
-      variables: { username: session?.user?.name },
+      variables: { username: session?.user?.name }, // MAYBE DOEST WORK WITH LOCAL PROVIDER (CREDENTIALS) USERS
     });
   
     const categoryData = data && data[`${toCamelCase(category)}ListByUser`];
