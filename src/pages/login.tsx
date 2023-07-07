@@ -22,7 +22,6 @@ type UserData = {
 
 
 const Login = () => {
-  const router = useRouter();
   const { data: session } = useSession();
   const user = session?.user as UserWithProvider;
   console.log("session",session);
