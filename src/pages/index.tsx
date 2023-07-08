@@ -134,14 +134,13 @@ const Index = () => {
                 <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' />
               </div>
               ) : (
-                rawData && userRef && data && data.length>0 &&
-                  <Feedback data={rawData} />
+                
+                rawData && userRef && rawData.career_work_feedback.length>0 &&
+                  <Feedback data={rawData}/>
             )}
                 </div>
                 <div className=" order-2 w-full md:order-3 mt-4">
-                {data &&
-          // @ts-ignore
-          data.length >= 2 && (
+                {formattedData && formattedData.length >= 2 && (
                   <Chart1 data={formattedData} />
           )}
                 </div>
@@ -149,9 +148,7 @@ const Index = () => {
               </div>
             </Section>
             <Section>
-            {data &&
-          // @ts-ignore
-          data.length >= 2 && (
+            {rawData && rawData.career_work.length >= 2 && (
               <Stats data={rawData}/>
               )}
             </Section>
