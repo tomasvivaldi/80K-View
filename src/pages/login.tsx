@@ -6,6 +6,10 @@ import { Meta } from '@/layout/Meta';
 import { AppConfig } from '@/utils/AppConfig';
 import { LoginForm } from '@/template/auth/LoginForm';
 import { User } from "next-auth";
+import { useEffect, useState } from 'react';
+import router from 'next/router';
+import LoadingBox from '@/template/LoadingBox';
+
 
 interface UserWithProvider extends User {
   provider?: string;
@@ -31,28 +35,49 @@ const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL,
     skip: !user?.email,
   });
 
-// use userDataLoading to handle loading state
-if (userDataLoading) return <div>Loading...</div>;
-
-// use userData to show some user information, assuming `GET_USER_BY_EMAIL` query returns user's data directly
-if (userData) return <div>Hello, {userData.username}</div>;
+  useEffect(() => {
+    // check if loading has finished and if user data is available
+    if (!userDataLoading && userData) {
+      router.push('/'); // redirects to homepage
+    }
+  }, [userDataLoading, userData, router]); // re-run effect when these variables change
 
 
   const handleLogin = async (provider: string) => {  
     await signIn(provider, {});  
   };
 
-  const handleEmailLogin = async (email: string, password: string) => {
-    await signIn('credentials', { email, password });  
-  };
+  // define state
+const [loginFailed, setLoginFailed] = useState(false);
 
-  return (
-    <div className="text-gray-900 antialiased">
-      <Meta title={AppConfig.title} description={AppConfig.description} />
-      <LoginForm handleLogin={handleLogin}  handleEmailLogin={handleEmailLogin}/> 
+const handleEmailLogin = async (email: string, password: string): Promise<void> => {
+  const response = await signIn('credentials', { email, password, redirect: false });
+  if (response?.error) {
+    // Login failed
+    setLoginFailed(true);
+  } else {
+    // Successful login, handle redirection or other tasks
+    setLoginFailed(false);
+  }
+};
 
-    </div>
-  );
+
+
+console.log("login failed?", loginFailed)
+
+// use userDataLoading to handle loading state
+if (userDataLoading) return <LoadingBox spinnerClassName='mx-24' containerClassName='m-auto h-screen' />;
+
+// use userData to show some user information, assuming `GET_USER_BY_EMAIL` query returns user's data directly
+if (userData) return 
+
+return (
+  <div className="text-gray-900 antialiased">
+    <Meta title={AppConfig.title} description={AppConfig.description} />
+    <LoginForm handleLogin={handleLogin} handleEmailLogin={handleEmailLogin} loginFailed={loginFailed}/>
+  </div>
+);
+
 };
 
 export default Login;

@@ -4,7 +4,7 @@ import { Label } from '@/form/Label';
 import { FullCenterSection } from '@/layout/FullCenterSection';
 
 interface SignUpFormProps {
-  handleSignUp: (email: string, password: string) => Promise<void>;
+  handleSignUp: (username: string, email: string, password: string) => Promise<void>;
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp }) => (
@@ -12,14 +12,22 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp }) => (
     title="Create your account"
     description="Sign up with your email address and password."
   >
-    <form className="grid gap-y-2" onSubmit={(event) => {
+    <form className="grid gap-y-2" 
+    onSubmit={(event) => {
       event.preventDefault();
       const target = event.target as typeof event.target & {
+        username: { value: string };
         email: { value: string };
         password: { value: string };
       };
-      handleSignUp(target.email.value, target.password.value);
-    }}>
+      handleSignUp(target.username.value, target.email.value, target.password.value);
+    }}
+    >
+      <Label htmlFor="username">Username</Label>
+      <FormElement>
+        <input id="username" type="text" required />
+      </FormElement>
+      
       <Label htmlFor="email">Email</Label>
       <FormElement>
         <input id="email" type="email" required />

@@ -115,7 +115,7 @@ const Index = () => {
         {session ? (
           <>
           <Section>
-            <Welcome />
+            <Welcome data={rawData}/>
           </Section>
           <Section>
             <Banner />

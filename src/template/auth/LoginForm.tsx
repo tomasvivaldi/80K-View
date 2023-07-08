@@ -7,28 +7,37 @@ import { FullCenterSection } from '@/layout/FullCenterSection';
 
 interface LoginFormProps {
   handleLogin: (provider: string) => Promise<void>;
-  handleEmailLogin: (email: string, password: string) => Promise<void>;  // New line
+  handleEmailLogin: (email: string, password: string) => void;
+  loginFailed: boolean; 
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin }) => (  // Updated line
-  <FullCenterSection title="Sign in to your account">
-    <form className="grid gap-y-2 mb-4" onSubmit={(event) => {
-      event.preventDefault();
-      const target = event.target as typeof event.target & {
-        email: { value: string };
-        password: { value: string };
-      };
-      handleEmailLogin(target.email.value, target.password.value);
-    }}>
-      <Label htmlFor="email">Email</Label>
-      <FormElement>
-        <input id="email" type="text" required />
-      </FormElement>
+const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, loginFailed }) => {
 
-      <Label htmlFor="password">Password</Label>
-      <FormElement>
-        <input id="password" type="password" required />
-      </FormElement>
+  return (
+    <FullCenterSection title="Sign in to your account">
+      <form
+        className="grid gap-y-2 mb-4"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const target = event.target as typeof event.target & {
+            email: { value: string };
+            password: { value: string };
+          };
+          await handleEmailLogin(target.email.value, target.password.value);
+        }}        
+      >
+        <Label htmlFor="email">Email</Label>
+        <FormElement>
+          <input id="email" type="text" required className={loginFailed ? ' ring-red-500 ring-2' : ''} />
+        </FormElement>
+
+        <Label htmlFor="password">Password</Label>
+        <FormElement>
+          <input id="password" type="password" required className={loginFailed ? ' ring-red-500 ring-2' : ''} />
+        </FormElement>
+
+        {loginFailed && <p className="text-red-500">Invalid email or password</p>}
+
 
       <div className="mt-3">
         <button type="submit" className="w-full">
@@ -109,5 +118,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin }) 
     </div>
   </FullCenterSection>
 );
+        }
 
 export { LoginForm };

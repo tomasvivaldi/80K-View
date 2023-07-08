@@ -11,9 +11,8 @@ const SignUp = () => {
   const router = useRouter();
   const [addUsers] = useMutation(ADD_USERS);
 
-  const handleSignUp = async (email: string, password: string) => {
+  const handleSignUp = async (username: string, email: string, password: string) => {
     const created_at = new Date().toISOString();
-    const username = email;
     const provider = 'local';
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
@@ -24,12 +23,13 @@ const SignUp = () => {
         created_at: created_at,
         email: email,
         provider: provider,
-        password: hashedPassword, // Now the password is hashed
+        password: hashedPassword, 
       },
     });
 
     router.push('/login');
-  };
+};
+
 
   return (
   <div className="text-gray-900 antialiased">
