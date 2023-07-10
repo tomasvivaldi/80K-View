@@ -6,6 +6,7 @@ import { AppConfig } from '@/utils/AppConfig';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
 import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
 type DataItem = {
   date: string;
@@ -28,6 +29,61 @@ interface YTDDataObject {
 
 const View80k = () => {
   const { data: session } = useSession();
+  const user_query = queries.GET_USER_BY_EMAIL
+  const user_data_query = queries.GET_USER_DATA_BY_ID;
+  const [userRef, setUserRef] = useState<string | null>(null);
+  const { loading, data } = useQuery<Record<string, any>>(user_query, {
+    variables: { email: session?.user?.email },
+  });
+  
+  useEffect(() => {
+    if (!loading && data && data.userByEmail) {
+      const userRef = data.userByEmail?.id;
+      console.log('user_ref', userRef);
+      setUserRef(userRef);
+    }
+  }, [loading, data]);
+
+
+  const { loading: userDataLoading, data: userDataByIdData } = useQuery<UserDataByIdData>(user_data_query, {
+    skip: userRef === null, 
+    variables: { id: userRef },
+  });
+
+  if(!userRef){console.log('!userRef',userRef)}
+
+  // const [formattedData, setFormattedData] = useState<DataObject[]>([]);
+  // useEffect(() => {
+  //   if (!userDataLoading && userDataByIdData && userDataByIdData.userDataById) {      
+  //     let tempData: DataObject[] = []; // use a temporary array
+  //     userDataByIdData.userDataById.overall_score.forEach((userData: any) => {
+  //       console.log('userDataAAAAAAAAA', userData)
+  //       const score = userData.overall_score;
+  //       const date = userData.created_at;
+  //       console.log('score',score)
+  //       console.log('date',date)
+
+  //       // Push the score and date parameters in the desired format to tempData
+  //       if (score !== undefined && date) {
+  //         tempData.push({ date, value: score });
+  //       }
+  //     });
+  //     setFormattedData(tempData); // update state with tempData
+  //   }
+  // }, [userDataLoading, userDataByIdData, userRef]);
+
+
+
+  const [rawData, setrawData] = useState<UserDataById>();
+  console.log('rawData',rawData)
+  useEffect(() => {
+    if (!userDataLoading && userDataByIdData && userDataByIdData.userDataById) {
+      // Directly assign the fetched data to rawData state
+      setrawData(userDataByIdData.userDataById);
+    }
+  }, [userDataLoading, userDataByIdData, userRef]);
+
+
 
   const months = [
     'January', 'February', 'March', 'April',
@@ -35,7 +91,9 @@ const View80k = () => {
     'September', 'October', 'November', 'December'
   ];
 
-  const category = [
+  type CategoryKeys = 'career_work' | 'community' | 'environment' | 'family_friends' | 'fun_relaxation' | 'growth_learning' | 'health_fitness' | 'money_finances' | 'partner_love' | 'spirituality';
+
+  const category: CategoryKeys[]  = [
     'career_work',
     'community',
     'environment',
@@ -49,31 +107,32 @@ const View80k = () => {
   ];
 
 
-  // Map the category to the corresponding query
-  const categoryQueries = {
-    career_work: queries.GET_CAREER_WORK_INFO_BY_USER,
-    community: queries.GET_COMMUNITY_INFO_BY_USER,
-    environment: queries.GET_ENVIRONMENT_INFO_BY_USER,
-    family_friends: queries.GET_FAMILY_FRIENDS_INFO_BY_USER,
-    fun_relaxation: queries.GET_FUN_RELAXATION_INFO_BY_USER,
-    growth_learning: queries.GET_GROWTH_LEARNING_INFO_BY_USER,
-    health_fitness: queries.GET_HEALTH_FITNESS_INFO_BY_USER,
-    money_finances: queries.GET_MONEY_FINANCES_INFO_BY_USER,
-    partner_love: queries.GET_PARTNER_LOVE_INFO_BY_USER,
-    spirituality: queries.GET_SPIRITUALITY_INFO_BY_USER,
-  };
+  // // Map the category to the corresponding query
+  // const categoryQueries = {
+  //   career_work: queries.GET_CAREER_WORK_INFO_BY_USER,
+  //   community: queries.GET_COMMUNITY_INFO_BY_USER,
+  //   environment: queries.GET_ENVIRONMENT_INFO_BY_USER,
+  //   family_friends: queries.GET_FAMILY_FRIENDS_INFO_BY_USER,
+  //   fun_relaxation: queries.GET_FUN_RELAXATION_INFO_BY_USER,
+  //   growth_learning: queries.GET_GROWTH_LEARNING_INFO_BY_USER,
+  //   health_fitness: queries.GET_HEALTH_FITNESS_INFO_BY_USER,
+  //   money_finances: queries.GET_MONEY_FINANCES_INFO_BY_USER,
+  //   partner_love: queries.GET_PARTNER_LOVE_INFO_BY_USER,
+  //   spirituality: queries.GET_SPIRITUALITY_INFO_BY_USER,
+  // };
 
-type CategoryName = keyof typeof categoryQueries;
 
-function isValidCategoryName(name: string): name is CategoryName {
-  return categoryQueries.hasOwnProperty(name);
-}
+
+
+// function isValidCategoryName(name: string): name is CategoryName {
+//   return categoryQueries.hasOwnProperty(name);
+// }
   
-  function toCamelCase(str: string): string {
-    return str.replace(/([-_][a-z])/g, (group) =>
-      group.toUpperCase().replace('-', '').replace('_', '')
-    );
-  }
+  // function toCamelCase(str: string): string {
+  //   return str.replace(/([-_][a-z])/g, (group) =>
+  //     group.toUpperCase().replace('-', '').replace('_', '')
+  //   );
+  // }
 
   // const bgColorClass = (value: number): string => {
   //   if (value < 34) return 'border-red-500';
@@ -98,20 +157,16 @@ function isValidCategoryName(name: string): name is CategoryName {
   const ytdData: YTDDataObject[] = [];
   
   category.forEach((category) => {
-    if (!category || !isValidCategoryName(category)) {
+    if (!category) {
       console.log('!category IF');
       return <p>Invalid category.</p>;
     }
-    console.log('OUTSIDE IF');
-    const { data } = useQuery<Record<string, any>>(categoryQueries[category], {
-      variables: { username: session?.user?.name }, // MAYBE DOEST WORK WITH LOCAL PROVIDER (CREDENTIALS) USERS
-    });
   
-    const categoryData = data && data[`${toCamelCase(category)}ListByUser`];
+    const categoryData = rawData && rawData[category];
     console.log('categoryData:', categoryData);
 
     if (categoryData) {
-      const sortedData = categoryData.slice().sort((a: { created_at: Date; }, b: { created_at: Date; }) => {
+      const sortedData = categoryData.slice().sort((a: { created_at: string; }, b: { created_at: string; }) => {
         return new Date(a.created_at).getTime() - new Date(b.created_at).getTime(); // Change this line
       });      
 
