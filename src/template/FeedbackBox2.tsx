@@ -1,10 +1,76 @@
 import { Session } from 'next-auth';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { useMutation } from '@apollo/client';
+import {
+  UPDATE_CAREER_WORK_DELETED_STATUS,
+  UPDATE_CAREER_WORK_CHECKED_STATUS,
+  UPDATE_COMMUNITY_DELETED_STATUS,
+  UPDATE_COMMUNITY_CHECKED_STATUS,
+  UPDATE_ENVIRONMENT_DELETED_STATUS,
+  UPDATE_ENVIRONMENT_CHECKED_STATUS,
+  UPDATE_FAMILY_FRIENDS_DELETED_STATUS,
+  UPDATE_FAMILY_FRIENDS_CHECKED_STATUS,
+  UPDATE_FUN_RELAXATION_DELETED_STATUS,
+  UPDATE_FUN_RELAXATION_CHECKED_STATUS,
+  UPDATE_GROWTH_LEARNING_DELETED_STATUS,
+  UPDATE_GROWTH_LEARNING_CHECKED_STATUS,
+  UPDATE_HEALTH_FITNESS_DELETED_STATUS,
+  UPDATE_HEALTH_FITNESS_CHECKED_STATUS,
+  UPDATE_MONEY_FINANCES_DELETED_STATUS,
+  UPDATE_MONEY_FINANCES_CHECKED_STATUS,
+  UPDATE_PARTNER_LOVE_DELETED_STATUS,
+  UPDATE_PARTNER_LOVE_CHECKED_STATUS,
+  UPDATE_SPIRITUALITY_DELETED_STATUS,
+  UPDATE_SPIRITUALITY_CHECKED_STATUS,
+} from 'graphql/mutations';
+
+const MUTATIONS = {
+  'career_work': {
+    deleted: UPDATE_CAREER_WORK_DELETED_STATUS,
+    checked: UPDATE_CAREER_WORK_CHECKED_STATUS,
+  },
+  'community': {
+    deleted: UPDATE_COMMUNITY_DELETED_STATUS,
+    checked: UPDATE_COMMUNITY_CHECKED_STATUS,
+  },
+  'environment': {
+    deleted: UPDATE_ENVIRONMENT_DELETED_STATUS,
+    checked: UPDATE_ENVIRONMENT_CHECKED_STATUS,
+  },
+  'family_friends': {
+    deleted: UPDATE_FAMILY_FRIENDS_DELETED_STATUS,
+    checked: UPDATE_FAMILY_FRIENDS_CHECKED_STATUS,
+  },
+  'fun_relaxation': {
+    deleted: UPDATE_FUN_RELAXATION_DELETED_STATUS,
+    checked: UPDATE_FUN_RELAXATION_CHECKED_STATUS,
+  },
+  'growth_learning': {
+    deleted: UPDATE_GROWTH_LEARNING_DELETED_STATUS,
+    checked: UPDATE_GROWTH_LEARNING_CHECKED_STATUS,
+  },
+  'health_fitness': {
+    deleted: UPDATE_HEALTH_FITNESS_DELETED_STATUS,
+    checked: UPDATE_HEALTH_FITNESS_CHECKED_STATUS,
+  },
+  'money_finances': {
+    deleted: UPDATE_MONEY_FINANCES_DELETED_STATUS,
+    checked: UPDATE_MONEY_FINANCES_CHECKED_STATUS,
+  },
+  'partner_love': {
+    deleted: UPDATE_PARTNER_LOVE_DELETED_STATUS,
+    checked: UPDATE_PARTNER_LOVE_CHECKED_STATUS,
+  },
+  'spirituality': {
+    deleted: UPDATE_SPIRITUALITY_DELETED_STATUS,
+    checked: UPDATE_SPIRITUALITY_CHECKED_STATUS,
+  },
+};
 
 
 
-interface FeedbackBoxProps {
+interface FeedbackBox2Props {
   userData?: UserDataById;
   categoryNames: string[];
   sortedCategoryNames: string[];
@@ -16,14 +82,16 @@ interface FeedbackBoxProps {
   border: string;
   background: string;
   score: number;
+  user_ref: string;
 }
 
-const FeedbackBox: React.FC<FeedbackBoxProps> = ({
+const FeedbackBox2: React.FC<FeedbackBox2Props> = ({
   userData,
   sortedCategoryNames,
   session,
   currentIndex,
   border,
+  user_ref
 }) => {
 
   const feedbacks = [
@@ -40,18 +108,34 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
 
-  const [checkedItems, setCheckedItems] = useState(new Array(items.length).fill(false));
 
-  const handleCheckChange = (position: number) => {
-    const updatedCheckedItems = [...checkedItems];
-    updatedCheckedItems[position] = !updatedCheckedItems[position];
-    setCheckedItems(updatedCheckedItems);
-};
+  const [deletedItems, setDeletedItems] = useState<number[]>([]);
+  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+
+  const handleCheckChange = (index: number) => {
+    setCheckedItems(prevCheckedItems =>
+      prevCheckedItems.includes(index) ?
+        prevCheckedItems.filter(i => i !== index) :
+        [...prevCheckedItems, index]
+    );
+  };
+
+  const handleDelete = () => {
+    if (itemToDelete !== null) {
+      setDeletedItems(prevDeletedItems =>
+        prevDeletedItems.includes(itemToDelete) ?
+          prevDeletedItems.filter(i => i !== itemToDelete) :
+          [...prevDeletedItems, itemToDelete]
+      );
+    }
+    closeModal();
+  };
+  
+
+
 
 
   useEffect(() => {
-    if (userData && userData[sortedCategoryNames[currentIndex] + "_feedback" as CategoryFeedbackKey]) {
-   
     const feedbacks = [
       (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.feedback,
       (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice1,
@@ -62,7 +146,6 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
     ];
     setItems(feedbacks);
     setCheckedItems(new Array(feedbacks.length).fill(false));
-  }
   }, [userData, currentIndex]);
 
   const openModal = (index: number) => {
@@ -75,12 +158,41 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
     setItemToDelete(null);
   };
 
-  const handleDelete = () => {
-    if(itemToDelete !== null){
-      setItems(items => items.filter((_item, i) => i !== itemToDelete));
-    }
-    closeModal();
+
+
+  const [saveChangesModalIsOpen, setSaveChangesModalIsOpen] = useState(false);
+
+  // Add useMutation hook for your mutation
+  const currentCategory: CategoryKey = sortedCategoryNames[currentIndex]! as CategoryKey;
+
+  if (!currentCategory || !MUTATIONS[currentCategory]) {
+    console.error('Invalid category');
   }
+  
+  const currentMutation = MUTATIONS[currentCategory as CategoryKey];
+  
+  // const [updateDeletedStatus] = useMutation(UPDATE_CAREER_WORK_DELETED_STATUS);
+  const [updateCheckedStatus] = useMutation(UPDATE_CAREER_WORK_CHECKED_STATUS);
+  
+  ///////////////
+
+  // if (loadingDeleted || loadingChecked) return <p>Loading...</p>;
+  // if (errorDeleted || errorChecked) return <p>An error occurred</p>;
+
+  /////////////////
+
+  const handleSaveChanges = async () => {
+    // Call the mutations for each item in deletedItems and checkedItems
+    
+    // for (let i of deletedItems) {
+    //   await updateDeletedStatus({ variables: { id: user_ref, index: i, deleted: true } });
+    // }
+    for (let i of checkedItems) {
+      await updateCheckedStatus({ variables: { id: user_ref, index: i, checked: true } });
+    }
+    setSaveChangesModalIsOpen(true);
+  }
+
   return session ? (
     <>
       <div className={`w-full rounded-lg shadow-md text-gray-700 bg-white p-6 flex flex-col border-2 ${border}`}>
@@ -91,26 +203,42 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
         </div>
         <div className='text-base'>
           <ol className='space-y-4'>
-          {items.length > 0 && items.map((item, index) => (index > 0 && userData &&
-  <li key={index} className={`flex items-center space-x-2 ${checkedItems[index] ? 'line-through text-gray-500' : ''}`}>
-    {index > 0 && userData && (
-      <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" checked={checkedItems[index]} onChange={() => handleCheckChange(index)} />
-    )}
-    <span className='flex-grow'>{item}</span>
-    {index > 0 && (
-      <button className=" mx-auto p-1 text-gray-500 hover:text-red-500 focus:outline-none transition duration-150 ease-in-out" onClick={() => openModal(index)}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-        </svg>
-      </button>
-    )}
-  </li>
-))}
-
-
+          {items.length > 0 && items.map((item, index) => (index > 0 &&
+            <li key={index} className={`flex items-center space-x-2 ${checkedItems[index] ? 'line-through text-gray-500' : ''}`}>
+              {index > 0 && (
+                <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600"  checked={checkedItems.includes(index)} onChange={() => handleCheckChange(index)} />
+              )}
+              <span className='flex-grow'>{item}</span>
+              {index > 0 && (
+                <button className=" mx-auto p-1 text-gray-500 hover:text-red-500 focus:outline-none transition duration-150 ease-in-out" onClick={() => openModal(index)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+                </button>
+              )}
+            </li>
+          ))}
           </ol>
         </div>
       </div>
+      <button className="fixed right-4 bottom-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSaveChanges}>
+        Save Changes
+      </button>
+
+      <Modal
+        isOpen={saveChangesModalIsOpen}
+        onRequestClose={() => setSaveChangesModalIsOpen(false)}
+        className="p-4 border-0 mx-auto my-20 bg-white rounded-lg outline-none max-w-sm"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center outline-none"
+        contentLabel="Confirm save changes"
+      >
+        <h2 className="text-lg mb-4">Changes saved successfully!</h2>
+        <div className='flex flex-row justify-center'>  
+          <button className="border border-green-500 text-green-500 hover:border-green-700 hover:text-green-700 px-4 py-2 rounded" onClick={() => setSaveChangesModalIsOpen(false)}>
+            Okay
+          </button>
+        </div>
+      </Modal>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -120,9 +248,12 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
       >
         <h2 className="text-lg mb-4">Are you sure you want to delete this item?</h2>
         <div className='flex flex-row justify-center'>  
-          <button className="border border-red-500 text-red-500 hover:border-red-700 hover:text-red-700 px-4 py-2 rounded mr-2" onClick={handleDelete}>
+        <button 
+          className="border border-red-500 text-red-500 hover:border-red-700 hover:text-red-700 px-4 py-2 rounded mr-2" 
+          onClick={handleDelete}>
             Yes, delete
-          </button>
+        </button>
+
           <button className="border border-gray-300 text-gray-700 hover:border-gray-700 px-4 py-2 rounded" onClick={closeModal}>
             Cancel
           </button>
@@ -134,4 +265,5 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   );
 }
 
-export default FeedbackBox;
+export default FeedbackBox2;
+

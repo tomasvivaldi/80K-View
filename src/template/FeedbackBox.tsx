@@ -46,16 +46,16 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
           {formatCategoryName(CategoryNames[currentIndex])}
           </p> */}
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col gap-1'>
           <button
-            className={`cursor-pointer ${currentIndex === 0 ? 'text-gray-400' : 'text-black'}`}
+            className={`cursor-pointer border border-black px-1 ${currentIndex === 0 ? 'text-gray-400' : 'text-black'}`}
             onClick={decrementIndex}
             disabled={currentIndex === 0}
           > 
             &uarr;
           </button>
           <button
-            className={`cursor-pointer ${currentIndex === categoryNames.length - 1 ? 'text-gray-400' : 'text-black'}`}
+            className={`cursor-pointer border border-black ${currentIndex === categoryNames.length - 1 ? 'text-gray-400' : 'text-black'}`}
             onClick={incrementIndex}
             disabled={currentIndex === categoryNames.length - 1}
           > 

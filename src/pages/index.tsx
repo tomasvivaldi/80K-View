@@ -136,7 +136,7 @@ const Index = () => {
               ) : (
                 
                 rawData && userRef && rawData.career_work_feedback.length>0 &&
-                  <Feedback data={rawData}/>
+                  <Feedback data={rawData} userRef={userRef} />
             )}
                 </div>
                 <div className=" order-2 w-full md:order-3 mt-4">

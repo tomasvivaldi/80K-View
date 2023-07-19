@@ -28,6 +28,8 @@ type career_work_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type community {
@@ -50,6 +52,8 @@ type community_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type environment {
@@ -72,6 +76,8 @@ type environment_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type family_friends {
@@ -94,6 +100,8 @@ type family_friends_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type fun_relaxation {
@@ -116,6 +124,8 @@ type fun_relaxation_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type growth_learning {
@@ -138,6 +148,8 @@ type growth_learning_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type health_fitness {
@@ -160,6 +172,8 @@ type health_fitness_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type money_finances {
@@ -182,6 +196,8 @@ type money_finances_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type partner_love {
@@ -204,6 +220,8 @@ type partner_love_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type spirituality {
@@ -226,6 +244,8 @@ type spirituality_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  deleted: Boolean
+  checked: Boolean
 }
 
 type overall_score {
@@ -1447,6 +1467,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   career_work_feedback
     @dbquery(
@@ -1462,6 +1484,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -1558,6 +1582,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   community_feedback
     @dbquery(
@@ -1573,6 +1599,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -1669,6 +1697,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   environment_feedback
     @dbquery(
@@ -1684,6 +1714,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -1781,6 +1813,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   family_friends_feedback
     @dbquery(
@@ -1796,6 +1830,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -1893,6 +1929,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   fun_relaxation_feedback
     @dbquery(
@@ -1908,6 +1946,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -2005,6 +2045,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   growth_learning_feedback
     @dbquery(
@@ -2020,6 +2062,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -2117,6 +2161,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   health_fitness_feedback
     @dbquery(
@@ -2132,6 +2178,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -2227,6 +2275,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   money_finances_feedback
     @dbquery(
@@ -2242,6 +2292,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -2448,6 +2500,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   partner_love_feedback
     @dbquery(
@@ -2463,6 +2517,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *
@@ -2559,6 +2615,8 @@ type Mutation {
     advice5: String
     created_at: DateTime
     user_ref: Int
+    deleted: Boolean
+    checked: Boolean
   ): 
   spirituality_feedback
     @dbquery(
@@ -2574,6 +2632,8 @@ type Mutation {
         "advice5" = COALESCE($7, "advice5"),
         "created_at" = COALESCE($8, "created_at"),
         "user_ref" = COALESCE($9, "user_ref")
+        "deleted" = COALESCE($10, "deleted")
+        "checked" = COALESCE($11, "checked")
       WHERE
         "id" = $1
       RETURNING *

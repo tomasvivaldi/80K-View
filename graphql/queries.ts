@@ -360,6 +360,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     community {
       id
@@ -380,6 +382,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     environment {
       id
@@ -400,6 +404,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     family_friends {
       id
@@ -420,6 +426,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     fun_relaxation {
       id
@@ -440,6 +448,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     growth_learning {
       id
@@ -460,6 +470,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     health_fitness {
       id
@@ -480,6 +492,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     money_finances {
       id
@@ -500,6 +514,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     overall_score {
       id
@@ -527,6 +543,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     spirituality {
       id
@@ -547,6 +565,8 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      deleted
+      checked
     }
     overall_advice {
       id

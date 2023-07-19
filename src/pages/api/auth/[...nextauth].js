@@ -35,6 +35,7 @@ export const authOptions = {
     },
 
     
+
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -108,7 +109,7 @@ export const authOptions = {
         
           if (isValid) {
             console.log("Password is valid. User:", { id: data.userByEmail.id });
-            return { id: data.userByEmail.id, email: data.userByEmail.email };
+            return { id: data.userByEmail.id, email: data.userByEmail.email, name: credentials.username  };
           } else {
             // If the password is invalid, return null to reject the credentials
             console.log("Invalid password.");
@@ -129,6 +130,16 @@ export const authOptions = {
 
     // ...add more providers here
   ],
+
+  // callbacks: {
+  //   session: async (session, user) => {
+  //     session.user.name = user.name; // Here the user.name is coming from the credentials' username
+  //     return Promise.resolve(session);
+  //   },
+  // },
+  
+
+
   pages: {
     signIn: '/login', // Your custom login page
     signOut: false, // Use the default signOut page provided by NextAuth

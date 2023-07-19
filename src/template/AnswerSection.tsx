@@ -357,15 +357,15 @@ function AnswerSection( { data }: AnswerSectionProps) {
     const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
   
     let prompts = Object.keys(formData).map(category => {
-      return `Analize the following data for ${category}:\n\n` +
+      return `Analyze the following data for ${category}:\n\n` + 
       JSON.stringify(formData[category], null, 2) +
-      "\n[voice and tone: speak as a life coach would] Based on the data above, give feedback for this category with a score between 0 and 10. Provide short actionable action points such as 'look for gyms near you', 'start a meditation diary', etc. Give the output sctrictly on the following structure:"+
-      "\n\nFeedback\n\nAction 1\n\nAction 2\n\nAction 3\n\nAction 4\n\nAction 4\n\nAction 5  (Feedback 25 words or less action points 10 less than words)";
+      "\n[voice and tone: speak as a life coach would] Based on the data above, give feedback for this category with a score between 0 and 10. Provide short actionable action points such as 'look for gyms near you', 'start a meditation diary', etc. Give the output strictly in the following format:"+
+      "\n\nFeedback:\n\nAction 1:\n\nAction 2:\n\nAction 3:\n\nAction 4:\n\nAction 5:\n (Feedback 25 words or less, action points 10 words or less)";
     });
   
     let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
       created_at: new Date().toISOString(),
-      user_ref: data?.id
+      user_ref: data?.id,
     };
   
     const fetchWithRetry = async (prompt: string, retryCount: number = 0): Promise<any> => {
@@ -416,19 +416,28 @@ function AnswerSection( { data }: AnswerSectionProps) {
         }
         
         const responseData = await fetchWithRetry(prompt);        
-  
         console.log("response responseData", responseData);
-        const text_response = responseData.choices[0].text;
-        const responses = text_response.split("\n\n");
         
-        adviceVariables[`${CategoryNames[i]}_feedback`] = responses[1];
-        for (let j = 1; j <= 5; j++) {
-          adviceVariables[`${CategoryNames[i]}_advice${j}`] = responses[j + 1];
-          console.log('adviceVariables',adviceVariables)
+        const text_response = responseData.choices[0].text;
+        console.log("text_response", text_response);
+        
+        const feedbackRegex = /Feedback:([\s\S]*?)Action 1:/gm;
+        const actionRegex = /(Action \d:)([\s\S]*?)(?=Action \d:|$)/gm;
+        
+        let feedbackMatch = feedbackRegex.exec(text_response);
+        let actionMatches = [...text_response.matchAll(actionRegex)];
+        
+        if (feedbackMatch) {
+          adviceVariables[`${CategoryNames[i]}_feedback`] = feedbackMatch[1]?.trim();
         }
         
+        actionMatches.forEach((match, index) => {
+          adviceVariables[`${CategoryNames[i]}_advice${index + 1}`] = match[2].trim();
+        });
         
-  
+        console.log('adviceVariables', adviceVariables);
+        
+    
       } catch (error) {
         console.log("ERROR *********");
         console.error(error);

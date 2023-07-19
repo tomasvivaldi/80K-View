@@ -316,60 +316,80 @@ export const ADD_ADVICE = gql`
     $career_work_advice3: String!
     $career_work_advice4: String!
     $career_work_advice5: String!
+    
+    
     $community_feedback: String!
     $community_advice1: String!
     $community_advice2: String!
     $community_advice3: String!
     $community_advice4: String!
     $community_advice5: String!
+    
+    
     $environment_feedback: String!
     $environment_advice1: String!
     $environment_advice2: String!
     $environment_advice3: String!
     $environment_advice4: String!
     $environment_advice5: String!
+    
+    
     $family_friends_feedback: String!
     $family_friends_advice1: String!
     $family_friends_advice2: String!
     $family_friends_advice3: String!
     $family_friends_advice4: String!
     $family_friends_advice5: String!
+    
+    
     $fun_relaxation_feedback: String!
     $fun_relaxation_advice1: String!
     $fun_relaxation_advice2: String!
     $fun_relaxation_advice3: String!
     $fun_relaxation_advice4: String!
     $fun_relaxation_advice5: String!
+    
+    
     $growth_learning_feedback: String!
     $growth_learning_advice1: String!
     $growth_learning_advice2: String!
     $growth_learning_advice3: String!
     $growth_learning_advice4: String!
     $growth_learning_advice5: String!
+    
+    
     $health_fitness_feedback: String!
     $health_fitness_advice1: String!
     $health_fitness_advice2: String!
     $health_fitness_advice3: String!
     $health_fitness_advice4: String!
     $health_fitness_advice5: String!
+    
+    
     $money_finances_feedback: String!
     $money_finances_advice1: String!
     $money_finances_advice2: String!
     $money_finances_advice3: String!
     $money_finances_advice4: String!
     $money_finances_advice5: String!
+    
+    
     $partner_love_feedback: String!
     $partner_love_advice1: String!
     $partner_love_advice2: String!
     $partner_love_advice3: String!
     $partner_love_advice4: String!
     $partner_love_advice5: String!
+    
+    
     $spirituality_feedback: String!
     $spirituality_advice1: String!
     $spirituality_advice2: String!
     $spirituality_advice3: String!
     $spirituality_advice4: String!
     $spirituality_advice5: String!
+    
+    
     $created_at: DateTime!
     $user_ref: Int!
   ) {
@@ -383,6 +403,8 @@ export const ADD_ADVICE = gql`
       advice5: $career_work_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -393,6 +415,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertCommunity_feedback(
       # $ is for the variables
@@ -404,6 +428,8 @@ export const ADD_ADVICE = gql`
       advice5: $community_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -414,6 +440,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertEnvironment_feedback(
       # $ is for the variables
@@ -425,6 +453,8 @@ export const ADD_ADVICE = gql`
       advice5: $environment_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -435,6 +465,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertFamily_friends_feedback(
       # $ is for the variables
@@ -446,6 +478,8 @@ export const ADD_ADVICE = gql`
       advice5: $family_friends_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -456,6 +490,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertFun_relaxation_feedback(
       # $ is for the variables
@@ -467,6 +503,8 @@ export const ADD_ADVICE = gql`
       advice5: $fun_relaxation_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -477,6 +515,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertGrowth_learning_feedback(
       # $ is for the variables
@@ -488,6 +528,8 @@ export const ADD_ADVICE = gql`
       advice5: $growth_learning_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -498,6 +540,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertHealth_fitness_feedback(
       # $ is for the variables
@@ -509,6 +553,8 @@ export const ADD_ADVICE = gql`
       advice5: $health_fitness_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -519,6 +565,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertMoney_finances_feedback(
       # $ is for the variables
@@ -530,6 +578,8 @@ export const ADD_ADVICE = gql`
       advice5: $money_finances_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -540,6 +590,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertPartner_love_feedback(
       # $ is for the variables
@@ -551,6 +603,8 @@ export const ADD_ADVICE = gql`
       advice5: $partner_love_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -561,6 +615,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
     insertSpirituality_feedback(
       # $ is for the variables
@@ -572,6 +628,8 @@ export const ADD_ADVICE = gql`
       advice5: $spirituality_advice5
       created_at: $created_at
       user_ref: $user_ref
+      
+      
     ) {
       # Same as db table
       feedback
@@ -582,6 +640,8 @@ export const ADD_ADVICE = gql`
       advice5
       created_at
       user_ref
+    
+    
     }
   }
 `;
@@ -611,6 +671,194 @@ export const ADD_USERS = gql`
   }
 `;
 
+export const UPDATE_CAREER_WORK_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateCareer_work_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_CAREER_WORK_CHECKED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $checked: Boolean!) {
+    updateCareer_work_feedback(id: $id, checked: $checked) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_COMMUNITY_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateCommunity_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_COMMUNITY_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateCommunity_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Environment
+export const UPDATE_ENVIRONMENT_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateEnvironment_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_ENVIRONMENT_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateEnvironment_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Family_Friends
+export const UPDATE_FAMILY_FRIENDS_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateFamily_friends_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_FAMILY_FRIENDS_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateFamily_friends_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Fun_Relaxation
+export const UPDATE_FUN_RELAXATION_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateFun_relaxation_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_FUN_RELAXATION_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateFun_relaxation_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Growth_Learning
+export const UPDATE_GROWTH_LEARNING_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateGrowth_learning_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_GROWTH_LEARNING_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateGrowth_learning_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Health_Fitness
+export const UPDATE_HEALTH_FITNESS_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateHealth_fitness_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_HEALTH_FITNESS_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateHealth_fitness_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Money_Finances
+export const UPDATE_MONEY_FINANCES_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateMoney_finances_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_MONEY_FINANCES_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateMoney_finances_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Partner_Love
+export const UPDATE_PARTNER_LOVE_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updatePartner_love_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_PARTNER_LOVE_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updatePartner_love_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
+// Spirituality
+export const UPDATE_SPIRITUALITY_DELETED_STATUS = gql`
+  mutation UpdateDeletedStatus($id: ID!, $deleted: Boolean!) {
+    updateSpirituality_feedback(id: $id, deleted: $deleted) {
+      id
+      deleted
+    }
+  }
+`;
+
+export const UPDATE_SPIRITUALITY_CHECKED_STATUS = gql`
+  mutation UpdateCheckedStatus($id: ID!, $checked: Boolean!) {
+    updateSpirituality_feedback(id: $id, checked: $checked) {
+      id
+      checked
+    }
+  }
+`;
+
 export const mutations = {
   ADD_CAREER_WORK_INFO,
   ADD_COMMUNITY_INFO,
@@ -626,4 +874,24 @@ export const mutations = {
   ADD_OVERALL_ADVICE,
   ADD_USERS,
   ADD_ADVICE,
+  UPDATE_CAREER_WORK_DELETED_STATUS,
+  UPDATE_CAREER_WORK_CHECKED_STATUS,
+  UPDATE_COMMUNITY_DELETED_STATUS,
+  UPDATE_COMMUNITY_CHECKED_STATUS,
+  UPDATE_ENVIRONMENT_DELETED_STATUS,
+  UPDATE_ENVIRONMENT_CHECKED_STATUS,
+  UPDATE_FAMILY_FRIENDS_DELETED_STATUS,
+  UPDATE_FAMILY_FRIENDS_CHECKED_STATUS,
+  UPDATE_FUN_RELAXATION_DELETED_STATUS,
+  UPDATE_FUN_RELAXATION_CHECKED_STATUS,
+  UPDATE_GROWTH_LEARNING_DELETED_STATUS,
+  UPDATE_GROWTH_LEARNING_CHECKED_STATUS,
+  UPDATE_HEALTH_FITNESS_DELETED_STATUS,
+  UPDATE_HEALTH_FITNESS_CHECKED_STATUS,
+  UPDATE_MONEY_FINANCES_DELETED_STATUS,
+  UPDATE_MONEY_FINANCES_CHECKED_STATUS,
+  UPDATE_PARTNER_LOVE_DELETED_STATUS,
+  UPDATE_PARTNER_LOVE_CHECKED_STATUS,
+  UPDATE_SPIRITUALITY_DELETED_STATUS,
+  UPDATE_SPIRITUALITY_CHECKED_STATUS,
 };

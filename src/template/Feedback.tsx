@@ -5,10 +5,11 @@ import { useState, useEffect } from 'react';
 
 type FeedbackProps = {
   data: UserDataById;
+  userRef: string;
 };
 
 
-function Feedback({ data }: FeedbackProps) {
+function Feedback({ data, userRef }: FeedbackProps) {
 
   const { data: session } = useSession();
   const CategoryNames = [
@@ -106,6 +107,7 @@ function Feedback({ data }: FeedbackProps) {
       border={borderColorClass(highlightedScore)}
       background={bgColorClass(highlightedScore)}
       score={highlightedScore}
+      user_ref={userRef}
       />
     </div>
   );
