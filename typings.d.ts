@@ -36,6 +36,7 @@ type CategoryFeedback = {
   advice4: string;
   advice5: string;
   user_ref: string;
+  deleted: boolean;
 };
 
 type DocumentNode = {
