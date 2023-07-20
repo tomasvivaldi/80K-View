@@ -64,7 +64,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const customerEmail = paymentIntent?.receipt_email; 
 
       // Update the user in the database.
-      if (customerEmail) {
+      if (customerEmail!) {
         try {
           const response = await client.mutate({
             mutation: UPDATE_USER_SUBSCRIPTION,
