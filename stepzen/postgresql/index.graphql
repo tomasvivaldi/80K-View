@@ -2605,13 +2605,8 @@ type Mutation {
       dml: INSERT
       configuration: "postgresql_config"
     )
-  updateUsers(
-    id: ID
-    username: String
+    updateUsers(
     email: String!
-    created_at: DateTime
-    password: String
-    provider: String
     isActive: Boolean
   ): users
     @dbquery(
@@ -2619,13 +2614,9 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "users" SET
-        "created_at" = COALESCE($2, "created_at"),
-        "username" = COALESCE($5, "username"),
-        "password" = COALESCE($6, "password"),
-        "provider" = COALESCE($7, "provider"),
-        "isActive" = COALESCE($8, "isActive"),
+        "isActive" = COALESCE($2, "isActive")
       WHERE
-        "email" = $4
+        "email" = $1
       RETURNING *
       """
       configuration: "postgresql_config"
