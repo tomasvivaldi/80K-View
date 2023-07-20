@@ -2583,7 +2583,7 @@ type Mutation {
 
 
   " Mutations for type 'users' "
-  deleteUsers(id: ID!): users
+  deleteUsers(email: String!): users
     @dbquery(
       type: "postgresql"
       schema: "public"
@@ -2606,9 +2606,9 @@ type Mutation {
       configuration: "postgresql_config"
     )
   updateUsers(
-    id: ID!
+    id: ID
     username: String
-    email: String
+    email: String!
     created_at: DateTime
     password: String
     provider: String
@@ -2626,7 +2626,7 @@ type Mutation {
         "provider" = COALESCE($7, "provider"),
         "isActive" = COALESCE($8, "isActive"),
       WHERE
-        "id" = $1
+        "email" = $1
       RETURNING *
       """
       configuration: "postgresql_config"
