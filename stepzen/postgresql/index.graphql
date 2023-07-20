@@ -2612,6 +2612,7 @@ type Mutation {
     created_at: DateTime
     password: String
     provider: String
+    isActive: Boolean
   ): users
     @dbquery(
       type: "postgresql"
@@ -2622,7 +2623,8 @@ type Mutation {
         "email" = COALESCE($4, "email"),
         "username" = COALESCE($5, "username"),
         "password" = COALESCE($6, "password"),
-        "provider" = COALESCE($7, "provider")
+        "provider" = COALESCE($7, "provider"),
+        "isActive" = COALESCE($8, "isActive"),
       WHERE
         "id" = $1
       RETURNING *

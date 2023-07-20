@@ -614,7 +614,7 @@ export const ADD_USERS = gql`
 
 export const UPDATE_USER_SUBSCRIPTION = gql`
   mutation updateUsers($email: String!, $isActive: Boolean!) {
-    updateCareer_work_feedback(string: $string, isActive: $isActive) {
+    updateUsers(string: $string, isActive: $isActive) {
       email
       isActive
     }
