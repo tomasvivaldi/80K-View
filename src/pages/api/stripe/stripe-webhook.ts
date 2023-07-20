@@ -2,7 +2,30 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { buffer } from 'micro';
 import Stripe from 'stripe';
 import { UPDATE_USER_SUBSCRIPTION } from 'graphql/mutations';
-import { useMutation } from '@apollo/client';
+
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import fetch from 'cross-fetch';
+
+// Create an Apollo link that includes your StepZen API key in the headers
+const httpLink = createHttpLink({ 
+  uri: process.env.STEPZEN_ENDPOINT,
+  fetch
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -40,17 +63,16 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       // with the payment intent data in your Stripe checkout process.
       const customerEmail = paymentIntent?.receipt_email; 
 
-
-      const [updateUserSubscription] = useMutation(UPDATE_USER_SUBSCRIPTION);
-
-
       // Update the user in the database.
       if (customerEmail) {
         try {
-          const user = await updateUserSubscription({ variables: { email: customerEmail, isActive: true } });
+          const { data } = await client.mutate({
+            mutation: UPDATE_USER_SUBSCRIPTION,
+            variables: { email: customerEmail, isActive: true },
+          });
       
-          if (user) {
-            console.log(`User subscription status updated!`, user);
+          if (data?.updateUserSubscription) {
+            console.log(`User subscription status updated!`, data.updateUserSubscription);
           } else {
             console.error(`No user found with email: ${customerEmail}`);
           }
