@@ -56,12 +56,13 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     switch (event.type) {
       case 'payment_intent.succeeded':
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        console.log('PaymentIntent was successful!', paymentIntent);
+        
 
 
       // Extract the customer's email. Please note you need to make sure the customer's email is associated 
       // with the payment intent data in your Stripe checkout process.
       const customerEmail = paymentIntent?.receipt_email; 
+      console.log('PaymentIntent was successful! customerEmail:', customerEmail);
 
       // Update the user in the database.
       if (customerEmail!) {
