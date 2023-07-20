@@ -66,13 +66,15 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       // Update the user in the database.
       if (customerEmail) {
         try {
-          const { data } = await client.mutate({
+          const response = await client.mutate({
             mutation: UPDATE_USER_SUBSCRIPTION,
             variables: { email: customerEmail, isActive: true },
           });
-      
-          if (data?.updateUserSubscription) {
-            console.log(`User subscription status updated!`, data.updateUserSubscription);
+        
+          console.log(`Response:`, response);
+          
+          if (response.data?.updateUsers) {
+            console.log(`User subscription status updated!`, response.data.updateUsers);
           } else {
             console.error(`No user found with email: ${customerEmail}`);
           }
