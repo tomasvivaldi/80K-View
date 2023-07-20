@@ -611,6 +611,16 @@ export const ADD_USERS = gql`
   }
 `;
 
+
+export const UPDATE_USER_SUBSCRIPTION = gql`
+  mutation updateUsers($email: String!, $isActive: Boolean!) {
+    updateCareer_work_feedback(string: $string, isActive: $isActive) {
+      email
+      isActive
+    }
+  }
+`;
+
 export const mutations = {
   ADD_CAREER_WORK_INFO,
   ADD_COMMUNITY_INFO,
@@ -626,4 +636,5 @@ export const mutations = {
   ADD_OVERALL_ADVICE,
   ADD_USERS,
   ADD_ADVICE,
+  UPDATE_USER_SUBSCRIPTION,
 };

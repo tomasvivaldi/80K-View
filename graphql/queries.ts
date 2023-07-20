@@ -328,6 +328,7 @@ export const GET_USER_BY_EMAIL = gql`
       created_at
       password
       provider
+      isActive
     }
   }
 `;
@@ -340,6 +341,7 @@ export const GET_USER_DATA_BY_ID = gql`
     id
     password
     provider
+    isActive
     username
     career_work {
       action_plan

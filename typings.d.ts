@@ -182,6 +182,7 @@ type CategoryKey =
     email: string;
     password: string;
     provider: string;
+    isActive: boolean;
     created_at: string;
     career_work: Category[];
     career_work_feedback: CategoryFeedback[];
