@@ -3,29 +3,31 @@ import { buffer } from 'micro';
 import Stripe from 'stripe';
 import { UPDATE_USER_SUBSCRIPTION } from 'graphql/mutations';
 
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import fetch from 'cross-fetch';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+// import { setContext } from '@apollo/client/link/context';
+// import fetch from 'cross-fetch';
 
-// Create an Apollo link that includes your StepZen API key in the headers
-const httpLink = createHttpLink({ 
-  uri: process.env.STEPZEN_ENDPOINT,
-  fetch
-});
+// const httpLink = createHttpLink({ 
+//   uri: process.env.STEPZEN_ENDPOINT,
+//   fetch
+// });
 
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
-    },
-  };
-});
+// const authLink = setContext((_, { headers }) => {
+//   return {
+//     headers: {
+//       ...headers,
+//       Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
+//     },
+//   };
+// });
+
+console.log('STEPZEN_ENDPOINT:', process.env.STEPZEN_ENDPOINT);
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  link: new HttpLink({ uri: process.env.STEPZEN_ENDPOINT }),
+  cache: new InMemoryCache()
 });
+
 
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
