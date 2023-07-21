@@ -21,7 +21,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 //   };
 // });
 
-console.log('STEPZEN_ENDPOINT:', process.env.STEPZEN_ENDPOINT);
+
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: process.env.STEPZEN_ENDPOINT }),
