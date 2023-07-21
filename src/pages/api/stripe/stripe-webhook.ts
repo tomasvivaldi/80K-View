@@ -3,29 +3,29 @@ import { buffer } from 'micro';
 import Stripe from 'stripe';
 import { UPDATE_USER_SUBSCRIPTION } from 'graphql/mutations';
 
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
-// import { setContext } from '@apollo/client/link/context';
-// import fetch from 'cross-fetch';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import fetch from 'cross-fetch';
 
-// const httpLink = createHttpLink({ 
-//   uri: process.env.STEPZEN_ENDPOINT,
-//   fetch
-// });
+const httpLink = createHttpLink({ 
+  uri: process.env.STEPZEN_ENDPOINT,
+  fetch
+});
 
-// const authLink = setContext((_, { headers }) => {
-//   return {
-//     headers: {
-//       ...headers,
-//       Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
-//     },
-//   };
-// });
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
+    },
+  };
+});
 
 
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: process.env.STEPZEN_ENDPOINT }),
-  cache: new InMemoryCache()
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 
 
