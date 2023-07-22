@@ -30,6 +30,7 @@ import { PrepopulatedForm } from './PrepopulatedForm';
 import ProgressBar from './ProgressBar';
 import { PleaseLogIn } from './PleaseLogIn';
 import Tooltip from './Tooltip';
+import { PleaseSubscribe } from './PleaseSubscribe';
 // import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
 
 
@@ -658,23 +659,25 @@ function AnswerSection( { data }: AnswerSectionProps) {
     } else {return}
   };
   return session ? (
-    // !canFillForm ? (
-      <div className="flex flex-col gap-4">
-        <div>{ButtonDisplay()}</div>
-        <div>{PageTitleDisplay()}</div>
-        <div>{PageDisplay()}</div>
-      </div>
-    // ) : (
-    // <div className="flex justify-center items-center my-auto h-[75vh] flex-col">
-    //   <h2 className="text-2xl font-bold mb-4">Sorry, you can't fill out the form at this time.</h2>
-    //   <p className="text-lg">You have already filled out the form for this month. Please wait until the last week of the month to submit again.</p>
-    // </div>
-    // )
+    data?.isActive ? (
+      // !canFillForm ? (
+        <div className="flex flex-col gap-4">
+          <div>{ButtonDisplay()}</div>
+          <div>{PageTitleDisplay()}</div>
+          <div>{PageDisplay()}</div>
+        </div>
+      // ) : (
+      // <div className="flex justify-center items-center my-auto h-[75vh] flex-col">
+      //   <h2 className="text-2xl font-bold mb-4">Sorry, you can't fill out the form at this time.</h2>
+      //   <p className="text-lg">You have already filled out the form for this month. Please wait until the last week of the month to submit again.</p>
+      // </div>
+      // )
+    ) : (
+    <PleaseSubscribe />
+    )
   ) : (
     <PleaseLogIn />
   );
-  
-    
 }
 
 export default AnswerSection;

@@ -263,6 +263,7 @@ type UserData {
   password: String 
   id: ID!
   created_at: DateTime
+  isActive: Boolean
   career_work: [career_work]
     @materializer(
       query: "careerWorkListByUserId"

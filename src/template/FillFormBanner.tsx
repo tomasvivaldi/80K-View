@@ -1,10 +1,8 @@
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
-function Banner() {
-  const { data: session } = useSession();
-  return session ? (
+function FillFormBanner() {
+  return (
     <div className="font-semibold rounded-lg shadow-lg my-4
      bg-gradient-to-r from-cyan-400 via-teal-300 to-green-400 text-slate-800 
       sm:text-base  p-2 md:p-8 md:pr-16 flex flex-col md:flex-row md:h-20 items-center justify-between">
@@ -20,11 +18,7 @@ function Banner() {
         </Link>
       </div>      
     </div>
-  ) : (
-    <div className="">
-      
-    </div>
-  );
+  ) 
 }
 
-export default Banner;
+export default FillFormBanner;

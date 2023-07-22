@@ -7,7 +7,6 @@ import { Shell } from '@/template/Shell';
 import Welcome from '@/template/Welcome';
 import { AppConfig } from '@/utils/AppConfig';
 import { PleaseLogIn } from '@/template/PleaseLogIn';
-import Banner from '@/template/Banner';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
@@ -15,6 +14,8 @@ import LoadingBox from '@/template/LoadingBox';
 import { Stats } from '@/template/Stats';
 import Copyright from '@/template/Copyright';
 import Feedback from '@/template/Feedback';
+import FillFormBanner from '@/template/FillFormBanner';
+import NoSubscriptionBanner from '@/template/NoSubscriptionBanner';
 
 
 export type CategoryData = {
@@ -111,15 +112,18 @@ const Index = () => {
     <>
       <Meta title={AppConfig.title} description={AppConfig.description} />
       <Shell title="80K View">
-        
         {session ? (
           <>
           <Section>
             <Welcome data={rawData}/>
           </Section>
           <Section>
-            <Banner />
-            
+          {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? (
+          
+            <FillFormBanner />
+          ) : (
+            <NoSubscriptionBanner />
+          )}
             
           </Section>
             <Section>
