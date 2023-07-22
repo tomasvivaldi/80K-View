@@ -118,11 +118,15 @@ const Index = () => {
             <Welcome data={rawData}/>
           </Section>
           <Section>
-          {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? (
-          
-            <FillFormBanner />
-          ) : (
-            <NoSubscriptionBanner />
+            
+          {loading || userDataLoading ? (<></>):(
+          <>
+            {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? (
+              <FillFormBanner />
+            ) : (
+              <NoSubscriptionBanner />
+            )}
+            </>
           )}
             
           </Section>
