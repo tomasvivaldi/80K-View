@@ -6,7 +6,6 @@ import HistoricalTable from '@/template/HistoricalTable';
 import { Shell } from '@/template/Shell';
 import Welcome from '@/template/Welcome';
 import { AppConfig } from '@/utils/AppConfig';
-import { PleaseLogIn } from '@/template/PleaseLogIn';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
@@ -16,6 +15,7 @@ import Copyright from '@/template/Copyright';
 import Feedback from '@/template/Feedback';
 import FillFormBanner from '@/template/FillFormBanner';
 import NoSubscriptionBanner from '@/template/NoSubscriptionBanner';
+import LandingPage from '../template/LandingPage';
 
 
 export type CategoryData = {
@@ -165,9 +165,7 @@ const Index = () => {
             </Section>
           </>
         ) : (
-          <>
-            <PleaseLogIn />
-          </>
+            <LandingPage />
         )}
       </Shell>
     </>
