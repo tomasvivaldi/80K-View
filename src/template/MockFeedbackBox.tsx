@@ -3,20 +3,10 @@ import React from 'react';
 const FeedbackBox: React.FC = () => {  
 
   // Hardcoded mock data
-  const mockCategoryNames = ['Health & Fitness', 'category2', 'category3'];
   const mockCategory = 'Health & Fitness';
-  const mockCurrentIndex = 0;
   const mockBorder = 'border-yellow-500';
   const mockBackground = 'bg-yellow-500';
   const mockScore = 4;
-
-  const feedbacks = [
-    'Look for gyms near you',
-    'Get a gym subscription',
-    'Research and make a workout plan',
-    'Start going to the gym',
-    'Write down your exercises and weights for future reference',
-  ];
 
   return (
     <div className={`rounded-lg shadow-lg text-black md:min-w-[350px] border-2 
