@@ -106,7 +106,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
     <div className={hasSubmitted && !(formData as CategoryData).notes ? 'w-full h-fit rounded-lg border-2 border-red-500' : ''}>
       <textarea
         {...register('notes', { required: true })}
-        className="block resize-none"
+        className="block resize-none placeholder:text-xs"
         id="textarea"
         rows={5}
         placeholder="Describe what happened this month for this category and how you feel about it. You'll be able to review these notes later on the 80K View page and more detailed descriptions will result in more detailed feedback" 
@@ -136,7 +136,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
     <div className={hasSubmitted && !(formData as CategoryData).action_plan ? 'w-full h-fit rounded-lg border-2 border-red-500' : ''}>
     <textarea
       {...register('action_plan', { required: true })}
-      className="block resize-none"
+      className="block resize-none placeholder:text-xs"
       id="textarea"
       rows={5}
       placeholder="Outline your action plan. You can write how you feel about this category or what you plan to do for improving next month" 

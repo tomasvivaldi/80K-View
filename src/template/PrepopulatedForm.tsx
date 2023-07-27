@@ -43,6 +43,7 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data }) => {
             </Label>
             <FormElement colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-2">
               <textarea
+                className='text-black'
                 id="textarea"
                 value={data && data?.notes}
                 disabled
@@ -59,6 +60,7 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data }) => {
             </Label>
             <FormElement colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-2">
               <textarea
+                className='text-black'
                 id="textarea"
                 value={data && data?.action_plan}
                 disabled
