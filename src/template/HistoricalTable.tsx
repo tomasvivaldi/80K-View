@@ -126,7 +126,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                       return (
                         <td key={monthIndex} className="p-2">
                           <div
-                            className={`text-white mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
+                            className={`text-white font-extrabold mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
                           >
                             {value !== undefined ? `${value.toFixed(1)}` : ''}
                           </div>
