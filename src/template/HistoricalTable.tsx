@@ -14,9 +14,9 @@ interface HistoricalTableProps {
 }
 
 const borderColorClass = (value: number): string => {
-  if (value < 3.3) return 'border-red-500';
-  if (value < 6.6) return 'border-yellow-500';
-  return 'border-green-500';
+  if (value < 3.3) return ' shadow-lg bg-gradient-to-r from-red-500 to-rose-400';
+  if (value < 6.6) return ' shadow-lg bg-gradient-to-r from-amber-500 to-yellow-400';
+  return ' shadow-lg bg-gradient-to-r from-green-500 to-teal-400';
 };
 
 const groupBy = (
@@ -113,7 +113,6 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
             </thead>
             <tbody>
               {Object.entries(averagedData)
-                .reverse()
                 .map(([year, yearData], index) => (
                   <tr key={index}>
                     <td className="p-2 text-center">{year}</td>
@@ -127,7 +126,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                       return (
                         <td key={monthIndex} className="p-2">
                           <div
-                            className={`mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
+                            className={`text-white mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
                           >
                             {value !== undefined ? `${value.toFixed(1)}` : ''}
                           </div>
@@ -144,7 +143,6 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
       {/* Table for small screens */}
       <div className="md:hidden">
         {Object.entries(averagedData)
-          .reverse()
           .map(([year, yearData], yearIndex) => (
             <div key={yearIndex} className="mb-4 text-black">
               <h2 className="my-4  mx-auto w-fit text-xl font-bold">{year}</h2>
@@ -161,7 +159,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                     <span className="w-24 text-center">{month}</span>
                     <div className="relative">
                       <div
-                        className={`mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
+                        className={`text-white mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
                       >
                         <div className="mx-auto flex w-full gap-16">
                           {value !== undefined ? `${value.toFixed(1)}` : ''}
