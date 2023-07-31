@@ -26,7 +26,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
      bg-white relative justify-center
      text-xs sm:text-base  p-2 md:py-4 flex flex-col items-left ${border}`}>
     
-    <div className='text-lg font-semibold ml-2 '>Most Recent Score&nbsp;<span className=' font-normal text-gray-600'>&nbsp;(Lowest First)</span></div>
+    <div className='text-lg font-semibold ml-2 '>Most Recent Score&nbsp;<span className=' font-normal text-gray-600'>&nbsp;</span></div>
       <div className='flex h-fit my-2 flex-row text-2xl items-center justify-center'>
       <div className={`flex font-semibold text-white text-4xl m-2 p-2 rounded-lg w-16 h-16 items-center justify-center ${background}`}>
       {score}
