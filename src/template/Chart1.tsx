@@ -71,8 +71,8 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
       >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.6} />
+            <stop offset="95%" stopColor="#22d3ee" stopOpacity={0} />
           </linearGradient>
         </defs>
         <XAxis dataKey="date" tickLine={false} axisLine={false} tick={<CustomTick />}/>
@@ -91,7 +91,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
           dataKey="value"
           name={'Overall Score'}
           strokeWidth={2}
-          stroke="#667EEA"
+          stroke="#0284c7"
           fill="url(#colorUv)"
           fillOpacity={1}
         />
