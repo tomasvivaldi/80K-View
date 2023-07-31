@@ -579,7 +579,17 @@ function AnswerSection( { data }: AnswerSectionProps) {
     if (page > 0 && page < 11) {
       return (
         <div className="flex flex-col gap-4">
-          <div className="flex w-full flex-col gap-4 sm:flex-row">
+          <div className="flex w-full flex-col gap-4 ">
+            <Form2Fill
+                category={CategoryNames[page - 1] as CategoryKey}
+                register={register}
+                errors={errors}
+                session={session}
+                formData={formData[CategoryNames[page - 1] as string] ?? {}}
+                setFormDataForCategory={setFormDataForCategory}
+                hasSubmitted={hasSubmitted}
+                setHasSubmitted={setHasSubmitted}
+              />
             <Suspense fallback={<p>Loading feed...</p>}>
             {data && 
             // @ts-ignore
@@ -588,16 +598,6 @@ function AnswerSection( { data }: AnswerSectionProps) {
               <PrepopulatedForm data={data[CategoryNames[page - 1]]?.[0]} />
             )}
             </Suspense>
-            <Form2Fill
-              category={CategoryNames[page - 1] as CategoryKey}
-              register={register}
-              errors={errors}
-              session={session}
-              formData={formData[CategoryNames[page - 1] as string] ?? {}}
-              setFormDataForCategory={setFormDataForCategory}
-              hasSubmitted={hasSubmitted}
-              setHasSubmitted={setHasSubmitted}
-            />
           </div>
           {data &&
           // @ts-ignore

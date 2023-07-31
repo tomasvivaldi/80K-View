@@ -47,7 +47,7 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data }) => {
                 id="textarea"
                 value={data && data?.notes}
                 disabled
-                rows={5}
+                rows={8}
               />
             </FormElement>
           </div>
@@ -64,7 +64,7 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data }) => {
                 id="textarea"
                 value={data && data?.action_plan}
                 disabled
-                rows={5}
+                rows={8}
               />
             </FormElement>
           </div>
