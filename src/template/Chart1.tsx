@@ -71,7 +71,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
       >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.6} />
+            <stop offset="5%" stopColor="#22d3ee" stopOpacity={0.8} />
             <stop offset="95%" stopColor="#22d3ee" stopOpacity={0} />
           </linearGradient>
         </defs>
