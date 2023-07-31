@@ -41,7 +41,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, lo
 
       <div className="mt-3">
         <button type="submit" className="w-full">
-          <Button full>Sign in</Button>
+          <Button full>Log in</Button>
         </button>
       </div>
     </form>
