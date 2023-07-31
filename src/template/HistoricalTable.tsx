@@ -19,9 +19,9 @@ const bgColorClass = (value: number): string => {
   return ' shadow-lg bg-gradient-to-r from-green-500 to-teal-400';
 };
 
-const borderColorClass = (): string => {
-  return ' shadow-lg border-2 border-red-500 ';
-};
+// const borderColorClass = (): string => {
+//   return ' shadow-lg border-2 border-red-500 ';
+// };
 
 const groupBy = (
   array: any[],
@@ -155,8 +155,8 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                       // console.log('Large screen yearData:', year, yearData);
                       const value = yearData[monthIndex];
 
-                      const borderClass = 
-                      value === undefined && isCurrentMonth(parseInt(year), monthIndex) ? borderColorClass : '';
+                      // const borderClass = 
+                      // value === undefined && isCurrentMonth(parseInt(year), monthIndex) ? borderColorClass : '';
                       
                        const bgClass =
                         value !== undefined ? bgColorClass(value) : '';

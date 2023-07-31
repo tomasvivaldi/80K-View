@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
-import { useState, type ReactNode } from 'react';
+// import { useState} from 'react';
+import { type ReactNode } from 'react';
 import { Button } from '@/button/Button';
 import { SidebarHeader } from '@/shell/SidebarHeader';
 import { SidebarLink } from '@/shell/SidebarLink';
-import { DisabledSidebarLink } from '@/shell/DisabledSidebarLink';
-import Tooltip from './Tooltip';
+// import { DisabledSidebarLink } from '@/shell/DisabledSidebarLink';
+// import Tooltip from './Tooltip';
 import Image from 'next/image';
 
 type IShellProps = {
@@ -22,11 +23,11 @@ function Shell(props: IShellProps) {
 
 
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsDropdownOpen(!isDropdownOpen);
+  // };
   return (
     <SidebarHeader
       title={props.title}

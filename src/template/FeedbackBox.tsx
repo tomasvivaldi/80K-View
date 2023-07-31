@@ -14,12 +14,8 @@ interface FeedbackBoxProps {
 }
 
 const FeedbackBox: React.FC<FeedbackBoxProps> = ({
-  categoryNames,
   category,
   session,
-  currentIndex,
-  incrementIndex,
-  decrementIndex,
   border,
   background,
   score,
