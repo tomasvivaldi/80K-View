@@ -87,7 +87,7 @@ function Shell(props: IShellProps) {
                     />
                   }
                 >
-                  80K View
+                  Life Journal
                 </SidebarLink>
               </Link>
               <Link href='/'>
