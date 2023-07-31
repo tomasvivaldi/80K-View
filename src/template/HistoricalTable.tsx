@@ -13,10 +13,14 @@ interface HistoricalTableProps {
   data: HistoricalDataItem[];
 }
 
-const borderColorClass = (value: number): string => {
+const bgColorClass = (value: number): string => {
   if (value < 3.3) return ' shadow-lg bg-gradient-to-r from-red-500 to-rose-400';
   if (value < 6.6) return ' shadow-lg bg-gradient-to-r from-amber-500 to-yellow-400';
   return ' shadow-lg bg-gradient-to-r from-green-500 to-teal-400';
+};
+
+const borderColorClass = (): string => {
+  return ' shadow-lg border-2 border-red-500 ';
 };
 
 const groupBy = (
@@ -70,15 +74,33 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
   };
 
   const averagedData: AveragedData = {};
+    
+  // Find the first year with data
+  const firstYear = Math.min(
+    ...Object.keys(groupedData)
+      .map(key => {
+        const yearPart = key.split('-')[0];
+        return yearPart ? parseInt(yearPart) : Infinity;  // if yearPart is undefined, use Infinity
+      })
+  );
+  
+  // Start with the first year and go 4 years forward
+  for(let year = firstYear; year < firstYear + 5; year++) {
+    // Convert the year to a string, because the keys in averagedData are strings
+    const yearString = String(year);
+  
+    // If the year does not exist in averagedData, create an empty object for it
+    if(!averagedData[yearString]) {
+      averagedData[yearString] = {};
+    }
+  }
+  
   Object.entries(groupedData).forEach(
     ([yearMonth, items]: [string, HistoricalDataItem[]]) => {
       if (items && items.length > 0) {
         const avgValue = average(items.map((item) => item.value));
         const [year, month] = yearMonth.split('-') as [string, string];
         if (year && month) {
-          if (!averagedData[year]) {
-            averagedData[year] = {};
-          }
           if (avgValue !== undefined) {
             (averagedData[year] as { [key: string]: number })[month] =
               avgValue ?? 0;
@@ -87,6 +109,18 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
       }
     }
   );
+  
+
+  const isFuture = (year: number, month: number) => {
+    const now = new Date();
+    return now.getFullYear() < year || (now.getFullYear() === year && now.getMonth() < month);
+  };
+  
+  const isCurrentMonth = (year: number, month: number) => {
+    const now = new Date();
+    return now.getFullYear() === year && now.getMonth() === month;
+  };
+  
 
   return (
     <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg">
@@ -120,15 +154,29 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                       // console.log('AveragedData for large screen:', averagedData);
                       // console.log('Large screen yearData:', year, yearData);
                       const value = yearData[monthIndex];
-                      const borderClass =
-                        value !== undefined ? borderColorClass(value) : '';
+
+                      const borderClass = 
+                      value === undefined && isCurrentMonth(parseInt(year), monthIndex) ? borderColorClass : '';
+                      
+                       const bgClass =
+                        value !== undefined ? bgColorClass(value) : '';
                       // console.log('large screen value', value)
                       return (
                         <td key={monthIndex} className="p-2">
-                          <div
-                            className={`text-white font-extrabold mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
+                        <div
+                            className={`text-white font-extrabold mx-auto  ${bgClass}   w-fit rounded-full px-3 py-2 text-sm`}
                           >
-                            {value !== undefined ? `${value.toFixed(1)}` : ''}
+                          {
+                            value !== undefined ? 
+                            `${value.toFixed(1)}` : 
+                            isFuture(parseInt(year), monthIndex) ? 
+                              <div className='border border-black px-2 py-1 rounded-full'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" className="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                              </svg></div>
+                            : isCurrentMonth(parseInt(year), monthIndex) ? 
+                            <p className='text-black rounded-full px-2 py-1 font-semibold text-lg border-2 border-cyan-500 animate-bounce'>Update</p>
+                            : ''
+                          }
                           </div>
                         </td>
                       );
@@ -148,8 +196,8 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
               <h2 className="my-4  mx-auto w-fit text-xl font-bold">{year}</h2>
               {months.map((month, monthIndex) => {
                 const value = yearData[monthIndex];
-                const borderClass =
-                  value !== undefined ? borderColorClass(value) : '';
+                const bgClass =
+                  value !== undefined ? bgColorClass(value) : '';
                 // console.log('small screen value', value)
                 return (
                   <div
@@ -159,7 +207,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                     <span className="w-24 text-center">{month}</span>
                     <div className="relative">
                       <div
-                        className={`text-white mx-auto border ${borderClass} w-fit rounded-full px-3 py-2 text-sm`}
+                        className={`text-white mx-auto border ${bgClass} w-fit rounded-full px-3 py-2 text-sm`}
                       >
                         <div className="mx-auto flex w-full gap-16">
                           {value !== undefined ? `${value.toFixed(1)}` : ''}
