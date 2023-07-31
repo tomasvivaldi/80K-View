@@ -10,7 +10,7 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex }: Feed
       {categories.map((category, index) => (
         <button
           key={category}
-          className={`px-2 py-1 border rounded-full text-sm font-semibold ${index === currentIndex ? 'bg-blue-500 text-white border-gray-100' : 'bg-white text-blue-500 border-blue-500'}`}
+          className={` shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${index === currentIndex ? 'bg-blue-500 text-white border-gray-100' : 'bg-white text-blue-500 border-blue-500'}`}
           onClick={() => onCategorySelect(index)}
         >
           {category}
