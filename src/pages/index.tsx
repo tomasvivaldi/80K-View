@@ -105,7 +105,20 @@ const Index = () => {
 
 
 
+  const career_work = userDataByIdData?.userDataById?.career_work;
+  const lastEntry = career_work && career_work[0];
 
+  function isThisMonth(dateStr: string) {
+    if (!dateStr) {
+      return false;
+    }
+  
+    const date = new Date(dateStr);
+    const now = new Date();
+    return date.getUTCMonth() === now.getUTCMonth() && date.getUTCFullYear() === now.getUTCFullYear();
+  }  
+  
+  
 
   
   return (
@@ -120,12 +133,14 @@ const Index = () => {
           <Section>
             
           {loading || userDataLoading ? (<></>):(
-          <>
-            {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? (
-              <FillFormBanner />
-            ) : (
-              <NoSubscriptionBanner />
-            )}
+            <>
+              {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? 
+                
+                lastEntry?.created_at && isThisMonth(lastEntry.created_at) ? (<></>) : (<FillFormBanner />)
+                
+               : (
+                <NoSubscriptionBanner />
+              )}
             </>
           )}
             
