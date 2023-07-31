@@ -2,6 +2,7 @@ import { useSession } from 'next-auth/react';
 import FeedbackBox from './FeedbackBox';
 import FeedbackBox2 from './FeedbackBox2';
 import { useState, useEffect } from 'react';
+import FeedbackCategories from './FeedbackCategories';
 
 type FeedbackProps = {
   data: UserDataById;
@@ -80,33 +81,42 @@ function Feedback({ data }: FeedbackProps) {
     getMostRecentScore(sortedCategoryNames[currentIndex] || '') : 0;
 
   
-
+    const handleCategorySelect = (index: number) => {
+      setCurrentIndex(index);
+    };
   return (
-    <div className='flex flex-col sm:flex-row gap-4'>
-      <FeedbackBox 
-      categoryNames={CategoryNames}
-      category={sortedCategoryNames[currentIndex] ? formatCategoryName(sortedCategoryNames[currentIndex]) : ''}
-      session={session}
-      currentIndex={currentIndex}
-      incrementIndex={incrementIndex}
-      decrementIndex={decrementIndex}
-      border={borderColorClass(highlightedScore)}
-      background={bgColorClass(highlightedScore)}
-      score={highlightedScore}
-      />
-      <FeedbackBox2 
-      userData={data}
-      categoryNames={CategoryNames}
-      sortedCategoryNames={sortedCategoryNames}
-      category={sortedCategoryNames[currentIndex] ? formatCategoryName(sortedCategoryNames[currentIndex]) : ''}
-      session={session}
-      currentIndex={currentIndex}
-      incrementIndex={incrementIndex}
-      decrementIndex={decrementIndex}
-      border={borderColorClass(highlightedScore)}
-      background={bgColorClass(highlightedScore)}
-      score={highlightedScore}
-      />
+    <div className='flex flex-col'>
+      <FeedbackCategories 
+        categories={sortedCategoryNames.map(formatCategoryName)} 
+        onCategorySelect={handleCategorySelect} 
+        currentIndex={currentIndex}
+    />
+      <div className='flex flex-col sm:flex-row gap-4'>
+        <FeedbackBox 
+        categoryNames={CategoryNames}
+        category={sortedCategoryNames[currentIndex] ? formatCategoryName(sortedCategoryNames[currentIndex]) : ''}
+        session={session}
+        currentIndex={currentIndex}
+        incrementIndex={incrementIndex}
+        decrementIndex={decrementIndex}
+        border={borderColorClass(highlightedScore)}
+        background={bgColorClass(highlightedScore)}
+        score={highlightedScore}
+        />
+        <FeedbackBox2 
+        userData={data}
+        categoryNames={CategoryNames}
+        sortedCategoryNames={sortedCategoryNames}
+        category={sortedCategoryNames[currentIndex] ? formatCategoryName(sortedCategoryNames[currentIndex]) : ''}
+        session={session}
+        currentIndex={currentIndex}
+        incrementIndex={incrementIndex}
+        decrementIndex={decrementIndex}
+        border={borderColorClass(highlightedScore)}
+        background={bgColorClass(highlightedScore)}
+        score={highlightedScore}
+        />
+      </div>
     </div>
   );
 }
