@@ -356,11 +356,11 @@ function AnswerSection( { data }: AnswerSectionProps) {
   const parseData = async (formData: InitialFormData) => {
     console.log("Calling parseData with data:", formData);
     const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
-  
+
     let prompts = Object.keys(formData).map(category => {
       return `Analize the following data for ${category}:\n\n` +
       JSON.stringify(formData[category], null, 2) +
-      "\n[voice and tone: speak as a life coach would] Based on the data above, give feedback for this category with a score between 0 and 10. Provide short actionable action points such as 'look for gyms near you', 'start a meditation diary', etc. Give the output sctrictly on the following structure:"+
+      "\n Based on the data above, give feedback for this category with a score between 0 and 10.Summarise the users action plan data above and display it with super concise bullet points. Give the output sctrictly on the following structure:"+
       "\n\nFeedback\n\nAction 1\n\nAction 2\n\nAction 3\n\nAction 4\n\nAction 4\n\nAction 5  (Feedback 25 words or less action points 10 less than words)";
     });
   
