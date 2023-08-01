@@ -2599,6 +2599,7 @@ type Mutation {
     created_at: DateTime
     password: String
     provider: String
+    isActive: Boolean = true
   ): users
     @dbquery(
       type: "postgresql"

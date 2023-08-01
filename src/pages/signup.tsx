@@ -85,7 +85,7 @@ const SignUp = () => {
           // Sign in failed
           setErrorMessage(response.error);
         } else {
-          router.push('/subscription');
+          router.push('/');
         }
       } catch (e) {
         // Sign up failed, set the error message
