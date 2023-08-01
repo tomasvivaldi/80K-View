@@ -54,11 +54,11 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   // };
 
 
-  const handleCheckChange = (position: number) => {
-    const updatedCheckedItems = [...checkedItems];
-    updatedCheckedItems[position] = !updatedCheckedItems[position];
-    setCheckedItems(updatedCheckedItems);
-  };
+  // const handleCheckChange = (position: number) => {
+  //   const updatedCheckedItems = [...checkedItems];
+  //   updatedCheckedItems[position] = !updatedCheckedItems[position];
+  //   setCheckedItems(updatedCheckedItems);
+  // };
 
   const closeModal = () => {
     setModalIsOpen(false);
