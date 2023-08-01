@@ -83,9 +83,9 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
           <ol className='space-y-4'>
           {items.length > 0 && items.map((item, index) => (index > 0 && userData &&
             <li key={index} className={`flex items-center space-x-2 ${checkedItems[index] ? 'line-through text-gray-500' : ''}`}>
-              {index > 0 && userData && (
+              {/* {index > 0 && userData && (
                 <input type="checkbox" className="form-checkbox h-5 w-5 text-sky-500" checked={checkedItems[index]} onChange={() => handleCheckChange(index)} />
-              )}
+              )} */}
               <span className='flex-grow'>{item}</span>
               {/* {index > 0 && (
                 <button className=" mx-auto p-1 text-gray-500 hover:text-red-500 focus:outline-none transition duration-150 ease-in-out" onClick={() => openModal(index)}>
