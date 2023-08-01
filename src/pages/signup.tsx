@@ -85,8 +85,10 @@ const SignUp = () => {
           // Sign in failed
           setErrorMessage(response.error);
         } else {
-          router.push('/');
-        }
+          if (typeof window !== 'undefined') {
+            window.location.href = '/';
+          }
+        }        
       } catch (e) {
         // Sign up failed, set the error message
         setErrorMessage("There was an error during sign up. Please try again.");
