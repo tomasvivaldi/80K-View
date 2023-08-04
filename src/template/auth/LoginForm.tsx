@@ -84,7 +84,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, lo
           Sign in with Google
         </SocialButton>
       </button>
-      <button className="w-full" type="button" onClick={() => handleLogin('facebook')}>  
+      {/* <button className="w-full" type="button" onClick={() => handleLogin('facebook')}>  
         <SocialButton
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14222 14222">
@@ -107,7 +107,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, lo
         >
           Sign in with Auth0
         </SocialButton>
-      </button>
+      </button> */}
       <div className="mt-5 text-center text-xs">
   Don't have an account?{' '}
     <a href="/signup" className="text-primary-500 hover:text-primary-600">

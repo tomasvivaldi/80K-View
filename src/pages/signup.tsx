@@ -41,6 +41,7 @@ const SignUp = () => {
     const provider = 'local';
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
+    const isActive = true
     
     // set the email for useQuery
     setUserEmail(email);
@@ -76,6 +77,7 @@ const SignUp = () => {
             email: email,
             provider: provider,
             password: hashedPassword,
+            isActive: isActive,
           },
         });
     

@@ -38,7 +38,7 @@ const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL,
   useEffect(() => {
     // check if loading has finished and if user data is available
     if (!userDataLoading && userData) {
-      router.push('/'); // redirects to homepage
+      window.location.href = '/';
     }
   }, [userDataLoading, userData, router]); // re-run effect when these variables change
 
@@ -51,15 +51,13 @@ const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL,
 const [loginFailed, setLoginFailed] = useState(false);
 
 const handleEmailLogin = async (email: string, password: string): Promise<void> => {
+  setLoginFailed(false);
   const response = await signIn('credentials', { email, password, redirect: false });
   if (response?.error) {
-    // Login failed
     setLoginFailed(true);
-  } else {
-    // Successful login, handle redirection or other tasks
-    setLoginFailed(false);
   }
 };
+
 
 
 
