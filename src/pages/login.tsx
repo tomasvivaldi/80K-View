@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 // import router from 'next/router';
 import LoadingBox from '@/template/LoadingBox';
 import { ADD_USERS } from 'graphql/mutations';
+import router from 'next/router';
 
 
 interface UserWithProvider extends User {
@@ -32,27 +33,29 @@ const Login = () => {
   console.log("session",session);
   console.log("session?.user?.email",user?.email);
 
-const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL, {
+  const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL, {
     variables: { email: user?.email },
     skip: !user?.email,
   });
-
+  
   useEffect(() => {
-    // check if loading has finished and if user data is available
-    if (!userDataLoading && userData) {
-      window.location.href = '/';
-    }
-
-        // check if session is available and if userData is not available
-        if (session && !userData) {
-          // add user to the database
+    if (session && !userDataLoading) {
+      // If userData exists, redirect to the homepage
+      if (userData?.userByEmail) {
+        window.location.href = '/';
+        return;
+      }
+  
+      // If userData does not exist or userByEmail is undefined, create the user
+      if (!userData || !userData.userByEmail) {
+        const createUser = async () => {
           const username = user?.name;
           const email = user?.email;
           const provider = user?.provider || "Auth0";
           const created_at = new Date().toISOString();
           const password = '';
-    
-          addUsers({
+  
+          await addUsers({
             variables: {
               username: username,
               created_at: created_at,
@@ -61,9 +64,14 @@ const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL,
               password: password,
             },
           });
-        }
-      }, [session, user, addUsers, userData, userDataLoading]);
-
+  
+          router.push('/thankyou');
+        };
+        createUser();
+      }
+    }
+  }, [session, user, addUsers, userData, userDataLoading]);
+    
 
   const handleLogin = async (provider: string) => {  
     await signIn(provider, {});  

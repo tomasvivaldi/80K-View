@@ -88,7 +88,8 @@ const SignUp = () => {
           setErrorMessage(response.error);
         } else {
           if (typeof window !== 'undefined') {
-            window.location.href = '/';
+            // window.location.href = '/';
+            router.push('/thankyou')
           }
         }        
       } catch (e) {
