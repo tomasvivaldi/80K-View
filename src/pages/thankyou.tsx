@@ -9,8 +9,8 @@ const ThankYou = () => {
       <div className="bg-white p-12 rounded-lg shadow-xl w-3/4 sm:w-1/2 lg:w-1/3 text-center">
         <h1 className="text-2xl font-bold mb-4 ">Thank You for Creating an Account!</h1>
         <p className="text-gray-700 mb-4">
-          We're offering a full year of our service for free as part of our mission to increase access to mental wellness tools.
-          Money shouldn't prevent you from improving your stress, sleep, and mental well-being.
+          Enjoy a full year of membership service for free on us!
+          Money shouldn't prevent you from improving your life.
         </p>
         <h3 className="text-xl font-semibold my-2 mt-8 ">Our Advice</h3>
         <p className="text-gray-700 mb-4">
