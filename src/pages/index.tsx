@@ -224,7 +224,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                 Stay engaged, and watch how the Life Tracker becomes an essential companion in your personal growth journey.
               </p>
                 <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
-                  <h4 className="text-xl font-semibold text-slate-900 mb-2">Data Graph:</h4>
+                  <h4 className="text-xl font-semibold text-slate-900 mb-2">Score Graph:</h4>
                   <Chart1 data={generateMockData(3)} />
                 </div>
                 <div className="bg-white p-4 rounded-lg shadow-md border border-sky-300">
