@@ -172,69 +172,75 @@ function generateMockData(entries: number): HistoricalDataItem[] {
             <Section>
               <div className="flex flex-col">
                 
-                <div className=" order-1 w-full md:order-2">
+                
                 {loading || userDataLoading ? (
                   <div className=' flex flex-row gap-8'>
                     <LoadingBox spinnerClassName='mx-24' containerClassName='mx-auto' />
-                    <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' />
+                    {/* <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' /> */}
                   </div>
                 ) : (
-                rawData && userRef && rawData.career_work_feedback.length>0 ? (
-                <>
-                  <div className="order-3 md:order-1">
-                    <HistoricalTable data={formattedData} />
-                  </div>
-                  <div className='mt-4'/>
-                  <Feedback data={rawData}/>
-                </> ) : (
                   <>
-                    <h3 className='text-3xl text-black font-semibold'> 
-                      Here is a little preview:
-                    </h3>
-                    <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
-                      <p className='text-xl font-medium text-slate-900 mb-6'>
-                        Here's what you'll see after updating your Life Tracker for the first time. 
-                        You'll be able to view your historical data and receive personalized feedback to guide your journey.
-                      </p>  
-                      <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
-                        <h4 className="text-xl font-semibold text-slate-900 mb-2">Historical Data:</h4>
-                        <HistoricalTable data={generateMockData(1)} />
-                      </div>
-                      <div className="bg-white p-4 rounded-lg shadow-md border border-sky-300">
-                        <h4 className="text-xl font-semibold text-slate-900 mb-2">Your Feedback:</h4>
-                        <MockFeedback />
-                      </div>
+                    <div className=" order-1 w-full md:order-2">
+                      {rawData && userRef && rawData.career_work_feedback.length>0 ? (
+                        <>
+                          <div className="order-3 md:order-1">
+                            <HistoricalTable data={formattedData} />
+                          </div>
+                          <div className='mt-4'/>
+                          <Feedback data={rawData}/>
+                        </> 
+                      ) : (
+                        <>
+                          <h3 className='text-3xl text-black font-semibold'> 
+                            Here is a little preview:
+                          </h3>
+                          <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
+                            <p className='text-xl font-medium text-slate-900 mb-6'>
+                              Here's what you'll see after updating your Life Tracker for the first time. 
+                              You'll be able to view your historical data and receive personalized feedback to guide your journey.
+                            </p>  
+                            <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
+                              <h4 className="text-xl font-semibold text-slate-900 mb-2">Historical Data:</h4>
+                              <HistoricalTable data={generateMockData(1)} />
+                            </div>
+                            <div className="bg-white p-4 rounded-lg shadow-md border border-sky-300">
+                              <h4 className="text-xl font-semibold text-slate-900 mb-2">Your Feedback:</h4>
+                              <MockFeedback />
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className=" order-2 w-full md:order-3 mt-4">
+                      {formattedData && formattedData.length >= 2 ? (
+                        <Chart1 data={formattedData} />
+                        ) : (
+                          <>
+                            <h3 className='text-3xl text-black font-semibold mt-8'> 
+                              Keep it up for more!
+                            </h3>
+                            <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
+                            <p className='text-xl font-medium text-slate-900 mb-6'>
+                              And that's just the beginning! As you continue to track and engage with your Life Tracker, 
+                              you'll unlock even more features and insights tailored to your unique goals and experiences. 
+                              Stay engaged, and watch how the Life Tracker becomes an essential companion in your personal growth journey.
+                            </p>
+                              <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
+                                <h4 className="text-xl font-semibold text-slate-900 mb-2">Score Graph:</h4>
+                                <Chart1 data={generateMockData(3)} />
+                              </div>
+                              <div className="bg-white p-4 rounded-lg shadow-md border border-sky-300">
+                                <h4 className="text-xl font-semibold text-slate-900 mb-2">Your Analytics:</h4>
+                                <MockStats />
+                              </div>
+                            </div>
+                          </>
+                        )
+                      }
                     </div>
                   </>
-                )
-            )}
-                </div>
-                <div className=" order-2 w-full md:order-3 mt-4">
-                {formattedData && formattedData.length >= 2 ? (
-                  <Chart1 data={formattedData} />
-          ) : (
-            <>
-              <h3 className='text-3xl text-black font-semibold mt-8'> 
-                Keep it up for more!
-              </h3>
-              <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
-              <p className='text-xl font-medium text-slate-900 mb-6'>
-                And that's just the beginning! As you continue to track and engage with your Life Tracker, 
-                you'll unlock even more features and insights tailored to your unique goals and experiences. 
-                Stay engaged, and watch how the Life Tracker becomes an essential companion in your personal growth journey.
-              </p>
-                <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
-                  <h4 className="text-xl font-semibold text-slate-900 mb-2">Score Graph:</h4>
-                  <Chart1 data={generateMockData(3)} />
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-md border border-sky-300">
-                  <h4 className="text-xl font-semibold text-slate-900 mb-2">Your Analytics:</h4>
-                  <MockStats />
-                </div>
-              </div>
-            </>
-          )}
-                </div>
+                )}
+                
                 {/* <Charts /> */}
               </div>
             </Section>
