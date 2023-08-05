@@ -1,5 +1,5 @@
 import { useSession, signIn } from 'next-auth/react';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_BY_EMAIL } from 'graphql/queries';
 
 import { Meta } from '@/layout/Meta';
@@ -7,8 +7,9 @@ import { AppConfig } from '@/utils/AppConfig';
 import { LoginForm } from '@/template/auth/LoginForm';
 import { User } from "next-auth";
 import { useEffect, useState } from 'react';
-import router from 'next/router';
+// import router from 'next/router';
 import LoadingBox from '@/template/LoadingBox';
+import { ADD_USERS } from 'graphql/mutations';
 
 
 interface UserWithProvider extends User {
@@ -27,6 +28,7 @@ interface UserWithProvider extends User {
 const Login = () => {
   const { data: session } = useSession();
   const user = session?.user as UserWithProvider;
+  const [addUsers] = useMutation(ADD_USERS);
   console.log("session",session);
   console.log("session?.user?.email",user?.email);
 
@@ -40,7 +42,27 @@ const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL,
     if (!userDataLoading && userData) {
       window.location.href = '/';
     }
-  }, [userDataLoading, userData, router]); // re-run effect when these variables change
+
+        // check if session is available and if userData is not available
+        if (session && !userData) {
+          // add user to the database
+          const username = user?.name;
+          const email = user?.email;
+          const provider = user?.provider || "Auth0";
+          const created_at = new Date().toISOString();
+          const password = '';
+    
+          addUsers({
+            variables: {
+              username: username,
+              created_at: created_at,
+              email: email,
+              provider: provider,
+              password: password,
+            },
+          });
+        }
+      }, [session, user, addUsers, userData, userDataLoading]);
 
 
   const handleLogin = async (provider: string) => {  
@@ -66,8 +88,8 @@ console.log("login failed?", loginFailed)
 // use userDataLoading to handle loading state
 if (userDataLoading) return <LoadingBox spinnerClassName='mx-24' containerClassName='m-auto h-screen' />;
 
-// use userData to show some user information, assuming `GET_USER_BY_EMAIL` query returns user's data directly
-if (userData) return 
+// // use userData to show some user information, assuming `GET_USER_BY_EMAIL` query returns user's data directly
+// if (userData) return 
 
 return (
   <div className="text-gray-900 antialiased">
