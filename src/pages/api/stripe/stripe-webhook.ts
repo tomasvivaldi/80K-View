@@ -95,14 +95,14 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       case 'checkout.session.completed':
         const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
-        console.log('checkout session was completed!', checkoutSessionCompleted);
+        console.log('Checkout session was completed!', checkoutSessionCompleted);
 
       // Update the user in the database.
       if (checkoutSessionCompleted?.client_reference_id!) {
         try {
           const response = await client.mutate({
             mutation: UPDATE_USER_SUBSCRIPTION,
-            variables: { id: checkoutSessionCompleted?.client_reference_id, isActive: true },
+            variables: { id: checkoutSessionCompleted?.client_reference_id!, isActive: true },
           });
         
           console.log(`Response:`, response);
