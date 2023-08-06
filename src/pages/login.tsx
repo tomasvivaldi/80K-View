@@ -64,10 +64,10 @@ const Login = () => {
               password: password,
             },
           });
-  
+          createUser();
           router.push('/subscription');
         };
-        createUser();
+
       }
     }
   }, [session, user, addUsers, userData, userDataLoading]);
