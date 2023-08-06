@@ -96,6 +96,28 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       case 'checkout.session.completed':
         const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
         console.log('checkout session was completed!', checkoutSessionCompleted);
+
+      // Update the user in the database.
+      if (checkoutSessionCompleted?.client_reference_id!) {
+        try {
+          const response = await client.mutate({
+            mutation: UPDATE_USER_SUBSCRIPTION,
+            variables: { id: checkoutSessionCompleted?.client_reference_id, isActive: true },
+          });
+        
+          console.log(`Response:`, response);
+          
+          if (response.data?.updateUsers) {
+            console.log(`User subscription status updated!`, response.data.updateUsers);
+          } else {
+            console.error(`No user found with id: ${checkoutSessionCompleted?.client_reference_id}`);
+          }
+        } catch (err) {
+          console.error(`Failed to update user subscription status: ${err}`);
+        }
+      }
+
+
         break;
 
       case 'payment_intent.created':
