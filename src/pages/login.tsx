@@ -42,7 +42,7 @@ const Login = () => {
     if (session && !userDataLoading) {
       // If userData exists, redirect to the homepage
       if (userData?.userByEmail) {
-        window.location.href = '/subscription';
+        window.location.href = '/';
         return;
       }
   
@@ -65,7 +65,7 @@ const Login = () => {
             },
           });
   
-          router.push('/thankyou');
+          router.push('/subscription');
         };
         createUser();
       }
