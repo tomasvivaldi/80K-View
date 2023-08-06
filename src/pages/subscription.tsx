@@ -10,7 +10,7 @@ const Subscription = () => {
     <stripe-pricing-table 
     pricing-table-id="prctbl_1Nc0foIrrtDVRB0pQKFEmNjO" 
     publishable-key="pk_test_51NNWTwIrrtDVRB0pW9iXxyK6xF3SbJdZ5Ry6hyHEFFDxYDsvajmy2o7inI9C7rnj9yOjyKzPWrejrDBGBP0MvuxM00Zhd5xpez"
-    client-reference-id="${session?.user?.email}">
+    client-reference-id="testeamil@gmail.com">
     </stripe-pricing-table>
   `;
   console.log("stripeHTML",stripeHTML)
