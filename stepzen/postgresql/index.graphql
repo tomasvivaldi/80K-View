@@ -2583,6 +2583,7 @@ type Mutation {
       configuration: "postgresql_config"
     )
 
+
   " Mutations for type 'users' "
   deleteUsers(email: String!): users
     @dbquery(
@@ -2608,7 +2609,7 @@ type Mutation {
       configuration: "postgresql_config"
     )
     updateUsers(
-    id: ID!
+    email: String!
     isActive: Boolean
   ): users
     @dbquery(
@@ -2618,7 +2619,7 @@ type Mutation {
       UPDATE "users" SET
         "isActive" = COALESCE($2, "isActive")
       WHERE
-        "id" = $1
+        "email" = $1
       RETURNING *
       """
       configuration: "postgresql_config"
