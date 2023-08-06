@@ -6,7 +6,7 @@ const ThankYou = () => {
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col justify-center items-center">
-      <div className="bg-white p-12 rounded-lg shadow-xl w-3/4 sm:w-1/2 lg:w-1/3 text-center">
+      <div className="bg-white p-12 rounded-lg shadow-xl w-3/4 sm:w-1/2 xl:w-1/3 text-center">
         <h1 className="text-2xl font-bold mb-4 ">Thank You for Creating an Account!</h1>
         <p className="text-gray-700 mb-4">
           Enjoy a full year of membership service for free on us!
