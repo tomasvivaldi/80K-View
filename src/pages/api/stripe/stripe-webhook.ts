@@ -21,8 +21,6 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
@@ -95,7 +93,10 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         console.log('Charge was successful!', charge);
         break;
 
-
+      case 'checkout.session.completed':
+        const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
+        console.log('checkout session was completed!', checkoutSessionCompleted);
+        break;
 
       case 'payment_intent.created':
         const paymentIntentCreated = event.data.object as Stripe.PaymentIntent;
