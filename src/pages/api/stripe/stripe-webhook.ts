@@ -102,7 +102,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         try {
           const response = await client.mutate({
             mutation: UPDATE_USER_SUBSCRIPTION,
-            variables: { email: checkoutSessionCompleted?.client_reference_id!, isActive: true },
+            variables: { id: checkoutSessionCompleted?.client_reference_id!, isActive: true },
           });
         
           console.log(`Response:`, response);
@@ -110,7 +110,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           if (response.data?.updateUsers) {
             console.log(`User subscription status updated!`, response.data.updateUsers);
           } else {
-            console.error(`No user found with email (checkoutSessionCompleted?.client_reference_id): ${checkoutSessionCompleted?.client_reference_id}`);
+            console.error(`No user found with id: ${checkoutSessionCompleted?.client_reference_id}`);
           }
         } catch (err) {
           console.error(`Failed to update user subscription status: ${err}`);
