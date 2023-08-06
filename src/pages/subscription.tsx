@@ -43,7 +43,9 @@ const Subscription = () => {
         <p className="text-gray-700 mb-4 max-w-md">
           We are on a mission to empower and improve people's life! When you sign up, we are giving you an <span className=' font-bold'>entire year</span> of <span className=' font-bold'>free subscription!</span>
         </p>
+        {session?.user?.email && session.user.email !== '' &&
         <div className='w-full' dangerouslySetInnerHTML={{ __html: stripeHTML }} />
+  }
         <div className="flex flex-col space-y-4">
           <p>OR</p>
           <button
