@@ -1,19 +1,37 @@
-"use client"
+import { useQuery } from '@apollo/client';
+import { queries } from 'graphql/queries';
 import { useSession } from 'next-auth/react';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
+
 
 const Subscription = () => {
   const { data: session } = useSession();
   console.log('session',session)
+  const user_query = queries.GET_USER_BY_EMAIL
+  const [userRef, setUserRef] = useState<string | null>(null);
+  const { loading, data } = useQuery<Record<string, any>>(user_query, {
+    variables: { email: session?.user?.email },
+  });
+  
+  useEffect(() => {
+    
+    if (!loading && data && data.userByEmail) {
+      const userRef = data.userByEmail?.id;
+      console.log('user_ref', userRef);
+      setUserRef(userRef);
+    }
+  }, [loading, data]);
+
+  if(!userRef){console.log('!userRef',userRef)}
   
   const stripeHTML = `
     <stripe-pricing-table 
     pricing-table-id="prctbl_1Nc0foIrrtDVRB0pQKFEmNjO" 
     publishable-key="pk_test_51NNWTwIrrtDVRB0pW9iXxyK6xF3SbJdZ5Ry6hyHEFFDxYDsvajmy2o7inI9C7rnj9yOjyKzPWrejrDBGBP0MvuxM00Zhd5xpez"
-    client-reference-id="testeamil@gmail.com">
+    client-reference-id=${userRef!}>
     </stripe-pricing-table>
   `;
-  console.log("stripeHTML",stripeHTML)
 
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col justify-center items-center">
