@@ -67,7 +67,7 @@ const Login = () => {
 
         };
         createUser();
-        router.push('/subscription');
+        router.push('/special-user');
       }
     }
   }, [session, user, addUsers, userData, userDataLoading]);
