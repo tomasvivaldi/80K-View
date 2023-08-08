@@ -31,6 +31,7 @@ import ProgressBar from './ProgressBar';
 import { PleaseLogIn } from './PleaseLogIn';
 import Tooltip from './Tooltip';
 import { PleaseSubscribe } from './PleaseSubscribe';
+// import openai from 'openai';
 // import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
 
 
@@ -165,7 +166,24 @@ function AnswerSection( { data }: AnswerSectionProps) {
   ];
   
 
+  
+
   const CategoryNames = PageNames.slice(1, -2);  
+
+  const CategoryDict: { [key: string]: string } = {};
+
+  CategoryNames.forEach((key, index) => {
+    const tooltip = tooltipText[index];
+    if (typeof tooltip === "undefined") {
+        throw new Error(`Tooltip for ${key} not found.`);
+    }
+    CategoryDict[key] = tooltip;
+  });
+
+
+console.log(CategoryDict);
+
+
   const { data: session } = useSession();
   const {
     register,
@@ -353,96 +371,235 @@ function AnswerSection( { data }: AnswerSectionProps) {
   //   }
   // };
 
+
+
+
+
+
+  // const trimmedMessages = [
+  //   {
+  //     role: "system",
+  //     content: "You are going to break down the user's action plan into easy actionable steps so he can improve"
+  //   },
+  //   {
+  //     role: "user",
+  //     content: "Give me feedback based on my recent data."
+  //   },
+  // ];
+
+
+
   const parseData = async (formData: InitialFormData) => {
     console.log("Calling parseData with data:", formData);
     const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+    const API_ENDPOINT = "https://api.openai.com/v1/chat/completions"
 
-    let prompts = Object.keys(formData).map(category => {
-      return `Analize the following data for ${category}:\n\n` +
-      JSON.stringify(formData[category], null, 2) +
-      "\n Based on the data above, give feedback for this category with a score between 0 and 10.Summarise the users action plan data above and display it with super concise bullet points. Give the output sctrictly on the following structure:"+
-      "\n\nFeedback\n\nAction 1\n\nAction 2\n\nAction 3\n\nAction 4\n\nAction 4\n\nAction 5  (Feedback 25 words or less action points 10 less than words)";
-    });
-  
+    const generateMessage = (category: string,): Object => {
+        return {
+            role: "system",
+            content:  `Give feedback for the category "${category}:${CategoryDict[category]}" based on the following data, the score is between 0 and 10.`
+
+        };
+    };
+
     let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
-      created_at: new Date().toISOString(),
-      user_ref: data?.id
+        created_at: new Date().toISOString(),
+        user_ref: data?.id
     };
-  
-    const fetchWithRetry = async (prompt: string, retryCount: number = 0): Promise<any> => {
-      const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
-  
-      try {
-        const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${gptKey}`,
-          },
-          body: JSON.stringify({
-            prompt: prompt,
-            temperature: 0,
-            max_tokens: 256,
-            top_p: 1.0,
-            frequency_penalty: 0.0,
-            presence_penalty: 0.0,
-          }),
-        });
-  
-        if (response.status === 429) {
-          if (retryCount > 5) {
-            throw new Error("Maximum retry attempts exceeded");
-          }
-          
-          const waitTime = Math.pow(2, retryCount) * 1000; // exponential backoff
-          await delay(waitTime);
-          
-          return fetchWithRetry(prompt, retryCount + 1);
+
+    for (let category of Object.keys(formData)) {
+        let messages = [
+            {
+                role: "user",
+                content: `Please analyse the data: ${formData[category]}. Make 5 easy actionable steps so I can improve for next month.`
+            },
+            generateMessage(category) 
+        ];
+        console.log('messages:',messages)
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${gptKey}`,
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    temperature: 0,
+                    messages: messages,
+                    functions: [
+                      {
+                          name: "userFeedback",
+                          description: "Generates feedback and 5 steps to follow and improve based on user's data",
+                          parameters: {
+                            type: "object",
+                            properties: {
+                                response: {
+                                    type: "array",
+                                    description: "An array of feedback and action points",
+                                    items: {
+                                        type: "object",
+                                        properties: {
+                                            feedback: {
+                                                type: "string",
+                                                description: "Feedback text"
+                                            },
+                                            action1: {
+                                                type: "string",
+                                                description: "improvement action point 1"
+                                            },
+                                            action2: {
+                                                type: "string",
+                                                description: "improvement action point 2"
+                                            },
+                                            action3: {
+                                                type: "string",
+                                                description: "improvement action point 3"
+                                            },
+                                            action4: {
+                                                type: "string",
+                                                description: "improvement action point 4"
+                                            },
+                                            action5: {
+                                                type: "string",
+                                                description: "improvement action point 5"
+                                            },
+                                        },
+                                        required: ["feedback"]
+                                    }
+                                }
+                            },
+                            required: ["response"]
+                        }
+                        
+                        }                
+                    ],            
+                      function_call: { name: "userFeedback" },
+                    }),
+                });
+
+            const responseData = await response.json();
+            console.log('responseData',responseData)
+            const functionResponse = responseData.choices[0].message.function_call.arguments;
+
+            const parsedResponse = JSON.parse(functionResponse)
+            console.log('parsedResponse',parsedResponse)
+
+
+            adviceVariables[`${category}_feedback`] = parsedResponse.response[0].feedback;
+            adviceVariables[`${category}_advice1`] = parsedResponse.response[0].action1;
+            adviceVariables[`${category}_advice2`] = parsedResponse.response[0].action2;
+            adviceVariables[`${category}_advice3`] = parsedResponse.response[0].action3;
+            adviceVariables[`${category}_advice4`] = parsedResponse.response[0].action4;
+            adviceVariables[`${category}_advice5`] = parsedResponse.response[0].action5;
+            console.log('adviceVariables', adviceVariables);
+
+        } catch (error) {
+            console.log("ERROR *********");
+            console.error(error);
         }
-  
-        return response.json();
-      } catch (error) {
-        console.error("fetchWithRetry error:", error);
-        throw error;
-      }
-    };
-  
-    for (let i = 0; i < prompts.length; i++) {
-      let prompt = prompts[i];
-      console.log("prompt", prompt);
-  
-      try {
-        if (typeof prompt === 'undefined') {
-          throw new Error("Prompt is undefined");
-        }
-        
-        const responseData = await fetchWithRetry(prompt);        
-  
-        console.log("response responseData", responseData);
-        const text_response = responseData.choices[0].text;
-        const responses = text_response.split("\n\n");
-        
-        adviceVariables[`${CategoryNames[i]}_feedback`] = responses[1];
-        for (let j = 1; j <= 5; j++) {
-          adviceVariables[`${CategoryNames[i]}_advice${j}`] = responses[j + 1];
-          console.log('adviceVariables',adviceVariables)
-        }
-        
-        
-  
-      } catch (error) {
-        console.log("ERROR *********");
-        console.error(error);
-      }
-    };
-  
-    try {
-      await addAdvice({ variables: adviceVariables });
-      console.log('adviceVariables',adviceVariables)
-    } catch (error) {
-      console.error('Error during overall score submission:', error);
     }
-  };
+
+    try {
+        await addAdvice({ variables: adviceVariables });
+        console.log('adviceVariables', adviceVariables);
+    } catch (error) {
+        console.error('Error during overall score submission:', error);
+    }
+};
+
+
+  // const parseData = async (formData: InitialFormData) => {
+  //   console.log("Calling parseData with data:", formData);
+  //   const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+
+
+  //   let prompts = Object.keys(formData).map(category => {
+  //     return `Analize the following data for ${category}:\n\n` +
+  //     JSON.stringify(formData[category], null, 2) +
+  //     "\n Based on the data above, give feedback for this category with a score between 0 and 10.Summarise the users action plan data above and display it with super concise bullet points. Give the output sctrictly on the following structure:"+
+  //     "\n\nFeedback\n\nAction 1\n\nAction 2\n\nAction 3\n\nAction 4\n\nAction 4\n\nAction 5  (Feedback 25 words or less action points 10 less than words)";
+  //   });
+  
+  //   let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
+  //     created_at: new Date().toISOString(),
+  //     user_ref: data?.id
+  //   };
+  
+  //   const fetchWithRetry = async (prompt: string, retryCount: number = 0): Promise<any> => {
+  //     const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+  
+  //     try {
+  //       const response = await fetch("https://api.openai.com/v1/engines/text-davinci-003/completions", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${gptKey}`,
+  //         },
+  //         body: JSON.stringify({
+  //           prompt: prompt,
+  //           temperature: 0,
+  //           max_tokens: 256,
+  //           top_p: 1.0,
+  //           frequency_penalty: 0.0,
+  //           presence_penalty: 0.0,
+  //         }),
+  //       });
+  
+  //       if (response.status === 429) {
+  //         if (retryCount > 5) {
+  //           throw new Error("Maximum retry attempts exceeded");
+  //         }
+          
+  //         const waitTime = Math.pow(2, retryCount) * 1000; // exponential backoff
+  //         await delay(waitTime);
+          
+  //         return fetchWithRetry(prompt, retryCount + 1);
+  //       }
+  
+  //       return response.json();
+  //     } catch (error) {
+  //       console.error("fetchWithRetry error:", error);
+  //       throw error;
+  //     }
+  //   };
+  
+  //   for (let i = 0; i < prompts.length; i++) {
+  //     let prompt = prompts[i];
+  //     console.log("prompt", prompt);
+  
+  //     try {
+  //       if (typeof prompt === 'undefined') {
+  //         throw new Error("Prompt is undefined");
+  //       }
+        
+  //       const responseData = await fetchWithRetry(prompt);        
+  
+  //       console.log("response responseData", responseData);
+  //       const text_response = responseData.choices[0].text;
+  //       const responses = text_response.split("\n\n");
+        
+  //       adviceVariables[`${CategoryNames[i]}_feedback`] = responses[1];
+  //       for (let j = 1; j <= 5; j++) {
+  //         adviceVariables[`${CategoryNames[i]}_advice${j}`] = responses[j + 1];
+  //         console.log('adviceVariables',adviceVariables)
+  //       }
+        
+        
+  
+  //     } catch (error) {
+  //       console.log("ERROR *********");
+  //       console.error(error);
+  //     }
+  //   };
+  
+  //   try {
+  //     await addAdvice({ variables: adviceVariables });
+  //     console.log('adviceVariables',adviceVariables)
+  //   } catch (error) {
+  //     console.error('Error during overall score submission:', error);
+  //   }
+  // };
   
   
   const onSubmit = async (categoryData: CategoryData, category: string,) => {

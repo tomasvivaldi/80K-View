@@ -181,7 +181,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                 ) : (
                   <>
                     <div className=" order-1 w-full md:order-2">
-                      {rawData && userRef && rawData.career_work_feedback.length>0 ? (
+                      {rawData && userRef && rawData.career_work.length>0 ? (
                         <>
                           <div className="order-3 md:order-1">
                             <HistoricalTable data={formattedData} />
