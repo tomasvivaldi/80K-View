@@ -20,7 +20,7 @@ const SpecialUser = () => {
             className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 active:bg-blue-600 transition font-semibold"
             onClick={() => window.location.href = '/'}
           >
-            Back to Home
+            Start Your 80k Journey
           </button>
           {/* Uncomment the below code if you want to provide a link to "Resources" */}
           {/* 
