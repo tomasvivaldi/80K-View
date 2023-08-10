@@ -11,9 +11,9 @@ const SpecialUser = () => {
         <p className="text-gray-700 mb-4">
           As a token of our appreciation, you have been granted lifetime access to our platform!
         </p>
-        <h3 className="text-xl font-semibold my-2 mt-8">Our Advice</h3>
+        {/* <h3 className="text-xl font-semibold my-2 mt-8">Our Advice</h3> */}
         <p className="text-gray-700 mb-4">
-          We recommend using our service at least once a month to maximize its value.
+          We recommend using 80k View at least once a month to maximize its value.
         </p>
         <div className="flex flex-col space-y-4">
           <button
