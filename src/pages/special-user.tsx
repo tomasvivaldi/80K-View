@@ -4,7 +4,7 @@ const SpecialUser = () => {
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col justify-center items-center">
       <div className="bg-white p-12 rounded-lg shadow-xl w-3/4 sm:w-1/2 xl:w-1/3 text-center">
-        <h1 className="text-2xl font-bold mb-4">Congratulations on Receiving Lifetime Access!</h1>
+        <h1 className="text-2xl font-bold mb-4">Congratulations on receiving lifetime access!</h1>
         <p className="text-gray-700 mb-4">
           Our aim is to foster a community where motivated individuals can grow and flourish, free from financial constraints.
         </p>
