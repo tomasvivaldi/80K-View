@@ -37,7 +37,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
 }) => {
   // Set the initial value of 'score' to an empty string when the component is mounted
   useEffect(() => {
-    setFormDataForCategory(category, { ...formData, score: null });
+    setFormDataForCategory(category, { ...formData, });
   }, []);
 
   const handleInput = (e: { target: { value: any } }) => {

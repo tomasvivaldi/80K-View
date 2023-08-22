@@ -403,21 +403,27 @@ function AnswerSection( { data }: AnswerSectionProps) {
 //         console.error('Error during overall score submission:', error);
 //     }
 // };  
+
+const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
 useEffect(() => {
+  if (isFormSubmitted) return;  // If form is submitted, do not save to local storage
+
   // When formData changes, save it to localStorage
   localStorage.setItem('partialFormData', JSON.stringify(formData));
 
   // When the component unmounts or when the user is about to leave the page
   const handleUnload = () => {
-      localStorage.setItem('partialFormData', JSON.stringify(formData));
+    localStorage.setItem('partialFormData', JSON.stringify(formData));
   };
 
   window.addEventListener('beforeunload', handleUnload);
 
   return () => {
-      window.removeEventListener('beforeunload', handleUnload);
+    window.removeEventListener('beforeunload', handleUnload);
   };
-}, [formData]);
+}, [formData, isFormSubmitted]);  // Note that we've added `isFormSubmitted` to the dependency array
+
 
 useEffect(() => {
   const savedData = localStorage.getItem('partialFormData');
@@ -425,7 +431,6 @@ useEffect(() => {
       setFormData(JSON.parse(savedData));
   }
 }, []);
-
 
 
   const onSubmit = async (categoryData: CategoryData, category: string,) => {
@@ -529,7 +534,8 @@ useEffect(() => {
 
     if (successfulSubmissions.current === CategoryNames.length) {
       localStorage.removeItem('partialFormData');
-      toast.success(`Success!`, { id: notification });
+      setIsFormSubmitted(true);  // Set form submission to true here
+      toast.success(`Success!`, { id: notification });    
     } else {
       toast.dismiss(notification);
     }
