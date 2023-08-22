@@ -16,7 +16,7 @@ interface CategoryChartProps {
 const CategoryChart: React.FC<CategoryChartProps> = ({ data }) => {
   
   const convertData = (data: Category) => {
-    console.log('CATEGORY CHART DATA', data)
+    // console.log('CATEGORY CHART DATA', data)
     const dateObject = new Date(data.created_at);
     const day = String(dateObject.getDate()).padStart(2, '0');
     const monthIndex = dateObject.getMonth(); // Months are zero-based
