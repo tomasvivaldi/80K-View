@@ -3,6 +3,8 @@ import FeedbackBox from './FeedbackBox';
 import FeedbackBox2 from './FeedbackBox2';
 import { useState, useEffect } from 'react';
 import FeedbackCategories from './FeedbackCategories';
+import { UPDATE_COMMUNITY_FEEDBACK_CHECKED1, UPDATE_COMMUNITY_FEEDBACK_CHECKED2, UPDATE_COMMUNITY_FEEDBACK_CHECKED3 } from 'graphql/mutations';
+import client from 'apollo-client';
 
 type FeedbackProps = {
   data: UserDataById;
@@ -84,6 +86,89 @@ function Feedback({ data }: FeedbackProps) {
     const handleCategorySelect = (index: number) => {
       setCurrentIndex(index);
     };
+
+
+
+
+  // This should be placed higher up where the state is defined
+const [checkedItems, setCheckedItems] = useState<Record<string, boolean[]>>({});
+
+    
+
+
+  const handleCheckChange = (position: number) => {
+    const currentCategory = sortedCategoryNames[currentIndex];
+    if (!currentCategory) {
+      console.error('Invalid category index:', currentIndex);
+      return;
+    }
+    // Use nullish coalescing to default to an empty array if the category isn't present
+    const updatedCheckedItemsForCategory = [...(checkedItems[currentCategory] ?? [])];
+    // Toggle the checkbox at the given position
+    updatedCheckedItemsForCategory[position] = !updatedCheckedItemsForCategory[position];
+    // Update the state
+    setCheckedItems({
+      ...checkedItems,
+      [currentCategory]: updatedCheckedItemsForCategory
+    });
+    // Save changes if needed
+    saveCheckedStateForItem(position, updatedCheckedItemsForCategory[position] as boolean);
+  };
+  
+
+
+
+
+  const getMutationAndVariable = (position: number) => {
+    const mutations = [
+        UPDATE_COMMUNITY_FEEDBACK_CHECKED1,
+        UPDATE_COMMUNITY_FEEDBACK_CHECKED2,
+        UPDATE_COMMUNITY_FEEDBACK_CHECKED3,
+        // ... add others here as needed ...
+    ];
+
+    if (position < 0 || position >= mutations.length) {
+        console.error('Invalid position:', position);
+        return {};
+    }
+
+    return {
+        mutation: mutations[position - 1],
+        variableName: `isChecked${position}` // Starting with isChecked1
+    };
+  };
+
+
+  const saveCheckedStateForItem = async (position: number, isChecked: boolean) => {
+    const { mutation, variableName } = getMutationAndVariable(position);
+    if (!mutation || !variableName) {
+        console.error('Failed to find mutation or variable for position:', position);
+        return;
+    }
+
+    const variables = {
+        user_ref: data?.id,
+        [variableName]: isChecked
+    };
+
+    try {
+        await client.mutate({
+            mutation,
+            variables
+        });
+    } catch (error) {
+        console.error('Error updating the checked state:', error);
+        // Handle this error as required
+    }
+  };
+  
+  // You can also move the saveCheckedStateForItem and getMutationAndVariable functions here.
+  
+
+
+
+
+
   return (
     <div className='flex flex-col'>
       <FeedbackCategories 
@@ -115,6 +200,10 @@ function Feedback({ data }: FeedbackProps) {
         border={borderColorClass(highlightedScore)}
         background={bgColorClass(highlightedScore)}
         score={highlightedScore}
+        //////
+        checkedItems={checkedItems[sortedCategoryNames[currentIndex] as string] || []} 
+        onCheckChange={handleCheckChange}
+        setCheckedItems={setCheckedItems}
         />
       </div>
     </div>

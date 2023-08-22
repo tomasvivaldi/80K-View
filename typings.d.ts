@@ -36,7 +36,11 @@ type CategoryFeedback = {
   advice4: string;
   advice5: string;
   user_ref: string;
-  deleted: boolean;
+  isChecked1: boolean;
+  isChecked2: boolean;
+  isChecked3: boolean;
+  isChecked4: boolean;
+  isChecked5: boolean;
 };
 
 type DocumentNode = {

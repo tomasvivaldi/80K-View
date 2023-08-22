@@ -2,8 +2,6 @@ import { Session } from 'next-auth';
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
-
-
 interface FeedbackBoxProps {
   userData?: UserDataById;
   categoryNames: string[];
@@ -16,6 +14,13 @@ interface FeedbackBoxProps {
   border: string;
   background: string;
   score: number;
+  checkedItems: boolean[];
+  setCheckedItems: React.Dispatch<React.SetStateAction<Record<string, boolean[]>>>;
+  onCheckChange: (position: number) => void;
+}
+
+const isCategoryFeedbackKey = (key: string): key is CategoryFeedbackKey => {
+  return key.endsWith("_feedback");
 }
 
 const FeedbackBox: React.FC<FeedbackBoxProps> = ({
@@ -24,40 +29,53 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   session,
   currentIndex,
   border,
+  checkedItems,
+  onCheckChange,
+  setCheckedItems,
 }) => {
 
   const [items, setItems] = useState<string[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
-  const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
 
   useEffect(() => {
-    if (userData && userData[sortedCategoryNames[currentIndex] + "_feedback" as CategoryFeedbackKey]) {
-   
-    const feedbacks = [
-      (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.feedback,
-      (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice1,
-      (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice2,
-      (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice3,
-      (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice4,
-      (userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}_feedback` as CategoryFeedbackKey]?.[0]?.advice5,
-    ];
-    const filteredFeedbacks = feedbacks.filter((item): item is string => item !== undefined);
-    setItems(filteredFeedbacks);
-    setCheckedItems(new Array(feedbacks.length).fill(false));
-  }
+    if (userData) {
+      const categoryKey = `${sortedCategoryNames[currentIndex]}_feedback` as string;
+
+      if (isCategoryFeedbackKey(categoryKey) && userData[categoryKey]) {
+        const feedbacks = [
+          userData[categoryKey][0]?.feedback,
+          userData[categoryKey][0]?.advice1,
+          userData[categoryKey][0]?.advice2,
+          userData[categoryKey][0]?.advice3,
+          userData[categoryKey][0]?.advice4,
+          userData[categoryKey][0]?.advice5,
+        ];
+        const filteredFeedbacks = feedbacks.filter((item): item is string => item !== undefined);
+        setItems(filteredFeedbacks);
+
+        const initialCheckedItems = feedbacks.map((_item, index) => 
+          !!userData[categoryKey][0]?.[`isChecked${index}` as keyof CategoryFeedback]
+        );
+
+        const currentCategory = sortedCategoryNames[currentIndex];
+
+         // Make a shallow copy of the checkedItems
+         const updatedCheckedItems = { ...checkedItems };
+
+         // Update the current category's checked items
+         updatedCheckedItems[currentCategory] = initialCheckedItems;
+ 
+         // Set the updated object to the state
+         setCheckedItems(updatedCheckedItems);
+     }
+    }
   }, [userData, currentIndex, sortedCategoryNames]);
+
 
   // const openModal = (index: number) => {
   //   setItemToDelete(index);
   //   setModalIsOpen(true);
-  // };
-
-
-  // const handleCheckChange = (position: number) => {
-  //   const updatedCheckedItems = [...checkedItems];
-  //   updatedCheckedItems[position] = !updatedCheckedItems[position];
-  //   setCheckedItems(updatedCheckedItems);
   // };
 
   const closeModal = () => {
@@ -71,6 +89,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
     }
     closeModal();
   }
+
   return session ? (
     <>
       <div className={`w-full rounded-lg shadow-md text-gray-700 bg-white p-6 flex flex-col border-2 ${border}`}>
@@ -83,9 +102,13 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
           <ol className='space-y-4'>
           {items.length > 0 && items.map((item, index) => (index > 0 && userData &&
             <li key={index} className={`flex items-center space-x-2 ${checkedItems[index] ? 'line-through text-gray-500' : ''}`}>
-              {/* {index > 0 && userData && (
-                <input type="checkbox" className="form-checkbox h-5 w-5 text-sky-500" checked={checkedItems[index]} onChange={() => handleCheckChange(index)} />
-              )} */}
+              {index > 0 && userData && (
+                <input 
+                type="checkbox" 
+                checked={checkedItems[index]} 
+                onChange={() => onCheckChange(index)} 
+            />
+              )}
               <span className='flex-grow'>{item}</span>
               {/* {index > 0 && (
                 <button className=" mx-auto p-1 text-gray-500 hover:text-red-500 focus:outline-none transition duration-150 ease-in-out" onClick={() => openModal(index)}>

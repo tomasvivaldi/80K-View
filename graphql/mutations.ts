@@ -623,6 +623,32 @@ export const UPDATE_USER_SUBSCRIPTION = gql`
   }
 `;
 
+export const UPDATE_COMMUNITY_FEEDBACK_CHECKED1 = gql`
+mutation updateCommunity_feedback_advice1($user_ref: Int!, $isChecked1: Boolean!) {
+  updateCommunity_feedback_advice1(user_ref: $user_ref, isChecked1: $isChecked1) {
+    user_ref
+    isChecked1
+  }
+}
+`;
+
+export const UPDATE_COMMUNITY_FEEDBACK_CHECKED2 = gql`
+mutation updateCommunity_feedback_advice1($user_ref: Int!, $isChecked2: Boolean!) {
+  updateCommunity_feedback_advice1(user_ref: $user_ref, isChecked2: $isChecked2) {
+    user_ref
+    isChecked2
+  }
+}
+`;
+
+export const UPDATE_COMMUNITY_FEEDBACK_CHECKED3 = gql`
+mutation updateCommunity_feedback_advice1($user_ref: Int!, $isChecked3: Boolean!) {
+  updateCommunity_feedback_advice1(user_ref: $user_ref, isChecked3: $isChecked3) {
+    user_ref
+    isChecked3
+  }
+}
+`;
 export const mutations = {
   ADD_CAREER_WORK_INFO,
   ADD_COMMUNITY_INFO,
@@ -639,4 +665,7 @@ export const mutations = {
   ADD_USERS,
   ADD_ADVICE,
   UPDATE_USER_SUBSCRIPTION,
+  UPDATE_COMMUNITY_FEEDBACK_CHECKED1,
+  UPDATE_COMMUNITY_FEEDBACK_CHECKED2,
+  UPDATE_COMMUNITY_FEEDBACK_CHECKED3,
 };

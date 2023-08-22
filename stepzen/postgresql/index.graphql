@@ -28,6 +28,11 @@ type career_work_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type community {
@@ -50,6 +55,11 @@ type community_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type environment {
@@ -72,6 +82,11 @@ type environment_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type family_friends {
@@ -94,6 +109,11 @@ type family_friends_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type fun_relaxation {
@@ -116,6 +136,11 @@ type fun_relaxation_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type growth_learning {
@@ -138,6 +163,11 @@ type growth_learning_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type health_fitness {
@@ -160,6 +190,11 @@ type health_fitness_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type money_finances {
@@ -182,6 +217,11 @@ type money_finances_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type partner_love {
@@ -204,6 +244,11 @@ type partner_love_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type spirituality {
@@ -226,6 +271,11 @@ type spirituality_feedback {
   id: ID!
   created_at: DateTime
   user_ref: Int
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
 }
 
 type overall_score {
@@ -1581,7 +1631,92 @@ type Mutation {
       """
       configuration: "postgresql_config"
     )
-
+  updateCommunity_feedback_advice1(
+    user_ref: Int!
+    isChecked1: Boolean
+  ): 
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community_feedback" SET
+        "isChecked1" = COALESCE($2, "isChecked1")
+      WHERE
+        "user_ref" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateCommunity_feedback_advice2(
+    user_ref: Int!
+    isChecked1: Boolean
+  ): 
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community_feedback" SET
+        "isChecked1" = COALESCE($2, "isChecked1")
+      WHERE
+        "user_ref" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateCommunity_feedback_advice3(
+    user_ref: Int!
+    isChecked1: Boolean
+  ): 
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community_feedback" SET
+        "isChecked1" = COALESCE($2, "isChecked1")
+      WHERE
+        "user_ref" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateCommunity_feedback_advice4(
+    user_ref: Int!
+    isChecked1: Boolean
+  ): 
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community_feedback" SET
+        "isChecked1" = COALESCE($2, "isChecked1")
+      WHERE
+        "user_ref" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateCommunity_feedback_advice5(
+    user_ref: Int!
+    isChecked1: Boolean
+  ): 
+  community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community_feedback" SET
+        "isChecked1" = COALESCE($2, "isChecked1")
+      WHERE
+        "user_ref" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  
   " Mutations for type 'environment' "
   deleteEnvironment(id: ID!): environment
     @dbquery(
@@ -2607,7 +2742,7 @@ type Mutation {
       dml: INSERT
       configuration: "postgresql_config"
     )
-    updateUsers(
+  updateUsers(
     id: ID!
     isActive: Boolean
   ): users

@@ -362,6 +362,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     community {
       id
@@ -382,6 +387,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     environment {
       id
@@ -402,6 +412,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     family_friends {
       id
@@ -422,6 +437,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     fun_relaxation {
       id
@@ -442,6 +462,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     growth_learning {
       id
@@ -462,6 +487,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     health_fitness {
       id
@@ -482,6 +512,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     money_finances {
       id
@@ -502,6 +537,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     overall_score {
       id
@@ -529,6 +569,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     spirituality {
       id
@@ -549,6 +594,11 @@ export const GET_USER_DATA_BY_ID = gql`
       id
       created_at
       user_ref
+      isChecked1
+      isChecked2
+      isChecked3
+      isChecked4
+      isChecked5
     }
     overall_advice {
       id
