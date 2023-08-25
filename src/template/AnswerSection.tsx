@@ -11,7 +11,7 @@ import {
   ADD_OVERALL_SCORE,
   ADD_PARTNER_LOVE_INFO,
   ADD_SPIRITUALITY_INFO,
-  // ADD_ADVICE,
+  ADD_ADVICE,
 } from 'graphql/mutations';
 import { useSession } from 'next-auth/react';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
@@ -201,7 +201,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
   const [addSpiritualityInfo] = useMutation(ADD_SPIRITUALITY_INFO);
   const [addOverallScore] = useMutation(ADD_OVERALL_SCORE);
   // const [addOverallAdvice] = useMutation(ADD_OVERALL_ADVICE);
-  // const [addAdvice] = useMutation(ADD_ADVICE);
+  const [addAdvice] = useMutation(ADD_ADVICE);
 
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -283,126 +283,126 @@ function AnswerSection( { data }: AnswerSectionProps) {
   };
   
 //Pass to gpt
-  // console.log('formData',formData)
+  console.log('formData',formData)
 
-//   const parseData = async (formData: InitialFormData) => {
-//     console.log("Calling parseData with data:", formData);
-//     const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
-//     const API_ENDPOINT = "https://api.openai.com/v1/chat/completions"
+  const parseData = async (formData: InitialFormData) => {
+    console.log("Calling parseData with data:", formData);
+    const gptKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
+    const API_ENDPOINT = "https://api.openai.com/v1/chat/completions"
 
-//     const generateMessage = (category: string,): Object => {
-//         return {
-//             role: "system",
-//             content:  `Give feedback for the category "${category}:${CategoryDict[category]}" based on the following data, the score is between 0 and 10.`
+    const generateMessage = (category: string,): Object => {
+        return {
+            role: "system",
+            content:  `For the category "${category}:${CategoryDict[category]}" break the action plan into 5 actionable points`
 
-//         };
-//     };
+        };
+    };
 
-//     let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
-//         created_at: new Date().toISOString(),
-//         user_ref: data?.id
-//     };
+    let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
+        created_at: new Date().toISOString(),
+        user_ref: data?.id
+    };
 
-//     for (let category of Object.keys(formData)) {
-//         let messages = [
-//             {
-//                 role: "user",
-//                 content: `Please analyse the data: ${formData[category]}. Make 5 easy actionable steps so I can improve for next month.`
-//             },
-//             generateMessage(category) 
-//         ];
-//         console.log('messages:',messages)
-//         try {
-//             const response = await fetch(API_ENDPOINT, {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     Authorization: `Bearer ${gptKey}`,
-//                 },
-//                 body: JSON.stringify({
-//                     model: "gpt-3.5-turbo",
-//                     temperature: 0,
-//                     messages: messages,
-//                     functions: [
-//                       {
-//                           name: "userFeedback",
-//                           description: "Generates feedback and 5 steps to follow and improve based on user's data",
-//                           parameters: {
-//                             type: "object",
-//                             properties: {
-//                                 response: {
-//                                     type: "array",
-//                                     description: "An array of feedback and action points",
-//                                     items: {
-//                                         type: "object",
-//                                         properties: {
-//                                             feedback: {
-//                                                 type: "string",
-//                                                 description: "Feedback text"
-//                                             },
-//                                             action1: {
-//                                                 type: "string",
-//                                                 description: "improvement action point 1"
-//                                             },
-//                                             action2: {
-//                                                 type: "string",
-//                                                 description: "improvement action point 2"
-//                                             },
-//                                             action3: {
-//                                                 type: "string",
-//                                                 description: "improvement action point 3"
-//                                             },
-//                                             action4: {
-//                                                 type: "string",
-//                                                 description: "improvement action point 4"
-//                                             },
-//                                             action5: {
-//                                                 type: "string",
-//                                                 description: "improvement action point 5"
-//                                             },
-//                                         },
-//                                         required: ["feedback"]
-//                                     }
-//                                 }
-//                             },
-//                             required: ["response"]
-//                         }
+    for (let category of Object.keys(formData)) {
+        let messages = [
+            {
+                role: "user",
+                content: `${formData[category]?.action_plan}`
+            },
+            generateMessage(category) 
+        ];
+        console.log('messages:',messages)
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${gptKey}`,
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    temperature: 0,
+                    messages: messages,
+                    functions: [
+                      {
+                          name: "userFeedback",
+                          description: "Generates feedback and 5 steps to follow and improve based on user's data",
+                          parameters: {
+                            type: "object",
+                            properties: {
+                                response: {
+                                    type: "array",
+                                    description: "An array of feedback and action points",
+                                    items: {
+                                        type: "object",
+                                        properties: {
+                                            feedback: {
+                                                type: "string",
+                                                description: "Feedback text"
+                                            },
+                                            action1: {
+                                                type: "string",
+                                                description: "improvement action point 1"
+                                            },
+                                            action2: {
+                                                type: "string",
+                                                description: "improvement action point 2"
+                                            },
+                                            action3: {
+                                                type: "string",
+                                                description: "improvement action point 3"
+                                            },
+                                            action4: {
+                                                type: "string",
+                                                description: "improvement action point 4"
+                                            },
+                                            action5: {
+                                                type: "string",
+                                                description: "improvement action point 5"
+                                            },
+                                        },
+                                        required: ["feedback"]
+                                    }
+                                }
+                            },
+                            required: ["response"]
+                        }
                         
-//                         }                
-//                     ],            
-//                       function_call: { name: "userFeedback" },
-//                     }),
-//                 });
+                        }                
+                    ],            
+                      function_call: { name: "userFeedback" },
+                    }),
+                });
 
-//             const responseData = await response.json();
-//             console.log('responseData',responseData)
-//             const functionResponse = responseData.choices[0].message.function_call.arguments;
+            const responseData = await response.json();
+            console.log('responseData',responseData)
+            const functionResponse = responseData.choices[0].message.function_call.arguments;
 
-//             const parsedResponse = JSON.parse(functionResponse)
-//             console.log('parsedResponse',parsedResponse)
+            const parsedResponse = JSON.parse(functionResponse)
+            console.log('parsedResponse',parsedResponse)
 
 
-//             adviceVariables[`${category}_feedback`] = parsedResponse.response[0].feedback;
-//             adviceVariables[`${category}_advice1`] = parsedResponse.response[0].action1;
-//             adviceVariables[`${category}_advice2`] = parsedResponse.response[0].action2;
-//             adviceVariables[`${category}_advice3`] = parsedResponse.response[0].action3;
-//             adviceVariables[`${category}_advice4`] = parsedResponse.response[0].action4;
-//             adviceVariables[`${category}_advice5`] = parsedResponse.response[0].action5;
-//             console.log('adviceVariables', adviceVariables);
+            adviceVariables[`${category}_feedback`] = parsedResponse.response[0].feedback;
+            adviceVariables[`${category}_advice1`] = parsedResponse.response[0].action1;
+            adviceVariables[`${category}_advice2`] = parsedResponse.response[0].action2;
+            adviceVariables[`${category}_advice3`] = parsedResponse.response[0].action3;
+            adviceVariables[`${category}_advice4`] = parsedResponse.response[0].action4;
+            adviceVariables[`${category}_advice5`] = parsedResponse.response[0].action5;
+            console.log('adviceVariables', adviceVariables);
 
-//         } catch (error) {
-//             console.log("ERROR *********");
-//             console.error(error);
-//         }
-//     }
+        } catch (error) {
+            console.log("ERROR *********");
+            console.error(error);
+        }
+    }
 
-//     try {
-//         await addAdvice({ variables: adviceVariables });
-//         console.log('adviceVariables', adviceVariables);
-//     } catch (error) {
-//         console.error('Error during overall score submission:', error);
-//     }
-// };  
+    try {
+        await addAdvice({ variables: adviceVariables });
+        console.log('adviceVariables', adviceVariables);
+    } catch (error) {
+        console.error('Error during overall score submission:', error);
+    }
+};  
 
 const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
@@ -509,12 +509,12 @@ useEffect(() => {
         } catch (error) {
           console.error('Error during overall score submission:', error);
         }
-        // try{
-        //   await parseData(formData);
-        // }
-        // catch(error) {
+        try{
+          await parseData(formData);
+        }
+        catch(error) {
 
-        // }
+        }
       }
     } catch (error) {
       console.error(`Error during form submission for ${category}:`, error);
