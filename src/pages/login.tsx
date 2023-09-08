@@ -66,6 +66,24 @@ const Login = () => {
             },
           });
 
+          try {
+            const response = await fetch('https://app.80kview.com/api/sendgrid/welcomeEmail', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                email: `${email}`, 
+                username: `${user?.name}`
+              })
+            });
+    
+            if (!response.ok) {
+              throw new Error('Network response was not ok ' + response.statusText);
+            }
+          } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+          }
 
         };
         createUser();
