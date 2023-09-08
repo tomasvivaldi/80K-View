@@ -102,19 +102,11 @@ const SignUp = () => {
         const response = await fetch('https://app.80kview.com/api/sendgrid/welcomeEmail', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`, // using process.env.SENDGRID_API_KEY
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            personalizations: [{
-              to: [{ email: `${email}` }]
-            }],
-            from: { email: "team@80kview.com" },
-            subject: "Sending with SendGrid is Fun",
-            content: [{
-              type: "text/plain",
-              value: "and easy to do anywhere, even with cURL"
-            }]
+            email: `${email}`, 
+            username: `${username}`
           })
         });
 
@@ -124,6 +116,8 @@ const SignUp = () => {
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
       }
+
+      
     
     }
   };
