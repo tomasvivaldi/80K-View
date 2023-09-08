@@ -1,19 +1,31 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import sgMail from '@sendgrid/mail';
+import Cors from 'cors';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://app.80kview.com');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+// Initializing the cors middleware
+const cors = Cors({
+  methods: ['POST', 'HEAD'], // Allow these methods
+  origin: ["https://app.80kview.com", "http://localhost:3000"] // Add your origins here
+});
 
-  // Handle OPTIONS method (necessary for CORS preflight)
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
+// Helper method to run cors
+function runCors(req: NextApiRequest, res: NextApiResponse, fn: Function) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+}
+
+// Modify your handler function
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Run CORS first
+  await runCors(req, res, cors);
 
   const { email, username } = req.body;
 
