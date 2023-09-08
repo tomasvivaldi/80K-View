@@ -99,7 +99,7 @@ const SignUp = () => {
       }
 
       try {
-        const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+        const response = await fetch('https://app.80kview.com/api/sendgrid/welcomeEmail', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`, // using process.env.SENDGRID_API_KEY
