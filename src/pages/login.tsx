@@ -13,6 +13,7 @@ import { ADD_USERS } from 'graphql/mutations';
 import router from 'next/router';
 
 
+
 interface UserWithProvider extends User {
   provider?: string;
 }
@@ -64,6 +65,7 @@ const Login = () => {
               password: password,
             },
           });
+
 
         };
         createUser();

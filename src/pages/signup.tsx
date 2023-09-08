@@ -12,6 +12,7 @@ import { GET_USER_BY_EMAIL } from 'graphql/queries';
 import { useEffect, useState } from 'react';
 import LoadingBoxTransparent from '@/template/LoadingBoxTransparent';
 
+
 const SignUp = () => {
   const router = useRouter();
   const [addUsers] = useMutation(ADD_USERS);
@@ -96,6 +97,34 @@ const SignUp = () => {
         // Sign up failed, set the error message
         setErrorMessage("There was an error during sign up. Please try again.");
       }
+
+      try {
+        const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`, // using process.env.SENDGRID_API_KEY
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            personalizations: [{
+              to: [{ email: `${email}` }]
+            }],
+            from: { email: "team@80kview.com" },
+            subject: "Sending with SendGrid is Fun",
+            content: [{
+              type: "text/plain",
+              value: "and easy to do anywhere, even with cURL"
+            }]
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    
     }
   };
   
