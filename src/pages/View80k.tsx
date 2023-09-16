@@ -3,6 +3,7 @@ import { Section } from '@/layout/Section';
 import { PleaseLogIn } from '@/template/PleaseLogIn';
 import { PleaseSubscribe } from '@/template/PleaseSubscribe';
 import { Shell } from '@/template/Shell';
+import YearMap from '@/template/YearMap';
 import { AppConfig } from '@/utils/AppConfig';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
@@ -106,24 +107,6 @@ const View80k = () => {
     'partner_love',
     'spirituality',
   ];
-
-
-  // // Map the category to the corresponding query
-  // const categoryQueries = {
-  //   career_work: queries.GET_CAREER_WORK_INFO_BY_USER,
-  //   community: queries.GET_COMMUNITY_INFO_BY_USER,
-  //   environment: queries.GET_ENVIRONMENT_INFO_BY_USER,
-  //   family_friends: queries.GET_FAMILY_FRIENDS_INFO_BY_USER,
-  //   fun_relaxation: queries.GET_FUN_RELAXATION_INFO_BY_USER,
-  //   growth_learning: queries.GET_GROWTH_LEARNING_INFO_BY_USER,
-  //   health_fitness: queries.GET_HEALTH_FITNESS_INFO_BY_USER,
-  //   money_finances: queries.GET_MONEY_FINANCES_INFO_BY_USER,
-  //   partner_love: queries.GET_PARTNER_LOVE_INFO_BY_USER,
-  //   spirituality: queries.GET_SPIRITUALITY_INFO_BY_USER,
-  // };
-
-
-
 
 // function isValidCategoryName(name: string): name is CategoryName {
 //   return categoryQueries.hasOwnProperty(name);
@@ -239,63 +222,9 @@ const View80k = () => {
           userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? (
             <>
               {/* Table for large screens */}
-              <div className="hidden text-black sm:block m-2 rounded-lg border-4 border-gray-800">
-                <div className="overflow-x-auto overflow-y-scroll h-[640px] rounded">
-                  <table className="w-full table-auto relative ">
-                    <thead className=' bg-blue-800 text-white sticky top-0 z-20 '>
-                      <tr>
-                        <div className='sticky left-0 border-r border-b border-gray-200 bg-blue-800 h-16 rounded'><th className=" px-4 py-5 text-center text-sm ">Category</th></div>
-                        {/* <th className=" px-4 py-2 text-center text-sm border-r border-gray-200">YTD Trend</th> */}
-                        {months.map((month, monthIndex) => (
-                          <th key={monthIndex} className=" mx-4 my-2 text-center text-sm border-l border-gray-200">
-                            {month}
-                            <div className="flex flex-row w-fit pt-1 mt-1 border-t border-gray-200 text-white">
-                              <div className='w-16 justify-center border-r border-gray-200'>Score</div>
-                              <div className='w-32 justify-center border-r border-gray-200'>Notes</div>
-                              <div className='w-32 justify-center'>Action Plan</div>
-                            </div>
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {category.map((category, _categoryIndex) => (
-                        <tr key={category} className="">
-                          <td className="h-64 p-2 text-center text-gray-200 border-r border-b border-gray-500 sticky left-0 bg-blue-800">{formatCategory(category)}</td>
-                          {/* <td className="p-2 text-center border-b border-gray-500">
-                            <Chart1 data={ytdData} />
-                          </td> */}
-
-                          {months.map((_month, monthIndex) => {
-                            const item = tableData.find(
-                              (item) =>
-                                item.category === category &&
-                                new Date(item.date).getFullYear() === 2023 &&
-                                new Date(item.date).getMonth() === monthIndex
-                            );
-                            
-                            console.log('item',item)
-                            return (
-                              <td key={monthIndex} className="text-center border-l border-t border-b border-gray-500">
-                                {item && (
-                                  <table className="w-full">
-                                    <tbody>
-                                      <td className="w-16 border-r border-gray-400  h-64 -my-1">{item.score}</td>
-                                      <td className="w-32 border-r border-gray-400  h-64 -my-1">{item.notes}</td>
-                                      <td className="w-32 border-gray-400  h-64 -my-1">{item.actionPlan}</td>
-                                    </tbody>
-                                  </table>
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+              <div className='max-w-[95%] mx-auto'>
+                <YearMap data={userDataByIdData?.userDataById}/>
               </div>
-
             {/* Table for small screens */}
               {/* <div className="md:hidden">
                 {months.map((month, monthIndex) => (
