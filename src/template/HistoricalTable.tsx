@@ -191,7 +191,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
       </div>
 
       {/* Table for small screens */}
-      <div className="md:hidden">
+      {/* <div className="md:hidden">
         {Object.entries(averagedData)
           .map(([year, yearData], yearIndex) => (
             <div key={yearIndex} className="mb-4 text-black">
@@ -221,7 +221,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
               })}
             </div>
           ))}
-      </div>
+      </div> */}
     </div>
   );
 };
