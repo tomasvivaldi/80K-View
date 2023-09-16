@@ -264,7 +264,7 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
             <tbody>
     {categories.map(category => (
       <tr key={category}>
-        <td className="p-2 text-center">{category}</td>
+        <td className="p-2 text-center">{formatCategory(category)}</td>
         {months.map((_, monthIdx) => {
           const monthKey = `${new Date().getFullYear()}-${String(monthIdx + 1).padStart(2, '0')}`;
           const monthlyData = groupedData[monthKey]?.[category];
