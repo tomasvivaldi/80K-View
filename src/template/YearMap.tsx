@@ -18,6 +18,18 @@ type CategoryKeys =
 | 'partner_love'
 | 'spirituality';
 
+type selectedItem = {
+  action_plan: string
+categoryName: string
+created_at: string
+id: string
+notes: string
+score: number
+user_ref: number
+username: string
+__typename: string
+}
+
 const categories: CategoryKeys[] = [
   'career_work',
   'community',
@@ -45,7 +57,7 @@ type KeyFunction = (item: any) => string;
 
 
 const groupByCategoryAndDate = (
-  data: UserDataById,
+  data: { career_work: Category[]; community: Category[]; environment: Category[]; family_friends: Category[]; fun_relaxation: Category[]; growth_learning: Category[]; health_fitness: Category[]; money_finances: Category[]; partner_love: Category[]; spirituality: Category[]; },
   keyFn: KeyFunction
 ): { [key: string]: { [subKey: string]: any[] } } => {
   // Flatten the data into a single array with a category name property
@@ -63,15 +75,20 @@ const groupByCategoryAndDate = (
   return flattenedData.reduce((acc, item) => {
     const key = keyFn(item);
     const subKey = item.categoryName;
+  
     if (!acc[key]) {
       acc[key] = {};
     }
-    if (!acc[key][subKey]) {
-      acc[key][subKey] = [];
+  
+    if (!acc[key]![subKey!]) {
+      acc[key]![subKey!] = [];
     }
-    acc[key][subKey].push(item);
+    // @ts-ignore
+    acc[key]![subKey!].push(item);
+  
     return acc;
   }, {} as { [key: string]: { [subKey: string]: any[] } });
+  
 };
 
 
@@ -82,18 +99,22 @@ const average = (arr: number[]): number | undefined => {
 };
 
 // Function to format category name
-const formatCategoryName = (categoryName: string | undefined): string => {
-  if (categoryName) {
-    return categoryName.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+const formatCategory = (category: string) => {
+  if (!category) {
+    return "";
   }
-  return '';
-};
+  
+  return category
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' / ');
+}
 
 // Function to format date
 const formatDate = (dateString: string | undefined): string => {
   if (dateString) {
     const date = new Date(dateString);
-    const options = { month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric' };
     return date.toLocaleDateString(undefined, options);
   }
   return '';
@@ -145,20 +166,20 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
     return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
   });
 
-  type AveragedData = {
-    [category: string]: {
-      [month: string]: number | undefined;
-    };
-  };
+  // type AveragedData = {
+  //   [category: string]: {
+  //     [month: string]: number | undefined;
+  //   };
+  // };
 
 
-  const initEmptyMonths = () => {
-    const obj: any = {};
-    months.forEach((_, idx) => {
-      obj[String(idx + 1).padStart(2, '0')] = undefined;
-    });
-    return obj;
-  };
+  // const initEmptyMonths = () => {
+  //   const obj: any = {};
+  //   months.forEach((_, idx) => {
+  //     obj[String(idx + 1).padStart(2, '0')] = undefined;
+  //   });
+  //   return obj;
+  // };
 
 
   // Initialize averagedData with an empty object structure for each category
@@ -187,8 +208,11 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
         if (averagedData[category as CategoryKeys]) {
           const month = monthKey.split('-')[1];
           console.log('month', month);
-
-          averagedData[category as CategoryKeys][month] = avgScore;
+          if (month) {
+            averagedData[category as CategoryKeys][month] = avgScore !== undefined ? avgScore : 0;
+          } else {
+            console.error('Unexpected monthKey format: ', monthKey);
+          }
         }
       }
     });
@@ -203,15 +227,15 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
 
   
 
-  const isFuture = (year: number, month: number) => {
-    const now = new Date();
-    return now.getFullYear() < year || (now.getFullYear() === year && now.getMonth() < month);
-  };
+  // const isFuture = (year: number, month: number) => {
+  //   const now = new Date();
+  //   return now.getFullYear() < year || (now.getFullYear() === year && now.getMonth() < month);
+  // };
   
-  const isCurrentMonth = (year: number, month: number) => {
-    const now = new Date();
-    return now.getFullYear() === year && now.getMonth() === month;
-  };
+  // const isCurrentMonth = (year: number, month: number) => {
+  //   const now = new Date();
+  //   return now.getFullYear() === year && now.getMonth() === month;
+  // };
   
 
   return (
@@ -296,15 +320,15 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
     <div className="fixed inset-0 bg-gray-500 bg-opacity-80 flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg w-[80%] mx-auto px-8">
         <div className='flex flex-row pb-4 items-center gap-4 text-3xl'>
-          <h3 className='font-semibold'>{formatCategoryName(selectedItem?.categoryName)}</h3>
+          <h3 className='font-semibold'>{formatCategory((selectedItem as selectedItem)?.categoryName)}</h3>
           <p> - </p>
-          <p className=''>{formatDate(selectedItem?.created_at)}</p>
+          <p className=''>{formatDate((selectedItem as selectedItem)?.created_at)}</p>
         </div>
         <h4 className="text-xl font-bold mb-2">Notes</h4>
-        <p className="mb-4">{selectedItem?.notes}</p>
+        <p className="mb-4">{(selectedItem as selectedItem)?.notes}</p>
 
         <h4 className="text-xl font-bold mb-2">Action Plan</h4>
-        <p className="mb-4">{selectedItem?.action_plan}</p>
+        <p className="mb-4">{(selectedItem as selectedItem)?.action_plan}</p>
         <button 
           className="py-2 px-4 bg-blue-500 text-white rounded-full font-semibold" 
           onClick={() => setIsModalOpen(false)}
