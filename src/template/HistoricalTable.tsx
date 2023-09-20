@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Chart1 } from './Chart1';
 
 interface HistoricalDataItem {
   date: string;
@@ -121,74 +122,123 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
     return now.getFullYear() === year && now.getMonth() === month;
   };
   
+  const [activeButton, setActiveButton] = useState<string | null>('tableButton');
+
 
   return (
     <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg">
-      <div className=" rounded-lg ">
+      <div className=" rounded-lg flex flex-row justify-between items-center">
         <h1 className="text-lg font-semibold text-black sm:text-2xl md:text-3xl">
           Your Yearly Fulfilment
         </h1>
-      </div>
-      {/* Table for large screens */}
-      <div className="hidden text-black md:block">
-        <div className="overflow-x-auto">
-          <table className="w-full table-auto">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-center text-sm">
-                  Overall Score
-                </th>
-                {months.map((month, index) => (
-                  <th key={index} className="px-4 py-2">
-                    {month}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(averagedData)
-                .map(([year, yearData], index) => (
-                  <tr key={index}>
-                    <td className="p-2 text-center">{year}</td>
-                    {months.map((_month, monthIndex) => {
-                      // console.log('AveragedData for large screen:', averagedData);
-                      // console.log('Large screen yearData:', year, yearData);
-                      const value = yearData[monthIndex];
+        <div className='flex mx-4 gap-3 text-white text-bold'>
+        <button
+        className={`px-4 mr-2 border rounded-full border-blue-600 font-semibold ${activeButton === 'tableButton' ? 'bg-blue-300/20 text-blue-600 ' : 'bg-blue-500 px-4 border rounded-full '}`}
+        onClick={() => setActiveButton('tableButton')}
+      >
+        Table
+      </button>
+      <button
+        className={`px-4 border rounded-full border-blue-600 font-semibold ${activeButton === 'graphButton' ? 'bg-blue-300/20 text-blue-600' : 'bg-blue-500 px-4 border rounded-full '}`}
+        onClick={() => setActiveButton('graphButton')}
+      >
+        Graph
+      </button>
 
-                      // const borderClass = 
-                      // value === undefined && isCurrentMonth(parseInt(year), monthIndex) ? borderColorClass : '';
-                      
-                       const bgClass =
-                        value !== undefined ? bgColorClass(value) : '';
-                      // console.log('large screen value', value)
-                      return (
-                        <td key={monthIndex} className="p-2">
-                        <div
-                            className={`text-white font-extrabold mx-auto  ${bgClass}   w-fit rounded-full px-3 py-2 text-sm`}
-                          >
-                          {
-                            value !== undefined ? 
-                            `${value.toFixed(1)}` : 
-                            isFuture(parseInt(year), monthIndex) ? 
-                              <div className=' shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50'>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" className="w-6 h-6">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                </svg>
-                              </div>
-                            : isCurrentMonth(parseInt(year), monthIndex) ? 
-                            <p className='text-black rounded-full px-2 py-1 font-semibold text-lg border-2 border-cyan-500 animate-bounce'><a href='/forms' className='p-2'>Update</a></p>
-                            : ''
-                          }
-                          </div>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-            </tbody>
-          </table>
         </div>
       </div>
+      
+      {activeButton === 'tableButton' && (
+        <div id="tableSection">
+          <div className="hidden text-black md:block">
+            <div className="overflow-x-auto">
+              <table className="w-full table-auto">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 text-center text-sm">
+                      Overall Score
+                    </th>
+                    {months.map((month, index) => (
+                      <th key={index} className="px-4 py-2">
+                        {month}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(averagedData)
+                    .map(([year, yearData], index) => (
+                      <tr key={index}>
+                        <td className="p-2 text-center">{year}</td>
+                        {months.map((_month, monthIndex) => {
+                          // console.log('AveragedData for large screen:', averagedData);
+                          // console.log('Large screen yearData:', year, yearData);
+                          const value = yearData[monthIndex];
+
+                          // const borderClass = 
+                          // value === undefined && isCurrentMonth(parseInt(year), monthIndex) ? borderColorClass : '';
+                          
+                          const bgClass =
+                            value !== undefined ? bgColorClass(value) : '';
+                          // console.log('large screen value', value)
+                          return (
+                            <td key={monthIndex} className="p-2">
+                            <div
+                                className={`text-white font-extrabold mx-auto  ${bgClass}   w-fit rounded-full px-3 py-2 text-sm`}
+                              >
+                              {
+                                value !== undefined ? 
+                                `${value.toFixed(1)}` : 
+                                isFuture(parseInt(year), monthIndex) ? 
+                                  <div className=' shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" className="w-6 h-6">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                    </svg>
+                                  </div>
+                                : isCurrentMonth(parseInt(year), monthIndex) ? 
+                                <p className='text-black rounded-full px-2 py-1 font-semibold text-lg border-2 border-cyan-500 animate-bounce'><a href='/forms' className='p-2'>Update</a></p>
+                                : ''
+                              }
+                              </div>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeButton === 'graphButton' && (
+        <div id="graphSection">
+          {data && data.length >= 2 ? (
+            <div className='m-4'>
+              <Chart1 data={data} />
+            </div>
+            ) : (
+              <>
+                <h3 className='text-3xl text-black font-semibold mt-8'> 
+                  Keep it up for more!
+                </h3>
+                <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
+                <p className='text-xl font-medium text-slate-900 mb-6'>
+                  And that's just the beginning! As you continue to track and engage with your Life Tracker, 
+                  you'll unlock even more features and insights tailored to your unique goals and experiences. 
+                  Stay engaged, and watch how the Life Tracker becomes an essential companion in your personal growth journey.
+                </p>
+                  <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
+                    <h4 className="text-xl font-semibold text-slate-900 mb-2">Score Graph:</h4>
+                    {/* <Chart1 data={generateMockData(3)} /> */}
+                  </div>
+                </div>
+              </>
+            )
+          }
+        </div>
+      )}
 
       {/* Table for small screens */}
       {/* <div className="md:hidden">

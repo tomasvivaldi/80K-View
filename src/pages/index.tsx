@@ -1,7 +1,6 @@
 import { useSession } from 'next-auth/react';
 import { Meta } from '@/layout/Meta';
 import { Section } from '@/layout/Section';
-import { Chart1 } from '@/template/Chart1';
 import HistoricalTable from '@/template/HistoricalTable';
 import { Shell } from '@/template/Shell';
 import Welcome from '@/template/Welcome';
@@ -18,8 +17,6 @@ import NoSubscriptionBanner from '@/template/NoSubscriptionBanner';
 import LandingPage from '../template/LandingPage';
 import seedrandom from 'seedrandom';
 import MockFeedback from '@/template/MockFeedback';
-import { MockStats } from '@/template/MockStats';
-
 
 export type CategoryData = {
   score?: number | null;
@@ -211,7 +208,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                         </>
                       )}
                     </div>
-                    <div className=" order-2 w-full md:order-3 mt-4">
+                    {/* <div className=" order-2 w-full md:order-3 mt-4">
                       {formattedData && formattedData.length >= 2 ? (
                         <Chart1 data={formattedData} />
                         ) : (
@@ -237,7 +234,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                           </>
                         )
                       }
-                    </div>
+                    </div> */}
                   </>
                 )}
                 
