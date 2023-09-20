@@ -1,11 +1,16 @@
 import React from 'react';
 import type { CategoryData, InitialFormData } from './AnswerSection';
+import { Button } from '@/button/Button';
 
 interface EndFormProps {
   categoryNames: CategoryKey[];
   allCategoryFormData: InitialFormData;
   data?: UserDataById;
+  submitAllCategories: () => Promise<void>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  page: number
 }
+
 
 function isCategoryData(obj: any): obj is CategoryData {
   return (
@@ -18,7 +23,10 @@ function isCategoryData(obj: any): obj is CategoryData {
 const EndForm: React.FC<EndFormProps> = ({
   categoryNames,
   allCategoryFormData,
-  data
+  data,
+  submitAllCategories,
+  setPage,
+  page,
 }) => {
 
   function toCapitalized(str: string): string {
@@ -29,6 +37,22 @@ const EndForm: React.FC<EndFormProps> = ({
 
   return (
     <div className="w-full rounded-md border-gray-200 bg-white p-4">
+<button
+  className={`flex items-center text-gray-700 
+             transition-transform duration-150 ease-in-out 
+             hover:text-gray-900 active:scale-95 
+             disabled:text-gray-400 disabled:cursor-not-allowed text-lg`}
+  disabled={page === 0}
+  onClick={() => {
+    setPage((currPage) => currPage - 1);
+  }}
+>
+  <svg className="w-4 h-4 mr-2 fill-current transform -rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+    <path d="M6 15l5-5-5-5" />
+  </svg>
+  Back
+</button>
+
       <div className="w-full text-center text-2xl font-semibold text-gray-800">
         10K View
       </div>
@@ -85,6 +109,21 @@ const EndForm: React.FC<EndFormProps> = ({
             </div>
           );
         })}
+
+        <button
+        className=' w-full mx-auto my-8'
+          onClick={async () => {
+              await submitAllCategories();
+              setTimeout(() => {
+                setPage((currPage) => currPage + 1);
+              }, 1000);
+          }}
+        >
+          <Button>
+            Submit
+          </Button>
+        </button>
+
       </div>
     </div>
   );

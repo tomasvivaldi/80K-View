@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 
 interface TooltipProps {
   text: string | null;
-  position?: "right" | "left";
+  positionX?: "right" | "left";
+  positionY?: "down" | "up";
   width?: string;
 }
 
@@ -23,7 +24,8 @@ function Tooltip(props: TooltipProps) {
     };
   }, []);
 
-  const translateXClass = props.position === "right" ? "translate-x-[115%]" : "";
+  const translateXClass = props.positionX === "right" ? "translate-x-[110%]" : "";
+  const translateYClass = props.positionY === "down" ? "translate-y-[125%]" : "";
   const widthClass = props.width || "w-44";
 
   return (
@@ -35,7 +37,7 @@ function Tooltip(props: TooltipProps) {
         i
       </span>
       <span
-        className={`text-center transition-opacity bg-slate-800 p-2 text-sm text-gray-100 rounded-md absolute right-0 bottom-0 ${translateXClass} m-6 z-50 ${widthClass} ${
+        className={`text-center transition-opacity bg-slate-800 p-2 text-sm text-gray-100 rounded-md absolute right-0 bottom-0 ${translateXClass} ${translateYClass} m-6 z-50 ${widthClass} ${
           isVisible ? "visible" : "invisible"
         }`}
       >

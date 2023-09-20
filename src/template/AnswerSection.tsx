@@ -17,19 +17,16 @@ import { useSession } from 'next-auth/react';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-
-import { Button } from '@/button/Button';
-
 import BeginForm from './BeginForm';
 import { CategoryChart } from './CategoryChart';
 import DataSent from './DataSent';
 import EndForm from './EndForm';
 import { Form2Fill } from './Form2Fill';
 import { PrepopulatedForm } from './PrepopulatedForm';
-import ProgressBar from './ProgressBar';
 import { PleaseLogIn } from './PleaseLogIn';
 import Tooltip from './Tooltip';
 import { PleaseSubscribe } from './PleaseSubscribe';
+import FeedbackCategories from './FeedbackCategories';
 // import openai from 'openai';
 // import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
 
@@ -170,6 +167,10 @@ function AnswerSection( { data }: AnswerSectionProps) {
   const CategoryNames = PageNames.slice(1, -2);  
 
   const CategoryDict: { [key: string]: string } = {};
+  
+  const handleCategorySelect = (categoryIndex: number) => {
+    setPage(categoryIndex + 1);
+  };
 
   CategoryNames.forEach((key, index) => {
     const tooltip = tooltipText[index];
@@ -550,22 +551,67 @@ useEffect(() => {
   const PageTitleDisplay = () => {
     if (page > 0 && page < 11) {
       return (
-        <div className="mx-auto flex max-w-[80%] flex-col rounded-lg bg-white px-8 py-4 md:max-w-[50%]">
-          <div className=" rounded-lg bg-blue-800 py-1 px-4 flex flex-row justify-center items-center gap-2">
-            <h1 className="text-center text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
-              {toCapitalized(PageNames[page] ?? '')}
-            </h1>
-            <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} position='right' width='w-64' />
-          </div>
-        </div>
+        <div className='flex flex-col gap-4'>
+          <div className="w-full mx-auto flex max-w-[80%] flex-col rounded-lg bg-white px-8 py-4 md:max-w-[50%]">
+  <div className="rounded-lg bg-blue-800 py-1 px-4 flex flex-row justify-around items-center gap-2">
+    
+    <button
+      className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
+                  hover:bg-opacity-70 active:scale-95 disabled:bg-opacity-30 disabled:cursor-not-allowed`}
+      disabled={page === 0}
+      onClick={() => {
+        setPage((currPage) => currPage - 1);
+      }}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+      </svg>
+    </button>
+
+    <div className='flex flex-row items-center gap-2'>
+      <h1 className="text-center text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
+        {toCapitalized(PageNames[page] ?? '')}
+      </h1>
+      <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
+    </div>
+    
+    <button
+      className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
+                  hover:bg-opacity-70 active:scale-95`}
+      onClick={async () => {
+        if (page === PageNames.length - 2) {
+          await submitAllCategories();
+          setTimeout(() => {
+            setPage((currPage) => currPage + 1);
+          }, 1000);
+        } else {
+          handleNextClick();
+        }
+      }}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+      </svg>
+
+    </button>
+
+  </div>
+</div>
+
+          <FeedbackCategories 
+          categories={CategoryNames} 
+          onCategorySelect={handleCategorySelect} 
+          currentIndex={page - 1}
+        />
+      </div>
       );
     } else {return}
   };
 
   const PageDisplay = () => {
     if (page === 0) {
-      return  <BeginForm />;
-    }
+      return <BeginForm handleNextClick={handleNextClick} />;
+    }    
     if (page > 0 && page < 11) {
       return (
         <div className="flex flex-col gap-4">
@@ -605,6 +651,9 @@ useEffect(() => {
             categoryNames={CategoryNames as CategoryKey[]}
             allCategoryFormData={allCategoryFormData()}
             data={data}
+            submitAllCategories={submitAllCategories}
+            setPage={setPage}
+            page={page}
           />
           )}
         </Suspense>
@@ -613,47 +662,13 @@ useEffect(() => {
     return <DataSent />;
   };
 
-  const ButtonDisplay = () => {
-    if (page < 12) {
-      return (
-        <>
-          <div className="flex w-full flex-row justify-around  items-center gap-4 ">
-            <button
-              disabled={page === 0}
-              onClick={() => {
-                setPage((currPage) => currPage - 1);
-              }}
-            >
-              <Button disabled={page === 0}>Prev</Button>
-            </button>
-            <ProgressBar page={page} />
-            <button
-              onClick={async () => {
-                if (page === PageNames.length - 2) {
-                  await submitAllCategories();
-                  setTimeout(() => {
-                    setPage((currPage) => currPage + 1);
-                  }, 1000);
-                } else {
-                  handleNextClick();
-                }
-              }}
-            >
-              <Button>
-                {page === PageNames.length - 2 ? 'Submit' : 'Next'}
-              </Button>
-            </button>
-          </div>
-        </>
-      );
-    } else {return}
-  };
   return session ? (
     data?.isActive ? (
       // !canFillForm ? (
         <div className="flex flex-col gap-4">
-          <div>{ButtonDisplay()}</div>
           <div>{PageTitleDisplay()}</div>
+          {/* <div>{ButtonDisplay()}</div> */}
+          
           <div>{PageDisplay()}</div>
         </div>
       // ) : (
