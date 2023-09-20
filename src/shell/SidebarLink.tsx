@@ -14,7 +14,7 @@ const SidebarLink = (props: ISidebarLinkProps) => (
     <style jsx>
       {`
         .sidebar-link :global(svg) {
-          @apply stroke-2 stroke-current text-primary-500 h-6 w-6 mr-1;
+          @apply stroke-2 stroke-current text-blue-500 h-6 w-6 mr-1;
         }
       `}
     </style>

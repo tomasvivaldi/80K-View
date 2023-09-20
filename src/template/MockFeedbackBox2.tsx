@@ -24,7 +24,7 @@ const FeedbackBox = () => {
         <ol className='space-y-4'>
           {feedbacks.map((item, index) => (
             <li key={index} className={`flex items-center space-x-2 ${checkedItems[index] ? 'line-through text-gray-500' : ''}`}>
-              <input type="checkbox" className="form-checkbox h-5 w-5 text-indigo-600" checked={checkedItems[index]} readOnly />
+              <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" checked={checkedItems[index]} readOnly />
               <span className='flex-grow'>{item}</span>
             </li>
           ))}
