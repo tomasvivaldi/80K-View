@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Chart1 } from './Chart1';
+import seedrandom from 'seedrandom';
 
 interface HistoricalDataItem {
   date: string;
@@ -41,6 +42,24 @@ const average = (arr: number[]): number | undefined => {
   const sum = arr.reduce((a, b) => a + b, 0);
   return sum / arr.length;
 };
+
+function generateMockData(entries: number): HistoricalDataItem[] {
+  const seed = '22'; // Use a fixed seed
+  const random = seedrandom(seed); // Create a seeded RNG
+  const mockData: HistoricalDataItem[] = [];
+
+  for (let i = 0; i < entries; i++) {
+    const currentDate = new Date(); // Create a new date object for each iteration
+    currentDate.setMonth(currentDate.getMonth() + i); // Increment the month by i + 1 for future months
+    const date = currentDate.toISOString().split('T')[0];
+    if (typeof date === 'string') {
+      const value = parseFloat(((random() * 7) + 3).toFixed(1)); // Use the seeded RNG and format to one decimal place
+      mockData.push({ date, value });
+    }
+  }
+
+  return mockData.reverse();
+}
 
 const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
   const months = [
@@ -133,13 +152,13 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
         </h1>
         <div className='flex mx-4 gap-3 text-white text-bold'>
         <button
-        className={`px-4 mr-2 border rounded-full border-blue-600 font-semibold ${activeButton === 'tableButton' ? 'bg-blue-300/20 text-blue-600 ' : 'bg-blue-500 px-4 border rounded-full '}`}
+        className={`px-4 mr-2 border rounded-full border-blue-600 font-semibold ${activeButton === 'tableButton' ? 'bg-blue-300/20 text-blue-600' : 'bg-blue-500 px-4 border rounded-full shadow'}`}
         onClick={() => setActiveButton('tableButton')}
       >
         Table
       </button>
       <button
-        className={`px-4 border rounded-full border-blue-600 font-semibold ${activeButton === 'graphButton' ? 'bg-blue-300/20 text-blue-600' : 'bg-blue-500 px-4 border rounded-full '}`}
+        className={`px-4 border rounded-full border-blue-600 font-semibold ${activeButton === 'graphButton' ? 'bg-blue-300/20 text-blue-600' : 'bg-blue-500 px-4 border rounded-full shadow'}`}
         onClick={() => setActiveButton('graphButton')}
       >
         Graph
@@ -231,7 +250,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                 </p>
                   <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
                     <h4 className="text-xl font-semibold text-slate-900 mb-2">Score Graph:</h4>
-                    {/* <Chart1 data={generateMockData(3)} /> */}
+                    <Chart1 data={generateMockData(3)} />
                   </div>
                 </div>
               </>

@@ -50,15 +50,15 @@ const Button = (props: IButtonProps) => {
           }
 
           .btn-primary {
-            @apply text-white bg-primary-500 border-gray-100;
+            @apply text-white bg-blue-500 border-gray-100;
           }
 
           .btn-primary:hover {
-            @apply bg-primary-600;
+            @apply bg-blue-600;
           }
 
           .btn-primary:active {
-            @apply bg-primary-500;
+            @apply bg-blue-500;
           }
 
           .btn-secondary {
