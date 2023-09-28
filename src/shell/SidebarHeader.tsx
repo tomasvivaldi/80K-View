@@ -48,7 +48,7 @@ const SidebarHeader = (props: ISidebarHeaderProps) => {
         bottomLinks={props.bottomLinks}
       />
 
-      <div className="flex flex-1 flex-col overflow-hidden bg-primary-100">
+      <div className="flex flex-1 flex-col overflow-hidden ">
         <header className="flex h-16 items-center justify-between bg-white p-3 sm:px-5 lg:px-6">
           <div className="mr-2 2xl:hidden">
             <ToggleMenuButton onClick={handleToggleMenu} />
