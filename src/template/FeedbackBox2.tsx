@@ -23,7 +23,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   currentIndex,
   border,
 }) => {
-  // const [showNotes, setShowNotes] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
   const [items, setItems] = useState<string[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
@@ -65,12 +65,32 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   return session ? (
     <>
       <div className={`w-full rounded-lg shadow-md text-gray-900 bg-white p-6 flex flex-col border-2 ${border}`}>
-        <div className='mb-4'>
+        <div className='mb-4 flex flex-row justify-between align-baseline'>
           <p className='text-lg font-semibold'>
-            {/* {showNotes ? "Last Month's Notes:" : "Last Month's Action Plan:"} */}
+            {showNotes ? "Notes And Action Plan:" : "AI Advice:"}
           </p>
+          <div className=" text-gray-600">
+          {showNotes ? (
+            <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(false)}>Show AI Advice</button>
+          ) : (
+            <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(true)}>Show Notes And Action Plan</button>
+          )}
         </div>
+        </div>
+        
         <div className='text-base'>
+        {showNotes ? (
+          <div className='flex flex-col gap-4'>
+            <div className='text-base'>
+              <p className=' font-medium'>Notes</p>
+              {(userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}` as CategoryKey]?.[0]?.notes}
+            </div>
+            <div className='text-base'>
+              <p className=' font-medium'>Action Plan</p>
+            {(userData as UserDataById)?.[`${sortedCategoryNames[currentIndex]}` as CategoryKey]?.[0]?.action_plan}
+            </div>
+          </div>
+          ) : (
            <ol className='space-y-4'>
            {items.length > 0 && items.map((item, index) => (index > 0 && userData &&
              <li key={index} className={`flex items-center space-x-2 ${checkedItems[index] ? 'line-through text-gray-500' : ''}`}>
@@ -89,6 +109,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
            ))}
 
            </ol>
+          )}
          </div>
       </div>
       <Modal
