@@ -159,7 +159,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                 quality={1}
                 className="blur-[10px] opacity-40"
               />
-            <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white/40 "></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-white/40 "></div>
             <div className="relative z-10">
               <Section>
                 <Welcome data={rawData}/>
