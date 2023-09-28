@@ -208,31 +208,49 @@ function AnswerSection( { data }: AnswerSectionProps) {
 
 
   const handleNextClick = () => {
-    const currentCategoryFormData: CurrentCategoryFormData =
-      page !== PageNames.length - 2 && CategoryNames[page - 1] !== undefined
-        ? (formData[
-            CategoryNames[page - 1] as keyof MyFormData
-          ] as CurrentCategoryFormData) ?? {}
-        : {};
-
+    // Check which pages have the required fields not filled
+    const getUnfilledPages = (): string[] => {
+      const unfilledCategories: string[] = [];
+  
+      for (let categoryName of CategoryNames) {
+        const categoryData = formData[categoryName as keyof MyFormData] as CurrentCategoryFormData;
+  
+        if (
+          !categoryData.score ||
+          !categoryData.notes ||
+          !categoryData.action_plan
+        ) {
+          unfilledCategories.push(categoryName);
+        }
+      }
+  
+      return unfilledCategories;
+    };
+  
+    // Handling the first page
     if (page === 0) {
       setPage((currPage) => currPage + 1);
-    } else if (page < PageNames.length - 2) {
-      if (
-        !currentCategoryFormData.score ||
-        !currentCategoryFormData.notes ||
-        !currentCategoryFormData.action_plan
-      ) {
-        toast.error(
-          'Please fill in the required fields before moving to the next page'
-        );
-        setHasSubmitted(true); 
-      } else {
+    } 
+    // Handling the last page
+    else if (page === PageNames.length - 3) {
+      const unfilled = getUnfilledPages();
+  
+      if (unfilled.length === 0) {
         setPage((currPage) => currPage + 1);
         setHasSubmitted(false);
+      } else {
+        const categoriesStr = unfilled.join(", ");
+        toast.error(`Please fill in the required fields on the category: ${toCapitalized(categoriesStr)} before moving to the next page`);
+        setHasSubmitted(true);
       }
+    } 
+    // Handling the middle pages
+    else {
+      setPage((currPage) => currPage + 1);
     }
   };
+  
+  
 
   const initialFormData: InitialFormData = CategoryNames.reduce(
     (acc, category) => {
@@ -522,30 +540,46 @@ useEffect(() => {
     }
   };
 
-  const submitAllCategories = async () => {
-    const notification = toast.loading(`Submitting Answers ...`);
-    const formData = allCategoryFormData();
+  const [isLoading, setIsLoading] = useState(false);
 
-    for (const key in formData) {
-      const categoryData = formData[key];
-      if (categoryData) {
-        await onSubmit(categoryData, key);
-      }
+  const submitAllCategories = async () => {
+    if (isLoading) {
+      toast.custom('Still loading. Please wait.');
+      return;
     }
 
-    if (successfulSubmissions.current === CategoryNames.length) {
-      localStorage.removeItem('partialFormData');
-      setIsFormSubmitted(true);  // Set form submission to true here
-      toast.success(`Success!`, { id: notification });    
-    } else {
-      toast.dismiss(notification);
+    setIsLoading(true);
+    if (!isLoading) {
+      const notification = toast.loading(`Submitting Answers ...`);
+      const formData = allCategoryFormData();
+
+      for (const key in formData) {
+        const categoryData = formData[key];
+        if (categoryData) {
+          await onSubmit(categoryData, key);
+        }
+      }
+
+      if (successfulSubmissions.current === CategoryNames.length) {
+        localStorage.removeItem('partialFormData');
+        setIsFormSubmitted(true);  // Set form submission to true here
+        toast.success(`Success!`, { id: notification });    
+      } else {
+        toast.dismiss(notification);
+      }
+
+      setIsLoading(false);
     }
   };
 
+
   function toCapitalized(str: string): string {
-    return str.replace(/(?:^|[-_])([a-z])/g, (group) =>
-      group.toUpperCase().replace('-', ' ').replace('_', ' / ')
-    );
+    return str.replace(/(?:^|[-_])([a-z])/g, (match, letter) => {
+      if (match.startsWith('-') || match.startsWith('_')) {
+        return match[0] === '-' ? ' ' + letter.toUpperCase() : ' / ' + letter.toUpperCase();
+      }
+      return letter.toUpperCase();
+    });
   }
 
   const PageTitleDisplay = () => {
@@ -553,40 +587,33 @@ useEffect(() => {
       return (
         <div className='flex flex-col gap-4'>
           <div className="w-full mx-auto flex max-w-[80%] flex-col rounded-lg bg-white px-8 py-4 md:max-w-[50%]">
-  <div className="rounded-lg bg-blue-800 py-1 px-4 flex flex-row justify-around items-center gap-2">
-    
-    <button
-      className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
-                  hover:bg-opacity-70 active:scale-95 disabled:bg-opacity-30 disabled:cursor-not-allowed`}
-      disabled={page === 0}
-      onClick={() => {
-        setPage((currPage) => currPage - 1);
-      }}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-      </svg>
-    </button>
+          <div className="rounded-lg bg-blue-800 py-1 px-4 flex flex-row justify-around items-center gap-2">
+            
+            <button
+              className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
+                          hover:bg-opacity-70 active:scale-95 disabled:bg-opacity-30 disabled:cursor-not-allowed`}
+              disabled={page === 0}
+              onClick={() => {
+                setPage((currPage) => currPage - 1);
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+              </svg>
+            </button>
 
-    <div className='flex flex-row items-center gap-2'>
-      <h1 className="text-center text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
-        {toCapitalized(PageNames[page] ?? '')}
-      </h1>
-      <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
-    </div>
+            <div className='flex flex-row items-center gap-2'>
+              <h1 className="text-center text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
+                {toCapitalized(PageNames[page] ?? '')}
+              </h1>
+              <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
+            </div>
     
     <button
       className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
                   hover:bg-opacity-70 active:scale-95`}
       onClick={async () => {
-        if (page === PageNames.length - 2) {
-          await submitAllCategories();
-          setTimeout(() => {
-            setPage((currPage) => currPage + 1);
-          }, 1000);
-        } else {
           handleNextClick();
-        }
       }}
     >
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">

@@ -4,6 +4,15 @@ interface FeedbackCategoriesProps {
   currentIndex: number;
 }
 
+function toCapitalized(str: string): string {
+  return str.replace(/(?:^|[-_])([a-z])/g, (match, letter) => {
+    if (match.startsWith('-') || match.startsWith('_')) {
+      return match[0] === '-' ? ' ' + letter.toUpperCase() : ' / ' + letter.toUpperCase();
+    }
+    return letter.toUpperCase();
+  });
+}
+
 function FeedbackCategories({ categories, onCategorySelect, currentIndex }: FeedbackCategoriesProps) {
   return (
     <div className="flex flex-wrap gap-2 mb-4 justify-between">
@@ -13,7 +22,7 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex }: Feed
           className={` shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${index === currentIndex ? 'bg-blue-500 text-white border-gray-100' : 'bg-white text-blue-500 border-blue-500'}`}
           onClick={() => onCategorySelect(index)}
         >
-          {category}
+          {toCapitalized(category)}
         </button>
       ))}
     </div>

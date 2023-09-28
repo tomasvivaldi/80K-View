@@ -8,7 +8,7 @@ interface EndFormProps {
   data?: UserDataById;
   submitAllCategories: () => Promise<void>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  page: number
+  page: number;
 }
 
 
@@ -111,7 +111,8 @@ const EndForm: React.FC<EndFormProps> = ({
         })}
 
         <button
-        className=' w-full mx-auto my-8'
+          className=' w-full mx-auto my-8'
+          
           onClick={async () => {
               await submitAllCategories();
               setTimeout(() => {
