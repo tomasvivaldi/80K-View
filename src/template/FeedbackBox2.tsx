@@ -64,12 +64,13 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   }
   return session ? (
     <>
-      <div className={`w-full rounded-lg shadow-md text-gray-900 bg-white p-6 flex flex-col border-2 ${border}`}>
+      <div className={`w-full rounded-lg shadow-md text-gray-900 bg-white p-6 flex flex-col border-2 ${border}
+      dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200`}>
         <div className='mb-4 flex flex-row justify-between align-baseline'>
           <p className='text-lg font-semibold'>
             {showNotes ? "Notes And Action Plan:" : "AI Advice:"}
           </p>
-          <div className=" text-gray-600">
+          <div className=" text-gray-600 dark:text-slate-400">
           {showNotes ? (
             <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(false)}>Show AI Advice</button>
           ) : (

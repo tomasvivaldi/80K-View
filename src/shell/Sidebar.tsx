@@ -16,6 +16,7 @@ const Sidebar = (props: ISidebarProps) => {
     'left-0',
     'z-50',
     'bg-white',
+    'dark:bg-slate-800',
     'overflow-y-auto',
     'py-8',
     'px-3',

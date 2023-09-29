@@ -3,6 +3,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 // import { useState} from 'react';
 import { type ReactNode } from 'react';
 import { Button } from '@/button/Button';
+import { DarkModeButton } from '@/button/DarkModeButton';
 import { SidebarHeader } from '@/shell/SidebarHeader';
 import { SidebarLink } from '@/shell/SidebarLink';
 // import { DisabledSidebarLink } from '@/shell/DisabledSidebarLink';
@@ -492,10 +493,11 @@ function Shell(props: IShellProps) {
       leftContent={
         <>
           {session ? (
-            <div />
+            // <div />
             // <Link onClick={signOut} href="/">
             //   <Button>Sign Out</Button>
             // </Link>
+            <DarkModeButton/>
           ) : (
             <Link onClick={signIn} href="/">
               <Button>Sign In</Button>

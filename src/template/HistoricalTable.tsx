@@ -145,20 +145,20 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
 
 
   return (
-    <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg">
+    <div className="my-4 flex flex-col rounded-lg bg-white  px-8 py-4 shadow-lg dark:bg-slate-900/40 dark:shadow-slate-200/5">
       <div className=" rounded-lg flex flex-row justify-between items-center">
-        <h1 className="text-lg font-semibold text-black sm:text-2xl md:text-3xl">
+        <h1 className="text-lg font-semibold text-black dark:text-slate-200 sm:text-2xl md:text-3xl">
           Your Yearly Fulfilment
         </h1>
         <div className='flex mx-4 gap-3 text-white text-bold'>
         <button
-        className={`px-4 mr-2 border rounded-full border-blue-600 font-semibold ${activeButton === 'tableButton' ? 'bg-blue-300/20 text-blue-600' : 'bg-blue-500 px-4 border rounded-full shadow'}`}
+        className={`px-4 mr-2 border rounded-full border-blue-600 font-semibold ${activeButton === 'tableButton' ? 'bg-blue-300/20 text-blue-600 dark:bg-slate-800 dark:text-blue-400' : 'bg-blue-500 px-4 border rounded-full shadow'}`}
         onClick={() => setActiveButton('tableButton')}
       >
         Table
       </button>
       <button
-        className={`px-4 border rounded-full border-blue-600 font-semibold ${activeButton === 'graphButton' ? 'bg-blue-300/20 text-blue-600' : 'bg-blue-500 px-4 border rounded-full shadow'}`}
+        className={`px-4 border rounded-full border-blue-600 font-semibold ${activeButton === 'graphButton' ? 'bg-blue-300/20 text-blue-600 dark:bg-slate-800 dark:text-blue-400' : 'bg-blue-500 px-4 border rounded-full shadow'}`}
         onClick={() => setActiveButton('graphButton')}
       >
         Graph
@@ -169,7 +169,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
       
       {activeButton === 'tableButton' && (
         <div id="tableSection">
-          <div className="hidden text-black md:block">
+          <div className="hidden text-black dark:text-slate-200 md:block">
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
@@ -209,7 +209,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                                 value !== undefined ? 
                                 `${value.toFixed(1)}` : 
                                 isFuture(parseInt(year), monthIndex) ? 
-                                  <div className=' shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50'>
+                                  <div className=' shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50 dark:from-slate-50 dark:to-slate-200'>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" className="w-6 h-6">
                                       <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                                     </svg>

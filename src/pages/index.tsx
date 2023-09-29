@@ -152,14 +152,24 @@ function generateMockData(entries: number): HistoricalDataItem[] {
         {session ? (
           <div className='relative z-0 h-fit'>
             <div className="absolute inset-0 -z-10 h-fit ">
+            {userDataByIdData?.userDataById && (
+            <>
+              <Image
+                src="/backgrounds/9.jpg"
+                alt='bg image'
+                fill
+                quality={1}
+                className="blur-[10px] opacity-40 hidden dark:block"
+              />
               <Image
                 src="/backgrounds/7.jpg"
                 alt='bg image'
                 fill
                 quality={1}
-                className="blur-[10px] opacity-40"
+                className="blur-[10px] opacity-100 dark:hidden"
               />
-            <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-white/40 "></div>
+            </>  )}
+            <div className="absolute inset-0 bg-gradient-to-b dark:from-black from-white via-white/40 to-white/40 "></div>
             <div className="relative z-10">
               <Section>
                 <Welcome data={rawData}/>

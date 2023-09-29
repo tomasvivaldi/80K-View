@@ -9,7 +9,7 @@ type WelcomeProps = {
 function Welcome( { data }: WelcomeProps) {
   const { data: session } = useSession();
   return (
-    <div className="font-semibold text-slate-800 text-xl sm:text-2xl md:text-3xl ">
+    <div className="font-semibold text-slate-800 dark:text-slate-200 text-xl sm:text-2xl md:text-3xl ">
       <p>
         Welcome back, {session?.user?.name || data?.username}.
       </p>

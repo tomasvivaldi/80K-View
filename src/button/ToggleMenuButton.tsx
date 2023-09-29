@@ -4,7 +4,7 @@ type IToggleMenuButton = {
 
 const ToggleMenuButton = (props: IToggleMenuButton) => (
   <button
-    className="rounded-md p-2 text-gray-900 hover:bg-white"
+    className="rounded-md p-2 text-gray-900 dark:text-slate-200 dark:hover:bg-slate-900 hover:bg-white"
     onClick={props.onClick}
     type="button"
   >

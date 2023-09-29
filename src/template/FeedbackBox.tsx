@@ -24,7 +24,8 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   return session ? (
     <div className={` rounded-lg shadow-lg text-black md:min-w-[350px] border-2 
      bg-white relative justify-center
-     text-xs sm:text-base  p-2 md:py-4 flex flex-col items-left ${border}`}>
+     text-xs sm:text-base  p-2 md:py-4 flex flex-col items-left ${border}
+     dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200`}>
     
     <div className='text-lg font-semibold ml-2 '>Most Recent Score&nbsp;<span className=' font-normal text-gray-600'>&nbsp;</span></div>
       <div className='flex h-fit my-2 flex-row text-2xl items-center justify-center'>
