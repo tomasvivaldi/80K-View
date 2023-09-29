@@ -14,7 +14,8 @@ const FeedbackBox = () => {
   const [checkedItems] = useState([true, true, false, false, false]);
 
   return (
-    <div className={`w-full rounded-lg shadow-md text-gray-700 bg-white p-6 flex flex-col border-2 ${border}`}>
+    <div className={`w-full rounded-lg shadow-md text-gray-700 bg-white p-6 flex flex-col border-2 ${border}
+    dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200`}>
       <div className='mb-4'>
         <p className='text-lg font-semibold'>
           Improvement suggestion for this month

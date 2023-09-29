@@ -11,7 +11,8 @@ const FeedbackBox: React.FC = () => {
   return (
     <div className={`rounded-lg shadow-lg text-black md:min-w-[350px] border-2 
       bg-white relative justify-center
-      text-xs sm:text-base  p-2 md:py-4 flex flex-col items-left ${mockBorder}`}>
+      text-xs sm:text-base  p-2 md:py-4 flex flex-col items-left ${mockBorder}
+      dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200`}>
     
       <div className='text-lg font-semibold ml-2 '>Most Recent Score&nbsp;<span className='font-normal text-gray-600'>&nbsp;(Lowest First)</span></div>
       <div className='flex h-fit my-2 flex-row text-2xl items-center justify-center'>
@@ -22,20 +23,6 @@ const FeedbackBox: React.FC = () => {
           <p className='font-semibold '> Category: </p>
           <p className='text-2xl'> {mockCategory} </p>
         </div>
-        <div className='flex flex-col'>
-          <button
-            className=" text-gray-400"
-            disabled
-          > 
-            &uarr;
-          </button>
-          <button
-            className=" text-black"
-            disabled
-          > 
-            &darr;
-          </button>
-        </div> 
       </div>
     
     </div>

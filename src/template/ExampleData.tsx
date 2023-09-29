@@ -26,9 +26,7 @@ const MockData: React.FC = () => {
     <>
       <div className='mx-4 px-4 pb-4 bg-blue-200/20 border-2 rounded-lg border-blue-500'>
         <HistoricalTable data={mockData} />
-        <MockFeedback />
-        <div className='mt-4' />
-        <Chart1 data={mockData.reverse()} />
+        <MockFeedback />        
         <div className='mt-4' />
         <MockStats />
       </div>
