@@ -192,7 +192,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                     
                     
                     {loading || userDataLoading ? (
-                      <div className=' flex flex-row gap-8'>
+                      <div className=' flex flex-row gap-8 min-h-screen'>
                         <LoadingBox spinnerClassName='mx-24' containerClassName='mx-auto' />
                         {/* <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' /> */}
                       </div>
