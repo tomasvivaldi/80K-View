@@ -1,6 +1,5 @@
 import seedrandom from 'seedrandom';
 import HistoricalTable from './HistoricalTable';
-import { Chart1 } from './Chart1';
 import { MockStats } from './MockStats';
 import MockFeedback from './MockFeedback';
 
