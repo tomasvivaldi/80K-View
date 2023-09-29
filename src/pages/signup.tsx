@@ -123,7 +123,7 @@ const SignUp = () => {
   };
   
   return (
-    <div className="relative text-gray-900 antialiased">
+    <div className="relative text-gray-900 dark:text-slate-200 antialiased">
       {userDataLoading && <LoadingBoxTransparent spinnerClassName='mx-24' />}
       <Meta title={AppConfig.title} description={AppConfig.description} />
       <SignUpForm handleSignUp={handleSignUp} errorMessage={errorMessage}/>

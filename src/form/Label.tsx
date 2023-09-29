@@ -16,7 +16,7 @@ type ILabelProps = {
  * @param props.colSpanSize - Tailwind CSS class to control how elements are sized in grid.
  */
 const Label = (props: ILabelProps) => {
-  const labelClass = classNames('text-gray-700', 'mt-2', props.colSpanSize);
+  const labelClass = classNames(' font-semibold text-gray-700 dark:text-slate-200', 'mt-2', props.colSpanSize);
 
   return (
     <label htmlFor={props.htmlFor} className={labelClass}>

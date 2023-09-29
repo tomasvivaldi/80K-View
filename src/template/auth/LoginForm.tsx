@@ -28,12 +28,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, lo
       >
         <Label htmlFor="email">Email</Label>
         <FormElement>
-          <input id="email" type="text" required className={loginFailed ? ' ring-red-500 ring-2' : ''} />
+          <input id="email" type="text" required className={`dark:bg-slate-800 ${loginFailed ? ' ring-red-500 ring-2' : ''}`} />
         </FormElement>
 
         <Label htmlFor="password">Password</Label>
         <FormElement>
-          <input id="password" type="password" required className={loginFailed ? ' ring-red-500 ring-2' : ''} />
+          <input id="password" type="password" required className={`dark:bg-slate-800 ${loginFailed ? ' ring-red-500 ring-2' : ''}`} />
         </FormElement>
 
         {loginFailed && <p className="text-red-500">Invalid email or password</p>}
@@ -46,7 +46,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, lo
       </div>
     </form>
     <div className='flex flex-row justify-center items-center gap-2'>
-      <div className='w-full h-[1px] bg-black mt-1'/><p>or</p><div className='w-full h-[1px] bg-black mt-1'/>
+      <div className='w-full h-[1px] bg-black dark:bg-slate-200 mt-1'/><p>or</p><div className='w-full h-[1px] bg-black dark:bg-slate-200 mt-1'/>
     </div>
     <div className="mt-5 space-y-4">
       <button className="w-full" type="button" onClick={() => handleLogin('google')}>  
