@@ -499,9 +499,12 @@ function Shell(props: IShellProps) {
             // </Link>
             <DarkModeButton/>
           ) : (
-            <Link onClick={signIn} href="/">
-              <Button>Sign In</Button>
-            </Link>
+            <div className='flex flex-row gap-4 items-center'>
+              <DarkModeButton/>
+              <Link onClick={signIn} href="/">
+                <Button>Sign In</Button>
+              </Link>
+            </div>
           )}
         </>
       }
