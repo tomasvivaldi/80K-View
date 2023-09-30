@@ -239,14 +239,17 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
   
 
   return (
-    <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg">
+    <div className="my-4 flex flex-col rounded-lg bg-white px-8 py-4 shadow-lg
+    dark:bg-slate-900/60 dark:shadow-slate-200/5 ">
       <div className=" rounded-lg ">
-        <h1 className="text-lg font-semibold text-black sm:text-2xl md:text-3xl">
+        <h1 className="text-lg font-semibold text-black sm:text-2xl md:text-3xl
+        dark:text-slate-100">
           Your Year's 80k View
         </h1>
       </div>
       {/* Table for large screens */}
-      <div className="hidden text-black md:block">
+      <div className="hidden text-black md:block
+      dark:text-slate-200">
         <div className="overflow-x-auto">
           <table className="w-full table-auto">
             <thead>
@@ -304,7 +307,7 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
                 }}>
                 {value !== undefined ? 
                   `${value.toFixed(1)}` : 
-                  <div className='shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50'>
+                  <div className='shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50 dark:from-slate-100 dark:to-slate-300'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                     </svg>
@@ -317,8 +320,10 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
       </tr>
     ))}
     {isModalOpen && selectedItem && (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-80 flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg w-[80%] mx-auto px-8">
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-80 flex items-center justify-center
+    dark:bg-black/80">
+      <div className="bg-white p-6 rounded-lg w-[80%] lg:max-w-[80%] mx-auto px-8
+      dark:bg-slate-800">
         <div className='flex flex-row pb-4 items-center gap-4 text-3xl'>
           <h3 className='font-semibold'>{formatCategory((selectedItem as selectedItem)?.categoryName)}</h3>
           <p> - </p>

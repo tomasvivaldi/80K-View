@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'react-hot-toast';
 
 import client from '../../apollo-client';
+import { ThemeProvider } from 'next-themes';
 
 const MyApp = ({
   Component,
@@ -14,7 +15,9 @@ const MyApp = ({
   <ApolloProvider client={client}>
     <SessionProvider session={session}>
       <Toaster />
-      <Component {...pageProps} />
+      <ThemeProvider attribute="class">
+        <Component {...pageProps} />
+      </ThemeProvider>
     </SessionProvider>
   </ApolloProvider>
 );

@@ -19,7 +19,7 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex }: Feed
       {categories.map((category, index) => (
         <button
           key={category}
-          className={` shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${index === currentIndex ? 'bg-blue-500 text-white border-gray-100' : 'bg-white text-blue-500 border-blue-500'}`}
+          className={` shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${index === currentIndex ? 'bg-blue-500 text-white border-gray-100 dark:bg-slate-800 dark:text-blue-400 dark:border-blue-600' : 'bg-white dark:bg-blue-600 dark:text-white text-blue-500 border-blue-600'}`}
           onClick={() => onCategorySelect(index)}
         >
           {toCapitalized(category)}

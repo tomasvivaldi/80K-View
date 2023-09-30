@@ -15,7 +15,7 @@ const Logo = (props: ILogoProps) => {
 
   return (
     <div
-      className={`${textColor} flex items-center justify-center ${fontStyle}`}
+      className={`${textColor} flex items-center justify-center ${fontStyle} dark:text-slate-200`}
     >
       <Image
         className="mr-1"

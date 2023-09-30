@@ -14,14 +14,15 @@ type IFullCenterSectionProps = {
  * @component
  */
 const FullCenterSection = (props: IFullCenterSectionProps) => (
-  <div className="flex min-h-screen items-center justify-center bg-primary-100">
+  <div className="flex min-h-screen items-center justify-center bg-primary-100 dark:bg-gray-900">
     <div className="w-full max-w-md text-center">
-      <Logo xl />
+      
 
-      <div className="mt-5 rounded-md bg-white py-7 px-6">
-        {props.icon && <div className="mb-1">{props.icon}</div>}
+      <div className="mt-5 rounded-md bg-white dark:border-2 dark:border-blue-200/20 dark:bg-slate-900/80 dark:shadow-slate-200/5 py-7 px-6">
+        <Logo xl/>
+        {props.icon && <div className="my-1">{props.icon}</div>}
 
-        <h1 className="text-xl font-semibold">{props.title}</h1>
+        <h1 className="text-xl font-semibold mt-4">{props.title}</h1>
 
         <div className="mt-1">
           {props.description && (

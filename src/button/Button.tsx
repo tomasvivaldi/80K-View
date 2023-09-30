@@ -50,7 +50,7 @@ const Button = (props: IButtonProps) => {
           }
 
           .btn-primary {
-            @apply text-white bg-blue-500 border-gray-100;
+            @apply text-white bg-blue-500 border-blue-500 dark:border-blue-600;
           }
 
           .btn-primary:hover {
@@ -62,7 +62,7 @@ const Button = (props: IButtonProps) => {
           }
 
           .btn-secondary {
-            @apply bg-white text-primary-500 border-gray-200;
+            @apply bg-white text-primary-500 border-gray-200 dark:border-blue-600;
           }
 
           .btn-secondary:hover {
@@ -70,7 +70,7 @@ const Button = (props: IButtonProps) => {
           }
 
           .btn-secondary:active {
-            @apply border-gray-200;
+            @apply border-gray-200 dark:border-blue-600;
           }
           .btn-disabled {
             @apply bg-gray-300 text-gray-500 cursor-not-allowed;

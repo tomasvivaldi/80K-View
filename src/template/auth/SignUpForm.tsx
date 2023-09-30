@@ -60,6 +60,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp, errorMessage })=>
         id="username" 
         type="text" 
         required
+        className='dark:bg-slate-800'
         />
       </FormElement>
       <Label htmlFor="email">Email</Label>
@@ -68,7 +69,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp, errorMessage })=>
         id="email" 
         type="email" 
         required 
-        className={errorMessage ? ' ring-red-500 ring-2' : ''}
+        className={`dark:bg-slate-800 ${errorMessage ? ' ring-red-500 ring-2' : ''}`}
         />
       </FormElement>
       {errorMessage && <p className="text-red-500">Email already in use</p>}
@@ -79,7 +80,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp, errorMessage })=>
           id="password" 
           type="password" 
           required 
-          className={passwordFailed ? ' ring-red-500 ring-2' : ''}
+          className={`dark:bg-slate-800 ${passwordFailed ? ' ring-red-500 ring-2' : ''}`}
           onChange={handlePasswordChange}
         />
       </FormElement>

@@ -153,14 +153,24 @@ function generateMockData(entries: number): HistoricalDataItem[] {
           <div className='relative z-0 h-fit'>
             <div className="absolute inset-0 -z-10 h-fit ">
             {userDataByIdData?.userDataById && (
+            <>
+              <Image
+                src="/backgrounds/9.jpg"
+                alt='bg image'
+                fill
+                quality={1}
+                className="blur-[10px] opacity-40 hidden dark:block"
+              />
               <Image
                 src="/backgrounds/7.jpg"
                 alt='bg image'
                 fill
                 quality={1}
-                className="blur-[10px] opacity-40"
-              />)}
-            <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-white/40 "></div>
+
+                className="blur-[10px] opacity-100 dark:hidden"
+              />
+            </>  )}
+            <div className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-white/40 dark:from-black dark:via-black/40 dark:to-black/70 "></div>
             <div className="relative z-10">
               <Section>
                 <Welcome data={rawData}/>
@@ -183,7 +193,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                     
                     
                     {loading || userDataLoading ? (
-                      <div className=' flex flex-row gap-8'>
+                      <div className=' flex flex-row gap-8 min-h-screen'>
                         <LoadingBox spinnerClassName='mx-24' containerClassName='mx-auto' />
                         {/* <LoadingBox spinnerClassName='mx-64 hidden md:block' containerClassName='hidden md:block' /> */}
                       </div>

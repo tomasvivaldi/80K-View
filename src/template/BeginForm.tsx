@@ -7,14 +7,16 @@ interface BeginFormProps {
 
 const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick }) => {
   return (
-    <div className="flex flex-col gap-4 rounded-md border-gray-200 bg-white px-4 py-12 w-[80%] mx-auto shadow-xl">
-      <div className="my-2 w-full text-center text-lg font-semibold text-gray-800 sm:text-2xl">
+    <div className="flex flex-col gap-4 rounded-md border-gray-200 bg-white px-4 py-12 w-[80%] mx-auto shadow-xl
+    dark:bg-slate-900/40 dark:shadow-slate-200/5 mt-[10vh]">
+      <div className="my-2 w-full text-center text-lg font-semibold text-gray-800 sm:text-2xl
+      dark:text-slate-200">
         Update Tracker
       </div>
       <div className="space-y-4 px-4 text-xs sm:px-12 sm:text-base text-center md:max-w-[85%] mx-auto">
         <p className=''>
           Each category has 3 fields each,{' '}
-          <span className="font-semibold text-gray-900">
+          <span className="font-semibold text-gray-900 dark:text-slate-100">
             score, notes, and action plan.
           </span>{' '}
           Please make sure to fill out all fields before submitting the form.           

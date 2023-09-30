@@ -7,8 +7,8 @@ type IChartCardProps = {
 };
 
 const ChartCard = (props: IChartCardProps) => (
-  <div className="rounded-lg border-2 border-gray-200 bg-white pt-6 pb-8 ">
-    <div className="mb-8 pl-5 text-center text-lg font-semibold text-gray-800 sm:text-xl">
+  <div className="rounded-lg border-2 border-gray-200 bg-white pt-6 pb-8 text-gray-800 dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200 dark:border-blue-500">
+    <div className="mb-8 pl-5 text-center text-lg font-semibold sm:text-xl">
       {props.title}
     </div>
 

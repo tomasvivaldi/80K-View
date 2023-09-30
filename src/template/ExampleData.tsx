@@ -1,6 +1,5 @@
 import seedrandom from 'seedrandom';
 import HistoricalTable from './HistoricalTable';
-import { Chart1 } from './Chart1';
 import { MockStats } from './MockStats';
 import MockFeedback from './MockFeedback';
 
@@ -26,9 +25,7 @@ const MockData: React.FC = () => {
     <>
       <div className='mx-4 px-4 pb-4 bg-blue-200/20 border-2 rounded-lg border-blue-500'>
         <HistoricalTable data={mockData} />
-        <MockFeedback />
-        <div className='mt-4' />
-        <Chart1 data={mockData.reverse()} />
+        <MockFeedback />        
         <div className='mt-4' />
         <MockStats />
       </div>
