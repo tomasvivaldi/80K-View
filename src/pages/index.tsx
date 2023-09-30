@@ -166,6 +166,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                 alt='bg image'
                 fill
                 quality={1}
+
                 className="blur-[10px] opacity-100 dark:hidden"
               />
             </>  )}
