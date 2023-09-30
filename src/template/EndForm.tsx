@@ -36,9 +36,10 @@ const EndForm: React.FC<EndFormProps> = ({
   }
 
   return (
-    <div className="w-full rounded-md border-gray-200 bg-white p-4">
+    <div className="w-full rounded-md border-gray-200 bg-white p-4
+    dark:bg-slate-900/40 dark:shadow-slate-200/5">
 <button
-  className={`flex items-center text-gray-700 
+  className={`flex items-center text-gray-700 dark:text-slate-400 
              transition-transform duration-150 ease-in-out 
              hover:text-gray-900 active:scale-95 
              disabled:text-gray-400 disabled:cursor-not-allowed text-lg`}
@@ -53,7 +54,7 @@ const EndForm: React.FC<EndFormProps> = ({
   Back
 </button>
 
-      <div className="w-full text-center text-2xl font-semibold text-gray-800">
+      <div className="w-full text-center text-2xl font-semibold text-gray-800 dark:text-slate-200">
         10K View
       </div>
       <div className=" flex-col items-center justify-center">

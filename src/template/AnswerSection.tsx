@@ -637,7 +637,10 @@ useEffect(() => {
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <BeginForm handleNextClick={handleNextClick} />;
+      return (
+        <div className="">
+        <BeginForm handleNextClick={handleNextClick} />
+      </div>);
     }    
     if (page > 0 && page < 11) {
       return (
