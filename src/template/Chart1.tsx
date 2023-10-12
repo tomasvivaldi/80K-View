@@ -45,7 +45,84 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
     };
   };
 
-  const convertedData = data && data.length > 0 ? data.map(convertData).reverse() : [];
+  // const convertedData = data && data.length > 0 ? data.map(convertData).reverse() : [];
+
+
+  // 1. Determine the starting year of your data
+  
+  const firstDate = data?.[0]?.date || ''; 
+  const startDate = new Date(firstDate);
+  const startYear = startDate.getFullYear();
+console.log('***data',data)
+console.log('***firstDate',firstDate)
+console.log('***startYear',startYear)
+
+
+  // 2. Create an array of dates that span 5 years from that start date
+  const fiveYearsData = [];
+  for (let year = startYear; year < startYear + 5; year++) {
+    for (let month = 0; month < 12; month++) {
+      const date = new Date(year, month, 1); // 1st day of the month
+      fiveYearsData.push({
+        date: convertData({ date: date.toString(), value: 0 }).date,
+        value: null, // null will ensure this data point won't be shown on the graph
+      });
+    }
+  }
+  console.log('***fiveYearsData',fiveYearsData)
+
+
+  // 3. Merge your existing data with the new array of dates
+  const mergeData = (data: Array<{ date: string; value: number }>): Array<{ date: string; value: number }> => {
+    const aggregatedData: Record<string, { sum: number; count: number }> = {};
+
+    data.forEach((item) => {
+      const date = new Date(item.date);
+      const monthYearKey = `${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+
+      const currentData = aggregatedData[monthYearKey];
+      if (!currentData) {
+          aggregatedData[monthYearKey] = { sum: item.value, count: 1 };
+      } else {
+          currentData.sum += item.value;
+          currentData.count += 1;
+      }
+  });
+
+    // Convert aggregated data to the desired format
+    const mergedData = Object.keys(aggregatedData).map((key) => {
+      const currentItem = aggregatedData[key];
+      return {
+          date: key,
+          value: currentItem ? currentItem.sum / currentItem.count : 0, // Assign a default value of 0 if necessary
+      };
+  });
+
+  return mergedData;
+}
+
+const merged = mergeData(data);
+console.log("****merged",merged);
+
+
+const overlayData = (
+  baseData: Array<{ date: string; value: number | null }>,
+  actualData: Array<{ date: string; value: number }>
+) => {
+  return baseData.map(baseItem => {
+    const actualItem = actualData.find(item => item.date === baseItem.date);
+    return {
+      date: baseItem.date,
+      value: (actualItem ? actualItem.value : 0) as number // use type assertion here
+    };
+  });
+}
+
+// Since overlayData now always returns values as number, you can use the below type.
+const finalData: Array<{ date: string; value: number }> = overlayData(fiveYearsData, mergeData(data));
+
+
+
 
   const CustomTick = (props: any) => {
     const { x, y, payload } = props;
@@ -58,12 +135,13 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
     );
   };
   
+
   
 
   return (
     <ChartCard title="Overall Score:">
       <AreaChart
-        data={convertedData}
+        data={finalData}
         margin={{
           top: 20,
           right: 35,
