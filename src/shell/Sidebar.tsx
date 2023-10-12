@@ -23,7 +23,7 @@ const Sidebar = (props: ISidebarProps) => {
     'flex',
     'flex-col',
     'fixed',
-    '2xl:static',
+
     'transition',
     'duration-300',
     'ease-in-out',
@@ -32,7 +32,7 @@ const Sidebar = (props: ISidebarProps) => {
       'translate-x-0': props.show,
       '-translate-x-full': !props.show,
     },
-    '2xl:translate-x-0'
+    
   );
 
   return (

@@ -29,7 +29,7 @@ const SidebarHeader = (props: ISidebarHeaderProps) => {
     {
       hidden: !showMenu,
     },
-    '2xl:hidden'
+
   );
 
   return (
@@ -50,7 +50,7 @@ const SidebarHeader = (props: ISidebarHeaderProps) => {
 
       <div className="flex flex-1 flex-col overflow-hidden ">
         <header className="flex h-16 items-center justify-between bg-white dark:bg-slate-800 p-3 sm:px-5 lg:px-6">
-          <div className="mr-2 2xl:hidden">
+          <div className="mr-2">
             <ToggleMenuButton onClick={handleToggleMenu} />
           </div>
 
