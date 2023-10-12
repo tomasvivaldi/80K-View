@@ -215,7 +215,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                                     </svg>
                                   </div>
                                 : isCurrentMonth(parseInt(year), monthIndex) ? 
-                                <p className='text-black rounded-full px-2 py-1 font-semibold text-lg border-2 border-cyan-500 animate-bounce'><a href='/forms' className='p-2'>Update</a></p>
+                                <p className='text-black dark:text-white rounded-full px-2 py-1 font-semibold text-lg border-2 border-cyan-500 animate-bounce'><a href='/forms' className='p-2'>Update</a></p>
                                 : ''
                               }
                               </div>
