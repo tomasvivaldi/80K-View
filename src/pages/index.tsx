@@ -263,11 +263,11 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                     {/* <Charts /> */}
                   </div>
                 </Section>
-                <Section>
+                {/* <Section>
                 {rawData && rawData.career_work.length >= 2 && (
                   <Stats data={rawData}/>
                   )}
-                </Section>
+                </Section> */}
                 <Section>
                   <Copyright company={'80K View'} />
                 </Section>
