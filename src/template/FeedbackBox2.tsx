@@ -1,6 +1,6 @@
 import { Session } from 'next-auth';
-import React, { useEffect, useState } from 'react';
- import Modal from 'react-modal';
+import React, { useState } from 'react';
+//  import Modal from 'react-modal';
 
 interface FeedbackBoxProps {
   userData?: UserDataById;
@@ -24,9 +24,9 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   border,
 }) => {
   const [showNotes, setShowNotes] = useState(false);
-  const [items, setItems] = useState<string[]>([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState<number | null>(null);
+  // const [items, setItems] = useState<string[]>([]);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   // const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
 
   // useEffect(() => {
@@ -51,17 +51,17 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   //   setCheckedItems(updatedCheckedItems);
   // };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setItemToDelete(null);
-  };
+  // const closeModal = () => {
+  //   setModalIsOpen(false);
+  //   setItemToDelete(null);
+  // };
 
-  const handleDelete = () => {
-    if(itemToDelete !== null){
-      setItems(items => items.filter((_item, i) => i !== itemToDelete));
-    }
-    closeModal();
-  }
+  // const handleDelete = () => {
+  //   if(itemToDelete !== null){
+  //     setItems(items => items.filter((_item, i) => i !== itemToDelete));
+  //   }
+  //   closeModal();
+  // }
   return session ? (
     <>
       <div className={`w-full rounded-lg shadow-md text-gray-900 bg-white p-6 flex flex-col border-2 ${border}
@@ -117,7 +117,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
           )}
          </div>
       </div>
-      <Modal
+      {/* <Modal
          isOpen={modalIsOpen}
          onRequestClose={closeModal}
          className="p-4 border-0 mx-auto my-20 bg-white rounded-lg outline-none max-w-sm"
@@ -133,7 +133,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
              Cancel
            </button>
          </div>
-       </Modal>
+       </Modal> */}
     </>
   ) : (
     <div className=""></div>

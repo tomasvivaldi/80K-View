@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { queries } from 'graphql/queries';
 import LoadingBox from '@/template/LoadingBox';
-import { Stats } from '@/template/Stats';
+
 import Copyright from '@/template/Copyright';
 import Feedback from '@/template/Feedback';
 import FillFormBanner from '@/template/FillFormBanner';

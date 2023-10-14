@@ -11,7 +11,7 @@ import {
   ADD_OVERALL_SCORE,
   ADD_PARTNER_LOVE_INFO,
   ADD_SPIRITUALITY_INFO,
-  ADD_ADVICE,
+  // ADD_ADVICE,
 } from 'graphql/mutations';
 import { useSession } from 'next-auth/react';
 import React, { Suspense, useEffect, useRef, useState } from 'react';
