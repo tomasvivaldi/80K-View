@@ -72,9 +72,9 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
           </p>
           <div className=" text-gray-600 dark:text-slate-400">
           {showNotes ? (
-            <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(false)}>Show AI Advice</button>
+            <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(false)}>Show Action Plan</button>
           ) : (
-            <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(true)}>Show Notes And Action Plan</button>
+            <button className='hover:underline underline-offset-1 decoration-gray-600 decoration-2' onClick={() => setShowNotes(true)}>Show Notes</button>
           )}
         </div>
         </div>
