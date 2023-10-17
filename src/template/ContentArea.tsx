@@ -1,0 +1,131 @@
+import React, { Suspense, useState } from 'react';
+import Tooltip from './Tooltip';
+import { CategoryChart } from './CategoryChart';
+import FeedbackCategories from './FeedbackCategories';
+import { Form2Fill } from './Form2Fill';
+import { PrepopulatedForm } from './PrepopulatedForm';
+
+interface ContentAreaProps {
+    isOpen: boolean;
+    page: number;
+    setPage: (value: ((prevState: number) => number) | number) => void;
+    handleNextClick: () => void;
+    PageNames: string[];
+    tooltipText: string[];
+    CategoryNames: string[];
+    handleCategorySelect: (index: number) => void;
+    register: any;
+    errors: any;
+    session: any;
+    formData: any;
+    setFormDataForCategory: (category: string, data: any) => void;
+    hasSubmitted: boolean;
+    setHasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+    data: any;
+}
+
+const ContentArea: React.FC<ContentAreaProps> = ({
+    isOpen,
+    page,
+    handleNextClick,
+    PageNames,
+    tooltipText,
+    CategoryNames,
+    handleCategorySelect,
+    register,
+    errors,
+    session,
+    formData,
+    setFormDataForCategory,
+    hasSubmitted,
+    setHasSubmitted,
+    data
+}) => {
+  function toCapitalized(str: string): string {
+    return str.replace(/(?:^|[-_])([a-z])/g, (match, letter) => {
+      if (match.startsWith('-') || match.startsWith('_')) {
+        return match[0] === '-' ? ' ' + letter.toUpperCase() : ' / ' + letter.toUpperCase();
+      }
+      return letter.toUpperCase();
+    });
+  }
+
+    const [showNotes, setShowNotes] = useState(false);
+    return (
+       
+      <div className={`mx-2 lg:mx-4 flex flex-col gap-4 transition-width duration-1000 ease-in-out ${isOpen ? 'w-[73vw]' : 'w-[90vw]'} overflow-hidden`}>
+          <div className="flex flex-col gap-4 relative">
+          <div className="w-full flex max-w-[80%] flex-col rounded-lg md:w-fit">
+            <div className='flex flex-row text-slate-800 dark:text-slate-200 '>
+
+              <div className='flex flex-row items-center gap-2 mr-2 my-3'>
+                <h1 className=" w-fit whitespace-nowrap text-center text-xl font-semibold text-slate-800 dark:text-slate-100 sm:text-3xl md:text-4xl">
+                  {toCapitalized(PageNames[page] ?? '')}
+                </h1>
+                <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
+              </div>
+              <button
+                className={`  flex items-center justify-center rounded-lg bg-opacity-50 transition-transform duration-150 ease-in-out 
+                 px-2
+                            hover:bg-opacity-70 `}
+                onClick={async () => {
+                    handleNextClick();
+                }}
+              >
+                <span className="absolute right-0 top-6 active:scale-95 dark:text-slate-100 font-semibold text-slate-900 rounded-lg bg-slate-100 dark:bg-slate-700 py-1 px-2
+                dark:hover:bg-slate-800 hover:bg-slate-200">Review</span>
+              </button>
+              
+            </div>
+            <p className='text-sm'>Each category has 3 fields each, score, notes, and action plan. Please make sure to fill out all fields before submitting the form.</p>
+          </div>
+
+          <FeedbackCategories 
+            categories={CategoryNames} 
+            onCategorySelect={handleCategorySelect} 
+            currentIndex={page - 1}
+          />
+          </div>
+            <div className="flex w-full flex-col gap-4 ">
+            {!showNotes ? 
+              <Form2Fill
+                category={CategoryNames[page - 1] as CategoryKey}
+                register={register}
+                errors={errors}
+                session={session}
+                formData={formData[CategoryNames[page - 1] as string] ?? {}}
+                setFormDataForCategory={setFormDataForCategory}
+                hasSubmitted={hasSubmitted}
+                setHasSubmitted={setHasSubmitted}
+                showNotes={showNotes}
+                setShowNotes={setShowNotes}
+              /> 
+            : 
+            <>
+              <Suspense fallback={<p>Loading feed...</p>}>
+              {data && 
+              // @ts-ignore
+              data[CategoryNames[page - 1]]?.[0] &&(
+                <PrepopulatedForm 
+                // @ts-ignore
+                  data={data[CategoryNames[page - 1]]?.[0]}
+                  showNotes={showNotes}
+                  setShowNotes={setShowNotes}
+                />
+              )}
+              </Suspense>
+            </>
+            }
+            </div>
+            {data &&
+            // @ts-ignore
+            data[CategoryNames[page - 1]]?.length >= 2 && (
+                <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
+            )}
+          </div>
+        
+      );
+    }
+
+
+export default ContentArea;

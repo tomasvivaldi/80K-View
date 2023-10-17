@@ -31,7 +31,7 @@ const FormElement = (props: IFormElementProps) => {
           .input :global(input),
           .input :global(select),
           .input :global(textarea) {
-            @apply w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50;
+            @apply w-full rounded-md ;
           }
         `}
       </style>

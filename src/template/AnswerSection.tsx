@@ -18,15 +18,17 @@ import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import BeginForm from './BeginForm';
-import { CategoryChart } from './CategoryChart';
+
 import DataSent from './DataSent';
 import EndForm from './EndForm';
-import { Form2Fill } from './Form2Fill';
-import { PrepopulatedForm } from './PrepopulatedForm';
+
+
 import { PleaseLogIn } from './PleaseLogIn';
-import Tooltip from './Tooltip';
+
 import { PleaseSubscribe } from './PleaseSubscribe';
-import FeedbackCategories from './FeedbackCategories';
+
+import CategoryList from './CategoryList';
+import ContentArea from './ContentArea';
 // import openai from 'openai';
 // import { isAfter, isSameMonth, parseISO, startOfMonth } from 'date-fns';
 
@@ -130,7 +132,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
   //     }
   //   }
   // }, [data]);
-
+console.log("***DAATAA",data)
   const [page, setPage] = useState(0);
   const PageNames = [
     'First Page',
@@ -233,7 +235,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
       setPage((currPage) => currPage + 1);
     } 
     // Handling the last page
-    else if (page === PageNames.length - 3) {
+    else  {
       const unfilled = getUnfilledPages();
   
       if (unfilled.length === 0) {
@@ -245,10 +247,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
         setHasSubmitted(true);
       }
     } 
-    // Handling the middle pages
-    else {
-      setPage((currPage) => currPage + 1);
-    }
+
   };
   
   
@@ -587,59 +586,12 @@ useEffect(() => {
   const PageTitleDisplay = () => {
     if (page > 0 && page < 11) {
       return (
-        <div className='flex flex-col gap-4'>
-          <div className="w-full mx-auto flex max-w-[80%] flex-col rounded-lg bg-white px-8 py-4 md:max-w-[50%]">
-          <div className="rounded-lg bg-blue-800 py-1 px-4 flex flex-row justify-around items-center gap-2">
-            
-            <button
-              className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
-                          hover:bg-opacity-70 active:scale-95 disabled:bg-opacity-30 disabled:cursor-not-allowed`}
-              disabled={page === 0}
-              onClick={() => {
-                setPage((currPage) => currPage - 1);
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-              </svg>
-            </button>
-
-            <div className='flex flex-row items-center gap-2'>
-              <h1 className="text-center text-lg font-semibold text-gray-100 sm:text-2xl md:text-3xl">
-                {toCapitalized(PageNames[page] ?? '')}
-              </h1>
-              <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
-            </div>
-    
-    <button
-      className={`flex items-center justify-center p-2 rounded-full bg-gray-500 bg-opacity-50 transition-transform duration-150 ease-in-out 
-                  hover:bg-opacity-70 active:scale-95`}
-      onClick={async () => {
-          handleNextClick();
-      }}
-    >
-      {page === 10 ? (
-          <span className="text-gray-100 font-semibold">Review</span>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 text-gray-800">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-          </svg>
-        )}
-
-    </button>
-
-  </div>
-</div>
-
-          <FeedbackCategories 
-          categories={CategoryNames} 
-          onCategorySelect={handleCategorySelect} 
-          currentIndex={page - 1}
-        />
-      </div>
+        <></>
       );
     } else {return}
   };
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const PageDisplay = () => {
     if (page === 0) {
@@ -650,32 +602,34 @@ useEffect(() => {
     }    
     if (page > 0 && page < 11) {
       return (
-        <div className="flex flex-col gap-4">
-          <div className="flex w-full flex-col gap-4 ">
-            <Form2Fill
-                category={CategoryNames[page - 1] as CategoryKey}
+        <div className='flex flex-row relative
+        mx-[-12px] sm:mx-[-20px] lg:mx-[-24px] -mt-8'>
+          {data && (
+          <CategoryList 
+          isOpen={isOpen} 
+          setIsOpen={setIsOpen}
+          // @ts-ignore
+          data={data && data[CategoryNames[page - 1]]}
+          />
+          )}
+           <ContentArea
+                isOpen={isOpen}
+                page={page}
+                setPage={setPage}
+                handleNextClick={handleNextClick}
+                PageNames={PageNames}
+                tooltipText={tooltipText}
+                CategoryNames={CategoryNames}
+                handleCategorySelect={handleCategorySelect}
                 register={register}
                 errors={errors}
                 session={session}
-                formData={formData[CategoryNames[page - 1] as string] ?? {}}
+                formData={formData}
                 setFormDataForCategory={setFormDataForCategory}
                 hasSubmitted={hasSubmitted}
                 setHasSubmitted={setHasSubmitted}
-              />
-            <Suspense fallback={<p>Loading feed...</p>}>
-            {data && 
-            // @ts-ignore
-            data[CategoryNames[page - 1]]?.[0] &&(
-              // @ts-ignore
-              <PrepopulatedForm data={data[CategoryNames[page - 1]]?.[0]} />
-            )}
-            </Suspense>
-          </div>
-          {data &&
-          // @ts-ignore
-          data[CategoryNames[page - 1]]?.length >= 2 && (
-    <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
-)}
+                data={data}
+            />
         </div>
       );
     }
