@@ -36,7 +36,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, data }) 
         <button 
           onClick={() => setIsOpen(!isOpen)} 
           className={`  p-2 m-2 
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500
+          
           hover:bg-slate-200 dark:hover:bg-slate-900 rounded-lg
            transition-all duration-1000
           ${isOpen ? ' ' : ''} `}

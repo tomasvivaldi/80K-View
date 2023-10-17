@@ -38,7 +38,7 @@ function getOrdinal(n: string): string {
   data?.score !== undefined ? bgColorClass(data?.score) : '';
   return (
     <button className={`bg-slate-50 dark:bg-slate-800 h-fit mx-2
-      hover:shadow-xl hover:scale-105 dark:hover:bg-slate-900 focus:bg-green-500 active:bg-red-500
+      hover:shadow-xl hover:scale-105 dark:hover:bg-slate-900 
       rounded-lg shadow dark:shadow-slate-300/5
       dark:text-slate-200 text-slate-800 
       transition-all duration-500 ease-in-out overflow-x-hidden
