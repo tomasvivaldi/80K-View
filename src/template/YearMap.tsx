@@ -300,10 +300,8 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
             <td key={monthKey} className="p-2">
               <div className={`text-white font-extrabold mx-auto ${bgClass} w-fit rounded-full px-3 py-2 text-sm cursor-pointer`}
                 onClick={() => {
-                  console.log('**Div clicked, opening modal...');
-                  setSelectedItem(monthlyData ? monthlyData[0] : null); // assuming monthlyData is your data array
+                  setSelectedItem(monthlyData ? monthlyData[0] : null); 
                   setIsModalOpen(true);
-                  console.log('**selectedItem', selectedItem);
                 }}>
                 {value !== undefined ? 
                   `${value.toFixed(1)}` : 

@@ -18,7 +18,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, data }) 
       setMaxHeight(siblingHeight);
     }
   }, []);
-  
+
   return (
     <div 
     ref={divRef} 
@@ -58,13 +58,16 @@ const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, data }) 
       {/* Categories */}
       <div className={`flex flex-col items-center px-2 py-4 mx-2 gap-4 ${isOpen ? '' : 'h-0'} `}>
       {data && data.map((category, index) => (
-        <CategoryCard 
-          key={index}
-          isOpen={isOpen}
-          data={category}  // passing individual category instead of entire array
-        />
+          <CategoryCard 
+            key={index}
+            isOpen={isOpen}
+            data={category}  // passing individual category instead of entire array
+          />
       ))}
       </div>
+
+      
+
     </div>
   );
 }

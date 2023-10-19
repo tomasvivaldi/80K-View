@@ -15,6 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.12",
     "@sendgrid/mail": "^7.7.0",
+    "@types/react-router": "^5.1.20",
     "@types/stripe": "^8.0.417",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
