@@ -85,9 +85,9 @@ const Index = () => {
       userDataByIdData.userDataById.overall_score.forEach((userData: any) => {
         console.log('userDataAAAAAAAAA', userData)
         const score = userData.overall_score;
-        const date = userData.created_at;
-        console.log('score',score)
-        console.log('date',date)
+        const date = userData.recorded_at;
+        console.log('***score',score)
+        console.log('***date',date)
 
         // Push the score and date parameters in the desired format to tempData
         if (score !== undefined && date) {
@@ -98,7 +98,7 @@ const Index = () => {
     }
   }, [userDataLoading, userDataByIdData, userRef]);
 
-
+console.log("***formattedData",formattedData)
 
   const [rawData, setrawData] = useState<UserDataById>();
   console.log('rawData',rawData)
@@ -180,7 +180,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                   <>
                     {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? 
                       
-                      lastEntry?.created_at && isThisMonth(lastEntry.created_at) ? (<></>) : (<FillFormBanner />)
+                      lastEntry?.recorded_at && isThisMonth(lastEntry.recorded_at) ? (<></>) : (<FillFormBanner />)
                       
                     : (
                       <NoSubscriptionBanner />

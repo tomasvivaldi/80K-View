@@ -5,6 +5,7 @@ type category {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -15,6 +16,7 @@ type career_work {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -27,6 +29,7 @@ type career_work_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -37,6 +40,7 @@ type community {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -49,6 +53,7 @@ type community_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -59,6 +64,7 @@ type environment {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -71,6 +77,7 @@ type environment_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -81,6 +88,7 @@ type family_friends {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -93,6 +101,7 @@ type family_friends_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -103,6 +112,7 @@ type fun_relaxation {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -115,6 +125,7 @@ type fun_relaxation_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -125,6 +136,7 @@ type growth_learning {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -137,6 +149,7 @@ type growth_learning_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -147,6 +160,7 @@ type health_fitness {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -159,6 +173,7 @@ type health_fitness_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -169,6 +184,7 @@ type money_finances {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -181,6 +197,7 @@ type money_finances_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -191,6 +208,7 @@ type partner_love {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -203,6 +221,7 @@ type partner_love_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -213,6 +232,7 @@ type spirituality {
   action_plan: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -225,6 +245,7 @@ type spirituality_feedback {
   advice5: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -233,6 +254,7 @@ type overall_score {
   overall_score: Float
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -243,6 +265,7 @@ type overall_advice {
   advice4: String
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   user_ref: Int
 }
 
@@ -263,6 +286,7 @@ type UserData {
   password: String 
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   isActive: Boolean
   career_work: [career_work]
     @materializer(
@@ -421,7 +445,7 @@ type Query {
       SELECT *
       FROM "career_work"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -434,7 +458,7 @@ type Query {
       SELECT *
       FROM "career_work"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -447,7 +471,7 @@ type Query {
       SELECT *
       FROM "career_work_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -460,7 +484,7 @@ type Query {
       SELECT *
       FROM "community"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -473,7 +497,7 @@ type Query {
       SELECT *
       FROM "community"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -486,7 +510,7 @@ type Query {
       SELECT *
       FROM "community_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -499,7 +523,7 @@ type Query {
       SELECT *
       FROM "environment"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -512,7 +536,7 @@ type Query {
       SELECT *
       FROM "environment"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -525,7 +549,7 @@ type Query {
       SELECT *
       FROM "environment_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -538,7 +562,7 @@ type Query {
       SELECT *
       FROM "family_friends"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -551,7 +575,7 @@ type Query {
       SELECT *
       FROM "family_friends"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -564,7 +588,7 @@ type Query {
       SELECT *
       FROM "family_friends_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -578,7 +602,7 @@ type Query {
       SELECT *
       FROM "fun_relaxation"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -591,7 +615,7 @@ type Query {
     SELECT *
     FROM "fun_relaxation"
     WHERE "user_ref" = $1
-    ORDER BY "created_at" DESC
+    ORDER BY "recorded_at" DESC
     """
     configuration: "postgresql_config"
   )
@@ -604,7 +628,7 @@ type Query {
     SELECT *
     FROM "fun_relaxation_feedback"
     WHERE "user_ref" = $1
-    ORDER BY "created_at" DESC
+    ORDER BY "recorded_at" DESC
     """
     configuration: "postgresql_config"
   )
@@ -617,7 +641,7 @@ type Query {
       SELECT *
       FROM "growth_learning"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -630,7 +654,7 @@ type Query {
       SELECT *
       FROM "growth_learning"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -643,7 +667,7 @@ type Query {
       SELECT *
       FROM "growth_learning_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -657,7 +681,7 @@ type Query {
       SELECT *
       FROM "health_fitness"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -670,7 +694,7 @@ type Query {
       SELECT *
       FROM "health_fitness"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -683,7 +707,7 @@ type Query {
       SELECT *
       FROM "health_fitness_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -696,7 +720,7 @@ type Query {
       SELECT *
       FROM "money_finances"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -709,7 +733,7 @@ type Query {
       SELECT *
       FROM "money_finances"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -722,7 +746,7 @@ type Query {
       SELECT *
       FROM "money_finances_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -735,7 +759,7 @@ type Query {
       SELECT *
       FROM "partner_love"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -748,7 +772,7 @@ type Query {
       SELECT *
       FROM "partner_love"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -761,7 +785,7 @@ type Query {
       SELECT *
       FROM "partner_love_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -774,7 +798,7 @@ type Query {
       SELECT *
       FROM "spirituality"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -787,7 +811,7 @@ type Query {
       SELECT *
       FROM "spirituality"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -800,7 +824,7 @@ type Query {
       SELECT *
       FROM "spirituality_feedback"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -813,7 +837,7 @@ type Query {
       SELECT *
       FROM "overall_score"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -826,7 +850,7 @@ type Query {
       SELECT *
       FROM "overall_score"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -839,7 +863,7 @@ type Query {
       SELECT *
       FROM "overall_advice"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -852,7 +876,7 @@ type Query {
       SELECT *
       FROM "overall_advice"
       WHERE "user_ref" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       """
       configuration: "postgresql_config"
     )
@@ -866,7 +890,7 @@ type Query {
       SELECT *
       FROM "career_work"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -880,7 +904,7 @@ type Query {
       SELECT *
       FROM "community"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -894,7 +918,7 @@ type Query {
       SELECT *
       FROM "environment"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -908,7 +932,7 @@ type Query {
       SELECT *
       FROM "family_friends"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -922,7 +946,7 @@ type Query {
       SELECT *
       FROM "fun_relaxation"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -936,7 +960,7 @@ type Query {
       SELECT *
       FROM "growth_learning"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -950,7 +974,7 @@ type Query {
       SELECT *
       FROM "health_fitness"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -964,7 +988,7 @@ type Query {
       SELECT *
       FROM "money_finances"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -978,7 +1002,7 @@ type Query {
       SELECT *
       FROM "partner_love"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -992,7 +1016,7 @@ type Query {
       SELECT *
       FROM "spirituality"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -1017,7 +1041,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "career_work" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "career_work" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1077,7 +1101,7 @@ type Query {
       SELECT *
       FROM "tableName"
       WHERE "username" = $1
-      ORDER BY "created_at" DESC
+      ORDER BY "recorded_at" DESC
       LIMIT 1
       """
       configuration: "postgresql_config"
@@ -1095,8 +1119,8 @@ type Query {
       SELECT *
       FROM "community"
       WHERE "username" = $1
-        AND "created_at" >= $2
-        AND "created_at" <= $3
+        AND "recorded_at" >= $2
+        AND "recorded_at" <= $3
       """
       configuration: "postgresql_config"
     )
@@ -1106,7 +1130,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "community" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "community" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1130,7 +1154,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "environment" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "environment" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1154,7 +1178,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "family_friends" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "family_friends" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1178,7 +1202,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "fun_relaxation" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "fun_relaxation" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1202,7 +1226,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "growth_learning" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "growth_learning" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1226,7 +1250,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "health_fitness" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "health_fitness" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1250,7 +1274,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "money_finances" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "money_finances" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1274,7 +1298,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "career_work_score", "community_score", "created_at", "environment_score", "family_friends_score", "fun_relaxation_score", "growth_learning_score", "health_fitness_score", "id", "money_finances_score", "overall_score", "partner_love_score", "spirituality_score", "username" FROM "overall_score" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "career_work_score", "community_score", "recorded_at", "environment_score", "family_friends_score", "fun_relaxation_score", "growth_learning_score", "health_fitness_score", "id", "money_finances_score", "overall_score", "partner_love_score", "spirituality_score", "username" FROM "overall_score" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1300,7 +1324,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "advice1", "advice2", "advice3", "advice4", "created_at", "id", "user_ref" FROM "overall_advice" ORDER BY "created_at" LIMIT $1 OFFSET $2
+      SELECT "advice1", "advice2", "advice3", "advice4", "recorded_at", "id", "user_ref" FROM "overall_advice" ORDER BY "recorded_at" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1326,7 +1350,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "environment_score", "id", "username", "user_ref" FROM "partner_love" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "environment_score", "id", "username", "user_ref" FROM "partner_love" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1350,7 +1374,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "created_at", "id", "score", "username", "user_ref" FROM "spirituality" ORDER BY "id" LIMIT $1 OFFSET $2
+      SELECT "recorded_at", "id", "score", "username", "user_ref" FROM "spirituality" ORDER BY "id" LIMIT $1 OFFSET $2
       """
       configuration: "postgresql_config"
     )
@@ -1375,7 +1399,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): career_work
     @dbquery(
@@ -1387,7 +1411,7 @@ type Mutation {
     )
   updateCareer_work(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -1399,7 +1423,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "career_work" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -1428,7 +1452,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   career_work_feedback
@@ -1447,7 +1471,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   career_work_feedback
@@ -1462,7 +1486,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -1485,7 +1509,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): community
     @dbquery(
@@ -1497,7 +1521,7 @@ type Mutation {
     )
   updateCommunity(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -1509,7 +1533,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "community" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -1539,7 +1563,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   community_feedback
@@ -1558,7 +1582,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   community_feedback
@@ -1573,7 +1597,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -1596,7 +1620,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): environment
     @dbquery(
@@ -1608,7 +1632,7 @@ type Mutation {
     )
   updateEnvironment(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -1620,7 +1644,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "environment" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -1650,7 +1674,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   environment_feedback
@@ -1669,7 +1693,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   environment_feedback
@@ -1684,7 +1708,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -1708,7 +1732,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): family_friends
     @dbquery(
@@ -1720,7 +1744,7 @@ type Mutation {
     )
   updateFamily_friends(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -1732,7 +1756,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "family_friends" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -1762,7 +1786,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   family_friends_feedback
@@ -1781,7 +1805,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   family_friends_feedback
@@ -1796,7 +1820,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -1820,7 +1844,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): fun_relaxation
     @dbquery(
@@ -1832,7 +1856,7 @@ type Mutation {
     )
   updateFun_relaxation(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -1844,7 +1868,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "fun_relaxation" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -1874,7 +1898,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   fun_relaxation_feedback
@@ -1893,7 +1917,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   fun_relaxation_feedback
@@ -1908,7 +1932,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -1932,7 +1956,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): growth_learning
     @dbquery(
@@ -1944,7 +1968,7 @@ type Mutation {
     )
   updateGrowth_learning(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -1956,7 +1980,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "growth_learning" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -1986,7 +2010,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   growth_learning_feedback
@@ -2005,7 +2029,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   growth_learning_feedback
@@ -2020,7 +2044,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -2044,7 +2068,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): health_fitness
     @dbquery(
@@ -2056,7 +2080,7 @@ type Mutation {
     )
   updateHealth_fitness(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -2068,7 +2092,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "health_fitness" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -2098,7 +2122,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   health_fitness_feedback
@@ -2117,7 +2141,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   health_fitness_feedback
@@ -2132,7 +2156,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -2155,7 +2179,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): money_finances
     @dbquery(
@@ -2167,7 +2191,7 @@ type Mutation {
     )
   updateMoney_finances(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -2179,7 +2203,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "money_finances" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -2208,7 +2232,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   money_finances_feedback
@@ -2227,7 +2251,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   money_finances_feedback
@@ -2242,7 +2266,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -2263,7 +2287,7 @@ type Mutation {
   insertOverall_score(
     username: String
     overall_score: Float
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   overall_score
@@ -2278,7 +2302,7 @@ type Mutation {
     id: ID!
     username: String
     overall_score: Float
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   overall_score
@@ -2289,7 +2313,7 @@ type Mutation {
       UPDATE "overall_score" SET
         "career_work_id" = COALESCE($2, "career_work_id"),
         "community_id" = COALESCE($3, "community_id"),
-        "created_at" = COALESCE($4, "created_at"),
+        "recorded_at" = COALESCE($4, "recorded_at"),
         "environment_id" = COALESCE($5, "environment_id"),
         "family_friends_id" = COALESCE($6, "family_friends_id"),
         "fun_relaxation_id" = COALESCE($7, "fun_relaxation_id"),
@@ -2322,7 +2346,7 @@ type Mutation {
     advice2: String
     advice3: String
     advice4: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   overall_advice
@@ -2339,7 +2363,7 @@ type Mutation {
     advice2: String
     advice3: String
     advice4: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   overall_advice
@@ -2352,7 +2376,7 @@ type Mutation {
         "advice2" = COALESCE($3, "advice2"),
         "advice3" = COALESCE($4, "advice3"),
         "advice4" = COALESCE($5, "advice4"),
-        "created_at" = COALESCE($6, "created_at"),
+        "recorded_at" = COALESCE($6, "recorded_at"),
         "user_ref" = COALESCE($7, "user_ref")
       WHERE
         "id" = $1
@@ -2375,7 +2399,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): partner_love
     @dbquery(
@@ -2387,7 +2411,7 @@ type Mutation {
     )
   updatePartner_love(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -2399,7 +2423,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "partner_love" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -2429,7 +2453,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   partner_love_feedback
@@ -2448,7 +2472,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   partner_love_feedback
@@ -2463,7 +2487,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -2487,7 +2511,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): spirituality
     @dbquery(
@@ -2499,7 +2523,7 @@ type Mutation {
     )
   updateSpirituality(
     id: ID!
-    created_at: DateTime
+    recorded_at: DateTime
     score: Float
     notes: String
     action_plan: String
@@ -2511,7 +2535,7 @@ type Mutation {
       schema: "public"
       query: """
       UPDATE "spirituality" SET
-        "created_at" = COALESCE($2, "created_at"),
+        "recorded_at" = COALESCE($2, "recorded_at"),
         "score" = COALESCE($3, "score"),
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
@@ -2540,7 +2564,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ):
   spirituality_feedback
@@ -2559,7 +2583,7 @@ type Mutation {
     advice3: String
     advice4: String
     advice5: String
-    created_at: DateTime
+    recorded_at: DateTime
     user_ref: Int
   ): 
   spirituality_feedback
@@ -2574,7 +2598,7 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "created_at" = COALESCE($8, "created_at"),
+        "recorded_at" = COALESCE($8, "recorded_at"),
         "user_ref" = COALESCE($9, "user_ref")
       WHERE
         "id" = $1
@@ -2595,7 +2619,7 @@ type Mutation {
   insertUsers(
     username: String
     email: String
-    created_at: DateTime
+    recorded_at: DateTime
     password: String
     provider: String
     isActive: Boolean = true

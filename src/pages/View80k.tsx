@@ -61,7 +61,7 @@ const View80k = () => {
   //     userDataByIdData.userDataById.overall_score.forEach((userData: any) => {
   //       console.log('userDataAAAAAAAAA', userData)
   //       const score = userData.overall_score;
-  //       const date = userData.created_at;
+  //       const date = userData.recorded_at;
   //       console.log('score',score)
   //       console.log('date',date)
 
@@ -150,12 +150,12 @@ const View80k = () => {
     console.log('categoryData:', categoryData);
 
     if (categoryData) {
-      const sortedData = categoryData.slice().sort((a: { created_at: string; }, b: { created_at: string; }) => {
-        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime(); // Change this line
+      const sortedData = categoryData.slice().sort((a: { recorded_at: string; }, b: { recorded_at: string; }) => {
+        return new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime(); // Change this line
       });      
 
       const groupedData: GroupedData = groupBy(sortedData, (item) => {
-        const date = new Date(item.created_at); // Change this line
+        const date = new Date(item.recorded_at); // Change this line
         const year = date.getFullYear();
         const month = date.getMonth() + 1; // Adjust to one-based month
         return `${year}-${month}`;
@@ -194,7 +194,7 @@ const View80k = () => {
       // Access the score and date parameters from the data
       categoryData?.forEach((categoryData: any) => {
         const score = categoryData;
-        const date = categoryData.created_at;
+        const date = categoryData.recorded_at;
   
         // Push the score and date parameters in the desired format to ytdData
         ytdData.push({ date, value: score });

@@ -58,7 +58,7 @@ function getOrdinal(n: string): string {
             <p className='text-5xl text-white'>{data && data?.score}</p>
           </div>
           <div className='flex flex-col px-4 py-2 w-[225px]'>
-            <p className='text-xl font-bold text-left'>{data && data?.created_at ? formatDate1(data.created_at) : ""}</p>
+            <p className='text-xl font-bold text-left'>{data && data?.recorded_at ? formatDate1(data.recorded_at) : ""}</p>
             <div className='flex flex-row gap-1 items-center'>
               <p className=' font-semibold'>Notes: </p>
               <p className='font-light truncate text-sm'>{data && data?.notes}</p>
@@ -69,7 +69,7 @@ function getOrdinal(n: string): string {
             </div>
             <div className='flex flex-row gap-1 text-xs self-end'>
               <p> date:</p>
-              <p>{data && data?.created_at ? formatDate2(data.created_at) : ""}</p>
+              <p>{data && data?.recorded_at ? formatDate2(data.recorded_at) : ""}</p>
             </div>
           </div>
         </div>

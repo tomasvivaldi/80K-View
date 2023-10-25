@@ -1,11 +1,30 @@
 import { Button } from '@/button/Button';
-import React from 'react';
+import React, { useState } from 'react';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface BeginFormProps {
   handleNextClick: () => void; 
 }
 
 const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick }) => {
+  const currentDate = new Date();
+  const lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+  
+
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  const [cleared, setCleared] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    if (cleared) {
+      const timeout = setTimeout(() => {
+        setCleared(false);
+      }, 1500);
+
+      return () => clearTimeout(timeout);
+    }
+    return () => {};
+  }, [cleared]);
+
   return (
     <div className="flex flex-col gap-4 rounded-md border-gray-200 bg-white px-4 py-12 w-[80%] mx-auto shadow-xl
     dark:bg-slate-900/40 dark:shadow-slate-200/5 mt-[10vh]">
@@ -27,8 +46,22 @@ const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick }) => {
           assessment for the months going forward.
         </p>
       </div>
+      <div className=' max-w-2xl mx-auto flex flex-col gap-4'>
+        <label className='-mx-12' htmlFor="month-picker">Select the month you want to update your tracker:</label>
+        <DatePicker
+          label={'Select Month'}
+          openTo="month"
+          views={['year', 'month']}
+          value={selectedDate}
+          onChange={(newDate) => setSelectedDate(newDate as Date)}
+          slotProps={{
+            field: { clearable: true, onClear: () => setCleared(true) },
+          }}
+          maxDate={lastDayOfCurrentMonth}
+        />
+      </div>
       <button
-            className='flex justify-center'
+            className='mx-auto w-fit'
               onClick={async () => {
                   handleNextClick();
               }}

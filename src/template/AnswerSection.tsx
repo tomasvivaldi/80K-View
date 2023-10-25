@@ -85,8 +85,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
   //     const hasEntriesThisMonth = data?.overall_score.some(entry => {
   //       // Get the start of the current month
   //       const startOfThisMonth = startOfMonth(new Date());
-  //       // Parse the created_at date from the entry object
-  //       const lastFormFillDate = parseISO(entry.created_at);
+  //       // Parse the recorded_at date from the entry object
+  //       const lastFormFillDate = parseISO(entry.recorded_at);
   //       // Check if the form was filled out last month or this month
   //       console.log('startOfThisMonth',startOfThisMonth)
   //       console.log('lastFormFillDate',lastFormFillDate)
@@ -100,7 +100,7 @@ function AnswerSection( { data }: AnswerSectionProps) {
     
   //     // Check if there are entries for the previous month
   //     // const hasEntriesPreviousMonth = data?.overall_score.some(entry => {
-  //     //   const lastFormFillDate = parseISO(entry.created_at);
+  //     //   const lastFormFillDate = parseISO(entry.recorded_at);
   //     //   console.log('lastFormFillDate', lastFormFillDate)
   //     //   const dateExample: Date = new Date("2023-04-05T11:43:36.82Z");
   //     //   return lastFormFillDate && isBefore(lastFormFillDate, dateExample) && isAfter(lastFormFillDate, dateExample);
@@ -110,8 +110,8 @@ function AnswerSection( { data }: AnswerSectionProps) {
   //       const startOfPreviousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   //       // Get the start of the current month
         
-  //       // Parse the created_at date from the entry object
-  //       const lastFormFillDate = parseISO(entry.created_at);
+  //       // Parse the recorded_at date from the entry object
+  //       const lastFormFillDate = parseISO(entry.recorded_at);
     
   //       console.log('lastFormFillDate', lastFormFillDate)
   //       return lastFormFillDate && (isSameMonth(lastFormFillDate, startOfPreviousMonth) || isAfter(lastFormFillDate, startOfPreviousMonth));
@@ -317,8 +317,8 @@ console.log("***DAATAA",data)
 //         };
 //     };
 
-//     let adviceVariables: { [key: string]: any; created_at: string; user_ref?: number } = {
-//         created_at: new Date().toISOString(),
+//     let adviceVariables: { [key: string]: any; recorded_at: string; user_ref?: number } = {
+//         recorded_at: new Date().toISOString(),
 //         user_ref: data?.id
 //     };
 
@@ -464,7 +464,7 @@ useEffect(() => {
         score: parseFloat(categoryData?.score?.toString() ?? ''),
         notes: categoryData.notes,
         action_plan: categoryData.action_plan,
-        created_at: new Date().toISOString(),
+        recorded_at: new Date().toISOString(),
         user_ref: data?.id
       };
       // console.log('commonVariables',commonVariables)
@@ -521,7 +521,7 @@ useEffect(() => {
             variables: {
               username: session?.user?.name || data?.username,
               overall_score: parseFloat(averageScore.toString()),
-              created_at: new Date().toISOString(),
+              recorded_at: new Date().toISOString(),
               user_ref: data?.id
             },
           });

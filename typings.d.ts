@@ -1,12 +1,3 @@
-type community = {
-  username: string;
-  score: number;
-  notes: string;
-  action_plan: string;
-  id: number;
-  created_at: string;
-};
-
 type Category = {
   __typename: string;
   username: string;
@@ -15,6 +6,7 @@ type Category = {
   action_plan: string;
   id: number;
   created_at: string;
+  recorded_at: string;
   documentNode: DocumentNode;
 };
 
@@ -29,6 +21,7 @@ type CategoryFeedbackQueries = {
 type CategoryFeedback = {
   id: number;
   created_at: string;
+  recorded_at: string;
   feedback: string; 
   advice1: string;
   advice2: string;
@@ -46,6 +39,7 @@ type DocumentNode = {
   action_plan: string;
   id: number;
   created_at: string;
+  recorded_at: string;
 };
 
 const categoryQueries: CategoryQueries = {
@@ -57,6 +51,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   community: {
@@ -67,6 +62,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   environment: {
@@ -77,6 +73,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   family_friends: {
@@ -87,6 +84,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   fun_relaxation: {
@@ -97,6 +95,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   growth_learning: {
@@ -107,6 +106,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   health_fitness: {
@@ -117,6 +117,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   money_finances: {
@@ -127,6 +128,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   partner_love: {
@@ -137,6 +139,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
   spirituality: {
@@ -147,6 +150,7 @@ const categoryQueries: CategoryQueries = {
       action_plan: string,
       id: number,
       created_at: string,
+      recorded_at: string,
     },
   },
 };
@@ -207,6 +211,7 @@ type CategoryKey =
     overall_score: {
       id: number;
       created_at: string;
+      recorded_at: string;
       overall_score: number;
       user_ref: string;
       username: string;
@@ -214,6 +219,7 @@ type CategoryKey =
     overall_advice: {
       id: number;
       created_at: string;
+      recorded_at: string;
       advice1: string;
       advice2: string;
       advice3: string;

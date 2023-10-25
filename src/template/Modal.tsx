@@ -36,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({ data, onClose }) => {
             <p> - </p>
             <p>Score: {data?.score}</p>
           </div>
-          <p className=''>date: <span className='text-sm'>{formatDate2(data?.created_at)}</span></p>  
+          <p className=''>date: <span className='text-sm'>{formatDate2(data?.recorded_at)}</span></p>  
         </div>
         <h4 className="text-xl font-bold mb-2">Notes</h4>
         <p className="mb-4">{data?.notes}</p>

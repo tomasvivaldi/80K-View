@@ -21,7 +21,7 @@ type CategoryKeys =
 type selectedItem = {
   action_plan: string
 categoryName: string
-created_at: string
+recorded_at: string
 id: string
 notes: string
 score: number
@@ -143,16 +143,16 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
   ];
 
   const sortedData: { [key in CategoryKeys]: Category[] } = {
-    career_work: [...data.career_work].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    community: [...data.community].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    environment: [...data.environment].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    family_friends: [...data.family_friends].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    fun_relaxation: [...data.fun_relaxation].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    growth_learning: [...data.growth_learning].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    health_fitness: [...data.health_fitness].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    money_finances: [...data.money_finances].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    partner_love: [...data.partner_love].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
-    spirituality: [...data.spirituality].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()),
+    career_work: [...data.career_work].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    community: [...data.community].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    environment: [...data.environment].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    family_friends: [...data.family_friends].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    fun_relaxation: [...data.fun_relaxation].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    growth_learning: [...data.growth_learning].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    health_fitness: [...data.health_fitness].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    money_finances: [...data.money_finances].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    partner_love: [...data.partner_love].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
+    spirituality: [...data.spirituality].sort((a, b) => new Date(a.recorded_at).getTime() - new Date(b.recorded_at).getTime()),
 
 
   };
@@ -162,7 +162,7 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
 
   const groupedData = groupByCategoryAndDate(sortedData, (item) => {
     console.log('!!!sortedData',sortedData)
-    const dateObj = new Date(item.created_at);
+    const dateObj = new Date(item.recorded_at);
     return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
   });
 
@@ -325,7 +325,7 @@ const YearMap: React.FC<TableProps> = ({ data }) => {
         <div className='flex flex-row pb-4 items-center gap-4 text-3xl'>
           <h3 className='font-semibold'>{formatCategory((selectedItem as selectedItem)?.categoryName)}</h3>
           <p> - </p>
-          <p className=''>{formatDate((selectedItem as selectedItem)?.created_at)}</p>
+          <p className=''>{formatDate((selectedItem as selectedItem)?.recorded_at)}</p>
         </div>
         <h4 className="text-xl font-bold mb-2">Notes</h4>
         <p className="mb-4">{(selectedItem as selectedItem)?.notes}</p>

@@ -8,6 +8,10 @@ import { Toaster } from 'react-hot-toast';
 import client from '../../apollo-client';
 import { ThemeProvider } from 'next-themes';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+
+
 const MyApp = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -16,7 +20,9 @@ const MyApp = ({
     <SessionProvider session={session}>
       <Toaster />
       <ThemeProvider attribute="class">
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Component {...pageProps} />
+        </LocalizationProvider>
       </ThemeProvider>
     </SessionProvider>
   </ApolloProvider>

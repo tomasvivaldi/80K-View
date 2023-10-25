@@ -9,7 +9,7 @@ interface PrepopulatedFormProps {
 }
 
 const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data, showNotes, setShowNotes }) => {
-  const dateObject = data ? new Date(data.created_at) : null;
+  const dateObject = data ? new Date(data.recorded_at) : null;
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const lastEntryMonth = dateObject ? monthNames[dateObject.getMonth()] : "No Entries";  
 

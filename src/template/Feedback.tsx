@@ -51,7 +51,7 @@ function Feedback({ data }: FeedbackProps) {
 
   const getMostRecentScore = (category: string) => {
     const scores = data && [...(data[category as keyof UserDataById] as Category[])];
-    scores?.sort((a: Category, b: Category) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    scores?.sort((a: Category, b: Category) => new Date(b.recorded_at).getTime() - new Date(a.recorded_at).getTime());
     return scores?.[0]?.score || 0;
   };
   
