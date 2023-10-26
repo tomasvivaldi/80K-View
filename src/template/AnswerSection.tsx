@@ -444,13 +444,14 @@ useEffect(() => {
 }, [formData, isFormSubmitted]);  // Note that we've added `isFormSubmitted` to the dependency array
 
 
-useEffect(() => {
-  const savedData = localStorage.getItem('partialFormData');
-  if (savedData) {
-      setFormData(JSON.parse(savedData));
-  }
-}, []);
+  useEffect(() => {
+    const savedData = localStorage.getItem('partialFormData');
+    if (savedData) {
+        setFormData(JSON.parse(savedData));
+    }
+  }, []);
 
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const onSubmit = async (categoryData: CategoryData, category: string,) => {
     type categoryData = {
@@ -464,7 +465,7 @@ useEffect(() => {
         score: parseFloat(categoryData?.score?.toString() ?? ''),
         notes: categoryData.notes,
         action_plan: categoryData.action_plan,
-        recorded_at: new Date().toISOString(),
+        recorded_at: selectedDate.toISOString(),
         user_ref: data?.id
       };
       // console.log('commonVariables',commonVariables)
@@ -521,7 +522,7 @@ useEffect(() => {
             variables: {
               username: session?.user?.name || data?.username,
               overall_score: parseFloat(averageScore.toString()),
-              recorded_at: new Date().toISOString(),
+              recorded_at: selectedDate.toISOString(),
               user_ref: data?.id
             },
           });
@@ -597,7 +598,7 @@ useEffect(() => {
     if (page === 0) {
       return (
         <div className="">
-        <BeginForm handleNextClick={handleNextClick} />
+        <BeginForm handleNextClick={handleNextClick} setSelectedDate={setSelectedDate} selectedDate={selectedDate} />
       </div>);
     }    
     if (page > 0 && page < 11) {

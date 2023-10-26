@@ -1,17 +1,17 @@
 import { Button } from '@/button/Button';
-import React, { useState } from 'react';
+import React from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 interface BeginFormProps {
   handleNextClick: () => void; 
+  selectedDate: Date;
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date>>;
 }
 
-const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick }) => {
+
+const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick, selectedDate, setSelectedDate }) => {
   const currentDate = new Date();
   const lastDayOfCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-  
-
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const [cleared, setCleared] = React.useState<boolean>(false);
   React.useEffect(() => {
@@ -63,7 +63,7 @@ const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick }) => {
       <button
             className='mx-auto w-fit'
               onClick={async () => {
-                  handleNextClick();
+                handleNextClick();
               }}
             >
               <Button>
