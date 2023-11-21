@@ -22,6 +22,7 @@ interface ContentAreaProps {
     hasSubmitted: boolean;
     setHasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
     data: any;
+    selectedDate: Date;
 }
 
 const ContentArea: React.FC<ContentAreaProps> = ({
@@ -39,7 +40,8 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     setFormDataForCategory,
     hasSubmitted,
     setHasSubmitted,
-    data
+    data,
+    selectedDate,
 }) => {
   function toCapitalized(str: string): string {
     return str.replace(/(?:^|[-_])([a-z])/g, (match, letter) => {
@@ -89,6 +91,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
             <div className="flex w-full flex-col gap-4 ">
             {!showNotes ? 
               <Form2Fill
+                selectedDate={selectedDate}
                 category={CategoryNames[page - 1] as CategoryKey}
                 register={register}
                 errors={errors}

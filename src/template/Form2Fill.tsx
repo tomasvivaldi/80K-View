@@ -18,6 +18,7 @@ interface Form2FillProps {
   setHasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   showNotes: boolean;
   setShowNotes: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedDate: Date;
 }
 
 type CategoryName = keyof typeof categoryQueries;
@@ -37,7 +38,8 @@ const Form2Fill: React.FC<Form2FillProps> = ({
   setFormDataForCategory,
   hasSubmitted,
   showNotes,
-  setShowNotes
+  setShowNotes,
+  selectedDate,
 }) => {
   // Set the initial value of 'score' to an empty string when the component is mounted
   useEffect(() => {
@@ -65,7 +67,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
     e.preventDefault();
   };
 
-  const now = new Date();
+  const now = selectedDate;
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const currentMonth = monthNames[now.getMonth()]; 
 

@@ -239,7 +239,7 @@ console.log("***DAATAA",data)
       const unfilled = getUnfilledPages();
   
       if (unfilled.length === 0) {
-        setPage((currPage) => currPage + 1);
+        setPage((currPage) => currPage = 11);
         setHasSubmitted(false);
       } else {
         const categoriesStr = unfilled.join(", ");
@@ -614,6 +614,7 @@ useEffect(() => {
           />
           )}
            <ContentArea
+                selectedDate={selectedDate}
                 isOpen={isOpen}
                 page={page}
                 setPage={setPage}
