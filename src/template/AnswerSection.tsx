@@ -239,7 +239,7 @@ console.log("***DAATAA",data)
       const unfilled = getUnfilledPages();
   
       if (unfilled.length === 0) {
-        setPage((currPage) => currPage = 11);
+        setPage(() => 11);
         setHasSubmitted(false);
       } else {
         const categoriesStr = unfilled.join(", ");
@@ -640,6 +640,7 @@ useEffect(() => {
         <Suspense fallback={<p>Loading feed...</p>}>
           {data && (
           <EndForm
+            selectedDate={selectedDate}
             categoryNames={CategoryNames as CategoryKey[]}
             allCategoryFormData={allCategoryFormData()}
             data={data}

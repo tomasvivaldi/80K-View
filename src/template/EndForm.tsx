@@ -9,6 +9,7 @@ interface EndFormProps {
   submitAllCategories: () => Promise<void>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
+  selectedDate: Date
 }
 
 
@@ -27,7 +28,20 @@ const EndForm: React.FC<EndFormProps> = ({
   submitAllCategories,
   setPage,
   page,
+  selectedDate,
 }) => {
+
+
+  const lastEntry = data?.career_work[0]?.recorded_at || ' - '
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const currentMonth = monthNames[selectedDate.getMonth()]; 
+  
+  const lastEntryDate = new Date(lastEntry);
+  const lastEntryMonthIndex = lastEntryDate.getMonth();
+  const lastEntryMonthName = monthNames[lastEntryMonthIndex];
+
+  console.log(lastEntryMonthName);
 
   function toCapitalized(str: string): string {
     return str.replace(/(?:^|[-_])([a-z])/g, (group) =>
@@ -63,10 +77,10 @@ const EndForm: React.FC<EndFormProps> = ({
             Category
           </span>
           <div className="flex w-48 justify-center text-xl font-semibold">
-            Last Month's score:
+            <span>{lastEntryMonthName}</span>'s score:
           </div>
           <div className="flex w-48 justify-center text-xl font-semibold">
-            This Month's score:
+          <span>{currentMonth}</span>'s score:
           </div>
         </div>
         {categoryNames.map((category) => {

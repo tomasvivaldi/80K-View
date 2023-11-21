@@ -6,8 +6,8 @@ interface BeginFormProps {}
 
 const BeginForm: React.FC<BeginFormProps> = () => {
   return (
-    <div className="flex flex-col gap-4 rounded-md border-gray-200 bg-white px-4 py-5 sm:w-[80%] w-full mx-auto">
-      <div className="my-4 w-full text-center text-2xl font-semibold text-gray-800">
+    <div className="flex flex-col gap-4 rounded-md border-gray-200 bg-white dark:bg-slate-800 px-4 py-5 sm:w-[80%] w-full mx-auto">
+      <div className="my-4 w-full text-center text-2xl font-semibold text-gray-800 dark:text-slate-100">
         Congratulations!
       </div>
       {/* Success Icon */}
