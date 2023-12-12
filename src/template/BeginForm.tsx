@@ -47,9 +47,9 @@ const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick, selectedDate, se
         </p>
       </div>
       <div className=' max-w-2xl mx-auto flex flex-col gap-4'>
-        <label className='-mx-12' htmlFor="month-picker">Select the month you want to update your tracker:</label>
+        <label className='-mx-12 dark:text-slate-200' htmlFor="month-picker">Select the month you want to update your tracker:</label>
         <DatePicker
-          label={'Select Month'}
+        className='  dark:bg-slate-100 rounded-md dark:text-slate-200 dark:fill-slate-200 dark:decoration-slate-200 dark:border-slate-200 dark:ring-sky-400'
           openTo="month"
           views={['year', 'month']}
           value={selectedDate}
