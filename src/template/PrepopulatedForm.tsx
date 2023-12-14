@@ -41,7 +41,7 @@ const PrepopulatedForm: React.FC<PrepopulatedFormProps> = ({ data, showNotes, se
                 type="text"
                 id="score"
                 className="hide-arrows h-12 w-20 rounded-lg bg-sky-400/5  text-slate-800 dark:text-slate-200 text-center text-3xl border-sky-600'} border-2 lg:row-start-2"
-                value={data && data?.score}
+                value={data && data?.score as number}
                 disabled
                 onFocus={(e) => e.target.select()}
               />

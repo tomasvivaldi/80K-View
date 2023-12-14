@@ -37,7 +37,7 @@ function getOrdinal(n: string): string {
     return ' shadow-lg bg-gradient-to-r from-green-500 to-teal-400';
   };
   const bgClass =
-  data?.score !== undefined ? bgColorClass(data?.score) : '';
+  data?.score !== undefined ? bgColorClass(data?.score as number) : '';
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (

@@ -36,15 +36,15 @@ const calculateStats = (data: UserDataById) => {
         let lastEntry = entries[0]?.score;
         let secondLastEntry = entries[1]?.score;
         if (lastEntry !== undefined && secondLastEntry !== undefined) {
-          let changePercent = percentChange(secondLastEntry, lastEntry);
+          let changePercent = percentChange(secondLastEntry as number, lastEntry as number);
 
-          if (lastEntry > highestScore) {
+          if (lastEntry && lastEntry > highestScore) {
             highestScore = lastEntry;
             highestScoreCategory = category;
             highestScorePercentChange = changePercent;
           }
 
-          if (lastEntry < lowestScore) {
+          if (lastEntry && lastEntry < lowestScore) {
             lowestScore = lastEntry;
             lowestScoreCategory = category;
             lowestScorePercentChange = changePercent;
