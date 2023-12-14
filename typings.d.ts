@@ -1,12 +1,21 @@
+type Item = {
+  description: string;
+  isChecked: boolean;
+}
+type Goal = {
+  items: Item[]
+}
+
 type Category = {
   __typename: string;
   username: string;
-  score: number;
+  score: number | null;
   notes: string;
   action_plan: string;
   id: number;
   created_at: string;
   recorded_at: string;
+  goals: Goal;
   documentNode: DocumentNode;
 };
 
@@ -28,6 +37,7 @@ type CategoryFeedback = {
   advice3: string;
   advice4: string;
   advice5: string;
+  goals: object;
   user_ref: string;
   deleted: boolean;
 };
@@ -37,6 +47,7 @@ type DocumentNode = {
   score: number;
   notes: string;
   action_plan: string;
+  goals: JSON;
   id: number;
   created_at: string;
   recorded_at: string;
@@ -49,6 +60,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -60,6 +72,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -71,6 +84,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -82,6 +96,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -93,6 +108,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -104,6 +120,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -115,6 +132,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -126,6 +144,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -137,6 +156,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,
@@ -148,6 +168,7 @@ const categoryQueries: CategoryQueries = {
       score: number,
       notes: string,
       action_plan: string,
+      goals: JSON,
       id: number,
       created_at: string,
       recorded_at: string,

@@ -37,6 +37,7 @@ export type CategoryData = {
   score?: number | null;
   notes?: string;
   action_plan?: string;
+  goals?: Goal;
 };
 
 export type InitialFormData = {
@@ -61,6 +62,7 @@ type CurrentCategoryFormData = {
   score?: Number;
   notes?: String;
   action_plan?: String;
+  goals?: JSON
 };
 
 type AnswerSectionProps = {
@@ -221,7 +223,7 @@ console.log("***DAATAA",data)
         if (
           !categoryData.score ||
           !categoryData.notes ||
-          !categoryData.action_plan
+          !categoryData.action_plan 
         ) {
           unfilledCategories.push(categoryName);
         }
@@ -258,6 +260,9 @@ console.log("***DAATAA",data)
         score: null,
         notes: '',
         action_plan: '',
+        goals: {
+          "items": []
+        }
       };
       return acc;
     },
@@ -273,7 +278,7 @@ console.log("***DAATAA",data)
     localStorage.setItem('partialFormData', JSON.stringify(formData));
   }, [formData]);
   
-  const setFormDataForCategory = (category: string, data: CategoryData) => {
+  const setFormDataForCategory = (category: string, data: Category) => {
     setFormData((prevState: typeof formData) => ({ ...prevState, [category]: data }));
   };
   
@@ -283,7 +288,7 @@ console.log("***DAATAA",data)
     return CategoryNames.reduce((acc, category) => {
       acc[category as keyof MyFormData] = formData[
         category as keyof MyFormData
-      ] as CategoryData;
+      ] as Category;
       return acc;
     }, {} as InitialFormData);
   };
@@ -454,17 +459,13 @@ useEffect(() => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const onSubmit = async (categoryData: CategoryData, category: string,) => {
-    type categoryData = {
-      score: number;
-      notes: string;
-      action_plan: string;
-    };
     try {
       const commonVariables = {
         username: session?.user?.name || data?.username,
         score: parseFloat(categoryData?.score?.toString() ?? ''),
         notes: categoryData.notes,
         action_plan: categoryData.action_plan,
+        goals: categoryData.goals,
         recorded_at: selectedDate.toISOString(),
         user_ref: data?.id
       };

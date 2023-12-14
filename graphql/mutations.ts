@@ -6,6 +6,7 @@ export const ADD_CAREER_WORK_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -14,6 +15,7 @@ export const ADD_CAREER_WORK_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref 
     ) {
@@ -21,6 +23,7 @@ export const ADD_CAREER_WORK_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -32,6 +35,7 @@ export const ADD_COMMUNITY_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -40,6 +44,7 @@ export const ADD_COMMUNITY_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -47,6 +52,7 @@ export const ADD_COMMUNITY_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -58,6 +64,7 @@ export const ADD_ENVIRONMENT_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -66,6 +73,7 @@ export const ADD_ENVIRONMENT_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -73,6 +81,7 @@ export const ADD_ENVIRONMENT_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -84,6 +93,7 @@ export const ADD_FAMILY_FRIENDS_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -92,6 +102,7 @@ export const ADD_FAMILY_FRIENDS_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -99,6 +110,7 @@ export const ADD_FAMILY_FRIENDS_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -110,6 +122,7 @@ export const ADD_FUN_RELAXATION_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -118,6 +131,7 @@ export const ADD_FUN_RELAXATION_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -125,6 +139,7 @@ export const ADD_FUN_RELAXATION_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -136,6 +151,7 @@ export const ADD_GROWTH_LEARNING_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -144,6 +160,7 @@ export const ADD_GROWTH_LEARNING_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -151,6 +168,7 @@ export const ADD_GROWTH_LEARNING_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -162,6 +180,7 @@ export const ADD_HEALTH_FITNESS_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -170,6 +189,7 @@ export const ADD_HEALTH_FITNESS_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -177,6 +197,7 @@ export const ADD_HEALTH_FITNESS_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -188,6 +209,7 @@ export const ADD_MONEY_FINANCES_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -196,6 +218,7 @@ export const ADD_MONEY_FINANCES_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -203,6 +226,7 @@ export const ADD_MONEY_FINANCES_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -214,6 +238,7 @@ export const ADD_PARTNER_LOVE_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -222,6 +247,7 @@ export const ADD_PARTNER_LOVE_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -229,6 +255,7 @@ export const ADD_PARTNER_LOVE_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -240,6 +267,7 @@ export const ADD_SPIRITUALITY_INFO = gql`
     $score: Float!
     $notes: String!
     $action_plan: String!
+    $goals: JSON
     $recorded_at: DateTime!
     $user_ref: Int!
   ) {
@@ -248,6 +276,7 @@ export const ADD_SPIRITUALITY_INFO = gql`
       score: $score
       notes: $notes
       action_plan: $action_plan
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -255,6 +284,7 @@ export const ADD_SPIRITUALITY_INFO = gql`
       score
       notes
       action_plan
+      goals
       user_ref
     }
   }
@@ -381,6 +411,7 @@ export const ADD_ADVICE = gql`
       advice3: $career_work_advice3
       advice4: $career_work_advice4
       advice5: $career_work_advice5
+      goals: $goals
       recorded_at: $recorded_at
       user_ref: $user_ref
     ) {
@@ -623,6 +654,87 @@ export const UPDATE_USER_SUBSCRIPTION = gql`
   }
 `;
 
+export const UPDATE_CAREER_WORK_GOALS = gql`
+  mutation updateCareer_work_goals($id: ID!, $goals: JSON!) {
+    updateCareer_work_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_COMMUNITY_GOALS = gql`
+  mutation updateCommunity_goals($id: ID!, $goals: JSON!) {
+    updateCommunity_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_ENVIRONMENT_GOALS = gql`
+  mutation updateEnvironment_goals($id: ID!, $goals: JSON!) {
+    updateEnvironment_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_FAMILY_FRIENDS_GOALS = gql`
+  mutation updateFamily_friends_goals($id: ID!, $goals: JSON!) {
+    updateFamily_friends_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_FUN_RELAXATION_GOALS = gql`
+  mutation updateFun_relaxation_goals($id: ID!, $goals: JSON!) {
+    updateFun_relaxation_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_GROWTH_LEARNING_GOALS = gql`
+  mutation updateGrowth_learning_goals($id: ID!, $goals: JSON!) {
+    updateGrowth_learning_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_HEALTH_FITNESS_GOALS = gql`
+  mutation updateHealth_fitness_goals($id: ID!, $goals: JSON!) {
+    updateHealth_fitness_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_MONEY_FINANCES_GOALS = gql`
+  mutation updateMoney_finances_goals($id: ID!, $goals: JSON!) {
+    updateMoney_finances_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_PARTNER_LOVE_GOALS = gql`
+  mutation updatePartner_love_goals($id: ID!, $goals: JSON!) {
+    updatePartner_love_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+export const UPDATE_SPIRITUALITY_GOALS = gql`
+  mutation updateSpirituality_goals($id: ID!, $goals: JSON!) {
+    updateSpirituality_goals(id: $id, goals: $goals) {
+      id
+      goals
+    }
+  }
+`;
+
 export const mutations = {
   ADD_CAREER_WORK_INFO,
   ADD_COMMUNITY_INFO,
@@ -639,4 +751,14 @@ export const mutations = {
   ADD_USERS,
   ADD_ADVICE,
   UPDATE_USER_SUBSCRIPTION,
+  UPDATE_CAREER_WORK_GOALS,
+  UPDATE_COMMUNITY_GOALS,
+  UPDATE_ENVIRONMENT_GOALS,
+  UPDATE_FAMILY_FRIENDS_GOALS,
+  UPDATE_FUN_RELAXATION_GOALS,
+  UPDATE_GROWTH_LEARNING_GOALS,
+  UPDATE_HEALTH_FITNESS_GOALS,
+  UPDATE_MONEY_FINANCES_GOALS,
+  UPDATE_PARTNER_LOVE_GOALS,
+  UPDATE_SPIRITUALITY_GOALS
 };

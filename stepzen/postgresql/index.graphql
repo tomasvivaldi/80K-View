@@ -3,6 +3,7 @@ type category {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -14,6 +15,7 @@ type career_work {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -27,6 +29,7 @@ type career_work_feedback {
   advice3: String
   advice4: String
   advice5: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -38,6 +41,7 @@ type community {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -62,6 +66,7 @@ type environment {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -86,6 +91,7 @@ type family_friends {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -110,6 +116,7 @@ type fun_relaxation {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -134,6 +141,7 @@ type growth_learning {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -158,6 +166,7 @@ type health_fitness {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -182,6 +191,7 @@ type money_finances {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -206,6 +216,7 @@ type partner_love {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -230,6 +241,7 @@ type spirituality {
   score: Float
   notes: String
   action_plan: String
+  goals: JSON
   id: ID!
   created_at: DateTime
   recorded_at: DateTime
@@ -1399,6 +1411,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): career_work
@@ -1415,6 +1428,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): career_work
@@ -1428,7 +1442,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateCareer_work_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "career_work" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -1453,6 +1486,7 @@ type Mutation {
     advice4: String
     advice5: String
     recorded_at: DateTime
+    goals: JSON
     user_ref: Int
   ):
   career_work_feedback
@@ -1472,6 +1506,7 @@ type Mutation {
     advice4: String
     advice5: String
     recorded_at: DateTime
+    goals: JSON
     user_ref: Int
   ): 
   career_work_feedback
@@ -1486,8 +1521,9 @@ type Mutation {
         "advice3" = COALESCE($5, "advice3"),
         "advice4" = COALESCE($6, "advice4"),
         "advice5" = COALESCE($7, "advice5"),
-        "recorded_at" = COALESCE($8, "recorded_at"),
-        "user_ref" = COALESCE($9, "user_ref")
+        "goals" = COALESCE($8, "goals"),
+        "recorded_at" = COALESCE($9, "recorded_at"),
+        "user_ref" = COALESCE($10, "user_ref")
       WHERE
         "id" = $1
       RETURNING *
@@ -1509,6 +1545,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): community
@@ -1525,6 +1562,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): community
@@ -1538,7 +1576,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateCommunity_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -1620,6 +1677,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): environment
@@ -1636,6 +1694,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): environment
@@ -1649,7 +1708,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateEnvironment_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "environment" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -1732,6 +1810,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): family_friends
@@ -1748,6 +1827,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): family_friends
@@ -1761,7 +1841,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateFamily_friends_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "family_friends" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -1844,6 +1943,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): fun_relaxation
@@ -1860,6 +1960,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): fun_relaxation
@@ -1873,7 +1974,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateFun_relaxation_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "fun_relaxation" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -1956,6 +2076,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): growth_learning
@@ -1972,6 +2093,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): growth_learning
@@ -1985,7 +2107,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateGrowth_learning_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "growth_learning" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -2068,6 +2209,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): health_fitness
@@ -2084,6 +2226,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): health_fitness
@@ -2097,7 +2240,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateHealth_fitness_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "health_fitness" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -2179,6 +2341,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): money_finances
@@ -2195,6 +2358,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): money_finances
@@ -2208,7 +2372,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateMoney_finances_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "money_finances" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -2399,6 +2582,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): partner_love
@@ -2415,6 +2599,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): partner_love
@@ -2428,7 +2613,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updatePartner_love_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "partner_love" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *
@@ -2496,7 +2700,6 @@ type Mutation {
       configuration: "postgresql_config"
     )
 
-
   " Mutations for type 'spirituality' "
   deleteSpirituality(id: ID!): spirituality
     @dbquery(
@@ -2511,6 +2714,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     recorded_at: DateTime
     user_ref: Int
   ): spirituality
@@ -2527,6 +2731,7 @@ type Mutation {
     score: Float
     notes: String
     action_plan: String
+    goals: JSON
     username: String
     user_ref: Int
   ): spirituality
@@ -2540,7 +2745,26 @@ type Mutation {
         "username" = COALESCE($4, "username")
         "notes" = COALESCE($5, "notes")
         "action_plan" = COALESCE($6, "action_plan")
-        "user_ref" = COALESCE($7, "user_ref")
+        "goals" = COALESCE($7,"goals")
+        "user_ref" = COALESCE($8, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  updateSpirituality_goals(
+    id: ID!
+    recorded_at: DateTime
+    goals: JSON
+  ): spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "spirituality" SET
+        "recorded_at" = COALESCE($2, "recorded_at"),
+        "goals" = COALESCE($3,"goals")
       WHERE
         "id" = $1
       RETURNING *

@@ -30,6 +30,7 @@ export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -45,6 +46,7 @@ export const GET_CAREER_WORK_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -58,6 +60,7 @@ export const GET_COMMUNITY_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -71,6 +74,7 @@ export const GET_ENVIRONMENT_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -84,6 +88,7 @@ export const GET_FAMILY_FRIENDS_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -97,6 +102,7 @@ export const GET_FUN_RELAXATION_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -110,6 +116,7 @@ export const GET_GROWTH_LEARNING_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -123,6 +130,7 @@ export const GET_HEALTH_FITNESS_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -136,6 +144,7 @@ export const GET_MONEY_FINANCES_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -149,6 +158,7 @@ export const GET_PARTNER_LOVE_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -162,6 +172,7 @@ export const GET_SPIRITUALITY_INFO_BY_USER_LATEST = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -187,6 +198,7 @@ export const GET_CAREER_WORK_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -200,6 +212,7 @@ export const GET_COMMUNITY_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -213,6 +226,7 @@ export const GET_ENVIRONMENT_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -226,6 +240,7 @@ export const GET_FAMILY_FRIENDS_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -239,6 +254,7 @@ export const GET_FUN_RELAXATION_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -252,6 +268,7 @@ export const GET_GROWTH_LEARNING_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -265,6 +282,7 @@ export const GET_HEALTH_FITNESS_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -278,6 +296,7 @@ export const GET_MONEY_FINANCES_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -291,6 +310,7 @@ export const GET_PARTNER_LOVE_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -304,6 +324,7 @@ export const GET_SPIRITUALITY_INFO_BY_USER = gql`
       score
       notes
       action_plan
+      goals
     }
   }
 `;
@@ -344,6 +365,7 @@ export const GET_USER_DATA_BY_ID = gql`
     isActive
     username
     career_work {
+      goals
       action_plan
       recorded_at
       notes
@@ -359,12 +381,14 @@ export const GET_USER_DATA_BY_ID = gql`
       advice3
       advice4
       advice5
+      goals
       id
       recorded_at
       user_ref
     }
     community {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -385,6 +409,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     environment {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -405,6 +430,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     family_friends {
       id
+      goals
       action_plan
       recorded_at
       score
@@ -425,6 +451,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     fun_relaxation {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -445,6 +472,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     growth_learning {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -465,6 +493,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     health_fitness {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -485,6 +514,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     money_finances {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -512,6 +542,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     partner_love {
       id
+      goals
       action_plan
       recorded_at
       notes
@@ -532,6 +563,7 @@ export const GET_USER_DATA_BY_ID = gql`
     }
     spirituality {
       id
+      goals
       action_plan
       recorded_at
       notes
