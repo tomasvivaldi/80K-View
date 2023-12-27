@@ -18,6 +18,8 @@ import LandingPage from '../template/LandingPage';
 import seedrandom from 'seedrandom';
 import MockFeedback from '@/template/MockFeedback';
 import Image from 'next/image';
+// import VideoBanner from '@/template/VideoBanner';
+// import FeedbackBanner from './FeedbackBanner';
 
 export type CategoryData = {
   score?: number | null;
@@ -176,6 +178,10 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                 <Welcome data={rawData}/>
               </Section>
               <Section>  
+                {/* <div className='flex md:flex-row flex-col gap-4'>
+                  <VideoBanner />
+                  <FeedbackBanner />
+                </div> */}
                 {loading || userDataLoading ? (<></>):(
                   <>
                     {userDataByIdData?.userDataById && userDataByIdData?.userDataById?.isActive ? 
@@ -214,16 +220,16 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                                 Here is a little preview:
                               </h3>
                               <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
-                                <p className='text-xl font-medium text-slate-900 mb-6'>
+                                <p className='text-xl font-medium text-slate-900 dark:text-slate-100 mb-6'>
                                   Here's what you'll see after updating your Life Tracker for the first time. 
                                   You'll be able to view your historical data and receive personalized feedback to guide your journey.
                                 </p>  
-                                <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
-                                  <h4 className="text-xl font-semibold text-slate-900 mb-2">Historical Data:</h4>
+                                <div className="bg-white dark:bg-black p-4 rounded-lg shadow-md mb-4 border border-sky-300">
+                                  <h4 className="text-xl font-semibold text-slate-900 dark:text-slate-100  mb-2">Historical Data:</h4>
                                   <HistoricalTable data={generateMockData(1)} />
                                 </div>
-                                <div className="bg-white p-4 rounded-lg shadow-md border border-sky-300">
-                                  <h4 className="text-xl font-semibold text-slate-900 mb-2">Your Feedback:</h4>
+                                <div className="bg-white dark:bg-black p-4 rounded-lg shadow-md border border-sky-300">
+                                  <h4 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Your Feedback:</h4>
                                   <MockFeedback />
                                 </div>
                               </div>

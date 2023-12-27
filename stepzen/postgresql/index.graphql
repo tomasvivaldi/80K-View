@@ -288,6 +288,7 @@ type users {
   password: String 
   id: ID!
   created_at: DateTime
+  recorded_at: DateTime
   isActive: Boolean
 }
 
