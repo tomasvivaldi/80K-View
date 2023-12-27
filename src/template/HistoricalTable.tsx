@@ -243,12 +243,12 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
                   Keep it up for more!
                 </h3>
                 <div className="p-8 bg-gradient-to-r from-sky-200/20 to-cyan-100/20 rounded-lg shadow-xl border-cyan-500 border-2" >
-                <p className='text-xl font-medium text-slate-900 mb-6'>
+                <p className='text-xl font-medium text-slate-900 dark:text-slate-100 mb-6'>
                   And that's just the beginning! As you continue to track and engage with your Life Tracker, 
                   you'll unlock even more features and insights tailored to your unique goals and experiences. 
                   Stay engaged, and watch how the Life Tracker becomes an essential companion in your personal growth journey.
                 </p>
-                  <div className="bg-white p-4 rounded-lg shadow-md mb-4 border border-sky-300">
+                  <div className="bg-white dark:bg-black p-4 rounded-lg shadow-md mb-4 border border-sky-300">
                     <h4 className="text-xl font-semibold text-slate-900 mb-2">Score Graph:</h4>
                     <Chart1 data={generateMockData(3)} />
                   </div>
