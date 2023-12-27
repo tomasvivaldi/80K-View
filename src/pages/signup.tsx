@@ -38,7 +38,7 @@ const SignUp = () => {
   }, [userDataLoading, userData, router, errorMessage]);
 
   const handleSignUp = async (username: string, email: string, password: string) => {
-    const created_at = new Date().toISOString();
+    const recorded_at = new Date().toISOString();
     const provider = 'local';
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
@@ -74,7 +74,7 @@ const SignUp = () => {
         await addUsers({
           variables: {
             username: username,
-            created_at: created_at,
+            recorded_at: recorded_at,
             email: email,
             provider: provider,
             password: hashedPassword,
