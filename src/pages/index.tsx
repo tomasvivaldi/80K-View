@@ -226,7 +226,7 @@ function generateMockData(entries: number): HistoricalDataItem[] {
                                 </p>  
                                 <div className="bg-white dark:bg-black p-4 rounded-lg shadow-md mb-4 border border-sky-300">
                                   <h4 className="text-xl font-semibold text-slate-900 dark:text-slate-100  mb-2">Historical Data:</h4>
-                                  <HistoricalTable data={generateMockData(1)} />
+                                  <HistoricalTable data={generateMockData(5)} />
                                 </div>
                                 <div className="bg-white dark:bg-black p-4 rounded-lg shadow-md border border-sky-300">
                                   <h4 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2">Your Feedback:</h4>
