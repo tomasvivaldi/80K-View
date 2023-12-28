@@ -498,7 +498,8 @@ function Shell(props: IShellProps) {
               <button className='font-bold text-black dark:text-white hover:underline'
               onClick={() => {setIsModalOpen(true);}}> How it works</button>
               <a className='font-bold text-black dark:text-white hover:border-b flex flex-row gap-2 items-center'
-              href="https://forms.gle/GfxbLkd9XBEmRB717"> 
+              href="https://forms.gle/GfxbLkd9XBEmRB717"
+              target='blank'> 
               Have an improvement?
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
