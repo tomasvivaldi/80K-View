@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 // import { useState} from 'react';
-import { type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Button } from '@/button/Button';
 import { DarkModeButton } from '@/button/DarkModeButton';
 import { SidebarHeader } from '@/shell/SidebarHeader';
@@ -9,6 +9,7 @@ import { SidebarLink } from '@/shell/SidebarLink';
 // import { DisabledSidebarLink } from '@/shell/DisabledSidebarLink';
 // import Tooltip from './Tooltip';
 import Image from 'next/image';
+import VideoModal from './VideoModal';
 
 type IShellProps = {
   title: string;
@@ -21,7 +22,7 @@ function Shell(props: IShellProps) {
 
 
   const { data: session } = useSession();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -493,13 +494,15 @@ function Shell(props: IShellProps) {
       leftContent={
         <>
           {session ? (
-            // <div />
-            // <Link onClick={signOut} href="/">
-            //   <Button>Sign Out</Button>
-            // </Link>
-            <DarkModeButton/>
+            <div className='flex flex-row gap-4'>
+              
+              <button className='font-bold text-black dark:text-white hover:underline'
+              onClick={() => {setIsModalOpen(true);}}> How it works</button>
+              <DarkModeButton/>
+              {isModalOpen && <VideoModal setIsModalOpen={setIsModalOpen} />}
+            </div>
           ) : (
-            <div className='flex flex-row gap-4 items-center'>
+            <div className='flex flex-row gap-8 items-center'>
               <DarkModeButton/>
               <Link onClick={signIn} href="/">
                 <Button>Sign In</Button>
