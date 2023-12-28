@@ -29,7 +29,7 @@ const ThankYou = () => {
           ></iframe>
         </div>
 
-        <h3 className="text-xl font-semibold my-2 mt-8">Our Advice</h3>
+        <h3 className="text-xl font-semibold my-2 mt-20">Our Advice</h3>
         <p className="text-gray-700 dark:text-slate-200 mb-4">
           We recommend using 80K View at least once a month to get value out of your free year.
         </p>
