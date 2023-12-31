@@ -644,6 +644,18 @@ export const ADD_USERS = gql`
   }
 `;
 
+export const ADD_USER_PREFERENCES = gql`
+  mutation AddUserPreferences($use_case: String!, $reminder_date: String!, $user_ref: Int!, $recorded_at: DateTime) {
+    insertUserPreferences(use_case: $use_case, reminder_date: $reminder_date, user_ref: $user_ref, recorded_at: $recorded_at) {
+      id
+      use_case
+      reminder_date
+      user_ref
+      recorded_at
+    }
+  }
+`;
+
 
 export const UPDATE_USER_SUBSCRIPTION = gql`
   mutation updateUsers($id: ID!, $isActive: Boolean!) {
@@ -749,6 +761,7 @@ export const mutations = {
   ADD_OVERALL_SCORE,
   ADD_OVERALL_ADVICE,
   ADD_USERS,
+  ADD_USER_PREFERENCES,
   ADD_ADVICE,
   UPDATE_USER_SUBSCRIPTION,
   UPDATE_CAREER_WORK_GOALS,

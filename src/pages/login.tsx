@@ -87,7 +87,7 @@ const Login = () => {
 
         };
         createUser();
-        router.push('/thankyou');
+        router.push('/welcome');
       }
     }
   }, [session, user, addUsers, userData, userDataLoading]);

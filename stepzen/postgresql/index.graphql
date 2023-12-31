@@ -292,6 +292,15 @@ type users {
   isActive: Boolean
 }
 
+type user_preferences {
+  id: ID!
+  created_at: DateTime
+  recorded_at: DateTime
+  use_case: String
+  reminder_date: String
+  user_ref: Int
+}
+
 type UserData {
   username: String
   email: String
@@ -2873,7 +2882,51 @@ type Mutation {
       configuration: "postgresql_config"
     )
 
+  " Mutations for type 'user_preferences' "
+  deleteUserPreferences(id: ID!): user_preferences
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "user_preferences"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertUserPreferences(
+    use_case: String,
+    reminder_date: String,
+    recorded_at: DateTime,
+    user_ref: Int
+  ): user_preferences
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "user_preferences"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateUserPreferences(
+    id: ID!,
+    use_case: String,
+    reminder_date: String,
+    recorded_at: DateTime,
+    user_ref: Int
+  ): user_preferences
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "user_preferences" SET
+        "use_case" = COALESCE($2, "use_case"),
+        "reminder_date" = COALESCE($3, "reminder_date"),
+        "recorded_at" = COALESCE($4, "recorded_at"),
+        "user_ref" = COALESCE($5, "user_ref")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+
+
+
 }
-
-
-

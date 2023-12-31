@@ -90,7 +90,7 @@ const SignUp = () => {
         } else {
           if (typeof window !== 'undefined') {
             // window.location.href = '/';
-            router.push('/thankyou')
+            router.push('/welcome')
           }
         }        
       } catch (e) {
