@@ -43,7 +43,7 @@ const Login = () => {
     if (session && !userDataLoading) {
       // If userData exists, redirect to the homepage
       if (userData?.userByEmail) {
-        window.location.href = '/';
+        window.location.href = '/welcome';
         return;
       }
   
