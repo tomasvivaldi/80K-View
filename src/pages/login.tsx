@@ -23,7 +23,7 @@ interface UserWithProvider extends User {
 //   email: string;
 //   password: string;
 //   provider: string;
-//   created_at: string;
+//   recorded_at: string;
 // }
 
 
@@ -53,13 +53,13 @@ const Login = () => {
           const username = user?.name;
           const email = user?.email;
           const provider = user?.provider || "Auth0";
-          const created_at = new Date().toISOString();
+          const recorded_at = new Date().toISOString();
           const password = '';
   
           await addUsers({
             variables: {
               username: username,
-              created_at: created_at,
+              recorded_at: recorded_at,
               email: email,
               provider: provider,
               password: password,
