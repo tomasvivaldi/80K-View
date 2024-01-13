@@ -17,23 +17,28 @@ export default function HorizontalLinearStepper() {
   const user_query = queries.GET_USER_BY_EMAIL;
   const { loading, error, data } = useQuery(user_query, {
     variables: { email: session?.user?.email },
-    skip: !session?.user?.email, // Skip the query if email is not available
+    skip: !session?.user?.email,
   });
 
   const [userRef, setUserRef] = useState<string | null>(null);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
-    if (!loading && data && data.userByEmail) {
-      const userRef = data.userByEmail?.id;
-      console.log('user_ref', userRef);
-      setUserRef(userRef);
+    if (sessionStatus !== 'loading' && !loading && data?.userByEmail) {
+      setUserRef(data.userByEmail.id);
+      setIsDataLoaded(true);
+    } else if (sessionStatus === 'authenticated' && !data?.userByEmail) {
+      // Handle case where there is no user data
+      console.error('No user data found');
+      setIsDataLoaded(true); // Or handle this case differently
     }
-  }, [loading, data]);
+  }, [sessionStatus, loading, data]);
 
   const [activeStep, setActiveStep] = useState(1);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const router = useRouter();
+
 
   const handleNext = () => {
     if (activeStep === steps.length) {
@@ -74,21 +79,14 @@ export default function HorizontalLinearStepper() {
   };
   
 
+  if (!isDataLoaded) {
+    return <LoadingBox />;
+  }
 
-// Check if session is loading
-if (sessionStatus === "loading") {
-  return <LoadingBox />; // Or any other loading indicator
-}
-
-// Check if userRef is not loaded yet
-if (loading || !userRef) {
-  return <LoadingBox />; // Or any other loading indicator
-}
-
-// Check for errors
-if (error) {
-  return <LoadingBox />;
-}
+  if (error) {
+    // Consider a more user-friendly error message or UI
+    return <div>Error loading user data. Please try again.</div>;
+  }
 
   const getStepContent = (stepIndex: number) => {
     switch (stepIndex) {
