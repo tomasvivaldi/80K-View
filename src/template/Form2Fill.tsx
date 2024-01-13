@@ -19,6 +19,8 @@ interface Form2FillProps {
   showNotes: boolean;
   setShowNotes: React.Dispatch<React.SetStateAction<boolean>>;
   selectedDate: Date;
+  selectedScore: any,
+  handleScoreSelect: any,
 }
 
 type CategoryName = keyof typeof categoryQueries;
@@ -38,9 +40,9 @@ const Form2Fill: React.FC<Form2FillProps> = ({
   formData,
   setFormDataForCategory,
   hasSubmitted,
-  showNotes,
-  setShowNotes,
   selectedDate,
+  selectedScore,
+  handleScoreSelect,
 }) => {
   // Set the initial value of 'score' to an empty string when the component is mounted
   useEffect(() => {
@@ -55,22 +57,22 @@ const Form2Fill: React.FC<Form2FillProps> = ({
   }, [category, formData]);
 
 
-  const handleInput = (e: { target: { value: any } }) => {
-    const { value } = e.target;
+  // const handleInput = (e: { target: { value: any } }) => {
+  //   const { value } = e.target;
 
-    // Check if the new value is valid
-    const isValid =
-      value === '' ||
-      (!isNaN(value) &&
-        parseFloat(value) >= 0 &&
-        parseFloat(value) <= 10 &&
-        /^10$|^[0-9]$/.test(value));
+  //   // Check if the new value is valid
+  //   const isValid =
+  //     value === '' ||
+  //     (!isNaN(value) &&
+  //       parseFloat(value) >= 0 &&
+  //       parseFloat(value) <= 10 &&
+  //       /^10$|^[0-9]$/.test(value));
 
-    // If the new value is valid, update the score
-    if (isValid) {
-      setFormDataForCategory(category, { ...formData, score: value });
-    }
-  };
+  //   // If the new value is valid, update the score
+  //   if (isValid) {
+  //     setFormDataForCategory(category, { ...formData, score: value });
+  //   }
+  // };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -119,30 +121,124 @@ const Form2Fill: React.FC<Form2FillProps> = ({
     setFormDataForCategory(category, { ...formData, goals: updatedGoals });
   };
 
+
+
+  
+  // // Initialize the selectedScore state
+  // const [selectedScore, setSelectedScore] = useState<number | null>(
+  //   isCategoryData(formData) ? formData.score ?? null : null
+  // );
+  
+
+  // // Initialize the isScoreSelected state
+  // const [isScoreSelected, setIsScoreSelected] = useState<boolean>(
+  //   isCategoryData(formData) && formData.score !== null
+  // );
+
+  // const handleScoreSelect = (category: string, score: number) => {
+  //   const newSelectedScore = selectedScore === score ? null : score;
+  //   setSelectedScore(newSelectedScore);
+  //   setIsScoreSelected(newSelectedScore !== null);
+  //   setFormDataForCategory(category, { ...formData, score: newSelectedScore });
+  // };
+
+  const onScoreSelect = (score: number) => {
+    const newScore = score === selectedScore ? null : score;
+    handleScoreSelect(newScore);
+    setFormDataForCategory(category, { ...formData, score: score });
+  };
+
+
+
+  
+  // Function to return color based on score
+  const getColor = (score: number) => {
+    const colors = [
+      'bg-gradient-to-r from-red-500 to-red-400', // Score 1
+      'bg-gradient-to-r from-red-400 to-orange-500', // Score 2
+      'bg-gradient-to-r from-orange-500 to-orange-400', // Score 3
+      'bg-gradient-to-r from-orange-400 to-amber-500', // Score 4
+      'bg-gradient-to-r from-amber-500 to-amber-400', // Score 5
+      'bg-gradient-to-r from-amber-400 to-lime-500', // Score 6
+      'bg-gradient-to-r from-lime-500 to-lime-400', // Score 7
+      'bg-gradient-to-r from-lime-400 to-green-500', // Score 8
+      'bg-gradient-to-r from-green-500 to-green-400', // Score 9
+      'bg-gradient-to-r from-green-500 to-teal-400', // Score 10
+    ];
+    
+    
+    return colors[score - 1]; // Score is 1-indexed, array is 0-indexed
+  };
+
+  // const buttonClass = (score: number) => {
+  //   // const baseClass = 'h-12 w-12 rounded-full text-center font-light text-3xl';
+  //   const selectedClass = selectedScore === score ? `text-white` : `  dark:text-white  `;
+  //   const visibilityClass = isScoreSelected && selectedScore !== score ? 'text-black border border-black dark:border-white font-light dark:font-normal' : ` text-white ${getColor(score)}`;
+  //   return ` ${visibilityClass}  ${selectedClass} transition-opacity duration-500 ease-in-out`;
+  // };
+
+  const buttonClass = (score: number) => {
+    // Base class for all buttons
+    const baseClass = 'h-14 w-14 rounded-full text-center font-medium text-4xl';
+  
+    // Determine if the current button is selected
+    const isSelected = score === selectedScore;
+  
+    // Define if any score is selected
+    const isScoreSelected = selectedScore !== null;
+  
+    // Define the selected class
+    const selectedClass = isSelected ? `text-white` : `dark:text-white`;
+  
+    // Define the visibility class
+    const visibilityClass = isScoreSelected && !isSelected 
+      ? 'text-black border border-black dark:border-white font-light dark:font-medium' 
+      : `text-white ${getColor(score)}`;
+  
+    // Combine the base class, visibility class, and selected class
+    return `${baseClass} ${visibilityClass} ${selectedClass} transition-opacity duration-500 ease-in-out`;
+  };
+  
+
+  
+
   return (
     <div className="w-full rounded-md bg-transparent px-2">
       <form className="flex flex-col gap-0 lg:gap-8" onSubmit={handleSubmit}>
         <div className="flex flex-col justify-around gap-0 ">
           <div className='flex flex-row'>
-            <div className="flex flex-col items-baseline w-full text-left text-slate-800 dark:text-slate-100">
-              <p className='text-2xl md:text-4xl font-semibold '>{currentMonth}</p>
-              
-              {showNotes ? (
-                <button className='whitespace-nowrap  hover:underline underline-offset-1 decoration-gray-600 decoration-2 text-slate-500 dark:text-slate-400' onClick={() => setShowNotes(false)}>Back to This Month</button>
-              ) : (
-                <button className='whitespace-nowrap hover:underline underline-offset-1 decoration-gray-600 decoration-2 text-slate-500 dark:text-slate-400' onClick={() => setShowNotes(true)}>Show Last Entry</button>
-              )}
-                </div>
-            
-            
-            <div className="flex flex-row items-center gap-2 lg:gap-4">
-              <Label
-                htmlFor="comment"
-                colSpanSize="lg:col-start-1 lg:col-span-2 lg:row-start-1 mb-2"
-              >
-                Score:
-              </Label>
-              <input
+            <div className="flex flex-col items-baseline w-full text-left text-slate-800 dark:text-slate-100 gap-0 mb-8 ">
+              <div className='flex flex-row items-baseline gap-4'>
+                <p className='text-2xl md:text-4xl font-semibold '>{currentMonth}</p>
+                {/* {showNotes ? (
+                  <button className='whitespace-nowrap  hover:underline underline-offset-1 decoration-gray-600 decoration-2 text-slate-500 dark:text-slate-400' onClick={() => setShowNotes(false)}>Back to This Month</button>
+                ) : (
+                  <button className='whitespace-nowrap hover:underline underline-offset-1 decoration-gray-600 decoration-2 text-slate-500 dark:text-slate-400' onClick={() => setShowNotes(true)}>Show Last Entry</button>
+                )} */}
+            </div>
+
+
+        <div className="flex flex-col gap-2 align-middle mt-4 items-start test">
+        <Label htmlFor="comment" colSpanSize="lg:col-start-1 lg:col-span-2 lg:row-start-1 ">
+          Score:
+        </Label>
+        <div 
+        className="relative flex flex-row gap-0 md:gap-4 lg:gap-8 w-fit ml-4"
+        >
+         {Array.from({ length: 10 }, (_, i) => i + 1).map((score) => (
+            <button
+              key={score}
+              type="button"
+              className={`h-14 w-14 text-white rounded-full text-center font-medium text-4xl ${buttonClass(score)} `}
+              onClick={() => onScoreSelect(score)}
+            >
+              <span className=' drop-shadow-[1.2px_1.2px_1.2px_rgba(0,0,0,0.8)]'>{score}</span>
+            </button>
+          ))}
+      </div>
+
+
+              {/* <input
                 {...register('score', {
                   required: true,
                   pattern: /^10$|^[0-9]$/,
@@ -160,8 +256,9 @@ const Form2Fill: React.FC<Form2FillProps> = ({
                 }
                 onChange={handleInput}
                 onFocus={(e) => e.target.select()}
-              />
+              /> */}
             </div>
+                </div>           
           </div>
           <div className={`flex w-full flex-col gap-2 ${hasSubmitted && !(formData as CategoryData).notes ? 'border-red-500' : ''}`}>
             <Label htmlFor="comment" colSpanSize="lg:col-start-2 lg:col-span-2 lg:row-start-1">

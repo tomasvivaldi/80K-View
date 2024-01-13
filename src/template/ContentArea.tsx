@@ -23,7 +23,14 @@ interface ContentAreaProps {
     setHasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
     data: any;
     selectedDate: Date;
+    
 }
+
+type CategoryScores = {
+  [key in CategoryKey]: number | null;
+};
+
+
 
 const ContentArea: React.FC<ContentAreaProps> = ({
     isOpen,
@@ -53,6 +60,22 @@ const ContentArea: React.FC<ContentAreaProps> = ({
   }
 
     const [showNotes, setShowNotes] = useState(false);
+  
+    const initialScores = CategoryNames.reduce<CategoryScores>((acc, category) => {
+      acc[category as CategoryKey] = null; // Initialize each category score to null
+      return acc;
+    }, {} as CategoryScores);
+    
+
+  const [categoryScores, setCategoryScores] = useState(initialScores);
+
+  const handleScoreSelect = (category: string, score: number | null) => {
+    setCategoryScores(prevScores => ({
+      ...prevScores,
+      [category]: score
+    }));
+  };
+
     return (
        
       <div className={`mx-2 lg:mx-4 flex flex-col gap-4 transition-width duration-1000 ease-in-out ${isOpen ? 'w-[73vw]' : 'w-[90vw]'} overflow-hidden`}>
@@ -102,6 +125,8 @@ const ContentArea: React.FC<ContentAreaProps> = ({
                 setHasSubmitted={setHasSubmitted}
                 showNotes={showNotes}
                 setShowNotes={setShowNotes}
+               selectedScore={categoryScores[CategoryNames[page - 1] as keyof typeof categoryScores]}
+        handleScoreSelect={(score: number) => handleScoreSelect(CategoryNames[page - 1] as string, score)}
               /> 
             : 
             <>
