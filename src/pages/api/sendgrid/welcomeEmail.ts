@@ -37,46 +37,62 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           from: 'team@80kview.com',
           subject: 'Embark on Your Journey of Reflection with 80kView!',
           text: `
-            Dear ${username},
-        
-            Welcome to the beginning of a transformative journey at 80kView!
-        
-            Life is a vast, intricate tapestry, and sometimes, we get caught up in the finer details, losing sight of the grand, beautiful picture it paints. At 80kView, we invite you to step back, reflect, and gain a broader perspective on your own life.
-        
-            Our platform serves as a nurturing space where you can:
-            1. Journal Your Thoughts: Capture your feelings, thoughts, and experiences in a secure, online journal.
-            2. Gain New Insights: Reflect on different aspects of your life and discover patterns and insights that help you grow.
-            3. Progress Forward: Use your reflections as a tool for personal growth and progression.
-        
-            As you begin this journey of self-discovery and reflection, remember, you're not alone. Our community is here to support you every step of the way.
-        
-            We're eager to witness the beautiful journey that unfolds for you at 80kView. Welcome aboard!
-        
-            Warm wishes,
-            The 80kView Team
-          `,
+          Hey ${username}!
+
+          It’s Sam, thanks for signing up to use 80k View.
+
+          6 years ago - “I knew I was capable of more”.
+
+          I bet you know this too. In your job, in your career, in your personal life and deep down it sits with you every day.
+
+          So I took action, built a spreadsheet to help me understand my current position, identify opportunities, and point me in the right direction with the hope of it leading to a more fulfilling life.
+
+          Thankfully it worked and I’ve used it religiously every month since - 73 and counting - so thought it might be something that could help others, therefore decided to turn it into an app.
+
+          The main thing I’ve learned is too many people get stuck planning. The reality is, it’s all about action.
+
+          80k View is unusual because unlike other apps, it has been designed so you only need to use it once a month to receive the full benefits. If you miss a month, no worries the world still spins, pick it up next month.
+
+          1x, 20-30 minute reflection session a month to calm your anxieties and ensure you are on right track, giving you the rest of the month to take action.
+
+          We’re excited to support you on your journey and if you have any questions, feel free to reach out. 
+
+          We respond to all emails.
+
+          Sam
+
+          Ps. if you do it for long enough, the HUGE bonus benefit is you are left with an incredible life journal for retrospection. 
+
+          How it works video here: https://youtu.be/LMPz4TBG7B8
+        `,
           html: `
-            <div style="font-family: Arial, sans-serif; color: #333;">
-              <h1 style="color: #2a9d8f;">Dear ${username},</h1>
-              
-              <p>Welcome to the beginning of a transformative journey at <strong>80kView</strong>!</p>
-              
-              <p>Life is a vast, intricate tapestry, and sometimes, we get caught up in the finer details, losing sight of the grand, beautiful picture it paints. At 80kView, we invite you to step back, reflect, and gain a broader perspective on your own life.</p>
-              
-              <p>Our platform serves as a nurturing space where you can:</p>
-              <ul>
-                <li>Journal Your Thoughts: Capture your feelings, thoughts, and experiences in a secure, online journal.</li>
-                <li>Gain New Insights: Reflect on different aspects of your life and discover patterns and insights that help you grow.</li>
-                <li>Progress Forward: Use your reflections as a tool for personal growth and progression.</li>
-              </ul>
-              
-              <p>As you begin this journey of self-discovery and reflection, remember, you're not alone. Our community is here to support you every step of the way.</p>
-              
-              <p>We're eager to witness the beautiful journey that unfolds for you at 80kView. Welcome aboard!</p>
-              
-              <p style="margin-bottom: 0;">Warm wishes,</p>
-              <p style="margin-top: 0;"><strong>The 80kView Team</strong></p>
-            </div>
+          <div style="font-family: Arial, sans-serif; color: #333;">
+            <h1 style="color: #2a9d8f;">Hey ${username}!</h1>
+            
+            <p>It’s Sam, thanks for signing up to use 80k View.</p>
+            
+            <p>6 years ago - “I knew I was capable of more”.</p>
+
+            <p>I bet you know this too. In your job, in your career, in your personal life and deep down it sits with you every day.</p>
+
+            <p>So I took action, built a spreadsheet to help me understand my current position, identify opportunities, and point me in the right direction with the hope of it leading to a more fulfilling life.</p>
+
+            <p>Thankfully it worked and I’ve used it religiously every month since - 73 and counting - so thought it might be something that could help others, therefore decided to turn it into an app.</p>
+
+            <p>The main thing I’ve learned is too many people get stuck planning. The reality is, it’s all about action.</p>
+
+            <p>80k View is unusual because unlike other apps, it has been designed so you only need to use it once a month to receive the full benefits. If you miss a month, no worries the world still spins, pick it up next month.</p>
+
+            <p>1x, 20-30 minute reflection session a month to calm your anxieties and ensure you are on right track, giving you the rest of the month to take action.</p>
+
+            <p>We’re excited to support you on your journey and if you have any questions, feel free to reach out. We respond to all emails.</p>
+
+            <p><strong>Sam</strong></p>
+
+            <p>Ps. if you do it for long enough, the HUGE bonus benefit is you are left with an incredible life journal for retrospection.</p>
+
+            <p><a href="https://youtu.be/LMPz4TBG7B8">How it works video here</a></p>
+          </div>
           `,
         };
         
