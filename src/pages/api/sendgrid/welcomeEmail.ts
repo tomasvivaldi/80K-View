@@ -69,27 +69,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           <div style="font-family: Arial, sans-serif; color: #333;">
             <h1 style="color: #2a9d8f;">Hey ${username}!</h1>
             
-            <p>It’s Sam, thanks for signing up to use 80k View.</p>
+            <p>It’s Sam, thanks for signing up to use 80k View.</p><br />
             
-            <p>6 years ago - “I knew I was capable of more”.</p>
+            <p>6 years ago - “I knew I was capable of more”.</p><br />
 
-            <p>I bet you know this too. In your job, in your career, in your personal life and deep down it sits with you every day.</p>
+            <p>I bet you know this too. In your job, in your career, in your personal life and deep down it sits with you every day.</p><br />
 
-            <p>So I took action, built a spreadsheet to help me understand my current position, identify opportunities, and point me in the right direction with the hope of it leading to a more fulfilling life.</p>
+            <p>So I took action, built a spreadsheet to help me understand my current position, identify opportunities, and point me in the right direction with the hope of it leading to a more fulfilling life.</p><br />
 
-            <p>Thankfully it worked and I’ve used it religiously every month since - 73 and counting - so thought it might be something that could help others, therefore decided to turn it into an app.</p>
+            <p>Thankfully it worked and I’ve used it religiously every month since - 73 and counting - so thought it might be something that could help others, therefore decided to turn it into an app.</p><br />
 
-            <p>The main thing I’ve learned is too many people get stuck planning. The reality is, it’s all about action.</p>
+            <p>The main thing I’ve learned is too many people get stuck planning. The reality is, it’s all about action.</p><br />
 
-            <p>80k View is unusual because unlike other apps, it has been designed so you only need to use it once a month to receive the full benefits. If you miss a month, no worries the world still spins, pick it up next month.</p>
+            <p>80k View is unusual because unlike other apps, it has been designed so you only need to use it once a month to receive the full benefits. If you miss a month, no worries the world still spins, pick it up next month.</p><br />
 
-            <p>1x, 20-30 minute reflection session a month to calm your anxieties and ensure you are on right track, giving you the rest of the month to take action.</p>
+            <p>1x, 20-30 minute reflection session a month to calm your anxieties and ensure you are on right track, giving you the rest of the month to take action.</p><br />
 
-            <p>We’re excited to support you on your journey and if you have any questions, feel free to reach out. We respond to all emails.</p>
+            <p>We’re excited to support you on your journey and if you have any questions, feel free to reach out. We respond to all emails.</p><br />
 
-            <p><strong>Sam</strong></p>
+            <p><strong>Sam</strong></p><br />
 
-            <p>Ps. if you do it for long enough, the HUGE bonus benefit is you are left with an incredible life journal for retrospection.</p>
+            <p>Ps. if you do it for long enough, the HUGE bonus benefit is you are left with an incredible life journal for retrospection.</p><br />
 
             <p><a href="https://youtu.be/LMPz4TBG7B8">How it works video here</a></p>
           </div>
