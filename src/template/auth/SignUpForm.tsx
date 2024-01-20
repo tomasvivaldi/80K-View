@@ -47,7 +47,17 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp, errorMessage })=>
     handleSignUp(target.username.value, target.email.value, target.password.value);
   }
 
-  return(
+  return(<>
+  
+  <video 
+    autoPlay 
+    muted 
+    loop 
+    className="absolute right-0 bottom-0 w-auto min-w-full min-h-full -z-10 object-cover"
+    id="background-video"
+  >
+    <source src="/80k-view-test.mp4" type="video/mp4" />
+</video>
   <FullCenterSection
     title="Create your account"
     description="Sign up with your email address and password."
@@ -129,6 +139,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp, errorMessage })=>
       .
     </div>
   </FullCenterSection>
+  </>
 );
 };
 

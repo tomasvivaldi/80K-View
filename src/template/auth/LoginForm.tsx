@@ -14,9 +14,19 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, loginFailed }) => {
 
   return (
+    <>
+        <video 
+        autoPlay 
+        muted 
+        loop 
+        className="absolute right-0 bottom-0 w-auto min-w-full min-h-full -z-10 object-cover"
+        id="background-video"
+      >
+        <source src="/80k-view-test.mp4" type="video/mp4" />
+    </video>
     <FullCenterSection title="Sign in to your account">
       <form
-        className="grid gap-y-2 mb-4"
+        className="grid gap-y-2 mb-4 z-50"
         onSubmit={async (event) => {
           event.preventDefault();
           const target = event.target as typeof event.target & {
@@ -109,15 +119,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, lo
         </SocialButton>
       </button> */}
       <div className="mt-5 text-center text-xs">
-  Don't have an account?{' '}
-    <a href="/signup" className="text-primary-500 hover:text-primary-600">
-      Sign up now
-    </a>
-  .
-</div>
-    </div>
-  </FullCenterSection>
-);
-        }
+      Don't have an account?{' '}
+        <a href="/signup" className="text-primary-500 hover:text-primary-600">
+          Sign up now
+        </a>
+      .
+      </div>
+          </div>
+    </FullCenterSection>
+  </>
+  );
+}
 
 export { LoginForm };

@@ -122,6 +122,7 @@ if (userDataLoading) return <LoadingBox spinnerClassName='mx-24' containerClassN
 return (
   <div className="text-gray-900 dark:text-slate-100 antialiased">
     <Meta title={AppConfig.title} description={AppConfig.description} />
+    
     <LoginForm handleLogin={handleLogin} handleEmailLogin={handleEmailLogin} loginFailed={loginFailed}/>
   </div>
 );

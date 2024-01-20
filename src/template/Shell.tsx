@@ -84,7 +84,7 @@ function Shell(props: IShellProps) {
                     className='mr-1'
                     height={24}
                     width={24}
-                    src="/logo.png"
+                    src="/logo2-draft.png"
                     alt='logo'
                     />
                   }

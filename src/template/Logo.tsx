@@ -1,4 +1,4 @@
-import { AppConfig } from '@/utils/AppConfig';
+// import { AppConfig } from '@/utils/AppConfig';
 import Image from 'next/image';
 
 type ILogoProps = {
@@ -7,7 +7,7 @@ type ILogoProps = {
 };
 
 const Logo = (props: ILogoProps) => {
-  const size = props.xl ? '44' : '32';
+  const size = props.xl ? '200' : '120';
   const fontStyle = props.xl
     ? 'font-semibold text-2xl'
     : 'font-semibold text-xl';
@@ -19,13 +19,13 @@ const Logo = (props: ILogoProps) => {
     >
       <Image
         className="mr-1"
-        src="/logo.png"
+        src="/logo1-draft.png"
         width={size}
         height={size}
         alt="Logo"
       />
 
-      {AppConfig.site_name}
+      {/* {AppConfig.site_name} */}
     </div>
   );
 };
