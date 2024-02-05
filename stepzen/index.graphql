@@ -1,3 +1,1858 @@
-schema @sdl(files: ["postgresql/index.graphql"]) {
-  query: Query
+type Career_work {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Career_work_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  goals: JSON
+  id: ID!
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Community {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Float
+  user_ref: ID
+  username: String
+}
+
+type Community_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  isChecked1: Boolean
+  isChecked2: Boolean
+  isChecked3: Boolean
+  isChecked4: Boolean
+  isChecked5: Boolean
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Environment {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Environment_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Family_friends {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Family_friends_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Fun_relaxation {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Fun_relaxation_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Growth_learning {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Growth_learning_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Health_fitness {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Health_fitness_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Money_finances {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Money_finances_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Overall_advice {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  created_at: DateTime
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Overall_score {
+  created_at: DateTime
+  id: ID!
+  overall_score: Float
+  recorded_at: DateTime
+  user_ref: ID
+  username: String
+}
+
+type Overall_score_duplicate {
+  career_work_id: ID
+  community_id: ID
+  created_at: DateTime
+  environment_id: ID
+  family_friends_id: ID
+  fun_relaxation_id: ID
+  growth_learning_id: ID
+  health_fitness_id: ID
+  id: ID!
+  money_finances_id: ID
+  overall_score: Float
+  partner_love_id: ID
+  spirituality_id: ID
+  user_id: ID
+  username: String
+}
+
+type Partner_love {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Float
+  user_ref: ID
+  username: String
+}
+
+type Partner_love_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type Spirituality {
+  action_plan: String
+  created_at: DateTime
+  goals: JSON
+  id: ID!
+  notes: String
+  recorded_at: DateTime
+  score: Int
+  user_ref: ID
+  username: String
+}
+
+type Spirituality_feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  checked: Boolean
+  created_at: DateTime
+  deleted: Boolean
+  feedback: String
+  id: ID!
+  recorded_at: DateTime
+  user_ref: ID
+}
+
+type User_preferences {
+  created_at: DateTime!
+  id: ID!
+  recorded_at: DateTime
+  reminder_date: String!
+  use_case: String!
+  user_ref: ID!
+}
+
+type Users {
+  created_at: DateTime
+  email: String
+  id: ID!
+  isActive: Boolean
+  password: String
+  provider: String
+  recorded_at: DateTime
+  username: String
+}
+
+type _feedback {
+  advice1: String
+  advice2: String
+  advice3: String
+  advice4: String
+  advice5: String
+  created_at: DateTime
+  feedback: String
+  id: ID!
+  user_ref: ID
+}
+
+"""
+The following queries are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Query {
+  " Queries for type 'Career_work' "
+  career_workList: [Career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      configuration: "stepzen_config"
+    )
+  career_workPaginatedList(first: Int, after: Int): [Career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "career_work" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Career_work_feedback' "
+  career_work_feedbackList: [Career_work_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work_feedback"
+      configuration: "stepzen_config"
+    )
+  career_work_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Career_work_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "created_at", "deleted", "feedback", "goals", "id", "isChecked1", "isChecked2", "isChecked3", "isChecked4", "isChecked5", "recorded_at", "user_ref" FROM "career_work_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Community' "
+  communityList: [Community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      configuration: "stepzen_config"
+    )
+  communityPaginatedList(first: Int, after: Int): [Community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "community" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Community_feedback' "
+  community_feedbackList: [Community_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community_feedback"
+      configuration: "stepzen_config"
+    )
+  community_feedbackPaginatedList(first: Int, after: Int): [Community_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "created_at", "deleted", "feedback", "id", "isChecked1", "isChecked2", "isChecked3", "isChecked4", "isChecked5", "recorded_at", "user_ref" FROM "community_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Environment' "
+  environmentList: [Environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      configuration: "stepzen_config"
+    )
+  environmentPaginatedList(first: Int, after: Int): [Environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "environment" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Environment_feedback' "
+  environment_feedbackList: [Environment_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment_feedback"
+      configuration: "stepzen_config"
+    )
+  environment_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Environment_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "environment_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Family_friends' "
+  family_friendsList: [Family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      configuration: "stepzen_config"
+    )
+  family_friendsPaginatedList(first: Int, after: Int): [Family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "family_friends" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Family_friends_feedback' "
+  family_friends_feedbackList: [Family_friends_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends_feedback"
+      configuration: "stepzen_config"
+    )
+  family_friends_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Family_friends_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "family_friends_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Fun_relaxation' "
+  fun_relaxationById(id: ID!): [Fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      configuration: "stepzen_config"
+    )
+  fun_relaxationByIdAndUser_ref(id: ID!, user_ref: ID!): [Fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      configuration: "stepzen_config"
+    )
+  fun_relaxationList: [Fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      configuration: "stepzen_config"
+    )
+  fun_relaxationPaginatedList(first: Int, after: Int): [Fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "fun_relaxation" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Fun_relaxation_feedback' "
+  fun_relaxation_feedbackList: [Fun_relaxation_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation_feedback"
+      configuration: "stepzen_config"
+    )
+  fun_relaxation_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Fun_relaxation_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "fun_relaxation_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Growth_learning' "
+  growth_learningList: [Growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      configuration: "stepzen_config"
+    )
+  growth_learningPaginatedList(first: Int, after: Int): [Growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "growth_learning" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Growth_learning_feedback' "
+  growth_learning_feedbackList: [Growth_learning_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning_feedback"
+      configuration: "stepzen_config"
+    )
+  growth_learning_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Growth_learning_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "growth_learning_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Health_fitness' "
+  health_fitnessList: [Health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      configuration: "stepzen_config"
+    )
+  health_fitnessPaginatedList(first: Int, after: Int): [Health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "health_fitness" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Health_fitness_feedback' "
+  health_fitness_feedbackList: [Health_fitness_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness_feedback"
+      configuration: "stepzen_config"
+    )
+  health_fitness_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Health_fitness_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "health_fitness_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Money_finances' "
+  money_financesList: [Money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      configuration: "stepzen_config"
+    )
+  money_financesPaginatedList(first: Int, after: Int): [Money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "money_finances" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Money_finances_feedback' "
+  money_finances_feedbackList: [Money_finances_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances_feedback"
+      configuration: "stepzen_config"
+    )
+  money_finances_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Money_finances_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "money_finances_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Overall_advice' "
+  overall_adviceList: [Overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      configuration: "stepzen_config"
+    )
+  overall_advicePaginatedList(first: Int, after: Int): [Overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "created_at", "id", "recorded_at", "user_ref" FROM "overall_advice" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Overall_score' "
+  overall_scoreList: [Overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      configuration: "stepzen_config"
+    )
+  overall_scorePaginatedList(first: Int, after: Int): [Overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "overall_score", "recorded_at", "user_ref", "username" FROM "overall_score" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Overall_score_duplicate' "
+  overall_score_duplicateList: [Overall_score_duplicate]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score_duplicate"
+      configuration: "stepzen_config"
+    )
+  overall_score_duplicatePaginatedList(
+    first: Int
+    after: Int
+  ): [Overall_score_duplicate]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "career_work_id", "community_id", "created_at", "environment_id", "family_friends_id", "fun_relaxation_id", "growth_learning_id", "health_fitness_id", "id", "money_finances_id", "overall_score", "partner_love_id", "spirituality_id", "user_id", "username" FROM "overall_score_duplicate" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Partner_love' "
+  partner_loveList: [Partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      configuration: "stepzen_config"
+    )
+  partner_lovePaginatedList(first: Int, after: Int): [Partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "partner_love" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Partner_love_feedback' "
+  partner_love_feedbackList: [Partner_love_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love_feedback"
+      configuration: "stepzen_config"
+    )
+  partner_love_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Partner_love_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "partner_love_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Spirituality' "
+  spiritualityList: [Spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      configuration: "stepzen_config"
+    )
+  spiritualityPaginatedList(first: Int, after: Int): [Spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "action_plan", "created_at", "goals", "id", "notes", "recorded_at", "score", "user_ref", "username" FROM "spirituality" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Spirituality_feedback' "
+  spirituality_feedbackList: [Spirituality_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality_feedback"
+      configuration: "stepzen_config"
+    )
+  spirituality_feedbackPaginatedList(
+    first: Int
+    after: Int
+  ): [Spirituality_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "checked", "created_at", "deleted", "feedback", "id", "recorded_at", "user_ref" FROM "spirituality_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'User_preferences' "
+  user_preferencesList: [User_preferences]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "user_preferences"
+      configuration: "stepzen_config"
+    )
+  user_preferencesPaginatedList(first: Int, after: Int): [User_preferences]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "recorded_at", "reminder_date", "use_case", "user_ref" FROM "user_preferences" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Users' "
+  usersList: [Users]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      configuration: "stepzen_config"
+    )
+  usersPaginatedList(first: Int, after: Int): [Users]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "email", "id", "isActive", "password", "provider", "recorded_at", "username" FROM "users" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type '_feedback' "
+  _feedbackList: [_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "_feedback"
+      configuration: "stepzen_config"
+    )
+  _feedbackPaginatedList(first: Int, after: Int): [_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "advice1", "advice2", "advice3", "advice4", "advice5", "created_at", "feedback", "id", "user_ref" FROM "_feedback" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+}
+
+"""
+The following mutations are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Mutation {
+  " Mutations for type 'Career_work' "
+  deleteCareer_work(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertCareer_work(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Career_work_feedback' "
+  deleteCareer_work_feedback(
+    isChecked4: Boolean!
+    user_ref: ID!
+    advice4: String!
+    advice3: String!
+    isChecked1: Boolean!
+    advice1: String!
+    advice2: String!
+    isChecked3: Boolean!
+    advice5: String!
+    recorded_at: DateTime!
+    isChecked2: Boolean!
+    feedback: String!
+    id: ID!
+    isChecked5: Boolean!
+    created_at: DateTime!
+    goals: JSON!
+    deleted: Boolean!
+  ): Career_work_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertCareer_work_feedback(
+    isChecked4: Boolean
+    user_ref: ID
+    advice4: String
+    advice3: String
+    isChecked1: Boolean
+    advice1: String
+    advice2: String
+    isChecked3: Boolean
+    advice5: String
+    recorded_at: DateTime
+    isChecked2: Boolean
+    feedback: String
+    isChecked5: Boolean
+    created_at: DateTime
+    goals: JSON
+    deleted: Boolean
+  ): Career_work_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "career_work_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Community' "
+  deleteCommunity(
+    user_ref: ID!
+    username: String!
+    score: Float!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertCommunity(
+    user_ref: ID
+    username: String
+    score: Float
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Community_feedback' "
+  deleteCommunity_feedback(
+    isChecked4: Boolean!
+    user_ref: ID!
+    advice4: String!
+    advice3: String!
+    isChecked1: Boolean!
+    advice1: String!
+    advice2: String!
+    isChecked3: Boolean!
+    advice5: String!
+    recorded_at: DateTime!
+    isChecked2: Boolean!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+    isChecked5: Boolean!
+    created_at: DateTime!
+  ): Community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertCommunity_feedback(
+    isChecked4: Boolean
+    user_ref: ID
+    advice4: String
+    advice3: String
+    isChecked1: Boolean
+    advice1: String
+    advice2: String
+    isChecked3: Boolean
+    advice5: String
+    recorded_at: DateTime
+    isChecked2: Boolean
+    deleted: Boolean
+    feedback: String
+    isChecked5: Boolean
+    created_at: DateTime
+  ): Community_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "community_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Environment' "
+  deleteEnvironment(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertEnvironment(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Environment_feedback' "
+  deleteEnvironment_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Environment_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertEnvironment_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Environment_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "environment_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Family_friends' "
+  deleteFamily_friends(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertFamily_friends(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Family_friends_feedback' "
+  deleteFamily_friends_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Family_friends_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertFamily_friends_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Family_friends_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "family_friends_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Fun_relaxation' "
+  deleteFun_relaxation(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertFun_relaxation(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Fun_relaxation_feedback' "
+  deleteFun_relaxation_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Fun_relaxation_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertFun_relaxation_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Fun_relaxation_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "fun_relaxation_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Growth_learning' "
+  deleteGrowth_learning(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertGrowth_learning(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Growth_learning_feedback' "
+  deleteGrowth_learning_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Growth_learning_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertGrowth_learning_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Growth_learning_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "growth_learning_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Health_fitness' "
+  deleteHealth_fitness(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertHealth_fitness(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Health_fitness_feedback' "
+  deleteHealth_fitness_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Health_fitness_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertHealth_fitness_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Health_fitness_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "health_fitness_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Money_finances' "
+  deleteMoney_finances(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertMoney_finances(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Money_finances_feedback' "
+  deleteMoney_finances_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Money_finances_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertMoney_finances_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Money_finances_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "money_finances_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Overall_advice' "
+  deleteOverall_advice(
+    user_ref: ID!
+    advice4: String!
+    advice3: String!
+    advice1: String!
+    id: ID!
+    advice2: String!
+    created_at: DateTime!
+    recorded_at: DateTime!
+  ): Overall_advice
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertOverall_advice(
+    user_ref: ID
+    advice4: String
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    recorded_at: DateTime
+  ): Overall_advice
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_advice"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Overall_score' "
+  deleteOverall_score(
+    user_ref: ID!
+    username: String!
+    overall_score: Float!
+    id: ID!
+    created_at: DateTime!
+    recorded_at: DateTime!
+  ): Overall_score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertOverall_score(
+    user_ref: ID
+    username: String
+    overall_score: Float
+    created_at: DateTime
+    recorded_at: DateTime
+  ): Overall_score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Overall_score_duplicate' "
+  deleteOverall_score_duplicate(
+    overall_score: Float!
+    environment_id: ID!
+    money_finances_id: ID!
+    partner_love_id: ID!
+    user_id: ID!
+    fun_relaxation_id: ID!
+    username: String!
+    career_work_id: ID!
+    health_fitness_id: ID!
+    id: ID!
+    community_id: ID!
+    growth_learning_id: ID!
+    family_friends_id: ID!
+    created_at: DateTime!
+    spirituality_id: ID!
+  ): Overall_score_duplicate
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score_duplicate"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertOverall_score_duplicate(
+    overall_score: Float
+    environment_id: ID
+    money_finances_id: ID
+    partner_love_id: ID
+    user_id: ID
+    fun_relaxation_id: ID
+    username: String
+    career_work_id: ID
+    health_fitness_id: ID
+    community_id: ID
+    growth_learning_id: ID
+    family_friends_id: ID
+    created_at: DateTime
+    spirituality_id: ID
+  ): Overall_score_duplicate
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "overall_score_duplicate"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Partner_love' "
+  deletePartner_love(
+    user_ref: ID!
+    username: String!
+    score: Float!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertPartner_love(
+    user_ref: ID
+    username: String
+    score: Float
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Partner_love_feedback' "
+  deletePartner_love_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Partner_love_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertPartner_love_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Partner_love_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "partner_love_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Spirituality' "
+  deleteSpirituality(
+    user_ref: ID!
+    username: String!
+    score: Int!
+    id: ID!
+    action_plan: String!
+    recorded_at: DateTime!
+    goals: JSON!
+    created_at: DateTime!
+    notes: String!
+  ): Spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertSpirituality(
+    user_ref: ID
+    username: String
+    score: Int
+    action_plan: String
+    recorded_at: DateTime
+    goals: JSON
+    created_at: DateTime
+    notes: String
+  ): Spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Spirituality_feedback' "
+  deleteSpirituality_feedback(
+    user_ref: ID!
+    advice4: String!
+    checked: Boolean!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    recorded_at: DateTime!
+    deleted: Boolean!
+    feedback: String!
+    id: ID!
+  ): Spirituality_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertSpirituality_feedback(
+    user_ref: ID
+    advice4: String
+    checked: Boolean
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    recorded_at: DateTime
+    deleted: Boolean
+    feedback: String
+  ): Spirituality_feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "spirituality_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'User_preferences' "
+  deleteUser_preferences(
+    reminder_date: String!
+    user_ref: ID!
+    id: ID!
+    created_at: DateTime!
+    use_case: String!
+    recorded_at: DateTime!
+  ): User_preferences
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "user_preferences"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertUser_preferences(
+    reminder_date: String!
+    user_ref: ID!
+    created_at: DateTime!
+    use_case: String!
+    recorded_at: DateTime
+  ): User_preferences
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "user_preferences"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Users' "
+  deleteUsers(
+    provider: String!
+    email: String!
+    username: String!
+    id: ID!
+    isActive: Boolean!
+    created_at: DateTime!
+    recorded_at: DateTime!
+    password: String!
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertUsers(
+    provider: String
+    email: String
+    username: String
+    isActive: Boolean
+    created_at: DateTime
+    recorded_at: DateTime
+    password: String
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type '_feedback' "
+  delete_feedback(
+    user_ref: ID!
+    advice4: String!
+    advice3: String!
+    advice1: String!
+    advice2: String!
+    created_at: DateTime!
+    advice5: String!
+    feedback: String!
+    id: ID!
+  ): _feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "_feedback"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insert_feedback(
+    user_ref: ID
+    advice4: String
+    advice3: String
+    advice1: String
+    advice2: String
+    created_at: DateTime
+    advice5: String
+    feedback: String
+  ): _feedback
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
 }

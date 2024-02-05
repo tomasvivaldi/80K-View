@@ -1,4 +1,3 @@
 {
-  "endpoint": "api/getting-started",
-  "root": "stepzen"
+  "endpoint": "api/getting-started"
 }
