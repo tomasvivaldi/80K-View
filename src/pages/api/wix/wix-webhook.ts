@@ -1,17 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+        
   console.log(`Webhook hit with method: ${req.method}`);
   if (req.method === 'POST') {
     console.log('Received Wix Webhook:', req.body);
 
     // Log detailed information
     const {
+      plan_id,
       plan_valid_until,
       site_email,
       plan_order_id,
       plan_description,
-      plan_id,
       site_name,
       plan_title,
       plan_price, // { value, currency }
@@ -25,20 +26,20 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Site Name: ${site_name}, Site Email: ${site_email}, Plan Title: ${plan_title}`);
     console.log(`Plan ID: ${plan_id}, Order ID: ${plan_order_id}, Plan Description: ${plan_description}`);
     console.log(`Plan Start Date: ${plan_start_date}, Plan Valid Until: ${plan_valid_until}`);
-    console.log(`Plan Price: ${plan_price.value} ${plan_price.currency}, Plan Cycle Duration: ${plan_cycle_duration}`);
+    console.log(`Plan Price: ${plan_price?.value} ${plan_price?.currency}, Plan Cycle Duration: ${plan_cycle_duration}`);
     console.log(`Contact ID: ${contact_id}`);
     
     // Log contact details
-    console.log(`Contact Name: ${contact.name.first} ${contact.name.last}, Contact Email: ${contact.email}`);
-    console.log(`Contact Locale: ${contact.locale}, Contact Company: ${contact.company}`);
-    console.log(`Contact Address: ${contact.address.formattedAddress}, Contact Phone: ${contact.phone}`);
-    console.log(`Contact Job Title: ${contact.jobTitle}, Contact Birthdate: ${contact.birthdate}`);
+    console.log(`Contact Name: ${contact?.name?.first} ${contact?.name?.last}, Contact Email: ${contact?.email}`);
+    console.log(`Contact Locale: ${contact?.locale}, Contact Company: ${contact?.company}`);
+    console.log(`Contact Address: ${contact?.address?.formattedAddress}, Contact Phone: ${contact?.phone}`);
+    console.log(`Contact Job Title: ${contact?.jobTitle}, Contact Birthdate: ${contact?.birthdate}`);
     
     // Additional contact details if needed
-    console.log(`Contact City: ${contact.address.city}, Contact Country: ${contact.address.country}`);
-    console.log(`Contact Postal Code: ${contact.address.postalCode}`);
-    console.log(`Contact Address Line 1: ${contact.address.addressLine}, Contact Address Line 2: ${contact.address.addressLine2}`);
-    console.log(`Contact Address Subdivision: ${contact.address.subdivision}`);
+    console.log(`Contact City: ${contact?.address?.city}, Contact Country: ${contact?.address?.country}`);
+    console.log(`Contact Postal Code: ${contact?.address?.postalCode}`);
+    console.log(`Contact Address Line 1: ${contact?.address?.addressLine}, Contact Address Line 2: ${contact?.address?.addressLine2}`);
+    console.log(`Contact Address Subdivision: ${contact?.address?.subdivision}`);
 
     // Send a response back to Wix to acknowledge receipt
     res.status(200).json({ message: 'Webhook received successfully' });
@@ -50,3 +51,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default wixWebhookHandler;
+
+
+
+
