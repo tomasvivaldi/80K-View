@@ -38,7 +38,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
 
 
-    const token = req.headers['Authorization']; 
+    const token = req.headers['x-vercel-sc-headers']; 
     console.log("req.headers",req.headers)
     if (!token) {
       return res.status(401).json({
