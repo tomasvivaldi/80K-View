@@ -38,9 +38,14 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
 
 
-    const token = req.headers['digest']; 
+    const token = req.headers['Authorization']; 
+    console.log("req.headers",req.headers)
     if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
+      return res.status(401).json({
+        message: 'No token provided',
+        headers: req.headers // Pass the headers in the response for debugging
+    });
+        
     }
 
 // Ensure token is a string
