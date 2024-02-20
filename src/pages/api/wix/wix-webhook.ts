@@ -134,75 +134,47 @@
 
 // export default wixWebhookHandler;
 
-
-
 import { NextApiRequest, NextApiResponse } from 'next';
-import crypto from 'crypto';
 
 export const config = {
   api: {
-    bodyParser: false, // Important for accessing the raw body
+    bodyParser: false, // Necessary to access the raw body
   },
 };
 
 const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    console.log(`Webhook hit with method: ${req.method}`);
+  if (req.method === 'POST') {
+    console.log('Webhook hit with method: POST');
 
-  console.log("Received headers:", req.headers);
-  console.log("Received body:", req?.body);
-
-
-  if (req.method !== 'POST') {
-    console.warn(`Received non-POST method: ${req.method}`);
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end('Method Not Allowed');
-    return;
-  }
-
-  const signatureHeader = req.headers['x-answers-signature'];
-  console.log("X-Answers-Signature Header:", signatureHeader);
-
-  if (!signatureHeader) {
-    console.warn("X-Answers-Signature header not found. Proceeding without signature validation for testing purposes only.");
-    // In production, you should not bypass this validation.
-    // res.status(401).json({ message: 'No X-Answers-Signature header provided' });
-    // return;
-  }
-  
-
-  // Assuming you've set your Wix secret as an environment variable
-  const sharedSecret = process.env.WIX_PUBLIC_KEY;
-  console.log("Shared secret is set:", !!sharedSecret); // Logs true if set, false otherwise. Do not log the secret itself.
-
-  try {
+    // Retrieve and log the raw body
     const body = await new Promise<string>((resolve) => {
       let data = '';
       req.on('data', (chunk) => {
-        data += chunk;
+        data += chunk.toString(); // Convert Buffer to string
       });
       req.on('end', () => {
         resolve(data);
       });
     });
 
-    console.log("Raw body received for signature validation.");
+    console.log("Raw body received:", body);
 
-    //@ts-ignore
-    const hash = crypto.createHmac('SHA256', sharedSecret).update(body).digest('base64');
-    console.log("Computed hash:", hash);
-
-    if (signatureHeader !== hash) {
-      console.error("Computed hash does not match X-Answers-Signature header.");
-      res.status(401).json({ message: 'Invalid signature' });
-      return;
+    // Here, you could add additional logic to handle the webhook content,
+    // such as parsing JSON if you expect a JSON payload.
+    try {
+      const parsedBody = JSON.parse(body);
+      console.log("Parsed JSON body:", parsedBody);
+    } catch (error) {
+      console.log("Error parsing JSON, raw body logged instead.");
     }
 
-    // Proceed with processing the webhook payload
-    console.log("Signature validated successfully.");
-    res.status(200).json({ message: 'Webhook received and signature validated' });
-  } catch (error) {
-    console.error('Error processing request:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    // Responding to Wix to acknowledge receipt of the webhook
+    res.status(200).json({ message: 'Webhook received' });
+  } else {
+    // If the request is not a POST, respond with method not allowed
+    console.log(`Received method: ${req.method}, only POST is allowed.`);
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end('Method Not Allowed');
   }
 };
 
