@@ -149,7 +149,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(`Webhook hit with method: ${req.method}`);
 
   console.log("Received headers:", req.headers);
-  console.log("Received body:", req.body);
+  console.log("Received body:", req?.body);
 
 
   if (req.method !== 'POST') {
