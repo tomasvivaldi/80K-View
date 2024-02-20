@@ -57,7 +57,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         
     }
 // Assuming you've set your shared secret as an environment variable
-const sharedSecret = process.env.WIX_SHARED_SECRET!;
+const sharedSecret = process.env.WIX_WEBHOOK_KEY!;
     
 // Retrieve the signature from the headers
 const retrievedSignature = req.headers['x-answers-signature'];
