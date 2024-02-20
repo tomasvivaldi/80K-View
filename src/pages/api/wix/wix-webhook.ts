@@ -32,14 +32,13 @@ export const config = {
   },
 };
 
-
 const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         
   console.log(`Webhook hit with method: ${req.method}`);
   if (req.method === 'POST') {
 
 
-    const token = req.headers['digest']; // Assuming 'digest' contains the JWT
+    const token = req.headers['digest']; 
     if (!token) {
         return res.status(401).json({ message: 'No token provided' });
     }
