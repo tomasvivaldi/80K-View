@@ -167,7 +167,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   
 
   // Assuming you've set your Wix secret as an environment variable
-  const sharedSecret = process.env.WIX_SHARED_SECRET;
+  const sharedSecret = process.env.WIX_PUBLIC_KEY;
   console.log("Shared secret is set:", !!sharedSecret); // Logs true if set, false otherwise. Do not log the secret itself.
 
   try {
