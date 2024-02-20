@@ -136,74 +136,67 @@
 
 
 
-
 import { NextApiRequest, NextApiResponse } from 'next';
-import jwt from 'jsonwebtoken';
-// import crypto from 'crypto';
+import crypto from 'crypto';
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // Important for accessing the raw body
   },
 };
 
 const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(`Webhook hit with method: ${req.method}`);
-  console.log("Headers:", req.headers);
 
-  if (req.method === 'POST') {
-    const digestHeader = req.headers['digest'];
-    console.log("Digest Header:", digestHeader);
-
-    if (!digestHeader) {
-      console.error("No digest header found.");
-      return res.status(401).json({ message: 'No digest header provided' });
-    }
-
-    const wixPublicKey = process.env.WIX_PUBLIC_KEY; // Ensure this is correctly set in your environment
-    console.log("Wix Public Key Set:", !!wixPublicKey); // Logs true if set, false otherwise. Do not log the key itself.
-
-    try {
-      //@ts-ignore
-      const decoded = jwt.verify(digestHeader, wixPublicKey, { algorithms: ['RS256'] });
-      console.log('Verified JWT:', decoded);
-
-      const body = await new Promise<string>((resolve) => {
-        let data = '';
-        req.on('data', (chunk) => {
-          data += chunk;
-        });
-        req.on('end', () => {
-          console.log("Raw Body:", data); // Log the raw body for debugging
-          resolve(data);
-        });
-      });
-
-      // Assuming the body is JSON. If payloads might be encrypted, this part needs adjustment.
-      let parsedBody;
-      try {
-        parsedBody = JSON.parse(body);
-        console.log('Parsed Body:', parsedBody);
-      } catch (error) {
-        console.error("Error parsing JSON body:", error);
-        // Handle non-JSON body or encrypted payload here
-      }
-
-      // If you suspect the payload might be encrypted, add checks here to verify and decrypt if necessary
-      if (parsedBody && parsedBody.encryptedData) {
-        console.log("Encrypted Data Detected:", parsedBody.encryptedData);
-        // Add decryption logic here based on how data is encrypted
-      }
-
-      res.status(200).json({ message: 'Webhook received and verified' });
-    } catch (error) {
-      console.error('Failed to verify JWT or process the request:', error);
-      return res.status(401).json({ message: 'Failed to verify digest or process the request' });
-    }
-  } else {
+  if (req.method !== 'POST') {
     console.warn(`Received non-POST method: ${req.method}`);
     res.setHeader('Allow', ['POST']);
     res.status(405).end('Method Not Allowed');
+    return;
+  }
+
+  const signatureHeader = req.headers['x-answers-signature'];
+  console.log("X-Answers-Signature Header:", signatureHeader);
+
+  if (!signatureHeader) {
+    console.error("No X-Answers-Signature header found.");
+    res.status(401).json({ message: 'No X-Answers-Signature header provided' });
+    return;
+  }
+
+  // Assuming you've set your Wix secret as an environment variable
+  const sharedSecret = process.env.WIX_SHARED_SECRET;
+  console.log("Shared secret is set:", !!sharedSecret); // Logs true if set, false otherwise. Do not log the secret itself.
+
+  try {
+    const body = await new Promise<string>((resolve) => {
+      let data = '';
+      req.on('data', (chunk) => {
+        data += chunk;
+      });
+      req.on('end', () => {
+        resolve(data);
+      });
+    });
+
+    console.log("Raw body received for signature validation.");
+
+    //@ts-ignore
+    const hash = crypto.createHmac('SHA256', sharedSecret).update(body).digest('base64');
+    console.log("Computed hash:", hash);
+
+    if (signatureHeader !== hash) {
+      console.error("Computed hash does not match X-Answers-Signature header.");
+      res.status(401).json({ message: 'Invalid signature' });
+      return;
+    }
+
+    // Proceed with processing the webhook payload
+    console.log("Signature validated successfully.");
+    res.status(200).json({ message: 'Webhook received and signature validated' });
+  } catch (error) {
+    console.error('Error processing request:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
