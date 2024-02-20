@@ -1,10 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import jwt from 'jsonwebtoken';
+
 // import { buffer } from 'micro';
 // import { UPDATE_USER_SUBSCRIPTION } from 'graphql/mutations';
 // import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 // import { setContext } from '@apollo/client/link/context';
 // import fetch from 'cross-fetch';
+import crypto from 'crypto';
+
+// Example function to validate the HMAC-SHA256 signature
+const validateSignature = (sharedSecret: string, body: string, retrievedSignature: string | string[]) => {
+  const computedSignature = crypto.createHmac('SHA256', sharedSecret).update(body).digest('base64');
+  const computed = Buffer.from(computedSignature, 'base64');
+  const retrieved = Buffer.from(Array.isArray(retrievedSignature!) ? retrievedSignature[0]! : retrievedSignature, 'base64');
+  return crypto.timingSafeEqual(computed, retrieved);
+};
 
 
 // const httpLink = createHttpLink({ 
@@ -47,14 +56,29 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
         
     }
+// Assuming you've set your shared secret as an environment variable
+const sharedSecret = process.env.WIX_SHARED_SECRET!;
+    
+// Retrieve the signature from the headers
+const retrievedSignature = req.headers['x-answers-signature'];
+if (!retrievedSignature) {
+  return res.status(401).json({ message: 'No signature provided' });
+}
 
-// Ensure token is a string
-const tokenString = Array.isArray(token) ? token[0] : token;
+// Raw body is needed for signature validation, ensure your Next.js API route is configured to parse body as text
+const body = await new Promise<string>((resolve) => {
+  let data = '';
+  req.on('data', (chunk) => {
+    data += chunk;
+  });
+  req.on('end', () => {
+    resolve(data);
+  });
+});
 
-try {
-  const decoded = jwt.verify(tokenString!, process.env.WIX_PUBLIC_KEY!);
-
-    console.log('Verified JWT:', decoded);
+const isValidSignature = validateSignature(sharedSecret, body, retrievedSignature);
+if (!isValidSignature) {
+  return res.status(401).json({ message: 'Invalid signature' });}
 
 
 
@@ -98,9 +122,9 @@ try {
     console.log(`Contact Address Subdivision: ${contact?.address?.subdivision}`);
 
     res.status(200).json({ message: 'Webhook received and verified' });
-  } catch (error) {
-      return res.status(401).json({ message: 'Failed to authenticate token' });
-  }
+  // } catch (error) {
+  //     return res.status(401).json({ message: 'Failed to authenticate token' });
+  // }
   } else {
     // If the request is not a POST, send a 405 Method Not Allowed response
     res.setHeader('Allow', 'POST');
