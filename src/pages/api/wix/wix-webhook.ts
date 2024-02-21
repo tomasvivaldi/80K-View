@@ -204,7 +204,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         data += chunk.toString(); // Convert Buffer to string
       });
       req.on('end', () => {
-        console.log("Complete raw body:", data); // Log the complete raw body
+        // console.log("Complete raw body:", data); // Log the complete raw body
         resolve(data);
       });
     });
