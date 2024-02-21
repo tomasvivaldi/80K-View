@@ -218,34 +218,9 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     // });
 
     // Step 2: Ensure the public key is defined and correctly formatted
-    
-    const { generateKeyPair } = require('crypto');
-    generateKeyPair('rsa', {
-      modulusLength: 4096,
-      publicKeyEncoding: {
-        type: 'pkcs1',
-        format: 'pem'
-      },
-      privateKeyEncoding: {
-        type: 'pkcs1',
-        format: 'pem',
-        cipher: 'aes-256-cbc',
-      }
-    // Handle errors and use the generated key pair
-    }, ( publicKey: any) => {
-      publicKey
-    });
-
 
     try {
       // Step 3: Attempt to decode and verify the JWT
-
-
-
-
-
-
-
 
       const publicKey = process.env.WIX_PUBLIC_KEY!;
       console.log("publicKey",publicKey)
