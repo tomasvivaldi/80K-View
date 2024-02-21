@@ -237,13 +237,13 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const jwt = require('jsonwebtoken');
       const jwkToPem = require('jwk-to-pem');
       const pem = jwkToPem(publicKey);
-      jwt.verify(body, pem, { algorithms: ['RS256'] },  {
-      });
+      // jwt.verify(body, pem, { algorithms: ['RS256'] },  {
+      // });
 
 
 
-      // const decoded = jwt.verify(body, pKey, { algorithms: ['RS256'] });
-      // console.log("Decoded JWT:", decoded);
+      const decoded = jwt.verify(body, pem, { algorithms: ['RS256'] });
+      console.log("Decoded JWT:", decoded);
       res.status(200).json({ message: 'Webhook received and verified' });
     } catch (error) {
       // Step 4: Log detailed error information
