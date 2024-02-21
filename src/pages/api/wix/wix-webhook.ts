@@ -231,7 +231,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       // Additional logging for troubleshooting
       console.log({
         errorMessage: typedError.message,
-        providedJWT: body,
+        // providedJWT: body,
         usedPublicKey: publicKey
       });
 
