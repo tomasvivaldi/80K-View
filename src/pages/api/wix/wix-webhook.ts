@@ -193,23 +193,29 @@ export const config = {
   },
 };
 
+
+
 const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("request", req.body)
+
+
   
   if (req.method === 'POST') {
-    console.log('Webhook hit with method: POST');
 
-    // Step 1: Capture and log the raw body
-    const body = await new Promise<string>((resolve) => {
-      let data = '';
-      req.on('data', (chunk) => {
-        data += chunk.toString(); // Convert Buffer to string
-      });
-      req.on('end', () => {
-        // console.log("Complete raw body:", data); // Log the complete raw body
-        resolve(data);
-      });
-    });
+    console.log('Webhook hit with method: POST');
+    const body = req.body;
+    console.log("body", body)
+
+    // // Step 1: Capture and log the raw body
+    // const body = await new Promise<string>((resolve) => {
+    //   let data = '';
+    //   req.on('data', (chunk) => {
+    //     data += chunk.toString(); // Convert Buffer to string
+    //   });
+    //   req.on('end', () => {
+    //     console.log("Complete raw body:", data); // Log the complete raw body
+    //     resolve(data);
+    //   });
+    // });
 
     // Step 2: Ensure the public key is defined and correctly formatted
     const publicKey = process.env.WIX_PUBLIC_KEY?.replace(/\\n/g, '\n');
