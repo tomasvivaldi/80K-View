@@ -186,7 +186,7 @@ import jwt from 'jsonwebtoken';
 
 export const config = {
   api: {
-    bodyParser: false, // Necessary to access the raw body
+    bodyParser: false,
   },
 };
 
@@ -197,7 +197,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const body = await new Promise<string>((resolve) => {
       let data = '';
       req.on('data', (chunk) => {
-        data += chunk.toString(); // Convert Buffer to string
+        data += chunk.toString();
       });
       req.on('end', () => {
         resolve(data);
@@ -206,10 +206,10 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log("Raw body received:", body);
 
-    // Ensure the public key is defined and formatted correctly
+    // Ensure the public key is defined and correctly formatted
     const publicKey = process.env.WIX_PUBLIC_KEY?.replace(/\\n/g, '\n');
-    if (!publicKey) {
-      console.error("Public key is not defined. Please set WIX_PUBLIC_KEY in the environment variables.");
+    if (!publicKey || !publicKey.startsWith('-----BEGIN PUBLIC KEY-----')) {
+      console.error("Public key is not defined or improperly formatted. Please check WIX_PUBLIC_KEY in the environment variables.");
       return res.status(500).json({ message: 'Server misconfiguration' });
     }
 
