@@ -249,9 +249,10 @@ if (req.method === 'POST') {
   console.log('Webhook hit with method: POST');
   console.log('req',req);
 
+
   // Assuming the JWT is sent directly in the body or in a specific field
   const token = req.body; // Adjust this if the JWT is nested within the body
-
+console.log('body',req.body);
   // Decode JWT without verifying
   try {
     const decoded = jwt.decode(token, { complete: true });
