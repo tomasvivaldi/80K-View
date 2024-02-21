@@ -5,7 +5,7 @@
 // // import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 // // import { setContext } from '@apollo/client/link/context';
 // // import fetch from 'cross-fetch';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 
 // // Example function to validate the HMAC-SHA256 signature
 // const validateSignature = (sharedSecret: string, body: string, retrievedSignature: string | string[]) => {
@@ -186,6 +186,7 @@ import crypto from 'crypto';
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
+import * as jose from 'jose'
 
 export const config = {
   api: {
@@ -221,21 +222,19 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       // Step 3: Attempt to decode and verify the JWT
-
+      const algorithm = 'RS256'
       const publicKey = process.env.WIX_PUBLIC_KEY!;
-      console.log("publicKey",publicKey)
-      // Buffer.from(publicKey, 'base64')
+      const ecPublicKey = await jose.importSPKI(publicKey, algorithm)
+      
+      console.log("ecPublicKey",ecPublicKey)
+      
 
-      const publickKeyObject = crypto.createPublicKey(publicKey);
-      // publickKeyObject.export({ format: 'pem', type: 'pkcs1' });
-      console.log(publickKeyObject)
+      // const publickKeyObject = crypto.createPublicKey(publicKey);
+      // // publickKeyObject.export({ format: 'pem', type: 'pkcs1' });
+      // console.log(publickKeyObject)
 
-
-      // const pKey = await crypto.createPublicKey(publickKeyObject);
-      console.log("***pKey",publickKeyObject)
-
-
-      const decoded = jwt.verify(body, publickKeyObject, { algorithms: ['RS256'] });
+      //@ts-ignore
+      const decoded = jwt.verify(body, ecPublicKey, { algorithms: ['RS256'] });
       console.log("Decoded JWT:", decoded);
       res.status(200).json({ message: 'Webhook received and verified' });
     } catch (error) {
