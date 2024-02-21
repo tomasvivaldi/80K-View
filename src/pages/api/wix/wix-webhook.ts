@@ -134,7 +134,56 @@
 
 // export default wixWebhookHandler;
 
+//---------------------------------------------
+// import { NextApiRequest, NextApiResponse } from 'next';
+
+// export const config = {
+//   api: {
+//     bodyParser: false, // Necessary to access the raw body
+//   },
+// };
+
+// const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+//   if (req.method === 'POST') {
+//     console.log('Webhook hit with method: POST');
+
+//     // Retrieve and log the raw body
+//     const body = await new Promise<string>((resolve) => {
+//       let data = '';
+//       req.on('data', (chunk) => {
+//         data += chunk.toString(); // Convert Buffer to string
+//       });
+//       req.on('end', () => {
+//         resolve(data);
+//       });
+//     });
+
+//     console.log("Raw body received:", body);
+
+//     // Here, you could add additional logic to handle the webhook content,
+//     // such as parsing JSON if you expect a JSON payload.
+//     try {
+//       const parsedBody = JSON.parse(body);
+//       console.log("Parsed JSON body:", parsedBody);
+//     } catch (error) {
+//       console.log("Error parsing JSON, raw body logged instead.");
+//     }
+
+//     // Responding to Wix to acknowledge receipt of the webhook
+//     res.status(200).json({ message: 'Webhook received' });
+//   } else {
+//     // If the request is not a POST, respond with method not allowed
+//     console.log(`Received method: ${req.method}, only POST is allowed.`);
+//     res.setHeader('Allow', ['POST']);
+//     res.status(405).end('Method Not Allowed');
+//   }
+// };
+
+// export default wixWebhookHandler;
+//-----------------------------------
+
 import { NextApiRequest, NextApiResponse } from 'next';
+import jwt from 'jsonwebtoken';
 
 export const config = {
   api: {
@@ -146,7 +195,6 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     console.log('Webhook hit with method: POST');
 
-    // Retrieve and log the raw body
     const body = await new Promise<string>((resolve) => {
       let data = '';
       req.on('data', (chunk) => {
@@ -159,23 +207,27 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log("Raw body received:", body);
 
-    // Here, you could add additional logic to handle the webhook content,
-    // such as parsing JSON if you expect a JSON payload.
-    try {
-      const parsedBody = JSON.parse(body);
-      console.log("Parsed JSON body:", parsedBody);
-    } catch (error) {
-      console.log("Error parsing JSON, raw body logged instead.");
-    }
+   // Ensure the public key is defined
+   const publicKey = process.env.WIX_PUBLIC_KEY;
+   if (!publicKey) {
+     console.error("Public key is not defined. Please set WIX_PUBLIC_KEY in the environment variables.");
+     return res.status(500).json({ message: 'Server misconfiguration' });
+   }
 
-    // Responding to Wix to acknowledge receipt of the webhook
-    res.status(200).json({ message: 'Webhook received' });
-  } else {
-    // If the request is not a POST, respond with method not allowed
-    console.log(`Received method: ${req.method}, only POST is allowed.`);
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end('Method Not Allowed');
+   try {
+    const decoded = jwt.verify(body, publicKey, { algorithms: ['RS256'] });
+    console.log("Decoded JWT:", decoded);
+    res.status(200).json({ message: 'Webhook received and verified' });
+  } catch (error) {
+    // Use a type assertion to treat the error as an instance of Error
+    const typedError = error as Error;
+    console.error("JWT verification failed:", typedError.message);
+    return res.status(401).json({ message: 'Invalid token' });
   }
+} else {
+  console.log(`Received method: ${req.method}, only POST is allowed.`);
+  res.setHeader('Allow', ['POST']);
+  res.status(405).end('Method Not Allowed');
+}
 };
-
 export default wixWebhookHandler;
