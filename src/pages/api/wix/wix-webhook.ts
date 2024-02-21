@@ -230,6 +230,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
       const publicKey = process.env.WIX_PUBLIC_KEY!;
+      console.log("publicKey",publicKey)
       // Buffer.from(publicKey, 'base64')
       const pKey = crypto.createPublicKey(publicKey);
 console.log("pKey",pKey)
