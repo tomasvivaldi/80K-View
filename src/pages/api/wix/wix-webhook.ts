@@ -186,7 +186,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import * as jose from 'jose'
+// import * as jose from 'jose'
 
 export const config = {
   api: {
@@ -200,73 +200,76 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
   
-  if (req.method === 'POST') {
+//   if (req.method === 'POST') {
 
-    console.log('Webhook hit with method: POST');
-    const body = req.body;
-    // console.log("body", body)
+//     console.log('Webhook hit with method: POST');
+//     const body = req.body;
 
-    // Step 1: Capture and log the raw body
-    // const body = await new Promise<string>((resolve) => {
-    //   let data = '';
-    //   req.on('data', (chunk) => {
-    //     data += chunk.toString(); // Convert Buffer to string
-    //   });
-    //   req.on('end', () => {
-    //     console.log("Complete raw body:", data); // Log the complete raw body
-    //     resolve(data);
-    //   });
-    // });
+//     // Step 2: Ensure the public key is defined and correctly formatted
 
-    // Step 2: Ensure the public key is defined and correctly formatted
-
-    try {
-      // Step 3: Attempt to decode and verify the JWT
-      const algorithm = 'RS256'
-      const publicKey = process.env.WIX_PUBLIC_KEY!;
-      const ecPublicKey = await jose.importSPKI(publicKey, algorithm)
+//     try {
+//       // Step 3: Attempt to decode and verify the JWT
+//       const algorithm = 'RS256'
+//       const publicKey = process.env.WIX_PUBLIC_KEY!;
+//       const ecPublicKey = await jose.importSPKI(publicKey, algorithm)
       
-      console.log("ecPublicKey",ecPublicKey)
+//       console.log("ecPublicKey",ecPublicKey)
       
 
-      // const publickKeyObject = crypto.createPublicKey(publicKey);
-      // // publickKeyObject.export({ format: 'pem', type: 'pkcs1' });
-      // console.log(publickKeyObject)
+//       // const publickKeyObject = crypto.createPublicKey(publicKey);
+//       // // publickKeyObject.export({ format: 'pem', type: 'pkcs1' });
+//       // console.log(publickKeyObject)
 
-      //@ts-ignore
-      const decoded = jwt.verify(body, ecPublicKey, { algorithms: ['RS256'] });
-      console.log("Decoded JWT:", decoded);
-      res.status(200).json({ message: 'Webhook received and verified' });
-    } catch (error) {
-      // Step 4: Log detailed error information
-      const typedError = error as Error;
-      console.error("JWT verification failed:", typedError.message);
+      
+//       const decoded = jwt.verify(body, ecPublicKey, { algorithms: ['RS256'] });
+//       console.log("Decoded JWT:", decoded);
+//       res.status(200).json({ message: 'Webhook received and verified' });
+//     } catch (error) {
+//       // Step 4: Log detailed error information
+//       const typedError = error as Error;
+//       console.error("JWT verification failed:", typedError.message);
 
-      // Additional logging for troubleshooting
-      console.log({
-        errorMessage: typedError.message,
-        // providedJWT: body,
-        // usedPublicKey: publicKey
-      });
+//       // Additional logging for troubleshooting
+//       console.log({
+//         errorMessage: typedError.message,
+//         // providedJWT: body,
+//         // usedPublicKey: publicKey
+//       });
 
-      return res.status(401).json({ message: 'Invalid token' });
-    }
-  } else {
-    console.log(`Received method: ${req.method}, only POST is allowed.`);
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end('Method Not Allowed');
+//       return res.status(401).json({ message: 'Invalid token' });
+//     }
+//   } else {
+//     console.log(`Received method: ${req.method}, only POST is allowed.`);
+//     res.setHeader('Allow', ['POST']);
+//     res.status(405).end('Method Not Allowed');
+//   }
+// };
+
+if (req.method === 'POST') {
+  console.log('Webhook hit with method: POST');
+
+  // Assuming the JWT is sent directly in the body or in a specific field
+  const token = req.body; // Adjust this if the JWT is nested within the body
+
+  // Decode JWT without verifying
+  try {
+    const decoded = jwt.decode(token, { complete: true });
+    console.log("Decoded JWT:", decoded);
+
+    res.status(200).json({ message: 'JWT decoded', decoded });
+  } catch (error) {
+    console.error("JWT decoding failed:", error);
+
+    // Log the error and return a response
+    return res.status(400).json({ message: 'Failed to decode JWT', error });
   }
+} else {
+  console.log(`Received method: ${req.method}, only POST is allowed.`);
+  res.setHeader('Allow', ['POST']);
+  res.status(405).end('Method Not Allowed');
+}
 };
 
 export default wixWebhookHandler;
 
 
-
-
-// const hmac = crypto.HmacSHA256(JSON.stringify(req.body), WEBHOOK_SECRET);  
-// const hash = Buffer.from(hmac.toString(), 'utf8');
-// const signature = req.headers['x-shipstation-signature'];  
-
-// if (!crypto.timingSafeEqual(hash, Buffer.from(signature, 'utf64'))) {
-//   return res.status(400).send('Signatures do not match');
-// }
