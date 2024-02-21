@@ -181,12 +181,15 @@
 
 // export default wixWebhookHandler;
 //-----------------------------------
+
+
+
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // Necessary to access the raw body
   },
 };
 
@@ -194,32 +197,44 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     console.log('Webhook hit with method: POST');
 
+    // Step 1: Capture and log the raw body
     const body = await new Promise<string>((resolve) => {
       let data = '';
       req.on('data', (chunk) => {
-        data += chunk.toString();
+        data += chunk.toString(); // Convert Buffer to string
       });
       req.on('end', () => {
+        console.log("Complete raw body:", data); // Log the complete raw body
         resolve(data);
       });
     });
 
-    console.log("Raw body received:", body);
-
-    // Ensure the public key is defined and correctly formatted
+    // Step 2: Ensure the public key is defined and correctly formatted
     const publicKey = process.env.WIX_PUBLIC_KEY?.replace(/\\n/g, '\n');
     if (!publicKey || !publicKey.startsWith('-----BEGIN PUBLIC KEY-----')) {
       console.error("Public key is not defined or improperly formatted. Please check WIX_PUBLIC_KEY in the environment variables.");
       return res.status(500).json({ message: 'Server misconfiguration' });
+    } else {
+      console.log("Public key successfully retrieved and formatted.");
     }
 
     try {
+      // Step 3: Attempt to decode and verify the JWT
       const decoded = jwt.verify(body, publicKey, { algorithms: ['RS256'] });
       console.log("Decoded JWT:", decoded);
       res.status(200).json({ message: 'Webhook received and verified' });
     } catch (error) {
+      // Step 4: Log detailed error information
       const typedError = error as Error;
       console.error("JWT verification failed:", typedError.message);
+
+      // Additional logging for troubleshooting
+      console.log({
+        errorMessage: typedError.message,
+        providedJWT: body,
+        usedPublicKey: publicKey
+      });
+
       return res.status(401).json({ message: 'Invalid token' });
     }
   } else {
@@ -230,6 +245,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default wixWebhookHandler;
+
 
 
 
