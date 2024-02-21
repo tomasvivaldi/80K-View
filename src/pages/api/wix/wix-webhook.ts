@@ -218,16 +218,12 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     // });
 
     // Step 2: Ensure the public key is defined and correctly formatted
-    const publicKey = process.env.WIX_PUBLIC_KEY?.replace(/\\n/g, '\n');
-    if (!publicKey || !publicKey.startsWith('-----BEGIN PUBLIC KEY-----')) {
-      console.error("Public key is not defined or improperly formatted. Please check WIX_PUBLIC_KEY in the environment variables.");
-      return res.status(500).json({ message: 'Server misconfiguration' });
-    } else {
-      console.log("Public key successfully retrieved and formatted.");
-    }
+    
 
     try {
       // Step 3: Attempt to decode and verify the JWT
+      const publicKey = process.env.WIX_PUBLIC_KEY!;
+      // Buffer.from(publicKey, 'base64')
       const privateKey = crypto.createPrivateKey(publicKey);
 
       const decoded = jwt.verify(body, privateKey, { algorithms: ['RS256'] });
