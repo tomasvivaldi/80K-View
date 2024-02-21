@@ -203,7 +203,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log('Webhook hit with method: POST');
     const body = req.body;
-    console.log("body", body)
+    // console.log("body", body)
 
     // Step 1: Capture and log the raw body
     // const body = await new Promise<string>((resolve) => {
@@ -228,8 +228,10 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       // Step 3: Attempt to decode and verify the JWT
-      // const token = slice().body
-      const decoded = jwt.verify(body, publicKey, { algorithms: ['RS256'] });
+      const token = body.split(".")[2]
+      console.log("token",token)
+
+      const decoded = jwt.verify(token, publicKey, { algorithms: ['RS256'] });
       console.log("Decoded JWT:", decoded);
       res.status(200).json({ message: 'Webhook received and verified' });
     } catch (error) {
