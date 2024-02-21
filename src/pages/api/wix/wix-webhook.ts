@@ -194,7 +194,8 @@ export const config = {
 };
 
 const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("request", req)
+  console.log("request", req.body)
+  
   if (req.method === 'POST') {
     console.log('Webhook hit with method: POST');
 
