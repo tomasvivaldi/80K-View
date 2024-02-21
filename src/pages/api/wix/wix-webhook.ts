@@ -232,7 +232,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log({
         errorMessage: typedError.message,
         // providedJWT: body,
-        usedPublicKey: publicKey
+        // usedPublicKey: publicKey
       });
 
       return res.status(401).json({ message: 'Invalid token' });
