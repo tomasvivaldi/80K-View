@@ -233,7 +233,10 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       console.log("publicKey",publicKey)
       // Buffer.from(publicKey, 'base64')
       const pKey = crypto.createPublicKey(publicKey);
-console.log("pKey",pKey)
+      console.log("***pKey",pKey)
+      console.log("***pKey",crypto.createPublicKey(publicKey))
+
+
       const decoded = jwt.verify(body, pKey, { algorithms: ['RS256'] });
       console.log("Decoded JWT:", decoded);
       res.status(200).json({ message: 'Webhook received and verified' });
