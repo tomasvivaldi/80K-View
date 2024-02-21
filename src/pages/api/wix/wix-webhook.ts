@@ -219,6 +219,23 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Step 2: Ensure the public key is defined and correctly formatted
     
+    const { generateKeyPair } = require('crypto');
+    generateKeyPair('rsa', {
+      modulusLength: 4096,
+      publicKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem'
+      },
+      privateKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem',
+        cipher: 'aes-256-cbc',
+      }
+    // Handle errors and use the generated key pair
+    }, ( publicKey: any) => {
+      publicKey
+    });
+
 
     try {
       // Step 3: Attempt to decode and verify the JWT
@@ -229,12 +246,19 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 
 
+
       const publicKey = process.env.WIX_PUBLIC_KEY!;
       console.log("publicKey",publicKey)
       // Buffer.from(publicKey, 'base64')
-      const pKey = crypto.createPublicKey(publicKey);
-      console.log("***pKey",pKey)
-      console.log("***pKey",crypto.createPublicKey(publicKey))
+
+      const publickKeyObject = crypto.createPublicKey(publicKey);
+      // publickKeyObject.export({ format: 'pem', type: 'pkcs1' });
+      console.log(publickKeyObject)
+
+
+      const pKey = await crypto.createPublicKey(publickKeyObject);
+      console.log("***pKey",publickKeyObject)
+      console.log("***pKey",crypto.createPublicKey(publickKeyObject))
 
 
       const decoded = jwt.verify(body, pKey, { algorithms: ['RS256'] });
