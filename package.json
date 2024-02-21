@@ -33,6 +33,7 @@
     "googleapis": "^130.0.0",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^9.0.2",
+    "jwk-to-pem": "^2.0.5",
     "micro": "^10.0.1",
     "next": "^13.0.3",
     "next-auth": "^4.22.0",
