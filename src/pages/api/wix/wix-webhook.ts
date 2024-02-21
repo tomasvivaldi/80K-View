@@ -5,7 +5,7 @@
 // // import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 // // import { setContext } from '@apollo/client/link/context';
 // // import fetch from 'cross-fetch';
-import crypto from 'crypto';
+// import crypto from 'crypto';
 
 // // Example function to validate the HMAC-SHA256 signature
 // const validateSignature = (sharedSecret: string, body: string, retrievedSignature: string | string[]) => {
@@ -224,9 +224,9 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       // Step 3: Attempt to decode and verify the JWT
       const publicKey = process.env.WIX_PUBLIC_KEY!;
       // Buffer.from(publicKey, 'base64')
-      const pKey = crypto.createPublicKey(publicKey);
+      // const pKey = crypto.createPublicKey(publicKey);
 
-      const decoded = jwt.verify(body, pKey, { algorithms: ['RS256'] });
+      const decoded = jwt.verify(body, publicKey, { algorithms: ['RS256'] });
       console.log("Decoded JWT:", decoded);
       res.status(200).json({ message: 'Webhook received and verified' });
     } catch (error) {
