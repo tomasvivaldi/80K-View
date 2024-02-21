@@ -189,7 +189,7 @@ import jwt from 'jsonwebtoken';
 
 export const config = {
   api: {
-    bodyParser: false, // Necessary to access the raw body
+    bodyParser: true, 
   },
 };
 
@@ -205,7 +205,7 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const body = req.body;
     console.log("body", body)
 
-    // // Step 1: Capture and log the raw body
+    // Step 1: Capture and log the raw body
     // const body = await new Promise<string>((resolve) => {
     //   let data = '';
     //   req.on('data', (chunk) => {
