@@ -181,7 +181,6 @@
 
 // export default wixWebhookHandler;
 //-----------------------------------
-
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 
@@ -207,27 +206,37 @@ const wixWebhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log("Raw body received:", body);
 
-   // Ensure the public key is defined
-   const publicKey = process.env.WIX_PUBLIC_KEY;
-   if (!publicKey) {
-     console.error("Public key is not defined. Please set WIX_PUBLIC_KEY in the environment variables.");
-     return res.status(500).json({ message: 'Server misconfiguration' });
-   }
+    // Ensure the public key is defined and formatted correctly
+    const publicKey = process.env.WIX_PUBLIC_KEY?.replace(/\\n/g, '\n');
+    if (!publicKey) {
+      console.error("Public key is not defined. Please set WIX_PUBLIC_KEY in the environment variables.");
+      return res.status(500).json({ message: 'Server misconfiguration' });
+    }
 
-   try {
-    const decoded = jwt.verify(body, publicKey, { algorithms: ['RS256'] });
-    console.log("Decoded JWT:", decoded);
-    res.status(200).json({ message: 'Webhook received and verified' });
-  } catch (error) {
-    // Use a type assertion to treat the error as an instance of Error
-    const typedError = error as Error;
-    console.error("JWT verification failed:", typedError.message);
-    return res.status(401).json({ message: 'Invalid token' });
+    try {
+      const decoded = jwt.verify(body, publicKey, { algorithms: ['RS256'] });
+      console.log("Decoded JWT:", decoded);
+      res.status(200).json({ message: 'Webhook received and verified' });
+    } catch (error) {
+      const typedError = error as Error;
+      console.error("JWT verification failed:", typedError.message);
+      return res.status(401).json({ message: 'Invalid token' });
+    }
+  } else {
+    console.log(`Received method: ${req.method}, only POST is allowed.`);
+    res.setHeader('Allow', ['POST']);
+    res.status(405).end('Method Not Allowed');
   }
-} else {
-  console.log(`Received method: ${req.method}, only POST is allowed.`);
-  res.setHeader('Allow', ['POST']);
-  res.status(405).end('Method Not Allowed');
-}
 };
+
 export default wixWebhookHandler;
+
+
+
+// const hmac = crypto.HmacSHA256(JSON.stringify(req.body), WEBHOOK_SECRET);  
+// const hash = Buffer.from(hmac.toString(), 'utf8');
+// const signature = req.headers['x-shipstation-signature'];  
+
+// if (!crypto.timingSafeEqual(hash, Buffer.from(signature, 'utf64'))) {
+//   return res.status(400).send('Signatures do not match');
+// }
