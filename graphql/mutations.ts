@@ -748,7 +748,7 @@ export const UPDATE_SPIRITUALITY_GOALS = gql`
 `;
 
 export const ADD_WIX_SUBSCRIPTION = gql`
-  mutation AddWixSubscription($email: String!, $wix_order_id: String!, $data: json!, $recorded_at: DateTime, $updated_at: DateTime) {
+  mutation AddWixSubscription($email: String!, $wix_order_id: String!, $data: JSON!, $recorded_at: DateTime, $updated_at: DateTime) {
     insertWixSubscription(email: $email, wix_order_id: $wix_order_id, data: $data, recorded_at: $recorded_at, updated_at: $updated_at) {
       id
       email
