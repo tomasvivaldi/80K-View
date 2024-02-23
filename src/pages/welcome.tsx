@@ -67,6 +67,7 @@ export default function HorizontalLinearStepper() {
           reminder_date: selectedDate,
           user_ref: userRef,
           recorded_at: recorded_at,
+          created_at: recorded_at,
         },
       });
       
