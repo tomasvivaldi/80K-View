@@ -37,7 +37,7 @@ if (req.method === 'POST') {
 
   // Decode JWT without verifying
   try {
-    const wixSubscription = req.body
+    const wixSubscription = req.body.data
 console.log("wixSubscription.contact",wixSubscription.contact)
 console.log("wixSubscription.contact.email",wixSubscription?.contact?.email)
 console.log("wixSubscription.plan_order_id",wixSubscription.plan_order_id)
