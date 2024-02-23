@@ -22,10 +22,20 @@ const SignUp = () => {
     variables: { email: userEmail },
     skip: !userEmail,
   });
-  const { data: wixSubscriptionData, loading: wixSubscriptionDataLoading } = useQuery(GET_WIX_SUBSCRIPTION_BY_EMAIL, {
+  console.log("Executing Wix subscription query with email:", userEmail);
+
+  const { data: wixSubscriptionData, loading: wixSubscriptionDataLoading, error: wixSubscriptionError } = useQuery(GET_WIX_SUBSCRIPTION_BY_EMAIL, {
     variables: { email: userEmail },
     skip: !userEmail,
   });
+  
+  // Log or handle the error
+  useEffect(() => {
+    if (wixSubscriptionError) {
+      console.error("Error fetching Wix subscription data:", wixSubscriptionError);
+    }
+  }, [wixSubscriptionError]);
+  
   
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   
