@@ -57,6 +57,8 @@ const Login = () => {
         if (!wixSubscriptionDataLoading) {
           const isEmailMatch = user?.email === wixSubscriptionData?.email;
           console.log("isEmailMatch",isEmailMatch)
+          console.log("wixSubscriptionData?.email",wixSubscriptionData?.email)
+          console.log("wixSubscriptionData",wixSubscriptionData)
           const createUser = async () => {
             const username = user?.name;
             const email = user?.email;
