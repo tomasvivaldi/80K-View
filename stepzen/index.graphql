@@ -2539,8 +2539,8 @@ type Mutation {
     )
   insertUser_preferences(
     reminder_date: String!
-    user_ref: ID!
-    created_at: DateTime!
+    user_ref: Int!
+    created_at: DateTime
     use_case: String!
     recorded_at: DateTime
   ): User_preferences
