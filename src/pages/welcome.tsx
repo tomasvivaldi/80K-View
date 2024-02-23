@@ -24,8 +24,8 @@ export default function HorizontalLinearStepper() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useEffect(() => {
-    if (sessionStatus !== 'loading' && !loading && data?.userByEmail) {
-      setUserRef(data?.userByEmail?.id);
+    if (sessionStatus === 'authenticated' && !loading && data?.userByEmail) {
+      setUserRef(data?.userByEmail?.id ?? null);
       console.log('userRef set to:',userRef)
       setIsDataLoaded(true);
     } else if (sessionStatus === 'authenticated' && !data?.userByEmail) {
