@@ -90,7 +90,7 @@ const SignUp = () => {
           console.log("isEmailMatch",isEmailMatch)
           console.log("isActive",isActive)
           console.log("wixSubscriptionData?.email",wixSubscriptionData?.email)
-          console.log("wixSubscriptionData",wixSubscriptionData)
+          console.log("wixSubscriptionData**",wixSubscriptionData)
           
         
           await addUsers({

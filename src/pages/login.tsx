@@ -54,7 +54,7 @@ const Login = () => {
   
       // If userData does not exist or userByEmail is undefined, create the user
       if (!userData || !userData.userByEmail) {
-        if (!wixSubscriptionDataLoading) {
+        if (!wixSubscriptionDataLoading && wixSubscriptionData && wixSubscriptionData?.email) {
           const isEmailMatch = user?.email === wixSubscriptionData?.email;
           console.log("isEmailMatch",isEmailMatch)
           console.log("wixSubscriptionData?.email",wixSubscriptionData?.email)
