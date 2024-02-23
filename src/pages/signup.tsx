@@ -28,6 +28,7 @@ const SignUp = () => {
   });
   
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  
 
   // // This useEffect will be executed whenever errorMessage state changes
   // useEffect(() => {
@@ -52,6 +53,8 @@ const SignUp = () => {
     
     // set the email for useQuery
     setUserEmail(email);
+    console.log("Query skipped:", !userEmail);
+    console.log("Current userEmail:", userEmail);
     
     // Wait for the user data to be fetched
     await new Promise(resolve => {
@@ -80,12 +83,12 @@ const SignUp = () => {
       try {
         if (!wixSubscriptionDataLoading) {
           const isEmailMatch = userEmail === wixSubscriptionData?.email;
-          const isActive = !!wixSubscriptionData?.email; // Assuming wixSubscriptionData?.email is the email from the subscription
-  console.log("isEmailMatch",isEmailMatch)
-  console.log("isActive",isActive)
-  console.log("wixSubscriptionData?.email",wixSubscriptionData?.email)
+          const isActive = isEmailMatch 
+          console.log("isEmailMatch",isEmailMatch)
+          console.log("isActive",isActive)
+          console.log("wixSubscriptionData?.email",wixSubscriptionData?.email)
           console.log("wixSubscriptionData",wixSubscriptionData)
-          // const isActive = isEmailMatch 
+          
         
           await addUsers({
             variables: {

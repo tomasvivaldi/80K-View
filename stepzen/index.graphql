@@ -499,6 +499,19 @@ type Query {
       configuration: "stepzen_config"
     )
 
+########### Query Wix Subscription ############
+  wixSubscriptionEmail(email: String!): WixSubscription
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "wix_subscriptions"
+      WHERE "email" = $1
+      """
+      configuration: "stepzen_config"
+    )
+    
 ########### Query By User ############
 
   userDataById(id: ID!): UserData
