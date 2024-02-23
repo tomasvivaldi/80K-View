@@ -83,6 +83,8 @@ const SignUp = () => {
           const isActive = !!wixSubscriptionData?.email; // Assuming wixSubscriptionData?.email is the email from the subscription
   console.log("isEmailMatch",isEmailMatch)
   console.log("isActive",isActive)
+  console.log("wixSubscriptionData?.email",wixSubscriptionData?.email)
+          console.log("wixSubscriptionData",wixSubscriptionData)
           // const isActive = isEmailMatch 
         
           await addUsers({
