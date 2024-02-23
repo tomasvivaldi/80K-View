@@ -347,6 +347,127 @@ type _feedback {
   user_ref: ID
 }
 
+type UserData {
+  username: String
+  email: String
+  provider: String
+  password: String 
+  id: ID!
+  created_at: DateTime
+  recorded_at: DateTime
+  isActive: Boolean
+  career_work: [Career_work]
+    @materializer(
+      query: "careerWorkListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  career_work_feedback: [Career_work_feedback]
+    @materializer(
+      query: "careerWorkFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  community: [Community]
+    @materializer(
+      query: "communityListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  community_feedback: [Community_feedback]
+    @materializer(
+      query: "communityFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  environment: [Environment]
+    @materializer(
+      query: "environmentListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  environment_feedback: [Environment_feedback]
+    @materializer(
+      query: "environmentFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  family_friends: [Family_friends]
+    @materializer(
+      query: "familyFriendsListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  family_friends_feedback: [Family_friends_feedback]
+    @materializer(
+      query: "familyFriendsFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  fun_relaxation: [Fun_relaxation]
+    @materializer(
+      query: "funRelaxationListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  fun_relaxation_feedback: [Fun_relaxation_feedback]
+    @materializer(
+      query: "funRelaxationFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  growth_learning: [Growth_learning]
+    @materializer(
+      query: "growthLearningListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  growth_learning_feedback: [Growth_learning_feedback]
+    @materializer(
+      query: "growthLearningFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  health_fitness: [Health_fitness]
+    @materializer(
+      query: "healthFitnessListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  health_fitness_feedback: [Health_fitness_feedback]
+    @materializer(
+      query: "healthFitnessFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  money_finances: [Money_finances]
+    @materializer(
+      query: "moneyFinancesListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  money_finances_feedback: [Money_finances_feedback]
+    @materializer(
+      query: "moneyFinancesFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  partner_love: [Partner_love]
+    @materializer(
+      query: "partnerLoveListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  partner_love_feedback: [Partner_love_feedback]
+    @materializer(
+      query: "partnerLoveFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  spirituality: [Spirituality]
+    @materializer(
+      query: "spiritualityListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  spirituality_feedback: [Spirituality_feedback]
+    @materializer(
+      query: "spiritualityFeedbackListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  overall_score: [Overall_score]
+    @materializer(
+      query: "overallScoreListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+  overall_advice: [Overall_advice]
+    @materializer(
+      query: "overallAdviceListByUserId"
+      arguments: [{name: "user_ref", field: "id"}]
+    )
+}
+
 type WixSubscription {
   id: ID!
   email: String!
@@ -356,11 +477,628 @@ type WixSubscription {
   updated_at: DateTime!
 }
 
+
+
 """
 The following queries are just a set of examples of how to access your schema.
 Feel free to modify them or aggregate more.
 """
 type Query {
+
+
+########### Query User ############
+  userByEmail(email: String!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "users"
+      WHERE "email" = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+########### Query By User ############
+
+  userDataById(id: ID!): UserData
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+    SELECT *
+    FROM "users"
+    WHERE "id" = $1
+    """
+    configuration: "stepzen_config"
+  )
+
+ careerWorkListByUser(username: String!): [Career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "career_work"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+    careerWorkListByUserId(user_ref: ID!): [Career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "career_work"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+    careerWorkFeedbackListByUserId(user_ref: ID!): [Career_work_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "career_work_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  communityListByUser(username: String!): [Community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "community"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  communityListByUserId(user_ref: ID!): [Community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "community"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  communityFeedbackListByUserId(user_ref: ID!): [Community_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "community_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  environmentListByUser(username: String!): [Environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "environment"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  environmentListByUserId(user_ref: ID!): [Environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "environment"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  environmentFeedbackListByUserId(user_ref: ID!): [Environment_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "environment_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  familyFriendsListByUser(username: String!): [Family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "family_friends"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  familyFriendsListByUserId (user_ref: ID!): [Family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "family_friends"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  familyFriendsFeedbackListByUserId (user_ref: ID!): [Family_friends_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "family_friends_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+
+  funRelaxationListByUser(username: String!): [Fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "fun_relaxation"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  funRelaxationListByUserId(user_ref: ID!): [Fun_relaxation]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+    SELECT *
+    FROM "fun_relaxation"
+    WHERE "user_ref" = $1
+    ORDER BY "recorded_at" DESC
+    """
+    configuration: "stepzen_config"
+  )
+
+  funRelaxationFeedbackListByUserId(user_ref: ID!): [Fun_relaxation_feedback]
+  @dbquery(
+    type: "postgresql"
+    schema: "public"
+    query: """
+    SELECT *
+    FROM "fun_relaxation_feedback"
+    WHERE "user_ref" = $1
+    ORDER BY "recorded_at" DESC
+    """
+    configuration: "stepzen_config"
+  )
+
+  growthLearningListByUser(username: String!): [Growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "growth_learning"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  growthLearningListByUserId(user_ref: ID!): [Growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "growth_learning"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  growthLearningFeedbackListByUserId(user_ref: ID!): [Growth_learning_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "growth_learning_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+
+  healthFitnessListByUser(username: String!): [Health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "health_fitness"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  healthFitnessListByUserId(user_ref: ID!): [Health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "health_fitness"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  healthFitnessFeedbackListByUserId(user_ref: ID!): [Health_fitness_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "health_fitness_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  moneyFinancesListByUser(username: String!): [Money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "money_finances"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  moneyFinancesListByUserId(user_ref: ID!): [Money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "money_finances"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  moneyFinancesFeedbackListByUserId(user_ref: ID!): [Money_finances_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "money_finances_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  partnerLoveListByUser(username: String!): [Partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "partner_love"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  partnerLoveListByUserId(user_ref: ID!): [Partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "partner_love"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  partnerLoveFeedbackListByUserId(user_ref: ID!): [Partner_love_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "partner_love_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  spiritualityListByUser(username: String!): [Spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "spirituality"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  spiritualityListByUserId(user_ref: ID!): [Spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "spirituality"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  spiritualityFeedbackListByUserId(user_ref: ID!): [Spirituality_feedback]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "spirituality_feedback"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  overallScoreListByUser(username: String!): [Overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_score"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  overallScoreListByUserId(user_ref: ID!): [Overall_score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_score"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  overallAdviceListByUser(username: String!): [Overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_advice"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  overallAdviceListByUserId(user_ref: ID!): [Overall_advice]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "overall_advice"
+      WHERE "user_ref" = $1
+      ORDER BY "recorded_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+
+  ########### Query by Latest User Input ##########
+  careerWorkListByUserLatest(username: String!): [Career_work]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "career_work"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  communityListByUserLatest(username: String!): [Community]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "community"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  environmentListByUserLatest(username: String!): [Environment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "environment"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  familyFriendsListByUserLatest(username: String!): [Family_friends]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "family_friends"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  funRelaxationListByUserLatest(username: String!): [Fun_relaxation]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "fun_relaxation"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  growthLearningListByUserLatest(username: String!): [Growth_learning]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "growth_learning"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  healthFitnessListByUserLatest(username: String!): [Health_fitness]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "health_fitness"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  moneyFinancesListByUserLatest(username: String!): [Money_finances]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "money_finances"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  partnerLoveListByUserLatest(username: String!): [Partner_love]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "partner_love"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+  spiritualityListByUserLatest(username: String!): [Spirituality]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "spirituality"
+      WHERE "username" = $1
+      ORDER BY "recorded_at" DESC
+      LIMIT 1
+      """
+      configuration: "stepzen_config"
+    )
+
+
   " Queries for type 'Career_work' "
   career_workList: [Career_work]
     @dbquery(

@@ -646,7 +646,7 @@ export const ADD_USERS = gql`
 
 export const ADD_USER_PREFERENCES = gql`
   mutation AddUserPreferences($use_case: String!, $reminder_date: String!, $user_ref: Int!, $recorded_at: DateTime) {
-    insertUserPreferences(use_case: $use_case, reminder_date: $reminder_date, user_ref: $user_ref, recorded_at: $recorded_at) {
+    insertUser_preferences(use_case: $use_case, reminder_date: $reminder_date, user_ref: $user_ref, recorded_at: $recorded_at) {
       id
       use_case
       reminder_date
