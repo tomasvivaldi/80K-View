@@ -24,22 +24,13 @@ const SignUp = () => {
   });
   console.log("Executing Wix subscription query with email:", userEmail);
 
-  const { data: wixSubscriptionData, loading: wixSubscriptionDataLoading, error: wixSubscriptionError } = useQuery(GET_WIX_SUBSCRIPTION_BY_EMAIL, {
+  const { data: wixSubscriptionData, loading: wixSubscriptionDataLoading, refetch: refetchWixSubscriptionData } = useQuery(GET_WIX_SUBSCRIPTION_BY_EMAIL, {
     variables: { email: userEmail },
     skip: !userEmail,
-  });
-  
-  // Log or handle the error
-  useEffect(() => {
-    if (wixSubscriptionError) {
-      console.error("Error fetching Wix subscription data:", wixSubscriptionError);
-    }
-  }, [wixSubscriptionError]);
-  
+});
   
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   
-
   // // This useEffect will be executed whenever errorMessage state changes
   // useEffect(() => {
   //   console.log("Error message:",errorMessage)
@@ -62,7 +53,9 @@ const SignUp = () => {
     
     
     // set the email for useQuery
-    setUserEmail(email);
+    setUserEmail(email); // Set email then...
+    refetchWixSubscriptionData({ email }); // Refetch subscription data
+
     console.log("Query skipped:", !userEmail);
     console.log("Current userEmail:", userEmail);
     
@@ -91,7 +84,7 @@ const SignUp = () => {
       // User does not exist, so register them
       
       try {
-        if (!wixSubscriptionDataLoading) {
+        if (!wixSubscriptionDataLoading && userEmail && wixSubscriptionData) {
           const isEmailMatch = userEmail === wixSubscriptionData?.email;
           const isActive = isEmailMatch 
           console.log("isEmailMatch",isEmailMatch)
