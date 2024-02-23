@@ -38,13 +38,15 @@ if (req.method === 'POST') {
   // Decode JWT without verifying
   try {
     const wixSubscription = req.body
-
+console.log("wixSubscription.contact",wixSubscription.contact)
+console.log("wixSubscription.contact.email",wixSubscription?.contact?.email)
+console.log("wixSubscription.plan_order_id",wixSubscription.plan_order_id)
     if (wixSubscription!) {
       try {
         const response = await client.mutate({
           mutation: ADD_WIX_SUBSCRIPTION,
           variables: {
-            email: wixSubscription.contact.email,
+            email: wixSubscription?.contact?.email,
             wix_order_id: wixSubscription.plan_order_id,
             data: wixSubscription,
             recorded_at: new Date().toISOString(),
