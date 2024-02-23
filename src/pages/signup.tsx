@@ -17,6 +17,7 @@ const SignUp = () => {
   const router = useRouter();
   const [addUsers] = useMutation(ADD_USERS);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [triggerRefetch, setTriggerRefetch] = useState(false);
 
   const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL, {
     variables: { email: userEmail },
@@ -37,6 +38,16 @@ const SignUp = () => {
   // }, [errorMessage]);
 
   useEffect(() => {
+    // Only attempt to refetch if userEmail has been set
+    if (userEmail && triggerRefetch) {
+        refetchWixSubscriptionData({ email: userEmail })
+            .then(() => setTriggerRefetch(false)) // Reset trigger after successful refetch
+            .catch(error => console.error("Refetching Wix subscription data failed:", error));
+    }
+}, [userEmail, triggerRefetch, refetchWixSubscriptionData]);
+
+
+  useEffect(() => {
     if (!userDataLoading && userData?.user) {
       window.location.href = '/';
     }
@@ -54,7 +65,7 @@ const SignUp = () => {
     
     // set the email for useQuery
     setUserEmail(email); // Set email then...
-    refetchWixSubscriptionData({ email }); // Refetch subscription data
+    setTriggerRefetch(true); 
 
     console.log("Query skipped:", !userEmail);
     console.log("Current userEmail:", userEmail);
