@@ -1,6 +1,6 @@
 import { useSession, signIn } from 'next-auth/react';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_USER_BY_EMAIL } from 'graphql/queries';
+import { GET_USER_BY_EMAIL, GET_WIX_SUBSCRIPTION_BY_EMAIL } from 'graphql/queries';
 
 import { Meta } from '@/layout/Meta';
 import { AppConfig } from '@/utils/AppConfig';
@@ -38,6 +38,11 @@ const Login = () => {
     variables: { email: user?.email },
     skip: !user?.email,
   });
+
+  const { data: wixSubscriptionData, loading: wixSubscriptionDataLoading } = useQuery(GET_WIX_SUBSCRIPTION_BY_EMAIL, {
+    variables: { email: user?.email },
+    skip: !user?.email,
+  });
   
   useEffect(() => {
     if (session && !userDataLoading) {
@@ -49,45 +54,51 @@ const Login = () => {
   
       // If userData does not exist or userByEmail is undefined, create the user
       if (!userData || !userData.userByEmail) {
-        const createUser = async () => {
-          const username = user?.name;
-          const email = user?.email;
-          const provider = user?.provider || "Auth0";
-          const recorded_at = new Date().toISOString();
-          const password = '';
-  
-          await addUsers({
-            variables: {
-              username: username,
-              recorded_at: recorded_at,
-              email: email,
-              provider: provider,
-              password: password,
-            },
-          });
-
-          try {
-            const response = await fetch('https://app.80kview.com/api/sendgrid/welcomeEmail', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                email: `${email}`, 
-                username: `${user?.name}`
-              })
-            });
+        if (!wixSubscriptionDataLoading) {
+          const isEmailMatch = user?.email === wixSubscriptionData?.email;
+          console.log("isEmailMatch",isEmailMatch)
+          const createUser = async () => {
+            const username = user?.name;
+            const email = user?.email;
+            const provider = user?.provider || "Auth0";
+            const recorded_at = new Date().toISOString();
+            const password = '';
+            const isActive = isEmailMatch
     
-            if (!response.ok) {
-              throw new Error('Network response was not ok ' + response.statusText);
-            }
-          } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-          }
+            await addUsers({
+              variables: {
+                username: username,
+                recorded_at: recorded_at,
+                email: email,
+                provider: provider,
+                password: password,
+                isActive: isActive,
+              },
+            });
 
-        };
-        createUser();
-        router.push('/welcome');
+            try {
+              const response = await fetch('https://app.80kview.com/api/sendgrid/welcomeEmail', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  email: `${email}`, 
+                  username: `${user?.name}`
+                })
+              });
+      
+              if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+              }
+            } catch (error) {
+              console.error('There was a problem with the fetch operation:', error);
+            }
+
+          };
+          createUser();
+          router.push('/welcome');
+        }
       }
     }
   }, [session, user, addUsers, userData, userDataLoading]);

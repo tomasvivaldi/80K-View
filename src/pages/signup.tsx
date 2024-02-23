@@ -8,7 +8,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { ADD_USERS } from 'graphql/mutations';
 import { useRouter } from 'next/router';
 
-import { GET_USER_BY_EMAIL } from 'graphql/queries';
+import { GET_USER_BY_EMAIL, GET_WIX_SUBSCRIPTION_BY_EMAIL } from 'graphql/queries';
 import { useEffect, useState } from 'react';
 import LoadingBoxTransparent from '@/template/LoadingBoxTransparent';
 
@@ -17,10 +17,16 @@ const SignUp = () => {
   const router = useRouter();
   const [addUsers] = useMutation(ADD_USERS);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+
   const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL, {
     variables: { email: userEmail },
     skip: !userEmail,
   });
+  const { data: wixSubscriptionData, loading: wixSubscriptionDataLoading } = useQuery(GET_WIX_SUBSCRIPTION_BY_EMAIL, {
+    variables: { email: userEmail },
+    skip: !userEmail,
+  });
+  
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // // This useEffect will be executed whenever errorMessage state changes
@@ -42,7 +48,7 @@ const SignUp = () => {
     const provider = 'local';
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
-    // const isActive = true
+    
     
     // set the email for useQuery
     setUserEmail(email);
@@ -70,29 +76,35 @@ const SignUp = () => {
       // }
     } else {
       // User does not exist, so register them
+      
       try {
-        await addUsers({
-          variables: {
-            username: username,
-            recorded_at: recorded_at,
-            email: email,
-            provider: provider,
-            password: hashedPassword,
-            // isActive: isActive,
-          },
-        });
-    
-        // If registration is successful, attempt to sign in
-        const response = await signIn('credentials', { email, password, redirect: false });
-        if (response?.error) {
-          // Sign in failed
-          setErrorMessage(response.error);
-        } else {
-          if (typeof window !== 'undefined') {
-            // window.location.href = '/';
-            router.push('/welcome')
-          }
-        }        
+        if (!wixSubscriptionDataLoading) {
+          const isEmailMatch = userEmail === wixSubscriptionData?.email;
+          const isActive = isEmailMatch 
+        
+          await addUsers({
+            variables: {
+              username: username,
+              recorded_at: recorded_at,
+              email: email,
+              provider: provider,
+              password: hashedPassword,
+              isActive: isActive,
+            },
+          });
+      
+          // If registration is successful, attempt to sign in
+          const response = await signIn('credentials', { email, password, redirect: false });
+          if (response?.error) {
+            // Sign in failed
+            setErrorMessage(response.error);
+          } else {
+            if (typeof window !== 'undefined') {
+              // window.location.href = '/';
+              router.push('/welcome')
+            }
+          }   
+        }     
       } catch (e) {
         // Sign up failed, set the error message
         setErrorMessage("There was an error during sign up. Please try again.");
