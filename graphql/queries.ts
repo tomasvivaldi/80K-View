@@ -599,12 +599,11 @@ export const GET_WIX_SUBSCRIPTION_BY_EMAIL = gql`
   query MyQuery($email: String!) {
     wixSubscriptionEmail(email: $email) {
       id
-      username
       email
-      created_at
-      password
-      provider
-      isActive
+      wix_order_id
+      data
+      recorded_at
+      updated_at
     }
   }
 `;
