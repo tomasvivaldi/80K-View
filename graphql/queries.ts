@@ -595,6 +595,20 @@ export const GET_USER_DATA_BY_ID = gql`
   }
 `;
 
+export const GET_WIX_SUBSCRIPTION_BY_EMAIL = gql`
+  query MyQuery($email: String!) {
+    wixSubscriptionEmail(email: $email) {
+      id
+      username
+      email
+      created_at
+      password
+      provider
+      isActive
+    }
+  }
+`;
+
 export const queries = {
   GET_USER_BY_EMAIL,
   GET_USER_DATA_BY_ID,

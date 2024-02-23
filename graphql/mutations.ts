@@ -747,7 +747,22 @@ export const UPDATE_SPIRITUALITY_GOALS = gql`
   }
 `;
 
+export const ADD_WIX_SUBSCRIPTION = gql`
+  mutation AddWixSubscription($email: String!, $wix_order_id: String!, $data: json!, $recorded_at: DateTime, $updated_at: DateTime) {
+    insertWixSubscription(email: $email, wix_order_id: $wix_order_id, data: $data, recorded_at: $recorded_at, updated_at: $updated_at) {
+      id
+      email
+      wix_order_id
+      data
+      recorded_at
+      updated_at
+    }
+  }
+`;
+
+
 export const mutations = {
+  ADD_WIX_SUBSCRIPTION,
   ADD_CAREER_WORK_INFO,
   ADD_COMMUNITY_INFO,
   ADD_ENVIRONMENT_INFO,

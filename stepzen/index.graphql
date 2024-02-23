@@ -347,6 +347,15 @@ type _feedback {
   user_ref: ID
 }
 
+type WixSubscription {
+  id: ID!
+  email: String!
+  wix_order_id: String!
+  data: JSON!
+  recorded_at: DateTime!
+  updated_at: DateTime!
+}
+
 """
 The following queries are just a set of examples of how to access your schema.
 Feel free to modify them or aggregate more.
@@ -838,6 +847,25 @@ type Query {
       """
       configuration: "stepzen_config"
     )
+   
+  " Queries for type 'WixSubscription' "
+  wixSubscriptionList: [WixSubscription]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "wix_subscriptions"
+      configuration: "stepzen_config"
+    )
+  wixSubscriptionPaginatedList(first: Int, after: Int): [WixSubscription]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "id", "email", "wix_order_id", "data", "recorded_at", "updated_at" FROM "wix_subscriptions" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+
 }
 
 """
@@ -1852,6 +1880,33 @@ type Mutation {
       type: "postgresql"
       schema: "public"
       table: "_feedback"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+
+
+" Mutations for type 'WixSubscription' "
+  deleteWixSubscription(
+    id: ID!
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertWixSubscription(
+    email: String!
+    wix_order_id: String!
+    data: JSON!
+    recorded_at: DateTime
+    updated_at: DateTime
+  ): WixSubscription
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "wix_subscriptions"
       dml: INSERT
       configuration: "stepzen_config"
     )

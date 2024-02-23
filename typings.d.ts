@@ -252,4 +252,51 @@ type CategoryKey =
   type UserDataByIdData = {
     userDataById: UserDataById;
   };
-  
+
+  type WixSubscription = {
+    id: string;
+    email: string;
+    wix_order_id: string;
+    data: WixSubscriptionData;
+    recorded_at: Date | string;
+    updated_at: Date | string;
+  };
+
+  type WixSubscriptionData = {
+    plan_valid_until: string;
+    plan_order_id: string;
+    context: WixSubscriptionContext;
+    _context: {
+      activation: any; // Adjust as necessary for your project's structure
+      configuration: any;
+      app: any;
+      action: any;
+      trigger: any;
+    };
+    plan_description: string;
+    contact: WixSubscriptionContact;
+    plan_id: string;
+    site_name: string;
+    plan_title: string;
+    plan_price: WixSubscriptionPlanPrice;
+    plan_start_date: string;
+    contact_id: string;
+    plan_cycle_duration: string;
+  };
+
+
+  type WixSubscriptionContext = {
+    metaSiteId: string;
+    activationId: string;
+  };
+
+  type WixSubscriptionContact = {
+    emails: string[]; // Assuming emails is an array of strings
+    phone: string;
+    email: string;
+  };
+
+  type WixSubscriptionPlanPrice = {
+    value: string;
+    currency: string;
+  };
