@@ -623,6 +623,7 @@ export const ADD_USERS = gql`
     $username: String!
     $email: String!
     $recorded_at: DateTime!
+    $created_at: DateTime!
     $password: String!
     $provider: String!
     $isActive: Boolean!
@@ -631,6 +632,7 @@ export const ADD_USERS = gql`
       username: $username
       email: $email
       recorded_at: $recorded_at
+      created_at: $created_at
       password: $password
       provider: $provider
       isActive: $isActive
@@ -638,6 +640,7 @@ export const ADD_USERS = gql`
       username
       email
       recorded_at
+      created_at
       password
       provider
     }

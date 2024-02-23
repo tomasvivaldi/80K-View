@@ -62,6 +62,7 @@ const Login = () => {
             const email = user?.email;
             const provider = user?.provider || "Auth0";
             const recorded_at = new Date().toISOString();
+            const created_at = new Date().toISOString();
             const password = '';
             const isActive = isEmailMatch
     
@@ -69,6 +70,7 @@ const Login = () => {
               variables: {
                 username: username,
                 recorded_at: recorded_at,
+                created_at: created_at,
                 email: email,
                 provider: provider,
                 password: password,

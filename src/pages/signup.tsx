@@ -86,6 +86,7 @@ const SignUp = () => {
             variables: {
               username: username,
               recorded_at: recorded_at,
+              created_at: recorded_at,
               email: email,
               provider: provider,
               password: hashedPassword,
