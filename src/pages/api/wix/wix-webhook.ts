@@ -50,7 +50,7 @@ if (req.method === 'POST') {
         try {
           const response = await client.mutate({
             mutation: ACTIVATE_USER_SUBSCRIPTION,
-            variables: { email: wixSubscription?.contact?.email, isActive: true },
+            variables: { id: userData?.userByEmail?.id, isActive: true },
           });
         
           console.log(`Response:`, response);
