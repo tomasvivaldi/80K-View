@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Stepper, Step, StepLabel, Button } from '@mui/material';
 import { useRouter } from 'next/router';
-import UsePlan from '@/template/UsePlan'; // Make sure the path is correct
+import UsePlan from '@/template/UsePlan';
 import SpecialUser from '@/template/SpecialUser';
 import DateSelection from '@/template/DateSelection';
 import { useMutation, useQuery } from '@apollo/client';
@@ -14,49 +14,53 @@ const steps = ['Select Plan', 'Pick Date', 'Confirmation'];
 
 export default function HorizontalLinearStepper() {
   const { data: session, status: sessionStatus } = useSession();
+  const router = useRouter();
   const user_query = queries.GET_USER_BY_EMAIL;
-  const { loading, error, data } = useQuery(user_query, {
+  const { loading, error, data, refetch } = useQuery(user_query, {
     variables: { email: session?.user?.email },
     skip: !session?.user?.email,
   });
 
   const [userRef, setUserRef] = useState<string | null>(null);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
 
   useEffect(() => {
-    if (sessionStatus === 'authenticated' && !loading && data?.userByEmail) {
-      setUserRef(data?.userByEmail?.id ?? null);
-      console.log('userRef set to:',userRef)
-      setIsDataLoaded(true);
-    } else if (sessionStatus === 'authenticated' && !data?.userByEmail) {
-      // Handle case where there is no user data
-      console.log('data?.userByEmail',data?.userByEmail)
-      console.error('No user data found');
-      setIsDataLoaded(true); // Or handle this case differently
+    if (sessionStatus === 'authenticated' && !loading) {
+      if (data?.userByEmail) {
+        setUserRef(data.userByEmail.id);
+        setIsDataLoaded(true);
+      } else {
+        setIsDataLoaded(false); // Indicate loading is complete, but no data was found.
+        if (retryCount < maxRetries) {
+          console.error(`No user data found, retrying fetch... Attempt ${retryCount + 1}`);
+          setTimeout(() => {
+            refetch();
+            setRetryCount(count => count + 1);
+          }, 3000); // Retry after 3 seconds
+        } else {
+          console.error("Max retry attempts reached. Please check the user's existence or try again later.");
+        }
+      }
     }
-  }, [sessionStatus, loading, data]);
+  }, [sessionStatus, loading, data, refetch, retryCount, maxRetries]);
 
   const [activeStep, setActiveStep] = useState(1);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const router = useRouter();
-
 
   const handleNext = () => {
     if (activeStep === steps.length) {
-      router.push('/thank-you'); // If it's the last step, navigate to the thank-you page
+      router.push('/thank-you');
     } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setActiveStep(prevActiveStep => prevActiveStep + 1);
     }
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
-
-  // const finishHandler = () => {
-  //   router.push('/thankyou');
-  // };
 
   const [addUserPreferences] = useMutation(ADD_USER_PREFERENCES);
   const recorded_at = new Date().toISOString();
@@ -72,23 +76,21 @@ export default function HorizontalLinearStepper() {
           created_at: recorded_at,
         },
       });
-      
       console.log('User preferences added:', response.data);
-
       router.push('/thankyou');
     } catch (error) {
       console.error('Error adding user preferences:', error);
+      // Provide a user-friendly error message or UI feedback
     }
   };
-  
 
   if (!isDataLoaded) {
     return <LoadingBox />;
   }
 
   if (error) {
-    // Consider a more user-friendly error message or UI
-    return <div>Error loading user data. Please try again.</div>;
+    // Provide a more detailed and user-friendly error message
+    return <div>There was an error loading your data. Please try refreshing the page.</div>;
   }
 
   const getStepContent = (stepIndex: number) => {
@@ -105,57 +107,24 @@ export default function HorizontalLinearStepper() {
   };
 
   return (
-      <div className="bg-gray-200 dark:bg-slate-900 w-full min-h-screen py-8 flex flex-col justify-between">
-        <Stepper activeStep={activeStep - 1} alternativeLabel>
-          {steps.map((label, _index) => (
-            <Step key={label}  sx={{
-              '& .MuiStepLabel-root .Mui-completed': {
-                color: 'primary.dark', // circle color (COMPLETED)
-                fontWeight: 'bold',
-              },
-              '& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel':
-                {
-                  color: 'primary.dark', // Just text label (COMPLETED)
-                  fontWeight: 'bold',
-                },
-              '& .MuiStepLabel-root .Mui-active': {
-                color: 'primary.main', // circle color (ACTIVE)
-                fontWeight: 'bold',
-              },
-              '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel':
-                {
-                  color: 'primary.main', // Just text label (ACTIVE)
-                  fontWeight: 'bold',
-                },
-              '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
-                fill: 'blue.500', // circle's number (ACTIVE)
-                fontWeight: 'bold',
-              },
-              '& .MuiStepLabel-label': { // Default label color
-                color: 'primary.dark',
-                fontWeight: 'bold',
-              },
-              '& .MuiStepIcon-root': { // Targeting the circle icon of future steps
-                color: 'gray', // Change to your desired gray color
-              },
-            }}>
-              <StepLabel className=" placeholder-white !important">{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <div className=''>
-          {getStepContent(activeStep)}
-        </div>
-        <div className=' mx-4'>
-          <Button
-            color="inherit"
-            disabled={activeStep === 1}
-            onClick={handleBack}
-            sx={{ mr: 1 }}
-          >
-            Back
-          </Button>
-        </div>
+    <div className="bg-gray-200 dark:bg-slate-900 w-full min-h-screen py-8 flex flex-col justify-between">
+      <Stepper activeStep={activeStep - 1} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <div>{getStepContent(activeStep)}</div>
+      <div className='mx-4'>
+        <Button
+          color="inherit"
+          disabled={activeStep === 1}
+          onClick={handleBack}
+        >
+          Back
+        </Button>
       </div>
+    </div>
   );
 }
