@@ -14,9 +14,9 @@ function NoSubscriptionBanner() {
           </p>
         </div>
         <div className='my-4'>
-          <Link href="https://buy.stripe.com/test_28o2an8ee7a38Xm7ss" className="mx-auto my-16">
+        <a href="https://www.80kview.com/plans-pricing" target="_blank" rel="noopener noreferrer" className="mx-auto my-16">
           <button className='text-lg w-44 bg-blue-300/20 rounded-full p-1 border-2 text-gray-100 border-gray-400 hover:bg-blue-200/20 active:bg-blue-300/20'>Subscribe Now!</button>
-          </Link>
+        </a>
         </div>
       </div>
     );
