@@ -4,8 +4,6 @@ import { ADD_WIX_SUBSCRIPTION } from 'graphql/mutations';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import fetch from 'cross-fetch';
-
-import { useQuery } from '@apollo/client';
 import { GET_USER_BY_EMAIL } from 'graphql/queries';
 import { ACTIVATE_USER_SUBSCRIPTION } from 'graphql/mutations';
 
@@ -41,12 +39,12 @@ if (req.method === 'POST') {
   try {
     const wixSubscription = req.body.data
 
-    const { data: userData, loading: userDataLoading } = useQuery(GET_USER_BY_EMAIL, {
+    const { data: userData }= await client.query({
+      query: GET_USER_BY_EMAIL,
       variables: { email: wixSubscription?.contact?.email },
-      skip: !wixSubscription?.contact?.email,
     });
 
-    if (userData && !userDataLoading) {
+    if (userData ) {
       // If userData exists, update subscription
       if (userData?.userByEmail) {
         try {
