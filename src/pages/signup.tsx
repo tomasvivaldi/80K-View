@@ -96,7 +96,7 @@ const SignUp = () => {
       
       try {
         if (!wixSubscriptionDataLoading && userEmail && wixSubscriptionData) {
-          const isEmailMatch = userEmail === wixSubscriptionData?.email;
+          const isEmailMatch = userEmail === wixSubscriptionData?.wixSubscriptionEmail?.email;
           const isActive = isEmailMatch 
           console.log("isEmailMatch",isEmailMatch)
           console.log("isActive",isActive)
