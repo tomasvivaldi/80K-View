@@ -661,9 +661,9 @@ export const ADD_USER_PREFERENCES = gql`
 `;
 
 
-export const UPDATE_USER_SUBSCRIPTION = gql`
-  mutation updateUsers($id: ID!, $isActive: Boolean!) {
-    updateUsers(id: $id, isActive: $isActive) {
+export const ACTIVATE_USER_SUBSCRIPTION = gql`
+  mutation activateUserSubscription($id: ID!, $isActive: Boolean!) {
+    activateUserSubscription(id: $id, isActive: $isActive) {
       id
       isActive
     }
@@ -782,7 +782,7 @@ export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,
   ADD_ADVICE,
-  UPDATE_USER_SUBSCRIPTION,
+  ACTIVATE_USER_SUBSCRIPTION,
   UPDATE_CAREER_WORK_GOALS,
   UPDATE_COMMUNITY_GOALS,
   UPDATE_ENVIRONMENT_GOALS,

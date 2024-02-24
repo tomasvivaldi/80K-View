@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { buffer } from 'micro';
 import Stripe from 'stripe';
-import { UPDATE_USER_SUBSCRIPTION } from 'graphql/mutations';
+import { ACTIVATE_USER_SUBSCRIPTION } from 'graphql/mutations';
 
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -68,14 +68,14 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (customerEmail!) {
         try {
           const response = await client.mutate({
-            mutation: UPDATE_USER_SUBSCRIPTION,
+            mutation: ACTIVATE_USER_SUBSCRIPTION,
             variables: { email: customerEmail, isActive: true },
           });
         
           console.log(`Response:`, response);
           
-          if (response.data?.updateUsers) {
-            console.log(`User subscription status updated!`, response.data.updateUsers);
+          if (response.data?.activateUserSubscription) {
+            console.log(`User subscription status updated!`, response.data.activateUserSubscription);
           } else {
             console.error(`No user found with email: ${customerEmail}`);
           }
@@ -101,14 +101,14 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (checkoutSessionCompleted?.client_reference_id!) {
         try {
           const response = await client.mutate({
-            mutation: UPDATE_USER_SUBSCRIPTION,
+            mutation: ACTIVATE_USER_SUBSCRIPTION,
             variables: { id: checkoutSessionCompleted?.client_reference_id!, isActive: true },
           });
         
           console.log(`Response:`, response);
           
-          if (response.data?.updateUsers) {
-            console.log(`User subscription status updated!`, response.data.updateUsers);
+          if (response.data?.activateUserSubscription) {
+            console.log(`User subscription status updated!`, response.data.activateUserSubscription);
           } else {
             console.error(`No user found with id: ${checkoutSessionCompleted?.client_reference_id}`);
           }

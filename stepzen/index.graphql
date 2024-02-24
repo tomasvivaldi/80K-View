@@ -2598,6 +2598,22 @@ type Mutation {
       dml: INSERT
       configuration: "stepzen_config"
     )
+    activateUserSubscription(
+    id: ID!
+    isActive: Boolean
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "users" SET
+        "isActive" = COALESCE($2, "isActive")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
   " Mutations for type '_feedback' "
   delete_feedback(
     user_ref: ID!
