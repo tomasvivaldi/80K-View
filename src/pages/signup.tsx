@@ -95,7 +95,7 @@ const SignUp = () => {
       // User does not exist, so register them
       
       try {
-        if (!wixSubscriptionDataLoading && userEmail && wixSubscriptionData?.email) {
+        if (!wixSubscriptionDataLoading && userEmail && wixSubscriptionData) {
           const isEmailMatch = userEmail === wixSubscriptionData?.email;
           const isActive = isEmailMatch 
           console.log("isEmailMatch",isEmailMatch)
