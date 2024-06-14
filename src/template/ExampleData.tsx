@@ -23,7 +23,7 @@ const MockData: React.FC = () => {
     currentDate.setMonth(currentDate.getMonth() + 1);
   } return (
     <>
-      <div className='mx-4 px-4 pb-4 bg-blue-200/20 border-2 rounded-lg border-blue-500'>
+      <div className='sm:mx-4 sm:px-4 px-2 pb-4 bg-blue-200/20 border-2 rounded-lg border-blue-500'>
         <HistoricalTable data={mockData} />
         <MockFeedback />        
         <div className='mt-4' />

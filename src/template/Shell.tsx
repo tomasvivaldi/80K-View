@@ -425,6 +425,23 @@ function Shell(props: IShellProps) {
       }
       bottomLinks={
         <>
+          <button className='sm:hidden block font-bold text-black dark:text-white hover:underline w-full'
+          onClick={() => {setIsModalOpen(true);}}> 
+            <SidebarLink icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+        </svg>
+          }>How it works</SidebarLink>
+          </button>
+          <Link className='w-full sm:hidden flex font-bold text-black dark:text-white flex-row gap-2 '
+          href="https://forms.gle/GfxbLkd9XBEmRB717"
+          target='blank'> 
+          <SidebarLink icon={ <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>}>
+          Have an improvement?
+            </SidebarLink>
+          </Link>
+          
           {session ? (
             <>
               <Link onClick={signOut} href="/">
@@ -495,9 +512,9 @@ function Shell(props: IShellProps) {
         <>
           {session ? (
             <div className='flex flex-row gap-4 items-center'>
-              <button className='font-bold text-black dark:text-white hover:underline'
+              <button className='hidden sm:block font-bold text-black dark:text-white hover:underline'
               onClick={() => {setIsModalOpen(true);}}> How it works</button>
-              <a className='font-bold text-black dark:text-white hover:border-b flex flex-row gap-2 items-center'
+              <a className='hidden sm:flex font-bold text-black dark:text-white hover:border-b  flex-row gap-2 items-center'
               href="https://forms.gle/GfxbLkd9XBEmRB717"
               target='blank'> 
               Have an improvement?
@@ -509,7 +526,7 @@ function Shell(props: IShellProps) {
               {isModalOpen && <VideoModal setIsModalOpen={setIsModalOpen} />}
             </div>
           ) : (
-            <div className='flex flex-row gap-8 items-center'>
+            <div className='flex flex-row gap-2 sm:gap-8 items-center'>
               <DarkModeButton/>
               <Link onClick={signIn} href="/">
                 <Button>Sign In</Button>

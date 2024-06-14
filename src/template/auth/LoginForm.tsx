@@ -4,57 +4,63 @@ import { FormElement } from '@/form/FormElement';
 import { Label } from '@/form/Label';
 
 import { FullCenterSection } from '@/layout/FullCenterSection';
+import { useState } from 'react';
 
 interface LoginFormProps {
   handleLogin: (provider: string) => Promise<void>;
-  handleEmailLogin: (email: string, password: string) => void;
-  loginFailed: boolean; 
+  handleEmailLogin: (email: string, password: string) => Promise<void>; // Ensure this is also async or returns a Promise
+  loginFailed: boolean;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ handleLogin, handleEmailLogin, loginFailed }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to track form submission status
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true); // Disable the button and prevent form from being submitted again
+    const target = event.target as typeof event.target & {
+      email: { value: string };
+      password: { value: string };
+    };
+    try {
+      await handleEmailLogin(target.email.value, target.password.value);
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+    setIsSubmitting(false); // Re-enable the button after the form submission is handled
+  };
 
   return (
     <>
-        <video 
-        autoPlay 
-        muted 
-        loop 
+      <video
+        autoPlay
+        muted
+        loop
         className="absolute right-0 bottom-0 w-auto min-w-full min-h-full -z-10 object-cover"
         id="background-video"
       >
         <source src="/80k-view-test.mp4" type="video/mp4" />
-    </video>
-    <FullCenterSection title="Sign in to your account">
-      <form
-        className="grid gap-y-2 mb-4 z-50"
-        onSubmit={async (event) => {
-          event.preventDefault();
-          const target = event.target as typeof event.target & {
-            email: { value: string };
-            password: { value: string };
-          };
-          await handleEmailLogin(target.email.value, target.password.value);
-        }}        
-      >
-        <Label htmlFor="email">Email</Label>
-        <FormElement>
-          <input id="email" type="text" required className={`dark:bg-slate-800 ${loginFailed ? ' ring-red-500 ring-2' : ''}`} />
-        </FormElement>
+      </video>
+      <FullCenterSection title="Sign in to your account">
+        <form className="grid gap-y-2 mb-4 z-50" onSubmit={handleSubmit}>
+          <Label htmlFor="email">Email</Label>
+          <FormElement>
+            <input id="email" type="text" required className={`dark:bg-slate-800 ${loginFailed ? ' ring-red-500 ring-2' : ''}`} />
+          </FormElement>
 
-        <Label htmlFor="password">Password</Label>
-        <FormElement>
-          <input id="password" type="password" required className={`dark:bg-slate-800 ${loginFailed ? ' ring-red-500 ring-2' : ''}`} />
-        </FormElement>
+          <Label htmlFor="password">Password</Label>
+          <FormElement>
+            <input id="password" type="password" required className={`dark:bg-slate-800 ${loginFailed ? ' ring-red-500 ring-2' : ''}`} />
+          </FormElement>
 
-        {loginFailed && <p className="text-red-500">Invalid email or password</p>}
+          {loginFailed && <p className="text-red-500">Invalid email or password</p>}
 
-
-      <div className="mt-3">
-        <button type="submit" className="w-full">
-          <Button full>Log in</Button>
-        </button>
-      </div>
-    </form>
+          <div className="mt-3">
+            <button type="submit" className="w-full" disabled={isSubmitting}>
+              <Button full>Log in</Button>
+            </button>
+          </div>
+        </form>
     <div className='flex flex-row justify-center items-center gap-2'>
       <div className='w-full h-[1px] bg-black dark:bg-slate-200 mt-1'/><p>or</p><div className='w-full h-[1px] bg-black dark:bg-slate-200 mt-1'/>
     </div>

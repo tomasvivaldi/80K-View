@@ -145,9 +145,9 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
 
 
   return (
-    <div className="my-4 flex flex-col rounded-lg bg-white  px-8 py-4 shadow-lg dark:bg-slate-900/40 dark:shadow-slate-200/5">
-      <div className=" rounded-lg flex flex-row justify-between items-center">
-        <h1 className="text-lg font-semibold text-black dark:text-slate-200 sm:text-2xl md:text-3xl">
+    <div className="my-4 flex flex-col rounded-lg bg-white px-2 sm:px-8 py-4 shadow-lg dark:bg-slate-900/40 dark:shadow-slate-200/5">
+      <div className=" rounded-lg flex flex-col sm:flex-row justify-between items-center gap-2 ">
+        <h1 className="text-lg font-semibold text-black dark:text-slate-200 md:text-2xl xl:text-3xl">
           Your Yearly Fulfilment
         </h1>
         <div className='flex mx-4 gap-3 text-white text-bold'>
@@ -234,7 +234,7 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
       {activeButton === 'graphButton' && (
         <div id="graphSection">
           {data && data.length >= 2 ? (
-            <div className='m-4'>
+            <div className='my-4 sm:mx-4'>
               <Chart1 data={data} />
             </div>
             ) : (

@@ -253,8 +253,8 @@ const View80k = () => {
                   </div>
                 ))}
               </div> */}
-              <div className="sm:hidden w-full rounded-md border-gray-200 bg-white px-4 py-5">
-                  <div className="w-full text-center text-2xl font-semibold text-gray-800">
+              <div className="sm:hidden w-[90%] mx-auto rounded-md border-gray-200 bg-white dark:bg-slate-900 px-4 py-5">
+                  <div className="w-full text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">
                   Please be patient... Under construction for smaller screens
                   </div>
                 </div>

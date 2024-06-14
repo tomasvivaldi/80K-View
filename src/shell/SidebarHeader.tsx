@@ -50,11 +50,11 @@ const SidebarHeader = (props: ISidebarHeaderProps) => {
 
       <div className="flex flex-1 flex-col overflow-hidden ">
         <header className="flex h-16 items-center justify-between bg-white dark:bg-slate-800 p-3 sm:px-5 lg:px-6">
-          <div className="mr-2">
+          <div className="sm:mr-2">
             <ToggleMenuButton onClick={handleToggleMenu} />
           </div>
 
-          <div className="text-lg font-bold text-gray-900 dark:text-slate-200">{props.title}</div>
+          <div className="text-base sm:text-lg font-bold text-gray-900 dark:text-slate-200">{props.title}</div>
 
           <div className="ml-auto">{props.leftContent}</div>
         </header>

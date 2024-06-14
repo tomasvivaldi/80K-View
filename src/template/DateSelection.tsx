@@ -1,4 +1,6 @@
+import { useSession } from 'next-auth/react';
 import React, { SVGProps, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 type DateSelectionProps = {
   selectedDate: string | null;
@@ -6,7 +8,20 @@ type DateSelectionProps = {
   onContinue: () => void;
 };
 
-import toast from 'react-hot-toast';
+import 'next-auth';
+
+declare module 'next-auth' {
+  /**
+   * Represents the shape of the user's session.
+   * Add custom properties as needed.
+   */
+  interface Session {
+    accessToken?: string;
+    refreshToken?: string;
+  }
+}
+
+
 
 const DateSelection: React.FC<DateSelectionProps> = ({ selectedDate, onDateSelect, onContinue }) => {
   // Update the activeDate state based on the selectedDate prop
@@ -22,13 +37,52 @@ const DateSelection: React.FC<DateSelectionProps> = ({ selectedDate, onDateSelec
     setActiveDate(dateId); // Update local state as well
   };
 
-  const handleContinue = () => {
-    if (!activeDate) {
-      toast.error("Please select a date before continuing.");
-      return;
+  // const handleContinue = () => {
+  //   if (!activeDate) {
+  //     toast.error("Please select a date before continuing.");
+  //     return;
+  //   }
+  //   onContinue();
+  // };
+
+
+  const { data: session } = useSession();
+
+const handleContinue = async () => {
+  if (!activeDate) {
+    toast.error("Please select a date before continuing.");
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/googlecalendar/createCalendarEvent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        accessToken: session?.accessToken, // Assuming the access token is stored in the session
+        date: activeDate, // Ensure this is formatted as 'YYYY-MM-DD'
+        summary: '80K View Reminder', // Event summary
+      }),
+    });
+
+    if (response.ok) {
+      toast.success('Event created successfully');
+      onContinue();
+    } else {
+      throw new Error('Failed to create event');
     }
-    onContinue();
-  };
+  } catch (error) {
+    if (error instanceof Error) {
+      toast.error('Error scheduling event: ' + error.message);
+    } else {
+      // Handle cases where the error might not be an Error instance
+      toast.error('An error occurred while scheduling the event.');
+    }
+  }
+  
+};
 
   return (
     <div className="bg-gray-200 dark:bg-slate-900 text-white p-8 flex flex-col items-center justify-center">
