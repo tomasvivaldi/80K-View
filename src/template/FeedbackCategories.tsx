@@ -41,7 +41,7 @@ interface FeedbackCategoriesProps {
 // CustomSelect component
 function CustomSelect({ categories, onCategorySelect, currentIndex }: FeedbackCategoriesProps) {
   const [selectedValue, setSelectedValue] = React.useState(categories[currentIndex] || "");
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(true);
 
   React.useEffect(() => {
     setSelectedValue(categories[currentIndex] || "");
@@ -51,7 +51,7 @@ function CustomSelect({ categories, onCategorySelect, currentIndex }: FeedbackCa
   const selectItem = (index: number) => {
     const value = categories[index] || "";
     setSelectedValue(value);
-    setIsOpen(false);
+    setIsOpen(true);
     onCategorySelect(index);
   };
 

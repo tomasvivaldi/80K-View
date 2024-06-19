@@ -4,10 +4,12 @@ import CategoryCard from './CategoryCard';
 interface CategoryListProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  data?: Category[];
+  categories: string[];
+  onCategorySelect: (categoryIndex: number) => void;
+  currentIndex: number;
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, data }) => {
+const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, categories, onCategorySelect, currentIndex }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState<number | null>(null);
 
@@ -19,55 +21,58 @@ const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, data }) 
     }
   }, []);
 
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const selectItem = (index: number) => {
+    onCategorySelect(index);
+  };
+
   return (
     <div 
-    ref={divRef} 
-    style={maxHeight ? { maxHeight: `${maxHeight + 60}px` } : {}}
-    className={` border-r-2 border-slate-200 dark:border-slate-800 sticky left-0 top-0 -mb-4 
-    transition-all duration-1000
-    ${isOpen ? 'overflow-y-auto h-screen border-r-0': ''} `}>
+      ref={divRef} 
+      style={maxHeight ? { maxHeight: `${maxHeight + 60}px` } : {}}
+      className={` border-r-2 border-slate-200 dark:border-slate-800 sticky left-0 top-0 -mb-4 
+      transition-all duration-1000 
+      ${isOpen ? 'overflow-y-auto h-screen border-r-0 w-fit': ''} `}
+    >
       {/* Hamburger Button */}
       <div className={` h-fit w-full  top-0 sticky z-10 
       transition-all duration-1000 border-t
-      ${isOpen ? 'bg-stone-100 dark:bg-slate-800  dark:border-slate-600 ': 'bg-transparent border-transparent'} `}>
-        
+      ${isOpen ? 'bg-stone-100 dark:bg-slate-800  dark:border-slate-600 ': 'bg-transparent border-transparent'} `}
+      >
         <div className='flex flex-row items-center justify-between '>
-          <p className={`text-xl duration-200 ${isOpen ? 'w-fit ml-4' : ' text-transparent w-0'} `}>Previous&nbsp;Months</p>
-        <button 
-          onClick={() => setIsOpen(!isOpen)} 
-          className={`  p-2 m-2 
-          
-          hover:bg-slate-200 dark:hover:bg-slate-900 rounded-lg
-           transition-all duration-1000
-          ${isOpen ? ' ' : ''} `}
-        >
-          {isOpen ? 
-
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+        {isOpen && (
+          <p className={`text-xl font-bold duration-200 text-black dark:text-white ${isOpen ? 'w-fit ml-4' : ' w-0'} `}>Categories</p>
+        )}
+          <button 
+            onClick={toggleDropdown} 
+            className={`  p-2 m-2 
+            hover:bg-slate-200 dark:hover:bg-slate-900 rounded-lg
+            transition-all duration-1000
+            ${isOpen ? '' : ''} `}
+          >
+            {isOpen ? 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+              </svg> : 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
               </svg>
-            
-            : 
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-            </svg>
             }
-        </button>
+          </button>
         </div>
       </div>  
       {/* Categories */}
       <div className={`flex flex-col items-center px-2 py-4 mx-2 gap-4 ${isOpen ? '' : 'h-0'} `}>
-      {data && data.map((category, index) => (
+        {categories.map((category, index) => (
           <CategoryCard 
-            key={index}
+            key={category}
             isOpen={isOpen}
-            data={category}  // passing individual category instead of entire array
+            onClick={() => selectItem(index)}
+            category={category}
+            selected={index === currentIndex}
           />
-      ))}
+        ))}
       </div>
-
-      
-
     </div>
   );
 }

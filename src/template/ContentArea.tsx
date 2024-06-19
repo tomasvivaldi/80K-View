@@ -1,9 +1,9 @@
 import React, { Suspense, useState } from 'react';
 import Tooltip from './Tooltip';
 import { CategoryChart } from './CategoryChart';
-import FeedbackCategories from './FeedbackCategories';
 import { Form2Fill } from './Form2Fill';
 import { PrepopulatedForm } from './PrepopulatedForm';
+import PreviousDataList from './PreviousDataList';
 
 interface ContentAreaProps {
     isOpen: boolean;
@@ -21,7 +21,7 @@ interface ContentAreaProps {
     setFormDataForCategory: (category: string, data: any) => void;
     hasSubmitted: boolean;
     setHasSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
-    data: any;
+    data?: UserDataById;
     selectedDate: Date;
     
 }
@@ -39,7 +39,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     PageNames,
     tooltipText,
     CategoryNames,
-    handleCategorySelect,
+    // handleCategorySelect,
     register,
     errors,
     session,
@@ -78,7 +78,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
 
     return (
        
-      <div className={`mx-2 lg:mx-4 flex flex-col gap-4 transition-width duration-1000 ease-in-out ${isOpen ? 'w-[73vw]' : 'w-[90vw]'} overflow-hidden`}>
+      <div className={`mx-2 lg:mx-4 flex flex-col gap-4 transition-width duration-1000 ease-in-out ${isOpen ? 'w-[33vw] sm:w-[51vw] md:w-[73vw]' : 'w-[90vw]'} overflow-hidden`}>
           <div className="flex flex-col gap-4 relative">
           <div className="w-full flex max-w-[80%] flex-col rounded-lg md:w-fit">
             <div className='flex flex-row text-slate-800 dark:text-slate-200 '>
@@ -103,13 +103,13 @@ const ContentArea: React.FC<ContentAreaProps> = ({
               
             </div>
             <p className='text-sm'>Each category has 3 fields each, score, notes, and action plan. Please make sure to fill out all fields before submitting the form.</p>
+            {data && (
+          <PreviousDataList 
+          data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]}
+          isOpen={isOpen}/>
+           )}
           </div>
-
-          <FeedbackCategories 
-            categories={CategoryNames} 
-            onCategorySelect={handleCategorySelect} 
-            currentIndex={page - 1}
-          />
+         
           </div>
             <div className="flex w-full flex-col gap-4 ">
             {!showNotes ? 

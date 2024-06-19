@@ -593,7 +593,7 @@ useEffect(() => {
     } else {return}
   };
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const PageDisplay = () => {
     if (page === 0) {
@@ -610,10 +610,13 @@ useEffect(() => {
           <CategoryList 
           isOpen={isOpen} 
           setIsOpen={setIsOpen}
-          // @ts-ignore
-          data={data && data[CategoryNames[page - 1]]}
+
+          categories={CategoryNames} 
+          onCategorySelect={handleCategorySelect} 
+          currentIndex={page - 1}
           />
           )}
+        
            <ContentArea
                 selectedDate={selectedDate}
                 isOpen={isOpen}
