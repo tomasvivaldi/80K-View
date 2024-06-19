@@ -5,7 +5,7 @@ type Career_work {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -68,7 +68,7 @@ type Environment {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -95,7 +95,7 @@ type Family_friends {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -122,7 +122,7 @@ type Fun_relaxation {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -149,7 +149,7 @@ type Growth_learning {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -176,7 +176,7 @@ type Health_fitness {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -203,7 +203,7 @@ type Money_finances {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -295,7 +295,7 @@ type Spirituality {
   id: ID!
   notes: String
   recorded_at: DateTime
-  score: Int
+  score: Float
   user_ref: ID
   username: String
 }
@@ -1628,7 +1628,7 @@ type Mutation {
   deleteCareer_work(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -1646,7 +1646,7 @@ type Mutation {
   insertCareer_work(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -1802,7 +1802,7 @@ type Mutation {
   deleteEnvironment(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -1820,7 +1820,7 @@ type Mutation {
   insertEnvironment(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -1880,7 +1880,7 @@ type Mutation {
   deleteFamily_friends(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -1898,7 +1898,7 @@ type Mutation {
   insertFamily_friends(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -1958,7 +1958,7 @@ type Mutation {
   deleteFun_relaxation(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -1976,7 +1976,7 @@ type Mutation {
   insertFun_relaxation(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -2036,7 +2036,7 @@ type Mutation {
   deleteGrowth_learning(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -2054,7 +2054,7 @@ type Mutation {
   insertGrowth_learning(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -2114,7 +2114,7 @@ type Mutation {
   deleteHealth_fitness(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -2132,7 +2132,7 @@ type Mutation {
   insertHealth_fitness(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -2192,7 +2192,7 @@ type Mutation {
   deleteMoney_finances(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -2210,7 +2210,7 @@ type Mutation {
   insertMoney_finances(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -2460,7 +2460,7 @@ type Mutation {
   deleteSpirituality(
     user_ref: ID!
     username: String!
-    score: Int!
+    score: Float!
     id: ID!
     action_plan: String!
     recorded_at: DateTime!
@@ -2478,7 +2478,7 @@ type Mutation {
   insertSpirituality(
     user_ref: ID
     username: String
-    score: Int
+    score: Float
     action_plan: String
     recorded_at: DateTime
     goals: JSON
@@ -2552,7 +2552,7 @@ type Mutation {
     )
   insertUser_preferences(
     reminder_date: String!
-    user_ref: Int!
+    user_ref: ID!
     created_at: DateTime
     use_case: String!
     recorded_at: DateTime

@@ -462,7 +462,7 @@ useEffect(() => {
     try {
       const commonVariables = {
         username: session?.user?.name || data?.username,
-        score: parseFloat(categoryData?.score?.toString() ?? ''),
+        score: categoryData?.score,
         notes: categoryData.notes,
         action_plan: categoryData.action_plan,
         goals: categoryData.goals,

@@ -8,7 +8,7 @@ export const ADD_CAREER_WORK_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertCareer_work(
       username: $username
@@ -37,7 +37,7 @@ export const ADD_COMMUNITY_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertCommunity(
       username: $username
@@ -66,7 +66,7 @@ export const ADD_ENVIRONMENT_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertEnvironment(
       username: $username
@@ -95,7 +95,7 @@ export const ADD_FAMILY_FRIENDS_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertFamily_friends(
       username: $username
@@ -124,7 +124,7 @@ export const ADD_FUN_RELAXATION_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertFun_relaxation(
       username: $username
@@ -153,7 +153,7 @@ export const ADD_GROWTH_LEARNING_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertGrowth_learning(
       username: $username
@@ -182,7 +182,7 @@ export const ADD_HEALTH_FITNESS_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertHealth_fitness(
       username: $username
@@ -211,7 +211,7 @@ export const ADD_MONEY_FINANCES_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertMoney_finances(
       username: $username
@@ -240,7 +240,7 @@ export const ADD_PARTNER_LOVE_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertPartner_love(
       username: $username
@@ -269,7 +269,7 @@ export const ADD_SPIRITUALITY_INFO = gql`
     $action_plan: String!
     $goals: JSON
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertSpirituality(
       username: $username
@@ -295,7 +295,7 @@ export const ADD_OVERALL_SCORE = gql`
     $username: String!
     $overall_score: Float!
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertOverall_score(
       username: $username
@@ -318,7 +318,7 @@ export const ADD_OVERALL_ADVICE = gql`
     $advice3: String!
     $advice4: String!
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertOverall_advice(
       advice1: $advice1
@@ -401,7 +401,7 @@ export const ADD_ADVICE = gql`
     $spirituality_advice4: String!
     $spirituality_advice5: String!
     $recorded_at: DateTime!
-    $user_ref: Int!
+    $user_ref: ID!
   ) {
     insertCareer_work_feedback(
       # $ is for the variables
@@ -648,7 +648,7 @@ export const ADD_USERS = gql`
 `;
 
 export const ADD_USER_PREFERENCES = gql`
-  mutation AddUserPreferences($use_case: String!, $reminder_date: String!, $user_ref: Int!, $recorded_at: DateTime, $created_at: DateTime) {
+  mutation AddUserPreferences($use_case: String!, $reminder_date: String!, $user_ref: ID!, $recorded_at: DateTime, $created_at: DateTime) {
     insertUser_preferences(use_case: $use_case, reminder_date: $reminder_date, user_ref: $user_ref, created_at: $created_at, recorded_at: $recorded_at) {
       id
       use_case
