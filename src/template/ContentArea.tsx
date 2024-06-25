@@ -106,7 +106,8 @@ const ContentArea: React.FC<ContentAreaProps> = ({
               </button>
               
             </div>
-            <p className='text-sm'>Each category has 3 fields each, score, notes, and action plan. Please make sure to fill out all fields before submitting the form.</p>
+            {/* <p className='text-sm'>Each category has 3 fields each, score, notes, and action plan. Please make sure to fill out all fields before submitting the form.</p> */}
+            <p>Previous Months:</p>
             {data && (
           <PreviousDataList 
           data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]}
