@@ -34,14 +34,14 @@ const BeginForm: React.FC<BeginFormProps> = ({ handleNextClick, selectedDate, se
       </div>
       <div className="flex flex-col gap-4 px-4 text-xs sm:px-12 sm:text-base text-center md:max-w-[85%] mx-auto">
       
-        {/* <p className=''>
+        <p className=''>
           Each category has 3 fields each,{' '}
           
           <span className="font-semibold text-gray-900 dark:text-slate-100">
             score, notes, and action plan.
           </span>{' '}
           Please make sure to fill out all fields before submitting the form.           
-        </p> */}
+        </p>
         <p className=''>
         Once you submit, your answers will be saved, and you can revisit this page 
           at any time to update your answers. This also helps you make a better 
