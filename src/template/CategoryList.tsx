@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CategoryCard from './CategoryCard';
+import { Button } from '@/button/Button';
 
 interface CategoryListProps {
   isOpen: boolean;
@@ -7,9 +8,10 @@ interface CategoryListProps {
   categories: string[];
   onCategorySelect: (categoryIndex: number) => void;
   currentIndex: number;
+  handleNextClick: () => void;
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, categories, onCategorySelect, currentIndex }) => {
+const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, categories, onCategorySelect, currentIndex, handleNextClick }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState<number | null>(null);
 
@@ -72,6 +74,8 @@ const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, categori
             selected={index === currentIndex}
           />
         ))}
+         <div className={`w-full h-fit mt-4 flex justify-center items-center  ${isOpen ? 'block' : 'hidden'}`}>
+          <button onClick={handleNextClick}><Button>Review</Button></button></div>
       </div>
     </div>
   );

@@ -260,38 +260,62 @@ const HistoricalTable: React.FC<HistoricalTableProps> = ({ data }) => {
       )}
 
       {/* Table for small screens */}
-      {/* <div className="md:hidden">
-        {Object.entries(averagedData)
-          .map(([year, yearData], yearIndex) => (
-            <div key={yearIndex} className="mb-4 text-black">
-              <h2 className="my-4  mx-auto w-fit text-xl font-bold">{year}</h2>
-              {months.map((month, monthIndex) => {
+      <div className="md:hidden">
+  <div className="text-black dark:text-slate-200 md:block">
+    <div className="overflow-x-auto">
+      <table className="w-full table-auto">
+        <thead>
+          <tr>
+            <th className="px-4 py-2 text-center text-sm whitespace-nowrap">
+              Month / Year
+            </th>
+            {Object.keys(averagedData).map((year, index) => (
+              <th key={index} className="px-4 py-2">
+                {year}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {months.map((month, monthIndex) => (
+            <tr key={monthIndex}>
+              <td className="p-2 text-center">{month}</td>
+              {Object.entries(averagedData).map(([year, yearData], index) => {
                 const value = yearData[monthIndex];
-                const bgClass =
-                  value !== undefined ? bgColorClass(value) : '';
-                // console.log('small screen value', value)
+                const bgClass = value !== undefined ? bgColorClass(value) : '';
+
                 return (
-                  <div
-                    key={monthIndex}
-                    className="mx-auto mb-2 flex w-fit items-center justify-around gap-16 rounded-lg bg-slate-300/20 p-2 sm:px-16 sm:text-lg"
-                  >
-                    <span className="w-24 text-center">{month}</span>
-                    <div className="relative">
-                      <div
-                        className={`text-white mx-auto border ${bgClass} w-fit rounded-full px-3 py-2 text-sm`}
-                      >
-                        <div className="mx-auto flex w-full gap-16">
-                          {value !== undefined ? `${value.toFixed(1)}` : ''}
+                  <td key={index} className="p-2">
+                    <div
+                      className={`text-white font-extrabold mx-auto ${bgClass} w-fit rounded-full px-3 py-2 text-sm`}
+                    >
+                      {value !== undefined ? (
+                        `${value.toFixed(1)}`
+                      ) : isFuture(parseInt(year), monthIndex) ? (
+                        <div className='shadow-lg border border-black px-2 py-1 rounded-full bg-gradient-to-r from-gray-100 to-stone-300/50 dark:from-slate-50 dark:to-slate-200'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" className="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                          </svg>
                         </div>
-                      </div>
+                      ) : isCurrentMonth(parseInt(year), monthIndex) ? (
+                        <p className='text-black dark:text-white rounded-full px-2 py-1 font-semibold text-lg border-2 border-cyan-500 animate-bounce'>
+                          <a href='/forms' className='p-2'>Update</a>
+                        </p>
+                      ) : (
+                        ''
+                      )}
                     </div>
-                  </div>
+                  </td>
                 );
               })}
-            </div>
+            </tr>
           ))}
-      </div> */}
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>
+</div>
   );
 };
 

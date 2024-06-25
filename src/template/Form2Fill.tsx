@@ -40,7 +40,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
   formData,
   setFormDataForCategory,
   hasSubmitted,
-  selectedDate,
+  
   selectedScore,
   handleScoreSelect,
 }) => {
@@ -78,9 +78,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
     e.preventDefault();
   };
 
-  const now = selectedDate;
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const currentMonth = monthNames[now.getMonth()]; 
+
 
   // State to manage the goals
   const [goals, setGoals] = useState<Goal>({ items: [] });
@@ -122,6 +120,14 @@ const Form2Fill: React.FC<Form2FillProps> = ({
   };
 
 
+  function toCapitalized(str: string): string {
+    return str.replace(/(?:^|[-_])([a-z])/g, (match, letter) => {
+      if (match.startsWith('-') || match.startsWith('_')) {
+        return match[0] === '-' ? ' ' + letter.toUpperCase() : ' / ' + letter.toUpperCase();
+      }
+      return letter.toUpperCase();
+    });
+  }
 
   
   // // Initialize the selectedScore state
@@ -209,7 +215,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
           <div className='flex flex-row'>
             <div className="flex flex-col items-baseline w-full text-left text-slate-800 dark:text-slate-100 gap-0 mb-8 ">
               <div className='flex flex-row items-baseline gap-4'>
-                <p className='text-2xl md:text-4xl font-semibold '>{currentMonth}</p>
+                
                 {/* {showNotes ? (
                   <button className='whitespace-nowrap  hover:underline underline-offset-1 decoration-gray-600 decoration-2 text-slate-500 dark:text-slate-400' onClick={() => setShowNotes(false)}>Back to This Month</button>
                 ) : (
@@ -220,7 +226,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
 
         <div className="flex flex-col gap-2 align-middle mt-4 items-start test">
         <Label htmlFor="comment" colSpanSize="lg:col-start-1 lg:col-span-2 lg:row-start-1 ">
-          Score:
+          How would you score your {toCapitalized(category)} this month?
         </Label>
         <div 
         className="relative flex flex-row gap-0 md:gap-4 lg:gap-8 w-fit ml-4"
@@ -322,7 +328,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
 
           <div className="mb-12 py-4 space-y-4 flex flex-col items-start">
           <Label htmlFor="comment" colSpanSize="lg:col-start-3 lg:col-span-2 lg:row-start-1">
-            Montly Goals:
+            Monthly Goals:
           </Label>
             {goals.items.map((_item, index) => (
               <div key={index} className="flex flex-col w-full" >

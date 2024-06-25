@@ -614,6 +614,7 @@ useEffect(() => {
           categories={CategoryNames} 
           onCategorySelect={handleCategorySelect} 
           currentIndex={page - 1}
+          handleNextClick={handleNextClick}
           />
           )}
         

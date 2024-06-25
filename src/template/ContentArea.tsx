@@ -76,6 +76,10 @@ const ContentArea: React.FC<ContentAreaProps> = ({
     }));
   };
 
+  const now = selectedDate;
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const currentMonth = monthNames[now.getMonth()]; 
+
     return (
        
       <div className={`mx-2 lg:mx-4 flex flex-col gap-4 transition-width duration-1000 ease-in-out ${isOpen ? 'w-[33vw] sm:w-[51vw] md:w-[73vw]' : 'w-[90vw]'} overflow-hidden`}>
@@ -85,7 +89,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
 
               <div className='flex flex-row items-center gap-2 mr-2 my-3'>
                 <h1 className=" w-fit whitespace-nowrap text-center text-xl font-semibold text-slate-800 dark:text-slate-100 sm:text-3xl md:text-4xl">
-                  {toCapitalized(PageNames[page] ?? '')}
+                {currentMonth}: {toCapitalized(PageNames[page] ?? '')}
                 </h1>
                 <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
               </div>
