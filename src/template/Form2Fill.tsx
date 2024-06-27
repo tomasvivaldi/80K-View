@@ -224,7 +224,7 @@ const Form2Fill: React.FC<Form2FillProps> = ({
             </div>
 
 
-        <div className="flex flex-col gap-2 align-middle mt-4 items-start test">
+        <div className="flex flex-col gap-2 align-middle items-start test">
         <Label htmlFor="comment" colSpanSize="lg:col-start-1 lg:col-span-2 lg:row-start-1 ">
           How would you score your {toCapitalized(category)} this month?
         </Label>
