@@ -2677,4 +2677,135 @@ type Mutation {
       dml: INSERT
       configuration: "stepzen_config"
     )
+# Update Goals Mutations
+  updateCareer_work_goals(id: ID!, goals: JSON!): Career_work
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "career_work" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateCommunity_goals(id: ID!, goals: JSON!): Community
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "community" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateEnvironment_goals(id: ID!, goals: JSON!): Environment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "environment" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateFamily_friends_goals(id: ID!, goals: JSON!): Family_friends
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "family_friends" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateFun_relaxation_goals(id: ID!, goals: JSON!): Fun_relaxation
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "fun_relaxation" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateGrowth_learning_goals(id: ID!, goals: JSON!): Growth_learning
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "growth_learning" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateHealth_fitness_goals(id: ID!, goals: JSON!): Health_fitness
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "health_fitness" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateMoney_finances_goals(id: ID!, goals: JSON!): Money_finances
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "money_finances" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updatePartner_love_goals(id: ID!, goals: JSON!): Partner_love
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "partner_love" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
+  updateSpirituality_goals(id: ID!, goals: JSON!): Spirituality
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "spirituality" SET
+        "goals" = COALESCE($2, "goals")
+      WHERE
+        "id" = $1
+      RETURNING *
+      """
+      configuration: "stepzen_config"
+    )
 }

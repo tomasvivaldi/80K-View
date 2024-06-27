@@ -127,7 +127,8 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   const updateGoalsInDatabase = async (commonVariables: any) => {
     try {
       const typeName = userData?.[sortedCategoryNames[currentIndex] as CategoryKey]?.[0]?.__typename;
-      switch (userData?.[sortedCategoryNames[currentIndex] as CategoryKey]?.[0]?.__typename) {
+      const typeNameWithLowercaseFirstLetter = typeName ? typeName.charAt(0).toLowerCase() + typeName.slice(1) : '';
+      switch (typeNameWithLowercaseFirstLetter) {
         case 'career_work':
           await updateCareerWorkGoals({ variables: commonVariables });
           // console.log('commonVariables',commonVariables)
@@ -170,7 +171,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
           break;
       
         default:
-          console.error('Unknown category:', typeName);
+          console.error('Unknown category:', typeNameWithLowercaseFirstLetter);
       }
     } catch (error) {
       console.error(`Error updating goals for ${sortedCategoryNames[currentIndex]}:`, error);
@@ -182,7 +183,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
       const newItems = goals.items.map((item, idx) => 
         idx === index ? { ...item, isChecked: !item.isChecked } : item
       );
-  
+      
       const updatedGoals = { ...goals, items: newItems };
       setGoals(updatedGoals);
 
@@ -270,7 +271,7 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
   //     updateGoals();
   // }, [goals, userData, sortedCategoryNames, currentIndex, updateCareerWorkGoals, /* include other update functions in dependencies */]);
   
-  
+  console.log("*****goals.items",goals?.items)
   return session ? (
     <>
       <div className={`w-full rounded-lg shadow-md text-gray-900 bg-white p-6 flex flex-col border-2 ${border}
