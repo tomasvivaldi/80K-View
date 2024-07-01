@@ -300,3 +300,18 @@ type CategoryKey =
     value: string;
     currency: string;
   };
+
+
+  type MyFormData = {
+    career_work: CategoryData;
+    community: CategoryData;
+    environment: CategoryData;
+    family_friends: CategoryData;
+    fun_relaxation: CategoryData;
+    growth_learning: CategoryData;
+    health_fitness: CategoryData;
+    money_finances: CategoryData;
+    partner_love: CategoryData;
+    spirituality: CategoryData;
+    [key: string]: CategoryData | undefined;
+  };

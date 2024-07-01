@@ -100,12 +100,7 @@ const ContentArea: React.FC<ContentAreaProps> = ({
                 <Tooltip text={toCapitalized(tooltipText[page - 1] ?? '')} positionY='down' positionX='right' width='w-64' />
               </div>
               <div className='flex flex-row gap-4 absolute right-0'>
-                {data &&
-                  // @ts-ignore
-                  data[CategoryNames[page - 1]]?.length >= 2 && (
-                      // <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
-                      <ChartWithPreview data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
-                  )}
+
                 <button
                   className={`  flex items-center justify-center rounded-lg bg-opacity-50 transition-transform duration-150 ease-in-out 
                   px-2
@@ -117,6 +112,13 @@ const ContentArea: React.FC<ContentAreaProps> = ({
                   <span className=" active:scale-95 dark:text-slate-100 font-semibold text-slate-900 rounded-lg bg-slate-100 dark:bg-slate-700 py-1 px-2
                   dark:hover:bg-slate-800 hover:bg-slate-200">Review</span>
                 </button>
+
+                {data &&
+                  // @ts-ignore
+                  data[CategoryNames[page - 1]]?.length >= 2 && (
+                      // <CategoryChart data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
+                      <ChartWithPreview data={data[CategoryNames[page - 1] as keyof typeof data] as Category[]} />
+                  )}
               </div>
               
             </div>

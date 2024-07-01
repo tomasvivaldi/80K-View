@@ -611,6 +611,9 @@ useEffect(() => {
           isOpen={isOpen} 
           setIsOpen={setIsOpen}
 
+          formData={formData}
+          hasSubmitted={hasSubmitted}
+
           categories={CategoryNames} 
           onCategorySelect={handleCategorySelect} 
           currentIndex={page - 1}
