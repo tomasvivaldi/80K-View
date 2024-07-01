@@ -79,7 +79,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ isOpen, setIsOpen, categori
         ))}
       </div>
       <div className={`w-full h-fit py-3 flex justify-center items-center ${isOpen ? 'bg-white/90 dark:bg-black/90 dark:border-slate-600 shadow-xl block' : 'hidden'} sticky bottom-0`}>
-        <button className='sm:text-lg w-32 sm:w-44 rounded-full p-1 border-2 font-semibold bg-white dark:bg-transparent text-black dark:text-sky-500 border-slate-800 dark:border-sky-500 hover:bg-slate-50 active:bg-slate-100 dark:hover:bg-gray-900 dark:active:bg-gray-800 group'  onClick={handleNextClick}><p className='group-hover:scale-110 transition-all duration-300'>Review</p></button>
+        <button className='sm:text-lg w-32 sm:w-44 rounded-full p-1 border-2 font-semibold bg-white dark:bg-transparent text-black dark:text-sky-400 border-slate-800 dark:border-sky-400 hover:bg-slate-50 active:bg-slate-100 dark:hover:bg-gray-900 dark:active:bg-gray-800 group'  onClick={handleNextClick}><p className='group-hover:scale-110 transition-all duration-300'>Review</p></button>
       </div>
     </div>
   );

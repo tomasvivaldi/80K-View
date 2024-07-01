@@ -60,7 +60,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, isOpen, onClick, 
         ) : (
           <div className="bg-gray-300 dark:bg-gray-700 md:w-[80px] h-full rounded-l-lg"></div>
         )}
-        <p className='text-sm sm:text-xl md:text-2xl font-bold text-left mx-auto my-auto group-hover:scale-105 transition-all duration-300'>{toCapitalized(category)}</p>
+        <p className='text-sm sm:text-xl md:text-2xl font-bold text-left mx-auto my-auto group-hover:scale-105 '>{toCapitalized(category)}</p>
       </div>
     </button>
   );
