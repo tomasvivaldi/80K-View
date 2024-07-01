@@ -29,13 +29,16 @@
 //   );
 // }
 
-
 import * as React from "react";
+import { SVGProps } from "react";
+
 
 interface FeedbackCategoriesProps {
   categories: string[];
   onCategorySelect: (categoryIndex: number) => void;
   currentIndex: number;
+  userData: UserDataById;
+  categoryNames: string[];
 }
 
 // CustomSelect component
@@ -93,8 +96,29 @@ function toCapitalized(str: string): string {
   });
 }
 
+function getIndicator(userData: UserDataById, categoryNames: string[], categoryIndex: number) {
+  const categoryData = userData[categoryNames[categoryIndex] as keyof UserDataById] as Category[];
+  if (!categoryData || categoryData.length === 0) {
+    return null;
+  }
+
+  const goals = categoryData[0]?.goals as Goal;
+  if (!goals || goals.items.length === 0) {
+    return null;
+  }
+
+  const allChecked = goals.items.every(item => item.isChecked);
+  if (allChecked) {
+    return <CheckCircleIcon className="absolute -right-2 -top-2 dark:text-green-500 text-white stroke-green-500 dark:stroke-slate-100" />;
+  } else {
+    return <YellowCircleIcon className="absolute -right-2 -top-2 text-yellow-500  duration-[500ms] pulse-limited" />;
+  }
+}
+
+
+
 // FeedbackCategories component
-function FeedbackCategories({ categories, onCategorySelect, currentIndex }: FeedbackCategoriesProps) {
+function FeedbackCategories({ categories, onCategorySelect, currentIndex, userData, categoryNames }: FeedbackCategoriesProps) {
   return (
     <div>
       {/* Dropdown for small screens */}
@@ -102,22 +126,26 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex }: Feed
         categories={categories}
         onCategorySelect={onCategorySelect}
         currentIndex={currentIndex}
+        userData={userData}
+        categoryNames={categoryNames}
       />
 
       {/* Button-based selection for larger screens */}
       <div className="hidden md:flex flex-wrap gap-2 mb-4 justify-between">
         {categories.map((category, index) => (
-          <button
-            key={category}
-            className={`shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${
-              index === currentIndex
-                ? 'bg-blue-500 text-white border-gray-100 dark:bg-slate-800 dark:text-blue-400 dark:border-blue-600'
-                : 'bg-white dark:bg-blue-600 dark:text-white text-blue-500 border-blue-600'
-            }`}
-            onClick={() => onCategorySelect(index)}
-          >
-            {toCapitalized(category)}
-          </button>
+          <div key={category} className="relative">
+            {getIndicator(userData, categoryNames, index)}
+            <button
+              className={`shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${
+                index === currentIndex
+                  ? 'bg-blue-500 text-white border-gray-100 dark:bg-slate-800 dark:text-blue-400 dark:border-blue-600'
+                  : 'bg-white dark:bg-blue-600 dark:text-white text-blue-500 border-blue-600'
+              }`}
+              onClick={() => onCategorySelect(index)}
+            >
+              {toCapitalized(category)}
+            </button>
+          </div>
         ))}
       </div>
     </div>
@@ -125,3 +153,43 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex }: Feed
 }
 
 export default FeedbackCategories;
+
+
+export function CheckCircleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="currentColor" // Set fill to currentColor
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  );
+}
+
+export function YellowCircleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="9"
+      height="9"
+      viewBox="0 0 24 24"
+      fill="currentColor" // Set fill to currentColor
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+  );
+}

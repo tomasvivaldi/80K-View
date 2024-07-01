@@ -90,6 +90,8 @@ function Feedback({ data }: FeedbackProps) {
         categories={sortedCategoryNames.map(formatCategoryName)} 
         onCategorySelect={handleCategorySelect} 
         currentIndex={currentIndex}
+        userData={data}
+        categoryNames={CategoryNames}
     />
       <div className='flex flex-col sm:flex-row gap-4'>
         <FeedbackBox 

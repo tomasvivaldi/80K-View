@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { Session } from 'next-auth';
-import React, { useEffect, useState } from 'react';
+import React, { SVGProps, useEffect, useState } from 'react';
 import {
   UPDATE_CAREER_WORK_GOALS,
   UPDATE_COMMUNITY_GOALS,
@@ -196,86 +196,24 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
     }
   };
 
+  const renderIndicator = () => {
+    if (goals && goals.items.length > 0) {
+      const allChecked = goals.items.every(item => item.isChecked);
+      if (allChecked) {
+        return <CheckCircleIcon className="absolute -right-2 -top-2 dark:text-green-500 text-white stroke-green-500 dark:stroke-slate-100" />;
+      } else {
+        return ;
+      }
+    }
+    return null;
+  };
 
 
-  // const handleCheckChange = (index: number) => {
-  //   // Ensure goals and the item at the specified index are defined
-  //   if (goals && goals.items && goals.items[index]) {
-  //     const newItems = goals.items.map((item, idx) => 
-  //       idx === index ? { ...item, isChecked: !item.isChecked } : item
-  //     );
-  
-  //     setGoals({ ...goals, items: newItems });
-  //   }
-  // };
-  
-  // useEffect(() => {
-  //   const updateGoals = async () => {
-  //     if (goals) {
-  //       try {
-  //         const commonVariables = {
-  //           id: userData?.[sortedCategoryNames[currentIndex] as CategoryKey]?.[0]?.id,
-  //           goals: goals
-  //         };
-  //         switch (userData?.[sortedCategoryNames[currentIndex] as CategoryKey]?.[0]?.__typename) {
-  //           case 'career_work':
-  //             await updateCareerWorkGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'community':
-  //             await updateCommunityGoals({ variables: commonVariables });
-  //             console.log('***community - commonVariables',commonVariables)
-  //             break;
-  //           case 'environment':
-  //             await updateEnvironmentGoals({ variables: commonVariables });
-  //             console.log('***environment - commonVariables',commonVariables)
-  //             break;
-  //           case 'family_friends':
-  //             await updateFamilyFriendsGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'fun_relaxation':
-  //             await updateFunRelaxationGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'growth_learning':
-  //             await updateGrowthLearningGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'health_fitness':
-  //             await updateHealthFitnessGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'money_finances':
-  //             await updateMoneyFinancesGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'partner_love':
-  //             await updatePartnerLoveGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           case 'spirituality':
-  //             await updateSpiritualityGoals({ variables: commonVariables });
-  //             // console.log('commonVariables',commonVariables)
-  //             break;
-  //           default:
-  //             console.error('Unknown category:', (userData?.[sortedCategoryNames[currentIndex] as CategoryKey]?.[0]?.__typename));
-  //             throw new Error('Unknown category');
-  //         }
-
-  //       } catch (error) {
-  //         console.error(`Error updating goals for ${sortedCategoryNames[currentIndex]}:`, error);
-  //       }
-  //     }
-  //   };
-  //     updateGoals();
-  // }, [goals, userData, sortedCategoryNames, currentIndex, updateCareerWorkGoals, /* include other update functions in dependencies */]);
-  
-  console.log("*****goals.items",goals?.items)
-  return session ? (
+  return session && (
     <>
       <div className={`w-full rounded-lg shadow-md text-gray-900 bg-white p-6 flex flex-col border-2 ${border}
-      dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200`}>
+      dark:bg-slate-900/80 dark:shadow-slate-200/5 dark:text-slate-200 relative`}>
+         {renderIndicator()}
         <div className='mb-4 flex flex-row justify-between align-baseline'>
           <p className='text-lg font-semibold'>
             {showNotes ? "Notes and Action Plan:" : "Goals:"}
@@ -349,9 +287,47 @@ const FeedbackBox: React.FC<FeedbackBoxProps> = ({
          </div>
        </Modal> */}
     </>
-  ) : (
-    <div className=""></div>
-  );
+  ) ;
 }
 
 export default FeedbackBox;
+
+
+export function CheckCircleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="currentColor" // Set fill to currentColor
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  );
+}
+
+export function YellowCircleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor" // Set fill to currentColor
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+  );
+}
