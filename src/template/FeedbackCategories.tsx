@@ -38,7 +38,7 @@ interface FeedbackCategoriesProps {
   onCategorySelect: (categoryIndex: number) => void;
   currentIndex: number;
   userData: UserDataById;
-  categoryNames: string[];
+  sortedCategoryNames: string[];
 }
 
 // CustomSelect component
@@ -96,8 +96,8 @@ function toCapitalized(str: string): string {
   });
 }
 
-function getIndicator(userData: UserDataById, categoryNames: string[], categoryIndex: number) {
-  const categoryData = userData[categoryNames[categoryIndex] as keyof UserDataById] as Category[];
+function getIndicator(userData: UserDataById, sortedCategoryNames: string[], categoryIndex: number) {
+  const categoryData = userData[sortedCategoryNames[categoryIndex] as keyof UserDataById] as Category[];
   if (!categoryData || categoryData.length === 0) {
     return null;
   }
@@ -111,14 +111,15 @@ function getIndicator(userData: UserDataById, categoryNames: string[], categoryI
   if (allChecked) {
     return <CheckCircleIcon className="absolute -right-2 -top-2 dark:text-green-500 text-white stroke-green-500 dark:stroke-slate-100" />;
   } else {
-    return <YellowCircleIcon className="absolute -right-2 -top-2 text-yellow-500  duration-[500ms] pulse-limited" />;
+    return <YellowCircleIcon className="absolute -right-2 -top-2 text-yellow-500 duration-[500ms] pulse-limited" />;
   }
 }
 
 
 
 // FeedbackCategories component
-function FeedbackCategories({ categories, onCategorySelect, currentIndex, userData, categoryNames }: FeedbackCategoriesProps) {
+// FeedbackCategories component
+function FeedbackCategories({ categories, onCategorySelect, currentIndex, userData, sortedCategoryNames }: FeedbackCategoriesProps) {
   return (
     <div>
       {/* Dropdown for small screens */}
@@ -127,14 +128,14 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex, userDa
         onCategorySelect={onCategorySelect}
         currentIndex={currentIndex}
         userData={userData}
-        categoryNames={categoryNames}
+        sortedCategoryNames={sortedCategoryNames}
       />
 
       {/* Button-based selection for larger screens */}
       <div className="hidden md:flex flex-wrap gap-2 mb-4 justify-between">
         {categories.map((category, index) => (
           <div key={category} className="relative">
-            {getIndicator(userData, categoryNames, index)}
+            {getIndicator(userData, sortedCategoryNames, index)}
             <button
               className={`shadow-lg px-2 py-1 border rounded-full text-sm font-semibold ${
                 index === currentIndex
@@ -153,7 +154,6 @@ function FeedbackCategories({ categories, onCategorySelect, currentIndex, userDa
 }
 
 export default FeedbackCategories;
-
 
 export function CheckCircleIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
