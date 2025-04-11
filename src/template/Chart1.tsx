@@ -50,7 +50,7 @@ const Chart1: React.FC<Chart1Props> = ({ data }) => {
 
   // 1. Determine the starting year of your data
   
-  const firstDate = data?.[0]?.date || ''; 
+  const firstDate = data?.[data.length - 1]?.date || '';
   const startDate = new Date(firstDate);
   const startYear = startDate.getFullYear();
 console.log('***data',data)
@@ -167,7 +167,7 @@ const finalData: Array<{ date: string; value: number }> = overlayData(fiveYearsD
         </defs>
         <XAxis dataKey="date" tickLine={false} axisLine={false} tick={<CustomTick />}/>
         <YAxis domain={[0, 10]} tickLine={false} axisLine={false} ticks={[3, 6, 10]}/>
-        <CartesianGrid stroke="#E5E7EB" strokeDasharray="15" vertical={false}/>
+        <CartesianGrid stroke={isDarkMode ? "#fff" : "#000"} strokeDasharray="5 15" vertical={false}/>
         <Tooltip
         labelClassName='dark:text-slate-200'
         contentStyle={
